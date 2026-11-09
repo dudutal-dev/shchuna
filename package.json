@@ -1,0 +1,42 @@
+{
+  "name": "shchuna",
+  "version": "0.0.1",
+  "description": "שכונה — Hebrew open-world play for kids",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "e2e": "playwright test",
+    "voice": "node scripts/gen-voice.ts",
+    "lint": "tsc --noEmit && eslint .",
+    "icons": "node scripts/gen-icons.ts"
+  },
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "howler": "^2.2.4",
+    "idb-keyval": "^6.3.0",
+    "pixi.js": "^8.22.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.0",
+    "@types/howler": "^2.2.13",
+    "@types/node": "^26.6.6",
+    "dotenv": "^18.0.10",
+    "eslint": "^10.14.0",
+    "fake-indexeddb": "^6.2.8",
+    "sharp": "^0.35.5",
+    "typescript": "~6.0",
+    "typescript-eslint": "^8.72.1",
+    "vite": "^8.3.7",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.0",
+    "workbox-build": "^7.4.1",
+    "workbox-window": "^7.4.1"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

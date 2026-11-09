@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik-hebrew-wght-normal.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik-latin-wght-normal.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+2000-206F, U+2190-2193, U+2212;
+}
+
+:root {
+  --sky: #bfe6ff;
+  --stone: #f3e3c3;
+  --ink: #3b2f2f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--sky);
+  color: var(--ink);
+  font-family: 'Rubik', sans-serif;
+  /* Canvas handles every gesture; stop the browser scrolling or zooming the page. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+canvas {
+  display: block;
+}
