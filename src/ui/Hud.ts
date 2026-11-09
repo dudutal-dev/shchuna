@@ -15,15 +15,18 @@ export function makeButton(art: string, size: number, onPress: () => void): Cont
   icon.anchor.set(0.5);
   icon.width = size;
   icon.height = size;
+  // The press bounce runs on an inner layer, so a layout can still scale the button itself.
+  const inner = new Container();
+  inner.addChild(icon);
   const button = new Container();
-  button.addChild(icon);
+  button.addChild(inner);
   button.eventMode = 'static';
   button.cursor = 'pointer';
   button.hitArea = new Rectangle(-size / 2, -size / 2, size, size);
   button.on('pointerdown', (event) => {
     event.stopPropagation();
-    button.scale.set(0.85);
-    tween(button.scale, { x: 1, y: 1 }, 180, easeOutBack);
+    inner.scale.set(0.85);
+    tween(inner.scale, { x: 1, y: 1 }, 180, easeOutBack);
     onPress();
   });
   return button;
