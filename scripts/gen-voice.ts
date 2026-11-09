@@ -12,6 +12,7 @@ import {
   costUsd,
   DEFAULT_MODEL,
   lineHash,
+  spokenText,
   VOICE_SETTINGS,
   type Manifest,
   type VoiceLine,
@@ -72,7 +73,7 @@ async function synthesize(line: VoiceLine): Promise<Buffer> {
       method: 'POST',
       headers: { 'xi-api-key': apiKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        text: line.text,
+        text: spokenText(line),
         model_id: model,
         language_code: 'he',
         voice_settings: VOICE_SETTINGS,
@@ -120,7 +121,7 @@ async function main(): Promise<void> {
     const entry = manifest.lines[line.id];
     return !entry || entry.hash !== lineHash(line, voiceId(line.voice), model) || !existsSync(entry.file);
   });
-  const characters = pending.reduce((sum, line) => sum + line.text.length, 0);
+  const characters = pending.reduce((sum, line) => sum + spokenText(line).length, 0);
   const cost = costUsd(characters, model);
 
   console.log(`Model: ${model}`);
@@ -150,7 +151,7 @@ async function main(): Promise<void> {
     if (canNormalize) await normalize(file);
     manifest.lines[line.id] = {
       file,
-      text: line.text,
+      text: spokenText(line),
       durationMs: await durationMs(file, canProbe),
       hash: lineHash(line, voiceId(line.voice), model),
     };

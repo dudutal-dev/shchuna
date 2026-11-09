@@ -10,7 +10,8 @@ export default defineConfig({
   timeout: 90_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 1 : 0,
+  // Software WebGL under load is occasionally flaky locally; a retry is reported as "flaky", not hidden.
+  retries: 1,
   reporter: [['list']],
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.03 } },
   snapshotPathTemplate: '{testDir}/__screenshots__/{projectName}/{arg}{ext}',

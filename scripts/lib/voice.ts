@@ -7,6 +7,12 @@ export interface VoiceLine {
   voice: string;
   /** False until Dudu has approved the niqqud. */
   proofread?: boolean;
+  /** What to send to the voice model when `text` doesn't sound right. `text` stays pointed. */
+  spoken?: string;
+}
+
+export function spokenText(line: VoiceLine): string {
+  return line.spoken ?? line.text;
 }
 
 export interface ManifestEntry {
@@ -39,7 +45,7 @@ export function costUsd(characters: number, model: string): number | null {
 /** Changes whenever the audio would come out different, so unchanged lines cost nothing. */
 export function lineHash(line: VoiceLine, voiceId: string, model: string): string {
   return createHash('sha256')
-    .update(JSON.stringify([line.text, line.voice, voiceId, model, VOICE_SETTINGS]))
+    .update(JSON.stringify([spokenText(line), line.voice, voiceId, model, VOICE_SETTINGS]))
     .digest('hex');
 }
 
@@ -79,7 +85,7 @@ export function linesMissingAudio(
   return lines
     .filter((line) => {
       const entry = manifest.lines[line.id];
-      return !entry || entry.text !== line.text || !fileExists(entry.file);
+      return !entry || entry.text !== spokenText(line) || !fileExists(entry.file);
     })
     .map((line) => line.id);
 }

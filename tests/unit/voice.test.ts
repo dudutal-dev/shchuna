@@ -59,6 +59,14 @@ describe('lineHash', () => {
     expect(lineHash(line, 'voice2', 'eleven_v4')).not.toBe(hash);
     expect(lineHash(line, 'voice1', 'eleven_v3')).not.toBe(hash);
   });
+
+  it('follows the spoken text, so editing only the displayed niqqud costs nothing', () => {
+    const spoken = { ...line, spoken: 'חלב' };
+    expect(lineHash(spoken, 'voice1', 'eleven_v4')).not.toBe(hash);
+    expect(lineHash({ ...spoken, text: 'חָלָב!' }, 'voice1', 'eleven_v4')).toBe(
+      lineHash(spoken, 'voice1', 'eleven_v4'),
+    );
+  });
 });
 
 describe('linesMissingAudio', () => {
@@ -67,6 +75,13 @@ describe('linesMissingAudio', () => {
   it('lists a line whose text changed after it was recorded', () => {
     const stale = { ...entry, text: 'חָלָב יָשָׁן' };
     expect(linesMissingAudio([line], { lines: { a: stale } }, () => true)).toEqual(['a']);
+  });
+
+  it('compares against the spoken text when a line has one', () => {
+    const spoken: VoiceLine = { ...line, spoken: 'חלב' };
+    const recorded = { ...entry, text: 'חלב' };
+    expect(linesMissingAudio([spoken], { lines: { a: recorded } }, () => true)).toEqual([]);
+    expect(linesMissingAudio([spoken], { lines: { a: entry } }, () => true)).toEqual(['a']);
   });
 
   it('lists lines absent from the manifest or whose file is gone', () => {

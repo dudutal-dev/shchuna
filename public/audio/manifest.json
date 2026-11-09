@@ -8,9 +8,9 @@
     },
     "ui.welcome": {
       "file": "public/audio/lines/ui.welcome.mp3",
-      "text": "בְּרוּכִים הַבָּאִים לַשְּׁכוּנָה!",
-      "durationMs": 1600,
-      "hash": "eef78a4f9e7c9b84875e2656cf08575918c24c8755d5390ed452bb529f99ddd6"
+      "text": "ברוכים הבאים לשכונה!",
+      "durationMs": 1840,
+      "hash": "57b18422cf093f92c9a5bd2bbfa07cdee4934cd945c06b3a3229eeb45d35ce35"
     },
     "prop.apple": {
       "file": "public/audio/lines/prop.apple.mp3",
