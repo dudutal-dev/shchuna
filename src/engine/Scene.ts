@@ -50,6 +50,8 @@ export interface SceneContext {
   actions: Actions;
   defs: Readonly<Record<string, PropDef>>;
   audio: SoundPlayer;
+  /** The piggy bank was tapped. */
+  onCoins?: (amount: number) => void;
 }
 
 type PointerSession =
@@ -154,6 +156,35 @@ export class Scene {
     if (!entity) return null;
     const bounds = entity.getBounds();
     return { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
+  }
+
+  /**
+   * Adds something a place draws for itself: behind the furniture (a cashier behind
+   * the counter), on the wall (a painted sign), or in front of everything.
+   */
+  addToWorld(child: Container, where: 'behindFurniture' | 'wall' | 'front'): void {
+    if (where === 'behindFurniture') this.furnitureLayer.addChildAt(child, 0);
+    else if (where === 'wall') this.backgroundLayer.addChild(child);
+    else this.world.addChildAt(child, this.world.getChildIndex(this.darkness));
+  }
+
+  /** World units to screen pixels, and back. */
+  toScreen(point: { x: number; y: number }): { x: number; y: number } {
+    return this.world.toGlobal(point);
+  }
+
+  toWorld(point: { x: number; y: number }): { x: number; y: number } {
+    return this.world.toLocal(point);
+  }
+
+  get worldScale(): number {
+    return this.scale;
+  }
+
+  /** Screen position of the middle of a surface's top, or null if there's no such surface. */
+  surfaceCenter(id: string): { x: number; y: number } | null {
+    const surface = this.data.surfaces.find((s) => s.id === id);
+    return surface ? this.toScreen({ x: surface.x + surface.width / 2, y: surface.y }) : null;
   }
 
   isEntityVisible(id: string): boolean {
@@ -318,6 +349,12 @@ export class Scene {
   private tap(entity: PropEntity): void {
     const instance = this.instances().find((prop) => prop.id === entity.entityId);
     if (!instance) return;
+    const coins = entity.def.interactions.find((i) => i.type === 'coins');
+    if (coins?.type === 'coins') {
+      entity.wiggle();
+      this.ctx.onCoins?.(coins.amount);
+      return;
+    }
     const change = resolveTap(entity.def, instance);
     if (!change) {
       const sound = petSound(entity.def);

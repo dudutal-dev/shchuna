@@ -114,6 +114,34 @@ describe('AudioManager', () => {
     expect(setMusicVolume).toHaveBeenLastCalledWith(expect.closeTo(0.15));
   });
 
+  it('plays a sequence one line after another', async () => {
+    const audio = await ready();
+    audio.sayAll(['a', 'b']);
+    expect(clips['audio/lines/a.mp3']?.play).toHaveBeenCalledOnce();
+    expect(clips['audio/lines/b.mp3']).toBeUndefined();
+    clips['audio/lines/a.mp3']?.finish();
+    expect(clips['audio/lines/b.mp3']?.play).toHaveBeenCalledOnce();
+    expect(audio.history).toEqual(['a', 'b']);
+  });
+
+  it('drops the rest of a sequence when a new line starts', async () => {
+    const audio = await ready();
+    audio.sayAll(['a', 'b']);
+    audio.say('hi');
+    clips['audio/lines/a.mp3']?.finish();
+    expect(clips['audio/lines/b.mp3']).toBeUndefined();
+  });
+
+  it('moves past a missing line in a sequence', async () => {
+    vi.useFakeTimers();
+    const audio = await ready();
+    audio.sayAll(['missing', 'a']);
+    expect(speakFallback).toHaveBeenCalledWith('missing');
+    vi.advanceTimersByTime(1000);
+    expect(clips['audio/lines/a.mp3']?.play).toHaveBeenCalledOnce();
+    vi.useRealTimers();
+  });
+
   it('falls back when a line has no file', async () => {
     (await ready()).say('missing');
     expect(speakFallback).toHaveBeenCalledWith('missing');

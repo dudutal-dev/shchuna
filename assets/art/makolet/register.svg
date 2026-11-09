@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="130" viewBox="0 0 150 130">
+  <!-- Side crank -->
+  <path d="M124 74 H138 V62" fill="none" stroke="#6B4C35" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="138" cy="58" r="6" fill="#E5508A" stroke="#B83A6C" stroke-width="3"/>
+  <!-- Display -->
+  <rect x="66" y="30" width="18" height="14" fill="#C9A97A"/>
+  <rect x="38" y="6" width="74" height="30" rx="9" fill="#FFF4E0" stroke="#C9A97A" stroke-width="4"/>
+  <rect x="47" y="13" width="56" height="16" rx="5" fill="#DFF3EC" stroke="#3E8E7E" stroke-width="2.5"/>
+  <!-- Key body -->
+  <path d="M20 94 L32 48 Q34 40 42 40 H108 Q116 40 118 48 L130 94Z" fill="#FFF4E0" stroke="#C9A97A" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="#FFFFFF" stroke="#3E8E7E" stroke-width="2.5">
+    <circle cx="48" cy="56" r="4.5"/><circle cx="62" cy="56" r="4.5"/><circle cx="76" cy="56" r="4.5"/><circle cx="90" cy="56" r="4.5"/>
+    <circle cx="44" cy="70" r="4.5"/><circle cx="58" cy="70" r="4.5"/><circle cx="72" cy="70" r="4.5"/><circle cx="86" cy="70" r="4.5"/>
+    <circle cx="40" cy="84" r="4.5"/><circle cx="54" cy="84" r="4.5"/><circle cx="68" cy="84" r="4.5"/><circle cx="82" cy="84" r="4.5"/>
+  </g>
+  <rect x="98" y="62" width="16" height="26" rx="6" fill="#E5508A" stroke="#B83A6C" stroke-width="2.5"/>
+  <path d="M104 50 H112" stroke="#FFC23C" stroke-width="5" stroke-linecap="round"/>
+  <!-- Drawer base -->
+  <rect x="8" y="92" width="134" height="36" rx="8" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <path d="M10 100H140" stroke="#2F7264" stroke-width="3"/>
+  <rect x="60" y="108" width="30" height="9" rx="4.5" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+  <path d="M20 108V118" stroke="#6FB5A8" stroke-width="4" stroke-linecap="round"/>
+</svg>

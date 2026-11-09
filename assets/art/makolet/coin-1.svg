@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+  <circle cx="35" cy="35" r="32" fill="#D9DDE2" stroke="#9AA3AD" stroke-width="4"/>
+  <circle cx="35" cy="35" r="28" fill="none" stroke="#B5BDC6" stroke-width="2.5"/>
+  <!-- Tiny leaf sprigs at the edge -->
+  <path d="M29 13.5 Q35 8 41 13.5 Q35 17 29 13.5Z" fill="#B5BDC6" stroke="#9AA3AD" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M29 56.5 Q35 62 41 56.5 Q35 53 29 56.5Z" fill="#B5BDC6" stroke="#9AA3AD" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M13.4 27.1 A23 23 0 0 1 23.5 15.1" fill="none" stroke="#F4F6F8" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

@@ -62,6 +62,8 @@ export type Interaction =
     }
   /** Tapping gets a reaction but changes nothing, like stroking the cat. */
   | { type: 'pet'; sfx: 'purr' }
+  /** Tapping puts play coins in the purse (the piggy bank). */
+  | { type: 'coins'; amount: number }
   | { type: 'holdIn' }
   | { type: 'sitOn' }
   | { type: 'lieOn' };

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="60" viewBox="0 0 100 60">
+  <!-- Stem -->
+  <path d="M88 24 L95 8" stroke="#8A6A4F" stroke-width="7" stroke-linecap="round"/>
+  <!-- Back banana -->
+  <path d="M8 20 Q50 70 90 18 Q50 40 8 20Z" fill="#F5C431" stroke="#C99A1E" stroke-width="3.5" stroke-linejoin="round"/>
+  <circle cx="8" cy="20" r="3.2" fill="#6B4C35"/>
+  <!-- Front banana -->
+  <path d="M6 30 Q48 88 92 26 Q48 54 6 30Z" fill="#FFD447" stroke="#C99A1E" stroke-width="3.5" stroke-linejoin="round"/>
+  <circle cx="6" cy="30" r="3.5" fill="#6B4C35"/>
+  <path d="M22 44 Q42 58 66 50" fill="none" stroke="#FFEB9A" stroke-width="4" stroke-linecap="round"/>
+</svg>

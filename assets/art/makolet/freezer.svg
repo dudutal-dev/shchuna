@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="150" viewBox="0 0 260 150">
+  <!-- Plinth -->
+  <rect x="24" y="128" width="212" height="20" rx="6" fill="#8FA3AD" stroke="#6F838D" stroke-width="4"/>
+  <!-- Glass lid seen from slightly above -->
+  <path d="M14 30 L30 6 H230 L246 30Z" fill="#CDEBF7" stroke="#7FB2C8" stroke-width="4" stroke-linejoin="round"/>
+  <g stroke-width="2.5" stroke-linejoin="round">
+    <rect x="50" y="14" width="22" height="10" rx="4" fill="#F7A8C4" stroke="#D0688E"/>
+    <rect x="80" y="12" width="26" height="12" rx="5" fill="#FFF6E6" stroke="#D9BFA3"/>
+    <rect x="150" y="14" width="24" height="10" rx="4" fill="#FFD447" stroke="#C99A1E"/>
+    <rect x="182" y="12" width="26" height="12" rx="5" fill="#9FD4F0" stroke="#5E9CC0"/>
+  </g>
+  <path d="M130 7V29" stroke="#7FB2C8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M40 26 L54 10M170 26 L184 10" stroke="#F2FBFF" stroke-width="4" stroke-linecap="round"/>
+  <g fill="#FFFFFF" stroke="#7FB2C8" stroke-width="2.5"><rect x="114" y="14" width="10" height="8" rx="3"/><rect x="136" y="14" width="10" height="8" rx="3"/></g>
+  <!-- Body -->
+  <rect x="10" y="30" width="240" height="104" rx="16" fill="#F6F9FB" stroke="#9FB3C0" stroke-width="4"/>
+  <rect x="12" y="50" width="236" height="12" fill="#3E8E7E"/>
+  <path d="M10 50H250M10 62H250" stroke="#9FB3C0" stroke-width="3"/>
+  <g fill="#BCD9EC" stroke="#7FB2C8" stroke-width="2.5"><path d="M110 92 l6 -10 l6 10 l-6 10Z"/><path d="M134 92 l6 -10 l6 10 l-6 10Z"/></g>
+  <path d="M196 110H230M196 118H230" stroke="#C9D6DE" stroke-width="4" stroke-linecap="round"/>
+  <path d="M26 74V118" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+</svg>

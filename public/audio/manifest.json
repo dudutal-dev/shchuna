@@ -179,6 +179,258 @@
       "text": "הִפּוֹפּוֹטָם",
       "durationMs": 2000,
       "hash": "ac348ef734e0f24856beee80552e6ad6e9a703fcc04775678e1932d048d9a21c"
+    },
+    "prop.piggy": {
+      "file": "public/audio/lines/prop.piggy.mp3",
+      "text": "קֻפַּת חִסָּכוֹן",
+      "durationMs": 1680,
+      "hash": "b3eb3c8d1a503c966137188b7cf303b4b256afcd6df833a0f472795cd7f0b81c"
+    },
+    "prop.eggs": {
+      "file": "public/audio/lines/prop.eggs.mp3",
+      "text": "בֵּיצִים",
+      "durationMs": 1120,
+      "hash": "4a555f9168bd76eab3b90f37bc0990dfed0804ca90d5d396a7a870fba58c4215"
+    },
+    "prop.cheese": {
+      "file": "public/audio/lines/prop.cheese.mp3",
+      "text": "גְּבִינָה",
+      "durationMs": 960,
+      "hash": "e8819878471c10cb65ba98ff79939680d05330c98132954ca78b0005e138b100"
+    },
+    "prop.hummus": {
+      "file": "public/audio/lines/prop.hummus.mp3",
+      "text": "חֻמּוּס",
+      "durationMs": 1120,
+      "hash": "01c54c60fa8bd80fff96aae8e8c78cf5fed6cedd30bb58ca4f7849323825be8e"
+    },
+    "prop.pita": {
+      "file": "public/audio/lines/prop.pita.mp3",
+      "text": "פִּיתָּה",
+      "durationMs": 1600,
+      "hash": "6615cbaca90a83b0652f47ac3be628d1f4512614e2280cdc296e8c6cdf930cbe"
+    },
+    "prop.banana": {
+      "file": "public/audio/lines/prop.banana.mp3",
+      "text": "בָּנָנָה",
+      "durationMs": 1840,
+      "hash": "888b85b657dc30f7f734f4a078014b5997fc3fb093b664bac052644e882f30bb"
+    },
+    "prop.tomato": {
+      "file": "public/audio/lines/prop.tomato.mp3",
+      "text": "עַגְבָנִיָּה",
+      "durationMs": 1920,
+      "hash": "c8dc26b5cdaf73f29b434fc40b22e19f8b94d4d0cad96c891311dc758c988917"
+    },
+    "prop.cucumber": {
+      "file": "public/audio/lines/prop.cucumber.mp3",
+      "text": "מְלָפְפוֹן",
+      "durationMs": 1280,
+      "hash": "ff5cf45e529db0280eb9f9fc158fa36a5425c5ecb432b517fea73d586d8ecdcd"
+    },
+    "prop.choco": {
+      "file": "public/audio/lines/prop.choco.mp3",
+      "text": "שׁוֹקוֹ",
+      "durationMs": 1600,
+      "hash": "f1e30d3147bd99075d8022a2ccb5b140f81d3c024a9f90011e788c57c9c1a2e4"
+    },
+    "prop.snack": {
+      "file": "public/audio/lines/prop.snack.mp3",
+      "text": "פַּצְפּוּצִים",
+      "durationMs": 1920,
+      "hash": "1259bf217f802d9ba8cf6eec74a1d6a59f7b06b529336db16705676f71a99fb1"
+    },
+    "prop.watermelon": {
+      "file": "public/audio/lines/prop.watermelon.mp3",
+      "text": "אֲבַטִּיחַ",
+      "durationMs": 1920,
+      "hash": "f34c217f43ab308791a92b2d5e54a98520e10767373365eae7c1166e049bccb3"
+    },
+    "prop.olives": {
+      "file": "public/audio/lines/prop.olives.mp3",
+      "text": "זֵיתִים",
+      "durationMs": 1280,
+      "hash": "294d733d01653fc3eac8657fe9e0f37f39043149f91931515e2f10624691348c"
+    },
+    "prop.icecream": {
+      "file": "public/audio/lines/prop.icecream.mp3",
+      "text": "גְּלִידָה",
+      "durationMs": 1680,
+      "hash": "7f25fe0b9499c9d13eaaa9c8954f6a89530377ab24950a64b62b3dc610692baa"
+    },
+    "prop.shelf-unit": {
+      "file": "public/audio/lines/prop.shelf-unit.mp3",
+      "text": "מַדָּף",
+      "durationMs": 1840,
+      "hash": "8e3270c3acecf7979a71533066f8b37ded9848ccc0a7d33ff5ad2f366e7d180c"
+    },
+    "prop.freezer": {
+      "file": "public/audio/lines/prop.freezer.mp3",
+      "text": "מַקְפִּיא",
+      "durationMs": 1600,
+      "hash": "5d61481a36de78f85d164480dd12b7fe084ba659bfdf44c6d8c75ebd781c0cfe"
+    },
+    "prop.counter": {
+      "file": "public/audio/lines/prop.counter.mp3",
+      "text": "דֶּלְפֵּק",
+      "durationMs": 1840,
+      "hash": "e9fc85ea8e6fc1729e3f876e0fcea74e10ca63dd2edcaeccc5d5074b508879cd"
+    },
+    "prop.register": {
+      "file": "public/audio/lines/prop.register.mp3",
+      "text": "קֻפָּה",
+      "durationMs": 640,
+      "hash": "0b0b1bfa9f883c30e39b775f620eca476396067577c57afbd8cfc58630124902"
+    },
+    "prop.tray": {
+      "file": "public/audio/lines/prop.tray.mp3",
+      "text": "צַלַּחַת",
+      "durationMs": 1520,
+      "hash": "b1d6874653045352eb9ee68a45528b783e07ed6457429988bc18a1aca3cbcd20"
+    },
+    "prop.bag": {
+      "file": "public/audio/lines/prop.bag.mp3",
+      "text": "שַׂקִּית",
+      "durationMs": 1040,
+      "hash": "ad554bbe372d65b67979edc7313505440c1a138ecf576ab5dc2107c2bfecd80a"
+    },
+    "count.shekels.1": {
+      "file": "public/audio/lines/count.shekels.1.mp3",
+      "text": "שֶׁקֶל אֶחָד",
+      "durationMs": 1360,
+      "hash": "d872217eb213bd36ea950b630887e5d5fe53e9d5be50f769e9d13cb45228dac0"
+    },
+    "count.shekels.2": {
+      "file": "public/audio/lines/count.shekels.2.mp3",
+      "text": "שְׁנֵי שְׁקָלִים",
+      "durationMs": 2080,
+      "hash": "17ba7d58e863d1f07043d618fe9315ddbc12d16450140d092752294e905d0eed"
+    },
+    "count.shekels.3": {
+      "file": "public/audio/lines/count.shekels.3.mp3",
+      "text": "שְׁלוֹשָׁה שְׁקָלִים",
+      "durationMs": 1280,
+      "hash": "5372bf91e4e8ef3f66866d8ff0b4b321471edf4d768fb69cf41cc6c6e97f4301"
+    },
+    "count.shekels.4": {
+      "file": "public/audio/lines/count.shekels.4.mp3",
+      "text": "אַרְבָּעָה שְׁקָלִים",
+      "durationMs": 1120,
+      "hash": "4f0ae941a89190dad68265d345adeebbc486c6719317fe96a43038f67ea482bc"
+    },
+    "count.shekels.5": {
+      "file": "public/audio/lines/count.shekels.5.mp3",
+      "text": "חֲמִשָּׁה שְׁקָלִים",
+      "durationMs": 1200,
+      "hash": "5ea54aa6f2e7ea0e26170bff484cb3547fbc4d011a996476f7680cd2ec95e18b"
+    },
+    "count.shekels.6": {
+      "file": "public/audio/lines/count.shekels.6.mp3",
+      "text": "שִׁשָּׁה שְׁקָלִים",
+      "durationMs": 1360,
+      "hash": "93f18a77ec8b5315747b9150eaf84eee347d28c2ce11eefbb117fbdf2bfb8275"
+    },
+    "count.shekels.7": {
+      "file": "public/audio/lines/count.shekels.7.mp3",
+      "text": "שִׁבְעָה שְׁקָלִים",
+      "durationMs": 1280,
+      "hash": "5457a00c447d638f6afaf74705ca15cbf199cbbe388db217ef2d801c5b96eb8e"
+    },
+    "count.shekels.8": {
+      "file": "public/audio/lines/count.shekels.8.mp3",
+      "text": "שְׁמוֹנָה שְׁקָלִים",
+      "durationMs": 1280,
+      "hash": "c3b154b860083d9de729af5e801c3c7781abfc457e8b0338d392773cc7b5d09e"
+    },
+    "count.shekels.9": {
+      "file": "public/audio/lines/count.shekels.9.mp3",
+      "text": "תִּשְׁעָה שְׁקָלִים",
+      "durationMs": 1200,
+      "hash": "281e6305bef0756d2a4fa17c207a5c59993c7d08a86769b1be877f3567bfa73c"
+    },
+    "count.shekels.10": {
+      "file": "public/audio/lines/count.shekels.10.mp3",
+      "text": "עֲשָׂרָה שְׁקָלִים",
+      "durationMs": 2000,
+      "hash": "f7f8125a943d8f73756cda2732c0f37652492ec3de224c7e729a6c494e1c2354"
+    },
+    "count.shekels.11": {
+      "file": "public/audio/lines/count.shekels.11.mp3",
+      "text": "אַחַד עָשָׂר שְׁקָלִים",
+      "durationMs": 1200,
+      "hash": "837b04c523936a1015f950f4731d17943822f442192bae3609521881a261bbfd"
+    },
+    "count.shekels.12": {
+      "file": "public/audio/lines/count.shekels.12.mp3",
+      "text": "שְׁנֵים עָשָׂר שְׁקָלִים",
+      "durationMs": 1520,
+      "hash": "5d986be73d965eab156683aebd7526cd2eb68105c406b8b4a6ecc681c9327b9a"
+    },
+    "count.shekels.13": {
+      "file": "public/audio/lines/count.shekels.13.mp3",
+      "text": "שְׁלוֹשָׁה עָשָׂר שְׁקָלִים",
+      "durationMs": 1280,
+      "hash": "a7a602698c968947c1cae13b1b1df24f40ddc3d8b09b6500c46dc4bf8e17cb84"
+    },
+    "count.shekels.14": {
+      "file": "public/audio/lines/count.shekels.14.mp3",
+      "text": "אַרְבָּעָה עָשָׂר שְׁקָלִים",
+      "durationMs": 1440,
+      "hash": "f0271f91b1c25167277259e6a31c92c4ddd33f77c0832957a51d4ceb7c92a53a"
+    },
+    "count.shekels.15": {
+      "file": "public/audio/lines/count.shekels.15.mp3",
+      "text": "חֲמִשָּׁה עָשָׂר שְׁקָלִים",
+      "durationMs": 1760,
+      "hash": "bf3259cbfd837b7e006250097c7820c77c0dfb8ca39c5c36b0581416d1d08f20"
+    },
+    "count.shekels.16": {
+      "file": "public/audio/lines/count.shekels.16.mp3",
+      "text": "שִׁשָּׁה עָשָׂר שְׁקָלִים",
+      "durationMs": 1440,
+      "hash": "e18842ef7d5140cc4aad326e8176b4b8d8a6ff4ac1d47a45d44a6a1a2d48812e"
+    },
+    "count.shekels.17": {
+      "file": "public/audio/lines/count.shekels.17.mp3",
+      "text": "שִׁבְעָה עָשָׂר שְׁקָלִים",
+      "durationMs": 1520,
+      "hash": "f44e2389a0acfabf3bddcca2b776d8b54ce109926f73afc732027a0d2bbe1edf"
+    },
+    "count.shekels.18": {
+      "file": "public/audio/lines/count.shekels.18.mp3",
+      "text": "שְׁמוֹנָה עָשָׂר שְׁקָלִים",
+      "durationMs": 1680,
+      "hash": "0f120f16d980f8470ca41f74d83bfac5b9439e77512384e698c49b14c003d0d2"
+    },
+    "count.shekels.19": {
+      "file": "public/audio/lines/count.shekels.19.mp3",
+      "text": "תִּשְׁעָה עָשָׂר שְׁקָלִים",
+      "durationMs": 1440,
+      "hash": "f54c5b8b1adb40d91654d1f3f55ed35af10cf685313d616222ca2ba9548414bd"
+    },
+    "count.shekels.20": {
+      "file": "public/audio/lines/count.shekels.20.mp3",
+      "text": "עֶשְׂרִים שְׁקָלִים",
+      "durationMs": 1120,
+      "hash": "b7336c3cb791da6219a82fe787fbe891a6b0544bd7012e4547f1d0e8c3f99e76"
+    },
+    "shop.thanks": {
+      "file": "public/audio/lines/shop.thanks.mp3",
+      "text": "תּוֹדָה!",
+      "durationMs": 1920,
+      "hash": "ae246a1dfc4be87e0c511113feb10f22e485249e2efdd9bc9726464dc710eb73"
+    },
+    "shop.change": {
+      "file": "public/audio/lines/shop.change.mp3",
+      "text": "עֹדֶף",
+      "durationMs": 960,
+      "hash": "3cf39eb701bb2e73aa43bc843090dbda0de2d1a5e97d1dad1bede4cec6e06a55"
+    },
+    "shop.piggy": {
+      "file": "public/audio/lines/shop.piggy.mp3",
+      "text": "כֶּסֶף בָּאַרְנָק!",
+      "durationMs": 1600,
+      "hash": "18842498761a0fad08417461960460183951324199af199d90954f4027e6d300"
     }
   }
 }

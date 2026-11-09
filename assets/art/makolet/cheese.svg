@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="60" viewBox="0 0 90 60">
+  <!-- Top face of the wedge -->
+  <path d="M6 48 L84 22 L80 12 L4 40Z" fill="#FFE38A" stroke="#D19A1E" stroke-width="3.5" stroke-linejoin="round"/>
+  <ellipse cx="44" cy="30" rx="5" ry="2.5" fill="#EDB83C"/>
+  <!-- Front face -->
+  <path d="M6 58 H84 V22 L6 48Z" fill="#FFD35A" stroke="#D19A1E" stroke-width="3.5" stroke-linejoin="round"/>
+  <g fill="#E8B33A">
+    <circle cx="22" cy="51" r="4"/><circle cx="44" cy="47" r="6"/><circle cx="66" cy="38" r="5.5"/><circle cx="72" cy="51" r="3.5"/><circle cx="56" cy="53" r="2.5"/>
+  </g>
+  <path d="M76 30 V44" stroke="#FFF0B8" stroke-width="4" stroke-linecap="round"/>
+</svg>

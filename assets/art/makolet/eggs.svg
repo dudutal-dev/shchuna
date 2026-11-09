@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="50" viewBox="0 0 100 50">
+  <!-- Open lid behind -->
+  <path d="M10 30 L14 7 Q15 3 20 3 H80 Q85 3 86 7 L90 30Z" fill="#C9D9E0" stroke="#8EA6B2" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M30 8V18M50 8V18M70 8V18" stroke="#A9BEC8" stroke-width="3" stroke-linecap="round"/>
+  <!-- Back row of eggs -->
+  <g stroke-width="3">
+    <ellipse cx="24" cy="18" rx="11" ry="12" fill="#FFFDF6" stroke="#C7B79C"/>
+    <ellipse cx="50" cy="18" rx="11" ry="12" fill="#F6DDBB" stroke="#CFA77C"/>
+    <ellipse cx="76" cy="18" rx="11" ry="12" fill="#FFFDF6" stroke="#C7B79C"/>
+    <!-- Front row -->
+    <ellipse cx="24" cy="30" rx="11" ry="12" fill="#F6DDBB" stroke="#CFA77C"/>
+    <ellipse cx="50" cy="30" rx="11" ry="12" fill="#FFFDF6" stroke="#C7B79C"/>
+    <ellipse cx="76" cy="30" rx="11" ry="12" fill="#F6DDBB" stroke="#CFA77C"/>
+  </g>
+  <!-- Tray front -->
+  <path d="M6 32 Q15 38 24 32 Q37 38 50 32 Q63 38 76 32 Q85 38 94 32 V42 Q94 48 88 48 H12 Q6 48 6 42Z" fill="#C9D9E0" stroke="#8EA6B2" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M37 38V46M63 38V46" stroke="#A9BEC8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M44 26 Q46 22 50 21" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+</svg>

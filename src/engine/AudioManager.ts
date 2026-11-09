@@ -6,6 +6,7 @@ export type SfxId = 'tap' | 'lift' | 'drop' | 'toggle' | 'success' | 'undo' | 'p
 /** What the rest of the game needs from audio. */
 export interface SoundPlayer {
   say(lineId: string): void;
+  sayAll(lineIds: readonly string[]): void;
   sfx(id: SfxId): void;
 }
 
@@ -32,6 +33,8 @@ export interface AudioBackend {
 }
 
 const DUCKED_MUSIC = 0.3;
+const HISTORY = 30;
+const FALLBACK_MS = 700;
 
 /**
  * Lines addressed to the child come in `.m` and `.f` versions. Returns the one to
@@ -50,6 +53,10 @@ export function resolveLineId(
 export class AudioManager implements SoundPlayer {
   /** The line most recently asked for; tests read this because audio can't be observed. */
   lastLine: string | null = null;
+  /** Recent lines in order, for tests of spoken sequences. */
+  readonly history: string[] = [];
+  private queue: string[] = [];
+  private fallbackTimer: ReturnType<typeof setTimeout> | undefined;
   private manifest: Manifest = { lines: {} };
   private readonly clips = new Map<string, VoiceClip>();
   private current: VoiceClip | null = null;
@@ -77,12 +84,32 @@ export class AudioManager implements SoundPlayer {
 
   /** Plays a line, cutting off whichever line is playing now. */
   say(lineId: string): void {
-    this.lastLine = lineId;
+    this.sayAll([lineId]);
+  }
+
+  /** Plays lines one after another ("bread", "three shekels"), cutting off anything playing now. */
+  sayAll(lineIds: readonly string[]): void {
+    this.queue = [...lineIds];
+    this.playNext();
+  }
+
+  private playNext(): void {
     this.current?.stop();
     this.current = null;
+    clearTimeout(this.fallbackTimer);
+    const lineId = this.queue.shift();
+    if (lineId === undefined) {
+      this.backend.setMusicVolume(this.settings().music);
+      return;
+    }
+    this.lastLine = lineId;
+    this.history.push(lineId);
+    if (this.history.length > HISTORY) this.history.shift();
     const resolved = this.resolve(lineId);
     if (!resolved) {
       this.backend.speakFallback?.(lineId);
+      // No clip to wait for, so move on after roughly one spoken word.
+      if (this.queue.length > 0) this.fallbackTimer = setTimeout(() => this.playNext(), FALLBACK_MS);
       return;
     }
     const clip = this.clip(resolved);
@@ -115,7 +142,7 @@ export class AudioManager implements SoundPlayer {
       clip.onEnd(() => {
         if (this.current !== created) return;
         this.current = null;
-        this.backend.setMusicVolume(this.settings().music);
+        this.playNext();
       });
       this.clips.set(resolvedId, clip);
     }

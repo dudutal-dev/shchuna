@@ -74,6 +74,35 @@ export async function touchHold(page: Page, at: Point, holdMs: number): Promise<
   await cdp.detach();
 }
 
+/** A touch drag through several points, pausing `holdMs` at each one before moving on. */
+export async function touchPath(
+  page: Page,
+  points: ReadonlyArray<{ x: number; y: number; holdMs?: number }>,
+): Promise<void> {
+  const cdp = await page.context().newCDPSession(page);
+  const touch = (type: 'touchStart' | 'touchMove' | 'touchEnd', point?: Point) =>
+    cdp.send('Input.dispatchTouchEvent', {
+      type,
+      touchPoints: point ? [{ x: point.x, y: point.y }] : [],
+    });
+  const [first, ...rest] = points;
+  if (!first) return;
+  await touch('touchStart', first);
+  let from: Point = first;
+  for (const point of rest) {
+    for (let i = 1; i <= 12; i++) {
+      await touch('touchMove', {
+        x: from.x + ((point.x - from.x) * i) / 12,
+        y: from.y + ((point.y - from.y) * i) / 12,
+      });
+    }
+    if (point.holdMs) await page.waitForTimeout(point.holdMs);
+    from = point;
+  }
+  await touch('touchEnd');
+  await cdp.detach();
+}
+
 /** A real touch drag, sent through the browser's touch pipeline. */
 export async function touchDrag(page: Page, from: Point, to: Point, holdMs = 0): Promise<void> {
   const cdp = await page.context().newCDPSession(page);

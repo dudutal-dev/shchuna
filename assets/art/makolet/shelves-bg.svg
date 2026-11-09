@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#F3E3C3"/>
+  <!-- Stone courses (shared rows with checkout-bg) -->
+  <g fill="none" stroke="#E2CDA3" stroke-width="3" stroke-linecap="round">
+    <path d="M0 110H1100M0 220H1100M0 330H1100"/>
+    <path d="M150 0V110M400 0V110M730 0V110M990 0V110M60 110V220M300 110V220M820 110V220M1040 110V220M180 220V330M450 220V330M700 220V330M960 220V330M90 330V430M380 330V430M640 330V430M900 330V430"/>
+  </g>
+  <!-- Bunting -->
+  <path d="M100 18 Q325 46 550 18 Q775 46 1000 18" fill="none" stroke="#6B4C35" stroke-width="3" stroke-linecap="round"/>
+  <g stroke-width="3" stroke-linejoin="round">
+    <path fill="#3E8E7E" stroke="#2F7264" d="M131 23H159L145 51ZM311 32H339L325 60ZM491 23H519L505 51ZM716 31H744L730 59ZM896 27H924L910 55Z"/>
+    <path fill="#E5508A" stroke="#B83A6C" d="M176 27H204L190 55ZM356 31H384L370 59ZM581 23H609L595 51ZM761 32H789L775 60ZM941 23H969L955 51Z"/>
+    <path fill="#FFC23C" stroke="#C78F1E" d="M221 30H249L235 58ZM401 30H429L415 58ZM626 27H654L640 55ZM806 31H834L820 59Z"/>
+    <path fill="#7FAF6B" stroke="#55864A" d="M266 31H294L280 59ZM446 27H474L460 55ZM671 30H699L685 58ZM851 30H879L865 58Z"/>
+  </g>
+  <g fill="#6B4C35"><circle cx="100" cy="18" r="5"/><circle cx="550" cy="18" r="5"/><circle cx="1000" cy="18" r="5"/></g>
+  <!-- Window with green shutters -->
+  <g fill="#3E8E7E" stroke="#2F7264" stroke-width="4" stroke-linejoin="round">
+    <rect x="454" y="62" width="40" height="186" rx="9"/>
+    <rect x="606" y="62" width="40" height="186" rx="9"/>
+  </g>
+  <g stroke="#2F7264" stroke-width="4" stroke-linecap="round">
+    <path d="M462 90H486M462 116H486M462 142H486M462 168H486M462 194H486M462 220H486"/>
+    <path d="M614 90H638M614 116H638M614 142H638M614 168H638M614 194H638M614 220H638"/>
+  </g>
+  <rect x="498" y="66" width="104" height="178" rx="14" fill="#FFF7E6" stroke="#CDB68B" stroke-width="5"/>
+  <rect x="508" y="76" width="84" height="158" rx="8" fill="#BFE6FF"/>
+  <circle cx="570" cy="104" r="13" fill="#FFC23C"/>
+  <path d="M508 190 Q540 168 568 182 T592 176 V226 Q592 234 584 234 H516 Q508 234 508 226Z" fill="#7FAF6B"/>
+  <rect x="560" y="166" width="8" height="30" rx="4" fill="#8A6A4F"/>
+  <circle cx="564" cy="158" r="17" fill="#5E9457"/>
+  <g fill="#E5508A"><circle cx="518" cy="88" r="10"/><circle cx="532" cy="84" r="7"/><circle cx="516" cy="106" r="7"/></g>
+  <path d="M550 76V234M508 154H592" stroke="#FFF7E6" stroke-width="6"/>
+  <rect x="488" y="242" width="124" height="14" rx="7" fill="#FFF7E6" stroke="#CDB68B" stroke-width="4"/>
+  <!-- Floor: terracotta and cream checker -->
+  <rect y="430" width="1100" height="170" fill="#F2DDBC"/>
+  <g fill="#E3B089">
+    <rect x="0" y="440" width="110" height="60"/><rect x="220" y="440" width="110" height="60"/><rect x="440" y="440" width="110" height="60"/><rect x="660" y="440" width="110" height="60"/><rect x="880" y="440" width="110" height="60"/>
+    <rect x="110" y="500" width="110" height="50"/><rect x="330" y="500" width="110" height="50"/><rect x="550" y="500" width="110" height="50"/><rect x="770" y="500" width="110" height="50"/><rect x="990" y="500" width="110" height="50"/>
+    <rect x="0" y="550" width="110" height="50"/><rect x="220" y="550" width="110" height="50"/><rect x="440" y="550" width="110" height="50"/><rect x="660" y="550" width="110" height="50"/><rect x="880" y="550" width="110" height="50"/>
+  </g>
+  <rect y="430" width="1100" height="10" fill="#C98E66"/>
+  <g stroke="#D7A27B" stroke-width="4">
+    <path d="M0 500H1100M0 550H1100"/>
+    <path d="M110 440V600M220 440V600M330 440V600M440 440V600M550 440V600M660 440V600M770 440V600M880 440V600M990 440V600"/>
+  </g>
+  <!-- Crate of oranges by the wall -->
+  <g fill="#FF9A3C" stroke="#C76A1E" stroke-width="3">
+    <circle cx="140" cy="402" r="14"/><circle cx="166" cy="398" r="14"/><circle cx="192" cy="402" r="14"/><circle cx="214" cy="404" r="12"/><circle cx="154" cy="388" r="12"/><circle cx="180" cy="386" r="12"/>
+  </g>
+  <rect x="118" y="404" width="114" height="48" rx="7" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M120 428H230" stroke="#6B4C35" stroke-width="3"/>
+  <path d="M128 414H160" stroke="#DDB48A" stroke-width="4" stroke-linecap="round"/>
+</svg>

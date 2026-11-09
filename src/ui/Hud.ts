@@ -7,7 +7,7 @@ export const BUTTON_SIZE = 72;
 const MARGIN = 12;
 const ICON_ALPHA = 0.8;
 
-export type HudButtonId = 'undo' | 'family';
+export type HudButtonId = 'undo' | 'family' | 'go';
 
 /** A round icon button that squishes when pressed. */
 export function makeButton(art: string, size: number, onPress: () => void): Container {
@@ -43,7 +43,11 @@ export class Hud {
   ) {}
 
   async init(): Promise<void> {
-    const art: Record<HudButtonId, string> = { undo: 'ui/undo.svg', family: 'ui/family.svg' };
+    const art: Record<HudButtonId, string> = {
+      undo: 'ui/undo.svg',
+      family: 'ui/family.svg',
+      go: 'ui/go.svg',
+    };
     await loadArt(Object.values(art));
     for (const id of Object.keys(art) as HudButtonId[]) {
       const button = makeButton(art[id], BUTTON_SIZE, this.handlers[id]);
@@ -60,6 +64,12 @@ export class Hud {
     return { x: button?.x ?? 0, y: button?.y ?? 0 };
   }
 
+  /** Hides a button that has nothing to do here, such as the family button in the shop. */
+  setVisible(id: HudButtonId, visible: boolean): void {
+    const button = this.buttons.get(id);
+    if (button) button.visible = visible;
+  }
+
   /** Kept for existing tests. */
   undoCenter(): { x: number; y: number } {
     return this.center('undo');
@@ -71,5 +81,7 @@ export class Hud {
     // Bottom-left corner, stacked upwards: undo, then family.
     this.buttons.get('undo')?.position.set(MARGIN + half, bottom);
     this.buttons.get('family')?.position.set(MARGIN + half, bottom - BUTTON_SIZE - MARGIN);
+    // Top-right: the way out, where SPEC §11 puts the map button.
+    this.buttons.get('go')?.position.set(this.app.screen.width - MARGIN - half, MARGIN + half);
   };
 }

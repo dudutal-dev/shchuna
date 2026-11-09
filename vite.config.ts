@@ -44,8 +44,9 @@ export default defineConfig({
   plugins: [
     cspPlugin(),
     VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'script',
+      // A new version waits, and is applied from the start screen (src/app/updates.ts).
+      registerType: 'prompt',
+      injectRegister: false,
       includeAssets: ['fonts/*.woff2', 'icons/*'],
       manifest: {
         name: 'שכונה',

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="80" viewBox="0 0 60 80">
+  <!-- Glass jar -->
+  <rect x="6" y="18" width="48" height="60" rx="12" fill="#E3F3EF" stroke="#8FB8B0" stroke-width="4"/>
+  <path d="M9 32 H51 V66 Q51 75 42 75 H18 Q9 75 9 66Z" fill="#D3E9C9"/>
+  <g stroke-width="2.5">
+    <ellipse cx="18" cy="67" rx="6.5" ry="5.5" fill="#9AAE3E" stroke="#6E7F24"/>
+    <ellipse cx="30" cy="69" rx="6.5" ry="5.5" fill="#5A4560" stroke="#3E2E44"/>
+    <ellipse cx="42" cy="67" rx="6.5" ry="5.5" fill="#9AAE3E" stroke="#6E7F24"/>
+    <ellipse cx="24" cy="57" rx="6.5" ry="5.5" fill="#5A4560" stroke="#3E2E44"/>
+    <ellipse cx="37" cy="57" rx="6.5" ry="5.5" fill="#9AAE3E" stroke="#6E7F24"/>
+    <ellipse cx="16" cy="47" rx="6" ry="5.5" fill="#9AAE3E" stroke="#6E7F24"/>
+    <ellipse cx="29" cy="46" rx="6.5" ry="5.5" fill="#9AAE3E" stroke="#6E7F24"/>
+    <ellipse cx="43" cy="46" rx="6" ry="5.5" fill="#5A4560" stroke="#3E2E44"/>
+    <ellipse cx="22" cy="37" rx="6" ry="5" fill="#5A4560" stroke="#3E2E44"/>
+    <ellipse cx="36" cy="37" rx="6" ry="5" fill="#9AAE3E" stroke="#6E7F24"/>
+  </g>
+  <rect x="6" y="18" width="48" height="60" rx="12" fill="none" stroke="#8FB8B0" stroke-width="4"/>
+  <path d="M13 28 V40" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Lid -->
+  <rect x="10" y="4" width="40" height="16" rx="5" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <path d="M18 8V16M26 8V16M34 8V16M42 8V16" stroke="#2F7264" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

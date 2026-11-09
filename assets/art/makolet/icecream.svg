@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="100" viewBox="0 0 60 100">
+  <!-- Cone -->
+  <path d="M12 46 H48 L31.5 96 Q30 99 28.5 96Z" fill="#E9B46A" stroke="#B07A45" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M18 64 L38 46 M24 82 L44 58 M22 46 L40 70 M14 52 L34 88" stroke="#C78E4E" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Vanilla scoop -->
+  <path d="M10 44 Q10 22 30 22 Q50 22 50 44 Q46 50 41 46 Q36 52 30 47 Q24 52 19 46 Q14 50 10 44Z" fill="#FFF6E6" stroke="#C9A882" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- Strawberry scoop -->
+  <path d="M13 25 Q13 4 30 4 Q47 4 47 25 Q43 31 38 27 Q34 32 30 28 Q26 32 22 27 Q17 31 13 25Z" fill="#F7A8C4" stroke="#D0688E" stroke-width="3.5" stroke-linejoin="round"/>
+  <g stroke-width="3" stroke-linecap="round"><path d="M24 14 l3 2" stroke="#3E8E7E"/><path d="M36 12 l-2 3" stroke="#FFC23C"/><path d="M38 21 l3 -1" stroke="#3E8E7E"/><path d="M28 22 l-3 1" stroke="#FFC23C"/></g>
+  <path d="M18 16 Q19 10 24 8" fill="none" stroke="#FCD6E4" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

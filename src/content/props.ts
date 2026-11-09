@@ -13,6 +13,7 @@ interface Spec {
   letter?: PropDef['letter'];
   food?: boolean;
   changesOutfit?: PropDef['changesOutfit'];
+  price?: number;
 }
 
 /** Items are draggable unless they say otherwise; furniture is fixed. */
@@ -31,6 +32,7 @@ function prop(id: string, name: Name, spec: Spec): PropDef {
     ...(spec.letter ? { letter: spec.letter } : {}),
     ...(spec.food ? { food: true } : {}),
     ...(spec.changesOutfit ? { changesOutfit: spec.changesOutfit } : {}),
+    ...(spec.price ? { price: spec.price } : {}),
   };
 }
 
@@ -41,7 +43,7 @@ const when = (state: PropState, art: string, frames?: string[]) => [
 
 const definitions: PropDef[] = [
   // Shared and engine-test props.
-  prop('apple', 'apple', { art: 'playground/apple.svg', food: true }),
+  prop('apple', 'apple', { art: 'playground/apple.svg', food: true, price: 1 }),
   prop('ball', 'ball', { art: 'playground/ball.svg' }),
   prop('cup', 'cup', {
     art: 'playground/cup.svg',
@@ -87,8 +89,8 @@ const definitions: PropDef[] = [
   }),
   prop('chair', 'chair', { art: 'home/chair.svg', layer: 'furniture' }),
   prop('plate', 'plate', { art: 'home/plate.svg' }),
-  prop('bread', 'bread', { art: 'home/bread.svg', food: true }),
-  prop('milk', 'milk', { art: 'home/milk.svg', food: true }),
+  prop('bread', 'bread', { art: 'home/bread.svg', food: true, price: 3 }),
+  prop('milk', 'milk', { art: 'home/milk.svg', food: true, price: 4 }),
   prop('cake', 'cake', { art: 'home/cake.svg', food: true }),
 
   // Living room.
@@ -122,6 +124,38 @@ const definitions: PropDef[] = [
   prop('teddy', 'teddy', { art: 'home/teddy.svg' }),
   prop('train', 'train', { art: 'home/train.svg' }),
   prop('hippo', 'hippo', { art: 'home/hippo.svg' }),
+  prop('piggy', 'piggy', {
+    art: 'home/piggy.svg',
+    interactions: [{ type: 'coins', amount: 10 }],
+  }),
+
+  // Makolet. Every product costs 1 to 10 shekels (SPEC §7.2).
+  ...(
+    [
+      ['eggs', 5],
+      ['cheese', 6],
+      ['hummus', 5],
+      ['pita', 2],
+      ['banana', 2],
+      ['tomato', 1],
+      ['cucumber', 1],
+      ['choco', 4],
+      ['snack', 3],
+      ['watermelon', 10],
+      ['olives', 6],
+      ['icecream', 7],
+    ] as const
+  ).map(([id, price]) => prop(id, id, { art: `makolet/${id}.svg`, food: true, price })),
+  prop('shelf-unit', 'shelf', { art: 'makolet/shelf-unit.svg', layer: 'furniture' }),
+  prop('freezer', 'freezer', { art: 'makolet/freezer.svg', layer: 'furniture' }),
+  prop('counter', 'counter', { art: 'makolet/counter.svg', layer: 'furniture' }),
+  prop('register', 'register', { art: 'makolet/register.svg', layer: 'furniture' }),
+  prop('tray', 'tray', { art: 'makolet/tray.svg', layer: 'furniture' }),
+  prop('bag', 'bag', {
+    art: 'makolet/bag-empty.svg',
+    artStates: when({ full: true }, 'makolet/bag-full.svg'),
+    layer: 'furniture',
+  }),
 ];
 
 export const propDefs: Readonly<Record<string, PropDef>> = Object.fromEntries(

@@ -4,6 +4,9 @@ export const strings = {
   ui: {
     tapToStart: 'גַּע כְּדֵי לְהַתְחִיל!', // TODO: proofread
   },
+  makolet: {
+    sign: 'מַכֹּלֶת', // TODO: proofread
+  },
   // TODO: proofread — every prop name below.
   props: {
     apple: 'תַּפּוּחַ',
@@ -34,5 +37,24 @@ export const strings = {
     tv: 'טֵלֶוִיזְיָה',
     tvCabinet: 'שִׁדָּה',
     wardrobe: 'אָרוֹן',
+    piggy: 'קֻפַּת חִסָּכוֹן',
+    // Makolet.
+    bag: 'שַׂקִּית',
+    banana: 'בָּנָנָה',
+    cheese: 'גְּבִינָה',
+    choco: 'שׁוֹקוֹ',
+    counter: 'דֶּלְפֵּק',
+    cucumber: 'מְלָפְפוֹן',
+    eggs: 'בֵּיצִים',
+    freezer: 'מַקְפִּיא',
+    hummus: 'חֻמּוּס',
+    icecream: 'גְּלִידָה',
+    olives: 'זֵיתִים',
+    pita: 'פִּיתָּה',
+    register: 'קֻפָּה',
+    snack: 'פַּצְפּוּצִים',
+    tomato: 'עַגְבָנִיָּה',
+    tray: 'צַלַּחַת',
+    watermelon: 'אֲבַטִּיחַ',
   },
 } as const;

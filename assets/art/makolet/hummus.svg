@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="60" viewBox="0 0 80 60">
+  <!-- Tub -->
+  <path d="M8 26 L14 54 Q15 58 20 58 H60 Q65 58 66 54 L72 26Z" fill="#FFFFFF" stroke="#9FB3C0" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M10.1 36 H69.9 L68.1 44 H11.9Z" fill="#3E8E7E"/>
+  <ellipse cx="40" cy="26" rx="34" ry="9" fill="#FFFFFF" stroke="#9FB3C0" stroke-width="4"/>
+  <!-- Hummus mound -->
+  <path d="M12 27 Q16 12 40 11 Q64 12 68 27Z" fill="#EBCB8F" stroke="#C9A060" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M30 20 Q30 15 40 15 Q50 15 50 19 Q50 23 42 23 Q36 23 37 19 Q38 17 42 18" fill="none" stroke="#E0A526" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#D9A960" stroke="#B07A45" stroke-width="1.5"><circle cx="23" cy="21" r="3"/><circle cx="57" cy="20" r="3"/><circle cx="52" cy="25" r="2.8"/><circle cx="28" cy="25" r="2.8"/></g>
+  <g fill="#D9473A"><circle cx="34" cy="25" r="1.4"/><circle cx="46" cy="13.5" r="1.4"/><circle cx="62" cy="24" r="1.4"/></g>
+  <path d="M18 16 q4 -4 8 -1 q-4 3 -8 1Z" fill="#7FAF6B" stroke="#55864A" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M6 26 A34 9 0 0 0 74 26" fill="none" stroke="#9FB3C0" stroke-width="4"/>
+  <path d="M20 46 V52" stroke="#E6EEF2" stroke-width="4" stroke-linecap="round"/>
+</svg>

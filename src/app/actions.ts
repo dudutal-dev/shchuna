@@ -85,6 +85,26 @@ export class Actions {
     this.save();
   }
 
+  /**
+   * Changes that can't be undone: a finished purchase, coins in the purse. Undoing them
+   * would take back money already counted aloud.
+   */
+  applyFinal(changes: EntityChange[], newProps: readonly PropInstance[] = []): void {
+    if (newProps.length > 0) {
+      this.store.update((state) => {
+        state.props.push(...structuredClone(newProps));
+      });
+    }
+    this.apply(changes);
+  }
+
+  setWallet(amount: number): void {
+    this.store.update((state) => {
+      state.wallet = amount;
+    });
+    this.save();
+  }
+
   /** Gives a new game its family. Not undoable, and never runs again once there are characters. */
   seedCharacters(seed: readonly Character[]): void {
     if (this.store.state.characters.length > 0) return;

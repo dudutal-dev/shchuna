@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="160" viewBox="0 0 120 160">
+  <!-- Back handle and inside of the bag (same as bag-empty, shifted down 30) -->
+  <path d="M42 52 Q60 32 78 52" fill="none" stroke="#A0713E" stroke-width="5" stroke-linecap="round"/>
+  <path d="M18 60 L26 46 H94 L102 60Z" fill="#A87642" stroke="#A0713E" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Groceries peeking out -->
+  <path d="M84 76 Q72 46 88 26 Q104 46 92 76Z" fill="#7FAF6B" stroke="#55864A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M94 76 Q96 42 112 34 Q116 58 100 76Z" fill="#6FA263" stroke="#55864A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M78 76 Q66 56 72 40 Q86 54 86 76Z" fill="#8DBF76" stroke="#55864A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M54 80 V40 L64 30 L74 40 V80Z" fill="#FFFFFF" stroke="#7FA9C8" stroke-width="3.5" stroke-linejoin="round"/>
+  <rect x="59" y="22" width="10" height="10" rx="3" fill="#E6F1FA" stroke="#7FA9C8" stroke-width="3"/>
+  <path d="M56 52 H72 V64 H56Z" fill="#5AA9E6"/>
+  <path d="M24 80 L42 8 Q46 2 52 5 Q57 9 55 15 L38 82Z" fill="#E9B46A" stroke="#B07A45" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M42 22 L50 26 M38 38 L46 42 M34 54 L42 58" stroke="#C78E4E" stroke-width="3" stroke-linecap="round"/>
+  <!-- Front of the bag -->
+  <path d="M15 60 l5 4 l5 -4 l5 4 l5 -4 l5 4 l5 -4 l5 4 l5 -4 l5 4 l5 -4 l5 4 l5 -4 l5 4 l5 -4 l5 4 l5 -4 l5 4 l5 -4 L101 156 Q101 158 99 158 H21 Q19 158 19 156Z" fill="#D9A86C" stroke="#A0713E" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M32 72 L34 146 M88 72 L86 146 M22 144 H98" stroke="#C08E54" stroke-width="3" stroke-linecap="round"/>
+  <path d="M26 78 V126" stroke="#EAC594" stroke-width="5" stroke-linecap="round"/>
+</svg>

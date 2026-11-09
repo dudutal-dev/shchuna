@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="210" viewBox="0 0 560 210">
+  <!-- Plinth -->
+  <rect x="18" y="188" width="524" height="20" rx="6" fill="#A97C55" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Front panel: teal planks -->
+  <rect x="20" y="50" width="520" height="142" rx="10" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <path d="M84 58V188M150 58V188M216 58V188M282 58V188M348 58V188M414 58V188M480 58V188" stroke="#2F7264" stroke-width="4" stroke-linecap="round"/>
+  <!-- Painted tile band -->
+  <rect x="36" y="76" width="488" height="34" rx="6" fill="#FFF7E6" stroke="#CDB68B" stroke-width="3"/>
+  <path fill="#E5508A" d="M56 83l10 10-10 10-10-10zM136 83l10 10-10 10-10-10zM216 83l10 10-10 10-10-10zM296 83l10 10-10 10-10-10zM376 83l10 10-10 10-10-10zM456 83l10 10-10 10-10-10z"/>
+  <path fill="#FFC23C" d="M96 83l10 10-10 10-10-10zM176 83l10 10-10 10-10-10zM256 83l10 10-10 10-10-10zM336 83l10 10-10 10-10-10zM416 83l10 10-10 10-10-10zM496 83l10 10-10 10-10-10z"/>
+  <path d="M34 124V176" stroke="#6FB5A8" stroke-width="6" stroke-linecap="round"/>
+  <!-- Wooden counter top: top face at y=40 -->
+  <rect x="10" y="40" width="540" height="18" rx="8" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M370 48H520" stroke="#DDB48A" stroke-width="4" stroke-linecap="round"/>
+  <!-- Conveyor belt set into the top, x 120-330 -->
+  <rect x="120" y="28" width="210" height="16" rx="8" fill="#55565E" stroke="#3A3B42" stroke-width="3"/>
+  <path d="M146 31V41M166 31V41M186 31V41M206 31V41M226 31V41M246 31V41M266 31V41M286 31V41M306 31V41" stroke="#74767F" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#C9D2D6" stroke="#8E99A1" stroke-width="2.5"><circle cx="129" cy="36" r="6"/><circle cx="321" cy="36" r="6"/></g>
+  <rect x="120" y="44" width="210" height="8" rx="3" fill="#8E99A1"/>
+</svg>

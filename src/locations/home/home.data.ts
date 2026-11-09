@@ -136,5 +136,7 @@ export const home: LocationData = {
     on('hippo', 'hippo', WARDROBE_X, 'wardrobe'),
     prop('ball', KIDS + 420, 540),
     prop('train', KIDS + 560, 520),
+    // Tapping it puts coins in the purse for the shop.
+    prop('piggy', KIDS + 300, 520),
   ],
 };

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#F3E3C3"/>
+  <!-- Stone courses (shared rows with shelves-bg) -->
+  <g fill="none" stroke="#E2CDA3" stroke-width="3" stroke-linecap="round">
+    <path d="M0 110H1100M0 220H1100M0 330H1100"/>
+    <path d="M60 0V110M330 0V110M780 0V110M1010 0V110M90 110V220M420 110V220M700 110V220M940 110V220M200 220V330M610 220V330M880 220V330M60 330V430M480 330V430M760 330V430M1040 330V430"/>
+  </g>
+  <!-- Shop sign board (blank: the engine writes the name) -->
+  <rect x="382" y="28" width="336" height="76" rx="14" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <rect x="394" y="40" width="312" height="52" rx="8" fill="#FFF7E6" stroke="#CDB68B" stroke-width="3"/>
+  <g fill="#FFF7E6"><circle cx="388" cy="66" r="2.5"/><circle cx="712" cy="66" r="2.5"/><circle cx="550" cy="34" r="2.5"/><circle cx="550" cy="98" r="2.5"/></g>
+  <g fill="#E5508A"><circle cx="406" cy="52" r="4"/><circle cx="694" cy="52" r="4"/><circle cx="406" cy="80" r="4"/><circle cx="694" cy="80" r="4"/></g>
+  <!-- Glass shop door with green frame -->
+  <rect x="122" y="122" width="176" height="306" rx="14" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <rect x="142" y="142" width="136" height="200" rx="10" fill="#BFE6FF"/>
+  <circle cx="246" cy="176" r="14" fill="#FFC23C"/>
+  <path d="M142 240 H200 V226 H278 V342 H142Z" fill="#EAD3A8"/>
+  <rect x="216" y="248" width="30" height="40" rx="5" fill="#3E8E7E"/>
+  <rect x="160" y="262" width="24" height="30" rx="5" fill="#3E8E7E"/>
+  <path d="M142 314 H278 V332 Q278 342 268 342 H152 Q142 342 142 332Z" fill="#D8C3A0"/>
+  <g fill="#7FAF6B"><circle cx="170" cy="166" r="14"/><circle cx="154" cy="200" r="10"/><circle cx="196" cy="156" r="10"/></g>
+  <g fill="#E5508A"><circle cx="158" cy="160" r="13"/><circle cx="182" cy="160" r="10"/><circle cx="154" cy="184" r="9"/><circle cx="200" cy="152" r="7"/><circle cx="168" cy="180" r="7"/></g>
+  <rect x="142" y="142" width="136" height="200" rx="10" fill="none" stroke="#2F7264" stroke-width="4"/>
+  <path d="M168 300 L222 160" stroke="#E8F6FF" stroke-width="6" stroke-linecap="round"/>
+  <rect x="146" y="356" width="128" height="56" rx="8" fill="#4FA090" stroke="#2F7264" stroke-width="4"/>
+  <rect x="256" y="252" width="12" height="70" rx="6" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+  <rect x="112" y="420" width="196" height="12" rx="5" fill="#E2CDA3" stroke="#CDB68B" stroke-width="3"/>
+  <!-- Shop bell over the door -->
+  <path d="M300 136 H318" stroke="#6B4C35" stroke-width="4" stroke-linecap="round"/>
+  <path d="M306 160 Q306 142 318 142 Q330 142 330 160Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M318 136 V142" stroke="#6B4C35" stroke-width="3"/>
+  <!-- Wall clock (ticks only) -->
+  <circle cx="890" cy="170" r="40" fill="#FFF7E6" stroke="#3E8E7E" stroke-width="8"/>
+  <g stroke="#CDB68B" stroke-width="4" stroke-linecap="round"><path d="M890 140V146M890 194V200M860 170H866M914 170H920"/></g>
+  <path d="M890 170V152M890 170L904 178" stroke="#6B4C35" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="890" cy="170" r="4" fill="#E5508A"/>
+  <!-- Little wall shelf with geraniums -->
+  <path d="M820 292 L830 310 M960 292 L950 310" stroke="#6B4C35" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#D97A4E" stroke="#A9573A" stroke-width="3" stroke-linejoin="round">
+    <path d="M836 260 H868 L864 288 H840Z"/>
+    <path d="M912 260 H944 L940 288 H916Z"/>
+  </g>
+  <g fill="#7FAF6B"><circle cx="846" cy="252" r="10"/><circle cx="860" cy="250" r="10"/><circle cx="922" cy="252" r="10"/><circle cx="936" cy="250" r="10"/></g>
+  <g fill="#E5508A"><circle cx="852" cy="240" r="7"/><circle cx="864" cy="244" r="5"/><circle cx="928" cy="240" r="7"/><circle cx="940" cy="244" r="5"/></g>
+  <rect x="812" y="286" width="156" height="10" rx="5" fill="#C4966B" stroke="#6B4C35" stroke-width="3"/>
+  <!-- Floor: terracotta and cream checker -->
+  <rect y="430" width="1100" height="170" fill="#F2DDBC"/>
+  <g fill="#E3B089">
+    <rect x="0" y="440" width="110" height="60"/><rect x="220" y="440" width="110" height="60"/><rect x="440" y="440" width="110" height="60"/><rect x="660" y="440" width="110" height="60"/><rect x="880" y="440" width="110" height="60"/>
+    <rect x="110" y="500" width="110" height="50"/><rect x="330" y="500" width="110" height="50"/><rect x="550" y="500" width="110" height="50"/><rect x="770" y="500" width="110" height="50"/><rect x="990" y="500" width="110" height="50"/>
+    <rect x="0" y="550" width="110" height="50"/><rect x="220" y="550" width="110" height="50"/><rect x="440" y="550" width="110" height="50"/><rect x="660" y="550" width="110" height="50"/><rect x="880" y="550" width="110" height="50"/>
+  </g>
+  <rect y="430" width="1100" height="10" fill="#C98E66"/>
+  <g stroke="#D7A27B" stroke-width="4">
+    <path d="M0 500H1100M0 550H1100"/>
+    <path d="M110 440V600M220 440V600M330 440V600M440 440V600M550 440V600M660 440V600M770 440V600M880 440V600M990 440V600"/>
+  </g>
+</svg>

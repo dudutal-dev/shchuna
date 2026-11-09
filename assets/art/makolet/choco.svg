@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="100" viewBox="0 0 50 100">
+  <!-- Crimped top seal -->
+  <rect x="7" y="3" width="36" height="14" rx="3" fill="#F1E6DA" stroke="#8A5A3B" stroke-width="3"/>
+  <path d="M13 6V14M19 6V14M25 6V14M31 6V14M37 6V14" stroke="#CDB8A3" stroke-width="2" stroke-linecap="round"/>
+  <!-- Pouch -->
+  <path d="M9 15 H41 Q46 15 46 21 V92 Q46 98 40 98 H10 Q4 98 4 92 V21 Q4 15 9 15Z" fill="#FFFFFF"/>
+  <path d="M4 58 Q14 50 25 58 T46 58 V92 Q46 98 40 98 H10 Q4 98 4 92Z" fill="#9A6240"/>
+  <g fill="#9A6240">
+    <path d="M11 26 q6 -5 11 0 q3 6 -4 8 q-8 1 -7 -8Z"/>
+    <path d="M31 33 q5 -4 9 1 q1 6 -5 6 q-6 -1 -4 -7Z"/>
+    <path d="M16 44 q3 -3 6 0 q0 4 -3 4 q-4 0 -3 -4Z"/>
+  </g>
+  <path d="M25 64 Q33 74 33 79 A8 8 0 0 1 17 79 Q17 74 25 64Z" fill="#FFF4E0" stroke="#6E4229" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M9 15 H41 Q46 15 46 21 V92 Q46 98 40 98 H10 Q4 98 4 92 V21 Q4 15 9 15Z" fill="none" stroke="#6E4229" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M10 66 V88" stroke="#B98060" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -66,6 +66,20 @@ async function loadManifest(): Promise<Manifest> {
   }
 }
 
+/** Windows sometimes holds the file briefly (indexer, antivirus); wait and try again. */
+async function saveManifest(manifest: Manifest): Promise<void> {
+  const text = `${JSON.stringify(manifest, null, 2)}\n`;
+  for (let attempt = 1; ; attempt++) {
+    try {
+      await writeFile(MANIFEST_PATH, text);
+      return;
+    } catch (error) {
+      if (attempt >= 6) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
+    }
+  }
+}
+
 async function synthesize(line: VoiceLine): Promise<Buffer> {
   const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId(line.voice)}?output_format=mp3_44100_128`;
   for (let attempt = 1; ; attempt++) {
@@ -156,7 +170,7 @@ async function main(): Promise<void> {
       hash: lineHash(line, voiceId(line.voice), model),
     };
     // Written after every line, so a failed run keeps what was already paid for.
-    await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
+    await saveManifest(manifest);
     console.log(`[${index + 1}/${pending.length}] ${line.id}`);
   }
 
@@ -171,7 +185,7 @@ async function pruneRemoved(all: readonly VoiceLine[], manifest: Manifest): Prom
     delete manifest.lines[id];
     console.log(`Removed ${id}`);
   }
-  await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
+  await saveManifest(manifest);
 }
 
 main().catch((error: unknown) => {
