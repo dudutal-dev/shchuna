@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+  <!-- TINTED (skin). Hips y=90 to ankles (hidden under shoes) -->
+  <g fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round">
+    <path d="M36 90 L64 90 L63 180 Q63 186 57 186 L43 186 Q37 186 37 180 Z"/>
+    <path d="M76 90 L104 90 L103 180 Q103 186 97 186 L83 186 Q77 186 77 180 Z"/>
+  </g>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M45 146 Q50 150 55 146"/>
+    <path d="M85 146 Q90 150 95 146"/>
+  </g>
+</svg>

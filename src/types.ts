@@ -16,14 +16,16 @@ export type HebrewLetter =
 export type SkinTone = 0 | 1 | 2 | 3 | 4 | 5;
 export type AddressGender = 'm' | 'f';
 
+export type BodyType = 'small' | 'kid' | 'adult' | 'elder';
+
+/** Part ids and colour keys come from src/characters/catalog.ts. */
 export interface CharacterAppearance {
-  body: 'small' | 'kid' | 'adult' | 'elder';
+  body: BodyType;
   skinTone: SkinTone;
   hair: string;
   hairColor: string;
-  top: string;
-  bottom: string;
-  shoes: string;
+  /** An outfit preset: top, bottom, shoes and their colours together. */
+  outfit: string;
   accessory?: string;
 }
 
@@ -33,7 +35,10 @@ export interface Character {
   location: LocationId;
   x: number;
   y: number;
+  /** The surface it is on (a chair, the bed), if any. */
+  on?: string;
   pose: 'stand' | 'sit' | 'lie';
+  /** A prop instance id held in the hand. */
   holding?: string;
 }
 
@@ -78,6 +83,10 @@ export interface PropDef {
   interactions: Interaction[];
   /** Where other props get used on this one, relative to its feet. Tall furniture needs this. */
   useOnPoint?: { x: number; y: number };
+  /** Given to a character, it gets eaten (and goes back where it came from). */
+  food?: boolean;
+  /** A character brought here while it is open changes clothes (the wardrobe). */
+  changesOutfit?: { key: string };
   letter?: HebrewLetter;
   price?: number;
 }

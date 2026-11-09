@@ -1,4 +1,6 @@
 import { Application } from 'pixi.js';
+import { defaultFamily } from '../characters/catalog';
+import { CharacterCreator } from '../characters/CharacterCreator';
 import { propDefs } from '../content/props';
 import { strings } from '../content/strings.he';
 import { AudioManager, BrowserAudioBackend } from '../engine/AudioManager';
@@ -63,10 +65,33 @@ export class Game {
     });
 
     const location = pickLocation();
+    if (location.id === 'home') actions.seedCharacters(defaultFamily());
     const scene = new Scene({ app: this.app, store, actions, defs: propDefs, audio }, location);
-    const hud = new Hud(this.app, () => {
-      audio.sfx('undo');
-      actions.undo(location.id);
+    let creator: CharacterCreator | null = null;
+    const openCreator = async (): Promise<void> => {
+      if (creator || store.state.characters.length === 0) return;
+      audio.sfx('tap');
+      creator = new CharacterCreator(this.app, store, actions, audio, location.id, () => {
+        creator = null;
+        if (hook) {
+          hook.stage = 'playing';
+          hook.creatorCenter = null;
+        }
+      });
+      await creator.open();
+      this.app.stage.addChild(creator.view);
+      if (hook) {
+        const open = creator;
+        hook.creatorCenter = (id) => open.center(id as Parameters<CharacterCreator['center']>[0]);
+        hook.stage = 'creator';
+      }
+    };
+    const hud = new Hud(this.app, {
+      undo: () => {
+        audio.sfx('undo');
+        actions.undo(location.id);
+      },
+      family: () => void openCreator(),
     });
     const hook = installTestHook({ store, scene, hud, audio, saves: this.saves });
     await Promise.all([scene.enter(), hud.init()]);

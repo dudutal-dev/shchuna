@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- FIXED colours. Knitted kippa on the crown, centre ~(100,38) -->
+  <path d="M70 46 Q72 22 100 20 Q128 22 130 46 Q100 38 70 46 Z" fill="#3E7CB1" stroke="#2B5A85" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M76 36 L82 30 L88 35 L94 29 L100 34 L106 29 L112 35 L118 30 L124 36" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="100" cy="23" r="2.5" fill="#FFFFFF"/>
+</svg>

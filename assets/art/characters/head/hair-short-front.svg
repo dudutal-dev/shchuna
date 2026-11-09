@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- TINTED. Short tousled hair, y 22-114 (sideburns) -->
+  <g fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round">
+    <path d="M62 42 Q64 26 78 29 Q86 20 98 28 Q90 32 86 40 Z"/>
+    <path d="M30 104 L30 98 A70 70 0 0 1 170 98 L170 104 L166 112 Q160 116 156 110 L154 92 Q150 74 136 70 Q124 76 114 66 Q102 78 88 68 Q76 80 62 72 Q50 80 46 92 L44 110 Q40 116 34 112 Z"/>
+  </g>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M70 46 Q80 40 92 44"/>
+    <path d="M112 42 Q124 40 134 48"/>
+  </g>
+</svg>

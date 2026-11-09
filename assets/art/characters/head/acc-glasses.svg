@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- FIXED colours. Round glasses centred on the eyes (y 104) -->
+  <g fill="#DDF2F7" fill-opacity=".35" stroke="#2F5D62" stroke-width="4" stroke-linejoin="round">
+    <circle cx="78" cy="104" r="16"/>
+    <circle cx="122" cy="104" r="16"/>
+  </g>
+  <g fill="none" stroke="#2F5D62" stroke-width="4" stroke-linecap="round">
+    <path d="M94 102 Q100 97 106 102"/>
+    <path d="M62 101 L46 97"/>
+    <path d="M138 101 L154 97"/>
+  </g>
+  <path d="M70 96 Q74 92 79 93 M114 96 Q118 92 123 93" fill="none" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

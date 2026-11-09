@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+  <!-- TINTED. Long trousers, hips y=84 to ankles y=186 -->
+  <path d="M32 88 Q32 84 36 84 L104 84 Q108 84 108 88 L108 182 Q108 186 104 186 L77 186 Q73 186 73 182 L72 124 Q70 119 68 124 L67 182 Q67 186 63 186 L36 186 Q32 186 32 182 Z" fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M50 130 L50 176"/>
+    <path d="M90 130 L90 176"/>
+    <path d="M35 177 L64 177 M76 177 L105 177"/>
+  </g>
+</svg>

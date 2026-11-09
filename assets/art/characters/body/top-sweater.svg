@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+  <!-- TINTED. Long sleeves to the wrists, ribbed cuffs, collar and hem -->
+  <g fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round">
+    <path d="M38 3 Q16 5 11 20 L4 88 L30 88 L42 14 Z"/>
+    <path d="M102 3 Q124 5 129 20 L136 88 L110 88 L98 14 Z"/>
+    <path d="M55 0 L38 3 Q28 6 28 16 L31 98 Q31 103 36 103 L104 103 Q109 103 109 98 L112 16 Q112 6 102 3 L85 0 Q70 16 55 0 Z"/>
+    <path d="M4 84 Q17 88 31 85 L30 95 Q17 99 3 95 Z"/>
+    <path d="M136 84 Q123 88 109 85 L110 95 Q123 99 137 95 Z"/>
+    <path d="M31 90 L109 90 L109 99 Q109 104 104 104 L36 104 Q31 104 31 99 Z"/>
+  </g>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M51 3 Q70 23 89 3"/>
+    <path d="M12 89 L12 94 M19 89 L19 95 M26 88 L26 94"/>
+    <path d="M128 89 L128 94 M121 89 L121 95 M114 88 L114 94"/>
+    <path d="M42 93 L42 100 M56 93 L56 100 M70 93 L70 100 M84 93 L84 100 M98 93 L98 100"/>
+    <path d="M36 30 Q38 50 35 70"/>
+    <path d="M104 30 Q102 50 105 70"/>
+  </g>
+</svg>

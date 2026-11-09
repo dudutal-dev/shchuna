@@ -11,6 +11,8 @@ interface Spec {
   artStates?: PropDef['artStates'];
   useOnPoint?: PropDef['useOnPoint'];
   letter?: PropDef['letter'];
+  food?: boolean;
+  changesOutfit?: PropDef['changesOutfit'];
 }
 
 /** Items are draggable unless they say otherwise; furniture is fixed. */
@@ -27,6 +29,8 @@ function prop(id: string, name: Name, spec: Spec): PropDef {
     ...(spec.artStates ? { artStates: spec.artStates } : {}),
     ...(spec.useOnPoint ? { useOnPoint: spec.useOnPoint } : {}),
     ...(spec.letter ? { letter: spec.letter } : {}),
+    ...(spec.food ? { food: true } : {}),
+    ...(spec.changesOutfit ? { changesOutfit: spec.changesOutfit } : {}),
   };
 }
 
@@ -37,7 +41,7 @@ const when = (state: PropState, art: string, frames?: string[]) => [
 
 const definitions: PropDef[] = [
   // Shared and engine-test props.
-  prop('apple', 'apple', { art: 'playground/apple.svg' }),
+  prop('apple', 'apple', { art: 'playground/apple.svg', food: true }),
   prop('ball', 'ball', { art: 'playground/ball.svg' }),
   prop('cup', 'cup', {
     art: 'playground/cup.svg',
@@ -83,9 +87,9 @@ const definitions: PropDef[] = [
   }),
   prop('chair', 'chair', { art: 'home/chair.svg', layer: 'furniture' }),
   prop('plate', 'plate', { art: 'home/plate.svg' }),
-  prop('bread', 'bread', { art: 'home/bread.svg' }),
-  prop('milk', 'milk', { art: 'home/milk.svg' }),
-  prop('cake', 'cake', { art: 'home/cake.svg' }),
+  prop('bread', 'bread', { art: 'home/bread.svg', food: true }),
+  prop('milk', 'milk', { art: 'home/milk.svg', food: true }),
+  prop('cake', 'cake', { art: 'home/cake.svg', food: true }),
 
   // Living room.
   prop('sofa', 'sofa', { art: 'home/sofa.svg', layer: 'furniture' }),
@@ -112,6 +116,7 @@ const definitions: PropDef[] = [
     artStates: when({ open: true }, 'home/wardrobe-open.svg'),
     layer: 'furniture',
     interactions: toggle('open'),
+    changesOutfit: { key: 'open' },
   }),
   prop('book', 'book', { art: 'home/book.svg' }),
   prop('teddy', 'teddy', { art: 'home/teddy.svg' }),

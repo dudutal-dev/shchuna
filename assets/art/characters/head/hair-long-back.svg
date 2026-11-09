@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- TINTED. Back mass of long hair, drawn BEHIND the head -->
+  <path d="M100 26 A74 74 0 0 1 174 100 L176 196 Q178 214 160 214 Q130 218 100 212 Q70 218 40 214 Q22 214 24 196 L26 100 A74 74 0 0 1 100 26 Z" fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M36 150 L36 204"/>
+    <path d="M164 150 L164 204"/>
+  </g>
+</svg>

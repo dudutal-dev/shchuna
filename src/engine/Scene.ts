@@ -7,9 +7,11 @@ import {
   type FederatedPointerEvent,
   type Ticker,
 } from 'pixi.js';
-import type { Actions } from '../app/actions';
+import type { Actions, EntityChange } from '../app/actions';
+import { cycle } from '../characters/catalog';
 import type { GameStore } from '../app/store';
-import type { LocationId, PropDef, PropInstance } from '../types';
+import { CharacterEntity, characterArt } from '../characters/CharacterEntity';
+import type { Character, LocationId, PropDef, PropInstance } from '../types';
 import { getArt, loadArt } from './art';
 import type { SoundPlayer } from './AudioManager';
 import { rtl } from './text';
@@ -25,6 +27,10 @@ const EDGE_SCROLL_SPEED_PX_PER_MS = 0.7;
 const NAME_BUBBLE_MS = 2500;
 /** Screen pixels, per the 32px minimum for text a child sees. */
 const NAME_FONT_PX = 40;
+/** How close to an open wardrobe a character must be put down to change clothes. */
+const OUTFIT_RADIUS = 150;
+/** Characters are aimed by their body, not their feet, so seats catch them from further away. */
+const SEAT_SNAP_RADIUS = 150;
 
 export interface LocationData {
   id: LocationId;
@@ -34,6 +40,8 @@ export interface LocationData {
   floor: FloorBand;
   surfaces: Surface[];
   props: PropInstance[];
+  /** Part of the place that goes dark while someone lies on this surface (a bedroom). */
+  dim?: { surface: string; x: number; width: number };
 }
 
 export interface SceneContext {
@@ -48,7 +56,7 @@ type PointerSession =
   | { kind: 'pan'; lastX: number }
   | {
       kind: 'entity';
-      entity: PropEntity;
+      entity: PropEntity | CharacterEntity;
       gesture: GestureTracker;
       dragging: boolean;
       grabX: number;
@@ -66,6 +74,9 @@ export class Scene {
   private readonly itemLayer = new Container();
   private readonly overlay = new Container();
   private readonly entities = new Map<string, PropEntity>();
+  private readonly characters = new Map<string, CharacterEntity>();
+  private readonly darkness = new Graphics();
+  private darknessTarget = 0;
   private readonly pointers = new Map<number, PointerSession>();
   private unsubscribe: (() => void) | undefined;
   private scale = 1;
@@ -77,7 +88,9 @@ export class Scene {
     private readonly data: LocationData,
   ) {
     this.itemLayer.sortableChildren = true;
-    this.world.addChild(this.backgroundLayer, this.furnitureLayer, this.itemLayer);
+    this.darkness.alpha = 0;
+    this.darkness.eventMode = 'none';
+    this.world.addChild(this.backgroundLayer, this.furnitureLayer, this.itemLayer, this.darkness);
     this.view.addChild(this.world, this.overlay);
   }
 
@@ -86,6 +99,7 @@ export class Scene {
     actions.seedProps(this.data.props);
     const instances = this.instances();
     const art = instances.flatMap((instance) => allArtOf(this.defOf(instance)));
+    if (this.people().length > 0) art.push(...characterArt());
     await Promise.all([loadArt(art), loadArt(this.data.background, true)]);
 
     // Tiles keep each texture inside the 4096px limit of older iPads.
@@ -99,6 +113,11 @@ export class Scene {
       this.backgroundLayer.addChild(tile);
     }
     for (const instance of instances) this.addEntity(instance);
+    for (const character of this.people()) this.addCharacter(character);
+    if (this.data.dim) {
+      const { x, width } = this.data.dim;
+      this.darkness.rect(x, 0, width, WORLD_HEIGHT).fill(0x1d2550);
+    }
     this.sync();
 
     this.unsubscribe = store.subscribe(() => this.sync());
@@ -129,9 +148,9 @@ export class Scene {
     this.view.destroy({ children: true });
   }
 
-  /** Screen position of a prop's centre, or null if it isn't in this scene. */
+  /** Screen position of a prop's or character's centre, or null if it isn't in this scene. */
   entityCenter(id: string): { x: number; y: number } | null {
-    const entity = this.entities.get(id);
+    const entity = this.entities.get(id) ?? this.characters.get(id);
     if (!entity) return null;
     const bounds = entity.getBounds();
     return { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
@@ -139,6 +158,22 @@ export class Scene {
 
   isEntityVisible(id: string): boolean {
     return this.entities.get(id)?.visible ?? false;
+  }
+
+  /** How dark the dimmable part of the place is, from 0 to 1. */
+  darknessLevel(): number {
+    return this.darkness.alpha;
+  }
+
+  private people(): Character[] {
+    return this.ctx.store.state.characters.filter((c) => c.location === this.data.id);
+  }
+
+  private addCharacter(character: Character): void {
+    const entity = new CharacterEntity(character);
+    entity.on('pointerdown', (event) => this.onEntityDown(entity, event));
+    this.itemLayer.addChild(entity);
+    this.characters.set(character.id, entity);
   }
 
   private instances(): PropInstance[] {
@@ -172,6 +207,20 @@ export class Scene {
       const moved = entity.targetX !== instance.x || entity.targetY !== instance.y;
       if (moved && !this.isDragging(entity)) entity.moveTo(instance.x, instance.y, true);
     }
+    let dark = false;
+    for (const character of this.people()) {
+      const entity = this.characters.get(character.id);
+      if (!entity) continue;
+      entity.apply(character);
+      const moved = entity.targetX !== character.x || entity.targetY !== character.y;
+      if (moved && !this.isDragging(entity)) entity.moveTo(character.x, character.y, true);
+      if (character.pose === 'lie' && character.on === this.data.dim?.surface) dark = true;
+    }
+    const target = dark ? 0.35 : 0;
+    if (this.darknessTarget !== target) {
+      this.darknessTarget = target;
+      tween(this.darkness, { alpha: target }, 900);
+    }
   }
 
   private isDragging(entity: Entity): boolean {
@@ -201,7 +250,7 @@ export class Scene {
     this.pointers.set(event.pointerId, { kind: 'pan', lastX: event.global.x });
   }
 
-  private onEntityDown(entity: PropEntity, event: FederatedPointerEvent): void {
+  private onEntityDown(entity: PropEntity | CharacterEntity, event: FederatedPointerEvent): void {
     event.stopPropagation();
     this.ctx.audio.sfx('tap');
     entity.squish();
@@ -256,8 +305,14 @@ export class Scene {
     if (!session) return;
     this.pointers.delete(event.pointerId);
     if (session.kind !== 'entity') return;
-    if (session.dragging) this.drop(session.entity);
-    else if (session.gesture.up()) this.tap(session.entity);
+    const { entity } = session;
+    if (entity instanceof CharacterEntity) {
+      if (session.dragging) this.dropCharacter(entity);
+      else if (session.gesture.up()) entity.hop();
+      return;
+    }
+    if (session.dragging) this.drop(entity);
+    else if (session.gesture.up()) this.tap(entity);
   };
 
   private tap(entity: PropEntity): void {
@@ -281,6 +336,15 @@ export class Scene {
     const instance = instances.find((prop) => prop.id === entity.entityId);
     if (!instance) return;
     const { floor, surfaces, width, id } = this.data;
+    // Let go of it, if someone was holding it.
+    const holder = this.people().find((c) => c.holding === instance.id);
+    const release: EntityChange[] = holder ? [{ id: holder.id, holding: null }] : [];
+    const receiver = this.characterAt(entity.getGlobalPosition(), holder?.id);
+    if (receiver) {
+      entity.setLifted(false);
+      this.give(entity, instance, receiver, release);
+      return;
+    }
     const usable = openSurfaces(surfaces, instances);
     const landing = resolveDrop({ x: entity.x, y: entity.y }, usable, floor, width);
     entity.setLifted(false);
@@ -302,21 +366,118 @@ export class Scene {
         ...(own.length > 0 ? { state } : {}),
       },
       ...others,
+      ...release,
     ]);
+  }
+
+  /** The character under a screen point, if any, other than `except`. */
+  private characterAt(point: { x: number; y: number }, except?: string): Character | undefined {
+    for (const character of this.people()) {
+      if (character.id === except) continue;
+      const entity = this.characters.get(character.id);
+      const local = entity?.toLocal(point);
+      if (local && entity?.hitArea?.contains(local.x, local.y)) return character;
+    }
+    return undefined;
+  }
+
+  /** A prop handed to a character: food gets eaten, anything else is held. */
+  private give(
+    entity: PropEntity,
+    instance: PropInstance,
+    receiver: Character,
+    release: EntityChange[],
+  ): void {
+    const person = this.characters.get(receiver.id);
+    if (entity.def.food) {
+      // Eaten, and it goes back where it came from, so there is always more.
+      const origin = this.data.props.find((p) => p.id === instance.id) ?? instance;
+      person?.munch();
+      this.ctx.audio.sfx('yum');
+      this.ctx.actions.commit(this.data.id, [
+        { id: instance.id, x: origin.x, y: origin.y, on: origin.on ?? null },
+        ...release,
+      ]);
+      return;
+    }
+    this.ctx.audio.sfx('success');
+    const changes: EntityChange[] = [
+      ...release,
+      { id: receiver.id, holding: instance.id },
+      { id: instance.id, on: null },
+    ];
+    // Whatever was in that hand before goes down at the character's feet.
+    const dropped = receiver.holding;
+    if (dropped && dropped !== instance.id) {
+      const y = Math.max(receiver.y, this.data.floor.top);
+      changes.push({ id: dropped, x: receiver.x + 50, y, on: null });
+    }
+    this.ctx.actions.commit(this.data.id, changes);
+  }
+
+  private dropCharacter(entity: CharacterEntity): void {
+    const character = this.people().find((c) => c.id === entity.entityId);
+    if (!character) return;
+    const { floor, surfaces, width, id } = this.data;
+    const seats = openSurfaces(surfaces, this.instances()).filter((s) => s.pose);
+    const landing = resolveDrop({ x: entity.x, y: entity.y }, seats, floor, width, SEAT_SNAP_RADIUS);
+    const surface = surfaces.find((s) => s.id === landing.surfaceId);
+    entity.setLifted(false);
+    entity.moveTo(landing.x, landing.y, true);
+    const change: EntityChange = {
+      id: character.id,
+      x: landing.x,
+      y: landing.y,
+      on: landing.surfaceId,
+      pose: surface?.pose ?? 'stand',
+    };
+    const wardrobe = this.outfitChangerNear(landing);
+    if (wardrobe) change.appearance = cycle(character.appearance, 'clothes');
+    this.ctx.audio.sfx(wardrobe ? 'success' : 'drop');
+    this.ctx.actions.commit(id, [change]);
+    if (wardrobe) entity.taDa();
+  }
+
+  /** An open wardrobe close to this point, if there is one. */
+  private outfitChangerNear(point: { x: number; y: number }): PropInstance | undefined {
+    return this.instances().find((instance) => {
+      const changer = this.ctx.defs[instance.defId]?.changesOutfit;
+      if (!changer || instance.state?.[changer.key] !== true) return false;
+      return (
+        Math.abs(instance.x - point.x) < OUTFIT_RADIUS &&
+        Math.abs(instance.y - point.y) < OUTFIT_RADIUS
+      );
+    });
   }
 
   private readonly onTick = (ticker: Ticker): void => {
     const now = performance.now();
     for (const entity of this.entities.values()) entity.animate(ticker.deltaMS);
+    for (const entity of this.characters.values()) entity.animate(ticker.deltaMS);
+    this.placeHeldProps();
     for (const session of this.pointers.values()) {
       if (session.kind !== 'entity') continue;
-      if (session.gesture.tick(now)) {
+      if (session.gesture.tick(now) && session.entity instanceof PropEntity) {
         this.showBubble(session.entity);
         this.ctx.audio.say(session.entity.def.voiceLine);
       }
       if (session.dragging) this.edgeScroll(session, ticker.deltaMS);
     }
   };
+
+  /** Keeps every held prop in its holder's hand, wherever the holder goes. */
+  private placeHeldProps(): void {
+    for (const character of this.people()) {
+      if (!character.holding) continue;
+      const prop = this.entities.get(character.holding);
+      const person = this.characters.get(character.id);
+      if (!prop || !person || this.isDragging(prop)) continue;
+      const hand = person.handPoint();
+      // A held prop hangs from the hand by its middle, not its feet.
+      prop.position.set(hand.x, hand.y + prop.height / 2);
+      prop.zIndex = person.zIndex + 1;
+    }
+  }
 
   /** Holding a dragged prop near the screen edge carries it into the next part of the room. */
   private edgeScroll(

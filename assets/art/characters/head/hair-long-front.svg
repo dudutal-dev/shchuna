@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- TINTED. Long hair top: side part on the right, fringe sweeping left, locks to y~158 -->
+  <path d="M23 150 L22 98 A78 72 0 0 1 178 98 L177 150 Q177 158 169 158 L164 158 L158 158 Q151 158 151 150 L152 100 Q150 80 134 68 Q128 72 124 60 Q104 82 72 74 Q54 76 50 100 L49 150 Q49 158 42 158 L31 158 Q23 158 23 150 Z" fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M124 34 Q124 46 124 58"/>
+    <path d="M112 44 Q96 62 72 66"/>
+    <path d="M100 38 Q76 46 60 68"/>
+    <path d="M140 46 Q156 62 160 90"/>
+    <path d="M36 100 L36 146"/>
+    <path d="M164 104 L164 146"/>
+  </g>
+</svg>

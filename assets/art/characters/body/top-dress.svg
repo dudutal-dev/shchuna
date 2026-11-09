@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+  <!-- TINTED. Puffy sleeves, fitted top, flared skirt to the knees (replaces the bottom) -->
+  <g fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round">
+    <path d="M40 3 Q14 0 9 20 Q6 34 16 36 Q28 38 38 32 L42 14 Z"/>
+    <path d="M100 3 Q126 0 131 20 Q134 34 124 36 Q112 38 102 32 L98 14 Z"/>
+    <path d="M55 0 L38 3 Q28 6 28 16 L31 64 Q30 108 15 144 Q13 152 22 152 L118 152 Q127 152 125 144 Q110 108 109 64 L112 16 Q112 6 102 3 L85 0 Q70 16 55 0 Z"/>
+  </g>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M12 29 Q24 34 36 27"/>
+    <path d="M128 29 Q116 34 104 27"/>
+    <path d="M52 4 Q70 22 88 4"/>
+    <path d="M32 66 Q70 74 108 66"/>
+    <path d="M50 82 L42 144 M70 84 L70 146 M90 82 L98 144"/>
+  </g>
+</svg>

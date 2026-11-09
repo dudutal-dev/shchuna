@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- FIXED colours. Red cap, peak facing forward-left -->
+  <path d="M30 82 C26 2 174 2 170 82 Q100 70 30 82 Z" fill="#E4573D" stroke="#A8372A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M96 76 Q60 72 32 80 Q10 86 8 96 Q40 100 92 86 Z" fill="#C8432D" stroke="#A8372A" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#C8432D" stroke-width="3" stroke-linecap="round">
+    <path d="M100 30 Q92 50 94 72"/>
+    <path d="M118 34 Q132 52 136 74"/>
+  </g>
+  <circle cx="100" cy="28" r="5" fill="#C8432D" stroke="#A8372A" stroke-width="3"/>
+  <path d="M60 40 Q70 32 82 30" fill="none" stroke="#F08A74" stroke-width="4" stroke-linecap="round"/>
+</svg>

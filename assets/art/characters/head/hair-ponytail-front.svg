@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- TINTED. Neat pulled-back hair, hairline ~y 64 -->
+  <path d="M30 98 A70 70 0 0 1 170 98 Q170 106 165 106 Q160 106 160 98 Q156 76 134 66 Q100 56 66 66 Q44 76 40 98 Q40 106 35 106 Q30 106 30 98 Z" fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M70 58 Q104 34 140 42"/>
+    <path d="M52 76 Q80 46 128 40"/>
+    <path d="M100 50 Q128 40 148 52"/>
+  </g>
+</svg>

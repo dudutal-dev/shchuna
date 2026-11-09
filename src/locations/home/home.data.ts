@@ -24,6 +24,7 @@ function across(
   from: number,
   to: number,
   container?: Surface['container'],
+  pose?: Surface['pose'],
 ): Surface {
   const left = feetX - art.width / 2;
   return {
@@ -32,6 +33,7 @@ function across(
     y: feetY - art.height + top,
     width: to - from,
     ...(container ? { container } : {}),
+    ...(pose ? { pose } : {}),
   };
 }
 
@@ -67,10 +69,10 @@ const surfaces: Surface[] = [
   across('stove', STOVE_X, WALL_FEET, { width: 220, height: 250 }, 40, 20, 200),
   across('counter', SINK_X, WALL_FEET, { width: 300, height: 220 }, 82, 10, 290),
   across('table', TABLE_X, TABLE_FEET, { width: 320, height: 160 }, 12, 15, 305),
-  across('chair', CHAIR_X, 550, { width: 110, height: 190 }, 100, 10, 100),
+  across('chair', CHAIR_X, 550, { width: 110, height: 190 }, 100, 10, 100, undefined, 'sit'),
 
   across('tv-cabinet', CABINET_X, WALL_FEET, { width: 260, height: 110 }, 8, 10, 250),
-  across('sofa', SOFA_X, WALL_FEET, { width: 380, height: 190 }, 95, 40, 340),
+  across('sofa', SOFA_X, WALL_FEET, { width: 380, height: 190 }, 95, 40, 340, undefined, 'sit'),
   across('living-shelf', WALL_SHELF_X, WALL_SHELF_FEET, { width: 260, height: 44 }, 4, 10, 250),
 
   across('wardrobe', WARDROBE_X, WALL_FEET, WARDROBE, 250, 30, 190, {
@@ -78,7 +80,7 @@ const surfaces: Surface[] = [
     key: 'open',
   }),
   across('kids-shelf', KIDS_SHELF_X, WALL_SHELF_FEET, { width: 260, height: 44 }, 4, 10, 250),
-  across('bed', BED_X, 490, { width: 360, height: 170 }, 60, 20, 300),
+  across('bed', BED_X, 490, { width: 360, height: 170 }, 60, 20, 300, undefined, 'lie'),
 ];
 
 function surfaceY(id: string): number {
@@ -96,6 +98,8 @@ export const home: LocationData = {
   width: ROOM * 3,
   background: ['home/kids-bg.svg', 'home/living-bg.svg', 'home/kitchen-bg.svg'],
   floor: { top: 440, bottom: 570 },
+  // Someone in bed turns the kids' room down for the night.
+  dim: { surface: 'bed', x: KIDS, width: ROOM },
   surfaces,
   props: [
     // Kitchen.

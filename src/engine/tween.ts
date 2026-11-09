@@ -30,9 +30,15 @@ function step(ticker: Ticker): void {
     tween.elapsed += ticker.deltaMS;
     const t = Math.min(tween.elapsed / tween.duration, 1);
     const eased = tween.ease(t);
-    for (const key of Object.keys(tween.to)) {
-      const from = tween.from[key] ?? 0;
-      tween.target[key] = from + ((tween.to[key] ?? 0) - from) * eased;
+    try {
+      for (const key of Object.keys(tween.to)) {
+        const from = tween.from[key] ?? 0;
+        tween.target[key] = from + ((tween.to[key] ?? 0) - from) * eased;
+      }
+    } catch {
+      // Its owner was destroyed mid-animation, such as a button on a screen that just closed.
+      active.delete(tween);
+      continue;
     }
     if (t === 1) {
       active.delete(tween);

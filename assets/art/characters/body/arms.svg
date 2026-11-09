@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+  <!-- TINTED (skin). Hands centred at (17,106) and (123,106), r=12. -->
+  <g id="arm-left">
+    <g fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round">
+      <path d="M24 8 Q34 6 37 16 L27 97 L7 97 L13 18 Q15 10 24 8 Z"/>
+      <circle cx="17" cy="106" r="12"/>
+    </g>
+    <path d="M24 101 Q28 106 25 111" fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g id="arm-right" transform="translate(140 0) scale(-1 1)">
+    <g fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round">
+      <path d="M24 8 Q34 6 37 16 L27 97 L7 97 L13 18 Q15 10 24 8 Z"/>
+      <circle cx="17" cy="106" r="12"/>
+    </g>
+    <path d="M24 101 Q28 106 25 111" fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

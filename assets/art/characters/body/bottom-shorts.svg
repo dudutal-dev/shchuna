@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+  <!-- TINTED. Shorts, y 84-132 -->
+  <path d="M32 88 Q32 84 36 84 L104 84 Q108 84 109 88 L111 128 Q111 132 107 132 L77 132 Q73 132 73 128 L72 118 Q70 113 68 118 L67 128 Q67 132 63 132 L33 132 Q29 132 29 128 Z" fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M33 123 L64 123 M76 123 L107 123"/>
+  </g>
+</svg>

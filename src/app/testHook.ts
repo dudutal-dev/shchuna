@@ -2,17 +2,24 @@ import type { AudioManager } from '../engine/AudioManager';
 import type { SaveManager } from '../engine/SaveManager';
 import type { Scene } from '../engine/Scene';
 import type { SaveGame } from '../types';
-import type { Hud } from '../ui/Hud';
+import type { Hud, HudButtonId } from '../ui/Hud';
 import type { GameStore } from './store';
 
+type Point = { x: number; y: number };
+
 export interface TestHook {
-  stage: 'loading' | 'start' | 'playing';
+  stage: 'loading' | 'start' | 'playing' | 'creator';
   state(): SaveGame;
-  center(id: string): { x: number; y: number } | null;
+  /** A prop or character in the scene, or a creator control while the creator is open. */
+  center(id: string): Point | null;
   isVisible(id: string): boolean;
-  undoCenter(): { x: number; y: number };
+  undoCenter(): Point;
+  hudCenter(id: HudButtonId): Point;
+  darkness(): number;
   lastLine(): string | null;
   flushSave(): Promise<void>;
+  /** Set while the character creator is open. */
+  creatorCenter: ((id: string) => Point | null) | null;
 }
 
 declare global {
@@ -36,8 +43,11 @@ export function installTestHook(parts: {
     center: (id) => parts.scene.entityCenter(id),
     isVisible: (id) => parts.scene.isEntityVisible(id),
     undoCenter: () => parts.hud.undoCenter(),
+    hudCenter: (id) => parts.hud.center(id),
+    darkness: () => parts.scene.darknessLevel(),
     lastLine: () => parts.audio.lastLine,
     flushSave: () => parts.saves.flush(),
+    creatorCenter: null,
   };
   window.__shchuna = hook;
   return hook;

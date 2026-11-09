@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- FIXED colours. Pink hair bow, top-right of the head -->
+  <g transform="rotate(30 146 46)" fill="#E5508A" stroke="#B8396A" stroke-width="3" stroke-linejoin="round">
+    <path d="M146 46 Q130 28 122 36 Q116 46 122 56 Q130 64 146 46 Z"/>
+    <path d="M146 46 Q162 28 170 36 Q176 46 170 56 Q162 64 146 46 Z"/>
+    <ellipse cx="146" cy="46" rx="6" ry="8"/>
+  </g>
+  <path d="M128 38 Q132 36 136 40" transform="rotate(30 146 46)" fill="none" stroke="#F59AB9" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

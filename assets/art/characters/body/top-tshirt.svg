@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+  <!-- TINTED. Neckline matches the head's neck: (55,0)-(85,0), dipping to y=8 -->
+  <g fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round">
+    <path d="M38 3 Q16 5 11 20 L7 42 Q22 48 38 43 L42 14 Z"/>
+    <path d="M102 3 Q124 5 129 20 L133 42 Q118 48 102 43 L98 14 Z"/>
+    <path d="M55 0 L38 3 Q28 6 28 16 L31 98 Q31 103 36 103 L104 103 Q109 103 109 98 L112 16 Q112 6 102 3 L85 0 Q70 16 55 0 Z"/>
+  </g>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M10 35 Q22 40 34 37"/>
+    <path d="M130 35 Q118 40 106 37"/>
+    <path d="M52 4 Q70 22 88 4"/>
+    <path d="M34 94 L106 94"/>
+  </g>
+</svg>

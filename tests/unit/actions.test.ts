@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Actions } from '../../src/app/actions';
 import { GameStore } from '../../src/app/store';
+import { defaultFamily } from '../../src/characters/catalog';
 import { createNewSave } from '../../src/engine/SaveManager';
 import type { PropInstance } from '../../src/types';
 
@@ -70,6 +71,41 @@ describe('Actions', () => {
     expect(prop('a')?.on).toBe('table');
     actions.undo('home');
     expect(prop('a')?.on).toBeUndefined();
+  });
+
+  describe('characters', () => {
+    const family = defaultFamily();
+    const kid = () => store.state.characters.find((c) => c.id === 'family-3');
+
+    beforeEach(() => actions.seedCharacters(family));
+
+    it('seeds the family only into an empty save', () => {
+      expect(store.state.characters).toHaveLength(4);
+      actions.seedCharacters(family);
+      expect(store.state.characters).toHaveLength(4);
+    });
+
+    it('undoes lying on the bed as one step', () => {
+      actions.commit('home', [{ id: 'family-3', x: 820, y: 380, on: 'bed', pose: 'lie' }]);
+      expect(kid()).toMatchObject({ pose: 'lie', on: 'bed' });
+      actions.undo('home');
+      expect(kid()).toMatchObject({ pose: 'stand', x: 1720 });
+      expect(kid()?.on).toBeUndefined();
+    });
+
+    it('undoes a change of clothes', () => {
+      const before = structuredClone(kid()!.appearance);
+      actions.commit('home', [{ id: 'family-3', appearance: { ...before, outfit: 'lilac' } }]);
+      expect(kid()?.appearance.outfit).toBe('lilac');
+      actions.undo('home');
+      expect(kid()?.appearance).toEqual(before);
+    });
+
+    it('undoes picking up a prop', () => {
+      actions.commit('home', [{ id: 'family-3', holding: 'a' }]);
+      actions.undo('home');
+      expect(kid()?.holding).toBeUndefined();
+    });
   });
 
   it('seeds only the props a save is missing', () => {

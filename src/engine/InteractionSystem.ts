@@ -1,4 +1,4 @@
-import type { PropChange } from '../app/actions';
+import type { EntityChange } from '../app/actions';
 import type { Interaction, PropDef, PropInstance, PropState } from '../types';
 import type { Point } from './DragSystem';
 
@@ -42,7 +42,7 @@ export class GestureTracker {
 }
 
 /** What tapping this prop changes, if anything. */
-export function resolveTap(def: PropDef, instance: PropInstance): PropChange | null {
+export function resolveTap(def: PropDef, instance: PropInstance): EntityChange | null {
   for (const interaction of def.interactions) {
     if (interaction.type === 'toggle') {
       const { key } = interaction;
@@ -59,10 +59,10 @@ export function resolveUseOn(
   at: Point,
   defs: Readonly<Record<string, PropDef>>,
   instances: readonly PropInstance[],
-): PropChange[] {
+): EntityChange[] {
   const def = defs[source.defId];
   if (!def) return [];
-  let best: PropChange[] = [];
+  let best: EntityChange[] = [];
   let bestDistance = USE_ON_RADIUS;
   let matched: Interaction | undefined;
   for (const interaction of def.interactions) {

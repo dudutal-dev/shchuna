@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <!-- TINTED. Headscarf (mitpachat) covering head and hair, knot at back-left -->
+  <g fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round">
+    <path d="M28 120 Q12 132 14 156 Q24 150 30 136 Z"/>
+    <path d="M30 124 Q24 146 34 166 Q40 152 38 132 Z"/>
+    <path d="M34 150 Q22 120 26 92 A74 74 0 0 1 174 92 Q178 120 166 150 Q160 156 154 150 Q152 122 150 100 Q146 62 100 58 Q54 62 50 100 Q48 122 46 150 Q40 156 34 150 Z"/>
+    <circle cx="30" cy="120" r="11"/>
+  </g>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M42 96 Q50 50 100 46 Q150 50 158 96"/>
+    <path d="M70 32 Q100 26 130 32"/>
+    <path d="M160 120 L162 142"/>
+  </g>
+</svg>

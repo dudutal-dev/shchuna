@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="200" viewBox="0 0 140 200">
+  <!-- TINTED. Flared skirt, y 84-147 -->
+  <path d="M33 84 L107 84 Q111 84 112 89 L124 140 Q126 147 118 147 L22 147 Q14 147 16 140 L28 89 Q29 84 33 84 Z" fill="#FFFFFF" stroke="#8C8C8C" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#C8C8C8" stroke-width="3" stroke-linecap="round">
+    <path d="M48 108 L40 142 M70 108 L70 143 M92 108 L100 142"/>
+  </g>
+</svg>

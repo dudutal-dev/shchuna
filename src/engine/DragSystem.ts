@@ -16,6 +16,8 @@ export interface Surface {
   slots?: number[];
   /** A shelf inside something that opens: usable, and its props visible, only while open. */
   container?: { prop: string; key: string };
+  /** A character placed here sits (chair, sofa) or lies down (bed). */
+  pose?: 'sit' | 'lie';
 }
 
 interface StatefulProp {
