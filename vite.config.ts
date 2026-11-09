@@ -35,7 +35,12 @@ function cspPlugin(): Plugin {
 export default defineConfig({
   // Relative base: the same build works on Pages under any repo name, and later in Capacitor.
   base: './',
-  build: { target: 'es2022', chunkSizeWarningLimit: 1200 },
+  build: {
+    target: 'es2022',
+    chunkSizeWarningLimit: 1200,
+    // Pixi fetches art, and the CSP's connect-src doesn't allow data: URLs.
+    assetsInlineLimit: 0,
+  },
   plugins: [
     cspPlugin(),
     VitePWA({

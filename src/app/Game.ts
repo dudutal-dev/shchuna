@@ -1,12 +1,20 @@
-import { Application, Text } from 'pixi.js';
+import { Application } from 'pixi.js';
+import { propDefs } from '../content/props';
 import { strings } from '../content/strings.he';
+import { Scene } from '../engine/Scene';
+import { SaveManager } from '../engine/SaveManager';
+import { playground } from '../locations/playground/playground.data';
+import { Hud } from '../ui/Hud';
+import { Actions } from './actions';
+import { GameStore } from './store';
+import { installTestHook } from './testHook';
 
 const SKY = 0xbfe6ff;
-const INK = 0x3b2f2f;
 
-/** Boots the Pixi application and owns the top-level stage. */
+/** Boots the Pixi application and wires the game together. */
 export class Game {
   readonly app = new Application();
+  private readonly saves = new SaveManager();
 
   async start(host: HTMLElement): Promise<void> {
     await this.app.init({
@@ -21,17 +29,20 @@ export class Game {
     this.app.canvas.setAttribute('aria-label', strings.appName);
     host.appendChild(this.app.canvas);
 
-    const title = new Text({
-      text: strings.appName,
-      style: { fontFamily: 'Rubik', fontSize: 96, fontWeight: '700', fill: INK, padding: 24 },
-    });
-    title.anchor.set(0.5);
-    this.app.stage.addChild(title);
+    const store = new GameStore(await this.saves.load());
+    const actions = new Actions(store, this.saves);
 
-    const layout = (): void => {
-      title.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
-    };
-    this.app.renderer.on('resize', layout);
-    layout();
+    // Closing the tab can't wait for the debounce.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') void this.saves.flush();
+    });
+
+    const scene = new Scene({ app: this.app, store, actions, defs: propDefs }, playground);
+    await scene.enter();
+    const hud = new Hud(this.app, () => actions.undo(playground.id));
+    await hud.init();
+    this.app.stage.addChild(scene.view, hud.view);
+
+    installTestHook({ store, scene, hud, saves: this.saves });
   }
 }

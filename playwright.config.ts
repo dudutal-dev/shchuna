@@ -6,6 +6,8 @@ const PORT = 4173;
 // game's only orientation; portrait gets its own rotate-prompt test.
 export default defineConfig({
   testDir: 'tests/e2e',
+  // WebGL runs on the CPU here (SwiftShader), so drags are far slower than on a device.
+  timeout: 90_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,

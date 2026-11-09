@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="600" viewBox="0 0 1500 600">
+  <rect width="1500" height="600" fill="#F3E3C3"/>
+  <!-- Stone courses on the wall -->
+  <g fill="none" stroke="#E2CDA3" stroke-width="3" stroke-linecap="round">
+    <path d="M0 110H1500M0 220H1500M0 330H1500"/>
+    <path d="M120 0V110M420 0V110M900 0V110M1240 0V110M260 110V220M560 110V220M1120 110V220M1420 110V220M90 220V330M500 220V330M840 220V330M1290 220V330M380 330V440M660 330V440M1180 330V440"/>
+  </g>
+  <!-- Window: sky, hill, olive tree and bougainvillea -->
+  <g transform="translate(250 50)">
+    <rect x="-8" y="-8" width="236" height="216" rx="22" fill="#FFF7E6" stroke="#CDB68B" stroke-width="5"/>
+    <rect width="220" height="200" rx="16" fill="#BFE6FF"/>
+    <circle cx="170" cy="46" r="24" fill="#FFC23C"/>
+    <path d="M0 150 Q70 104 140 140 T220 126 V184 Q220 200 204 200 H16 Q0 200 0 184Z" fill="#7FAF6B"/>
+    <rect x="62" y="110" width="12" height="52" rx="5" fill="#8A6A4F"/>
+    <circle cx="68" cy="94" r="30" fill="#5E9457"/>
+    <circle cx="44" cy="108" r="19" fill="#6FA263"/>
+    <circle cx="92" cy="108" r="19" fill="#6FA263"/>
+    <g fill="#E5508A"><circle cx="16" cy="20" r="14"/><circle cx="40" cy="12" r="12"/><circle cx="12" cy="46" r="11"/><circle cx="66" cy="10" r="9"/></g>
+    <path d="M110 0V200M0 100H220" stroke="#FFF7E6" stroke-width="7"/>
+  </g>
+  <g fill="#3E8E7E">
+    <rect x="186" y="42" width="48" height="216" rx="9"/>
+    <rect x="486" y="42" width="48" height="216" rx="9"/>
+  </g>
+  <g stroke="#2F7264" stroke-width="4" stroke-linecap="round">
+    <path d="M196 72H224M196 102H224M196 132H224M196 162H224M196 192H224M196 222H224"/>
+    <path d="M496 72H524M496 102H524M496 132H524M496 162H524M496 192H524M496 222H524"/>
+  </g>
+  <!-- Floor tiles -->
+  <rect y="430" width="1500" height="170" fill="#E8C7A0"/>
+  <rect y="430" width="1500" height="10" fill="#D5AF84"/>
+  <g stroke="#D5AF84" stroke-width="4">
+    <path d="M0 500H1500M0 550H1500"/>
+    <path d="M100 440L70 600M300 440L280 600M500 440L490 600M700 440V600M900 440L910 600M1100 440L1120 600M1300 440L1330 600"/>
+  </g>
+</svg>
