@@ -92,7 +92,52 @@ describe('resolveUseOn', () => {
 
 describe('artFor', () => {
   it('uses the art matching the state, else the default', () => {
-    expect(artFor(cup, instance('c', 'cup'))).toBe('a.svg');
-    expect(artFor(cup, { ...instance('c', 'cup'), state: { filled: true } })).toBe('cup-full.svg');
+    expect(artFor(cup, instance('c', 'cup'))).toEqual(['a.svg']);
+    expect(artFor(cup, { ...instance('c', 'cup'), state: { filled: true } })).toEqual([
+      'cup-full.svg',
+    ]);
+  });
+
+  it('returns every frame of an animated state', () => {
+    const tv: PropDef = {
+      ...base,
+      id: 'tv',
+      artStates: [{ when: { on: true }, art: 'on1.svg', frames: ['on1.svg', 'on2.svg'] }],
+      interactions: [],
+    };
+    expect(artFor(tv, { ...instance('t', 'tv'), state: { on: true } })).toEqual([
+      'on1.svg',
+      'on2.svg',
+    ]);
+  });
+});
+
+describe('whileNear', () => {
+  const stove: PropDef = { ...base, id: 'stove', interactions: [] };
+  const pot: PropDef = {
+    ...base,
+    id: 'pot',
+    interactions: [{ type: 'useOn', target: 'stove', setSource: { boiling: true }, whileNear: true }],
+  };
+  const potDefs = { stove, pot };
+  const all = [instance('s', 'stove', 100, 100)];
+
+  it('starts the effect on the target', () => {
+    const p = instance('p', 'pot');
+    expect(resolveUseOn(p, { x: 100, y: 100 }, potDefs, [...all, p])).toEqual([
+      { id: 'p', state: { boiling: true } },
+    ]);
+  });
+
+  it('ends it when moved away', () => {
+    const p = { ...instance('p', 'pot'), state: { boiling: true } };
+    expect(resolveUseOn(p, { x: 900, y: 900 }, potDefs, [...all, p])).toEqual([
+      { id: 'p', state: { boiling: undefined } },
+    ]);
+  });
+
+  it('leaves a lasting effect alone when moved away', () => {
+    const full = { ...instance('c', 'cup'), state: { filled: true } };
+    expect(resolveUseOn(full, { x: 900, y: 900 }, defs, [full])).toEqual([]);
   });
 });

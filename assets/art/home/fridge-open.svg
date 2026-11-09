@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="330" viewBox="0 0 200 330">
+  <g fill="#8FA3AD" stroke="#6F838D" stroke-width="4" stroke-linejoin="round">
+    <rect x="26" y="306" width="28" height="22" rx="6"/>
+    <rect x="146" y="306" width="28" height="22" rx="6"/>
+  </g>
+  <rect x="6" y="4" width="188" height="312" rx="24" fill="#DFF1E6" stroke="#9CC3AE" stroke-width="4"/>
+  <path d="M8 102H192" stroke="#9CC3AE" stroke-width="4"/>
+  <rect x="156" y="36" width="14" height="46" rx="7" fill="#F7F1E3" stroke="#B8A98C" stroke-width="4"/>
+  <path d="M28 30 V76" stroke="#F6FCF8" stroke-width="7" stroke-linecap="round"/>
+  <!-- Lit interior -->
+  <rect x="46" y="108" width="142" height="204" rx="10" fill="#DDF3FF" stroke="#9CC3AE" stroke-width="4"/>
+  <ellipse cx="117" cy="114" rx="30" ry="4" fill="#FFF7D6"/>
+  <g stroke="#8FBBD6" stroke-width="5" stroke-linecap="round">
+    <path d="M50 120H185M50 200H185M50 280H185"/>
+  </g>
+  <path d="M50 310H185" stroke="#9CC3AE" stroke-width="4" stroke-linecap="round"/>
+  <!-- Open door seen edge-on -->
+  <rect x="2" y="104" width="38" height="214" rx="10" fill="#CDE7D7" stroke="#9CC3AE" stroke-width="4"/>
+  <rect x="9" y="118" width="24" height="186" rx="6" fill="#EAF6EF"/>
+  <g stroke="#9CC3AE" stroke-width="4" stroke-linecap="round">
+    <path d="M10 170H32M10 236H32M10 296H32"/>
+  </g>
+  <g stroke-width="3" stroke-linejoin="round">
+    <rect x="13" y="148" width="8" height="20" rx="3" fill="#FFC23C" stroke="#C78F1E"/>
+    <rect x="22" y="214" width="8" height="20" rx="3" fill="#E5508A" stroke="#B8396A"/>
+  </g>
+</svg>

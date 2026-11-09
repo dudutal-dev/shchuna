@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#DFE2F6"/>
+  <!-- Stone courses on the wall -->
+  <g fill="none" stroke="#CDD1EE" stroke-width="3" stroke-linecap="round">
+    <path d="M0 110H1100M0 220H1100M0 330H1100"/>
+    <path d="M200 110V220M520 110V220M1000 110V220M120 220V330M440 220V330M980 220V330M340 330V430M620 330V430M990 330V430M980 0V110"/>
+  </g>
+  <!-- Bunting garland -->
+  <path d="M60 40 Q350 120 640 40" fill="none" stroke="#8A6A4F" stroke-width="3"/>
+  <g stroke-width="3" stroke-linejoin="round">
+    <path d="M102 52 L134 56 L116 88Z" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M160 63 L192 68 L175 100Z" fill="#FFC23C" stroke="#C78F1E"/>
+    <path d="M218 72 L250 76 L233 108Z" fill="#3E8E7E" stroke="#2F7264"/>
+    <path d="M276 77 L308 79 L292 112Z" fill="#58B8EA" stroke="#3B8DBF"/>
+    <path d="M334 80 L366 80 L350 114Z" fill="#7FAF6B" stroke="#55864A"/>
+    <path d="M392 79 L424 77 L408 112Z" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M450 76 L482 72 L467 108Z" fill="#FFC23C" stroke="#C78F1E"/>
+    <path d="M508 68 L540 63 L525 100Z" fill="#3E8E7E" stroke="#2F7264"/>
+    <path d="M566 56 L598 52 L584 88Z" fill="#58B8EA" stroke="#3B8DBF"/>
+  </g>
+  <circle cx="60" cy="40" r="6" fill="#8A6A4F"/>
+  <circle cx="640" cy="40" r="6" fill="#8A6A4F"/>
+  <!-- Star decals -->
+  <g fill="#FFE08A" stroke="#E3B94A" stroke-width="3" stroke-linejoin="round">
+    <path transform="translate(140 260) scale(1.3)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+    <path transform="translate(300 200)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+    <path transform="translate(520 300) scale(1.1)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+    <path transform="translate(1010 160) scale(1.2)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+    <path transform="translate(1040 330) scale(.8)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+  </g>
+  <!-- Night window -->
+  <rect x="692" y="52" width="216" height="206" rx="22" fill="#FFF7E6" stroke="#CDB68B" stroke-width="5"/>
+  <rect x="700" y="60" width="200" height="190" rx="16" fill="#2C3E73"/>
+  <circle cx="852" cy="112" r="26" fill="#FFE9A8"/>
+  <circle cx="864" cy="102" r="22" fill="#2C3E73"/>
+  <g fill="#FFE9A8">
+    <path transform="translate(730 90) scale(.45)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+    <path transform="translate(778 130) scale(.35)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+    <path transform="translate(820 180) scale(.4)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+    <circle cx="760" cy="76" r="3"/><circle cx="716" cy="140" r="3"/><circle cx="740" cy="176" r="2.5"/><circle cx="880" cy="170" r="3"/><circle cx="812" cy="82" r="2.5"/><circle cx="884" cy="74" r="2.5"/>
+  </g>
+  <path d="M700 222 Q760 198 820 214 T900 206 V234 Q900 250 884 250 H716 Q700 250 700 234Z" fill="#23325E"/>
+  <path d="M724 230 V212 L738 200 L752 212 V230Z" fill="#1B2850"/>
+  <rect x="733" y="214" width="9" height="9" rx="2" fill="#FFC23C"/>
+  <path d="M800 60V250M700 155H900" stroke="#FFF7E6" stroke-width="7"/>
+  <!-- Curtains -->
+  <path d="M664 40 V40 H712 Q700 90 712 140 Q700 200 716 270 Q690 280 664 270Z" fill="#F4A6C3" stroke="#D07798" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M936 40 H888 Q900 90 888 140 Q900 200 884 270 Q910 280 936 270Z" fill="#F4A6C3" stroke="#D07798" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M654 38 H946" stroke="#6B4C35" stroke-width="7" stroke-linecap="round"/>
+  <!-- Floor tiles -->
+  <rect y="430" width="1100" height="170" fill="#E8C7A0"/>
+  <rect y="430" width="1100" height="10" fill="#D5AF84"/>
+  <g stroke="#D5AF84" stroke-width="4">
+    <path d="M0 500H1100M0 550H1100"/>
+    <path d="M110 440L75 600M330 440L312 600M550 440V600M770 440L788 600M990 440L1025 600"/>
+  </g>
+</svg>

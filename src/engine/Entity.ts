@@ -2,7 +2,7 @@ import { Container, Graphics, Rectangle, Sprite } from 'pixi.js';
 import type { Interaction, PropDef, PropInstance } from '../types';
 import { getArt } from './art';
 import { artFor } from './InteractionSystem';
-import { easeOutBack, tween } from './tween';
+import { easeOutBack, easeOutElastic, tween } from './tween';
 
 /**
  * Smallest touch target in world units. The world is 600 units tall, so on a
@@ -59,9 +59,13 @@ export abstract class Entity extends Container {
   }
 }
 
+const FRAME_MS = 280;
+
 export class PropEntity extends Entity {
   private readonly sprite = new Sprite();
-  private currentArt = '';
+  private frames: string[] = [];
+  private frameElapsed = 0;
+  private frameIndex = 0;
 
   constructor(
     readonly def: PropDef,
@@ -76,9 +80,39 @@ export class PropEntity extends Entity {
 
   /** Shows the art matching the instance's state. */
   applyInstance(instance: PropInstance): void {
-    const art = artFor(this.def, instance);
-    if (art === this.currentArt) return;
-    this.currentArt = art;
+    const frames = artFor(this.def, instance);
+    if (frames.join('|') === this.frames.join('|')) return;
+    this.frames = frames;
+    this.frameIndex = 0;
+    this.frameElapsed = 0;
+    this.showFrame();
+  }
+
+  /** Hidden props, such as milk in a closed fridge, can't be seen or touched. */
+  setHidden(hidden: boolean): void {
+    this.visible = !hidden;
+    this.eventMode = hidden ? 'none' : 'static';
+  }
+
+  /** Steps any frame animation along. Call every tick. */
+  animate(deltaMs: number): void {
+    if (this.frames.length < 2) return;
+    this.frameElapsed += deltaMs;
+    if (this.frameElapsed < FRAME_MS) return;
+    this.frameElapsed = 0;
+    this.frameIndex = (this.frameIndex + 1) % this.frames.length;
+    this.showFrame();
+  }
+
+  /** A happy shake, for a tap that changes nothing. */
+  wiggle(): void {
+    this.rotation = 0.12;
+    tween(this, { rotation: 0 }, 420, easeOutElastic);
+  }
+
+  private showFrame(): void {
+    const art = this.frames[this.frameIndex];
+    if (!art) return;
     this.sprite.texture = getArt(art);
     const width = Math.max(this.sprite.width, MIN_TOUCH);
     const height = Math.max(this.sprite.height, MIN_TOUCH);

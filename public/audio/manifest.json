@@ -53,6 +53,132 @@
       "text": "שֻׁלְחָן",
       "durationMs": 1280,
       "hash": "0827bb7106f2ad956075a4856d2bb9a5be3b2e8f9b9b93922a132939853a83ac"
+    },
+    "prop.fridge": {
+      "file": "public/audio/lines/prop.fridge.mp3",
+      "text": "מְקָרֵר",
+      "durationMs": 1840,
+      "hash": "f684f41b9d4c0db3b838e3b13510eff3b07f8ba70152f9270ff29b9b9123822c"
+    },
+    "prop.stove": {
+      "file": "public/audio/lines/prop.stove.mp3",
+      "text": "כִּירַיִם",
+      "durationMs": 960,
+      "hash": "b1ddf5561a1a005d9df6ba7ca90cc08cc6736156320c236d0507beb4cf0495fc"
+    },
+    "prop.pot": {
+      "file": "public/audio/lines/prop.pot.mp3",
+      "text": "סִיר",
+      "durationMs": 1760,
+      "hash": "f3fcc2fe6e6b1e454798dee4529107bc2617633a986aa855ab8b26d91809f581"
+    },
+    "prop.chair": {
+      "file": "public/audio/lines/prop.chair.mp3",
+      "text": "כִּסֵּא",
+      "durationMs": 880,
+      "hash": "15d622bac0b1dd1fb0df54a18a29e10999ead7da49e068a23384ae7728de75bb"
+    },
+    "prop.plate": {
+      "file": "public/audio/lines/prop.plate.mp3",
+      "text": "צַלַּחַת",
+      "durationMs": 1600,
+      "hash": "b1d6874653045352eb9ee68a45528b783e07ed6457429988bc18a1aca3cbcd20"
+    },
+    "prop.bread": {
+      "file": "public/audio/lines/prop.bread.mp3",
+      "text": "לֶחֶם",
+      "durationMs": 1040,
+      "hash": "57716d45f423861eaab25ca8f7ed7c2e03914b1e4cdf1cccc1795d04f81cd391"
+    },
+    "prop.milk": {
+      "file": "public/audio/lines/prop.milk.mp3",
+      "text": "חָלָב",
+      "durationMs": 1040,
+      "hash": "9729166f9856c653d471573a16f12c45a15e57ee51ff5689d796a4325aab51e1"
+    },
+    "prop.cake": {
+      "file": "public/audio/lines/prop.cake.mp3",
+      "text": "עוּגָה",
+      "durationMs": 1040,
+      "hash": "d5b5eba8ddb6b0ddbfc12e496e7f9a68ad8895e6da6ca7d4c356776a67d262a7"
+    },
+    "prop.sofa": {
+      "file": "public/audio/lines/prop.sofa.mp3",
+      "text": "סַפָּה",
+      "durationMs": 1600,
+      "hash": "7ff73858c4de0bca93eb85babd5b456b44b3ea05957ecc693d38a9c4ffa5226e"
+    },
+    "prop.tv-cabinet": {
+      "file": "public/audio/lines/prop.tv-cabinet.mp3",
+      "text": "שִׁדָּה",
+      "durationMs": 1440,
+      "hash": "4393e0c98bf4a8b2ae37e9de57874ef10a494310d0614bbef962aed292cdc409"
+    },
+    "prop.tv": {
+      "file": "public/audio/lines/prop.tv.mp3",
+      "text": "טֵלֶוִיזְיָה",
+      "durationMs": 1920,
+      "hash": "32aaead05d6b2d77a510cd10e46731931d4f87186cde4c0eed7ee40443235c4b"
+    },
+    "prop.plant": {
+      "file": "public/audio/lines/prop.plant.mp3",
+      "text": "עָצִיץ",
+      "durationMs": 1680,
+      "hash": "bf3f3a06712ae8d78bde723ae839011c62d4c9754633a25b130719530c07e90a"
+    },
+    "prop.cat": {
+      "file": "public/audio/lines/prop.cat.mp3",
+      "text": "חָתוּל",
+      "durationMs": 960,
+      "hash": "028fa3630182a7d1f0c1b76bd41197d322d9ee96bbea968a7e00bd399b36608d"
+    },
+    "prop.aquarium": {
+      "file": "public/audio/lines/prop.aquarium.mp3",
+      "text": "אַקְוַרְיוּם",
+      "durationMs": 1760,
+      "hash": "76d84d5d0c7efac939f3a7eafc85c3a5791742b013d463a40331dee8442c9297"
+    },
+    "prop.candles": {
+      "file": "public/audio/lines/prop.candles.mp3",
+      "text": "נֵרוֹת",
+      "durationMs": 1600,
+      "hash": "91eea2070a3a44d3b8060987434970fd8720e4f988310e03d82bba4f881562ef"
+    },
+    "prop.bed": {
+      "file": "public/audio/lines/prop.bed.mp3",
+      "text": "מִטָּה",
+      "durationMs": 1120,
+      "hash": "f22e1387d7d20f963d5c187868de8900cd65d3ef83cc6c46adadb6b3d7fc8359"
+    },
+    "prop.wardrobe": {
+      "file": "public/audio/lines/prop.wardrobe.mp3",
+      "text": "אָרוֹן",
+      "durationMs": 1760,
+      "hash": "95cd3b472d4ecef175ad12677ffa426b858f3643dfe8973790e8d55552b34cbf"
+    },
+    "prop.book": {
+      "file": "public/audio/lines/prop.book.mp3",
+      "text": "סֵפֶר",
+      "durationMs": 1680,
+      "hash": "e1ad0c2aa2107b69d638497a9587ab4a1c8fd346ce38e1ac8cd496e8658b4bc9"
+    },
+    "prop.teddy": {
+      "file": "public/audio/lines/prop.teddy.mp3",
+      "text": "דֻּבִּי",
+      "durationMs": 1600,
+      "hash": "49d937a52b7175cbabcfaec94c833447394475be48b6f89922e8db26db1c37a1"
+    },
+    "prop.train": {
+      "file": "public/audio/lines/prop.train.mp3",
+      "text": "רַכֶּבֶת",
+      "durationMs": 1600,
+      "hash": "b48d9cc2167e0f5784638250fa325a93dc27747bd0284c393c05a4bae3c13ad3"
+    },
+    "prop.hippo": {
+      "file": "public/audio/lines/prop.hippo.mp3",
+      "text": "הִפּוֹפּוֹטָם",
+      "durationMs": 2000,
+      "hash": "ac348ef734e0f24856beee80552e6ad6e9a703fcc04775678e1932d048d9a21c"
     }
   }
 }

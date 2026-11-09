@@ -9,6 +9,7 @@ export interface TestHook {
   stage: 'loading' | 'start' | 'playing';
   state(): SaveGame;
   center(id: string): { x: number; y: number } | null;
+  isVisible(id: string): boolean;
   undoCenter(): { x: number; y: number };
   lastLine(): string | null;
   flushSave(): Promise<void>;
@@ -33,6 +34,7 @@ export function installTestHook(parts: {
     stage: 'loading',
     state: () => parts.store.state,
     center: (id) => parts.scene.entityCenter(id),
+    isVisible: (id) => parts.scene.isEntityVisible(id),
     undoCenter: () => parts.hud.undoCenter(),
     lastLine: () => parts.audio.lastLine,
     flushSave: () => parts.saves.flush(),

@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
 import type { AddressGender, Settings } from '../types';
 
-export type SfxId = 'tap' | 'lift' | 'drop' | 'toggle' | 'success' | 'undo';
+export type SfxId = 'tap' | 'lift' | 'drop' | 'toggle' | 'success' | 'undo' | 'purr';
 
 /** What the rest of the game needs from audio. */
 export interface SoundPlayer {
@@ -131,6 +131,7 @@ const SFX_NOTES: Record<SfxId, ReadonlyArray<readonly [hz: number, startS: numbe
   toggle: [[880, 0, 0.05], [660, 0.05, 0.06]],
   success: [[660, 0, 0.08], [880, 0.07, 0.08], [1100, 0.14, 0.12]],
   undo: [[520, 0, 0.06], [390, 0.05, 0.08]],
+  purr: [[70, 0, 0.12], [64, 0.13, 0.12], [72, 0.26, 0.12], [66, 0.39, 0.14]],
 };
 
 /** The real thing: Howler for files, Web Audio for tones. */

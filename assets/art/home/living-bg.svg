@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#F6DCC6"/>
+  <!-- Stone courses on the wall -->
+  <g fill="none" stroke="#E8C6A8" stroke-width="3" stroke-linecap="round">
+    <path d="M0 110H1100M0 220H1100M0 330H1100"/>
+    <path d="M110 0V110M520 0V110M980 0V110M300 110V220M560 110V220M1010 110V220M150 220V330M480 220V330M960 220V330M330 330V430M560 330V430M990 330V430"/>
+  </g>
+  <!-- Framed abstract picture -->
+  <path d="M240 92 L280 62 L320 92" fill="none" stroke="#6B4C35" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="280" cy="60" r="5" fill="#6B4C35"/>
+  <rect x="170" y="90" width="220" height="160" rx="14" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <rect x="186" y="106" width="188" height="128" rx="8" fill="#FFF7E6"/>
+  <circle cx="238" cy="156" r="30" fill="#FFC23C"/>
+  <path d="M272 214 L318 134 L362 214Z" fill="#3E8E7E" stroke="#3E8E7E" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M200 222 Q204 196 230 202 Q254 208 246 224Z" fill="#E5508A" stroke="#E5508A" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="320" y="118" width="26" height="26" rx="6" fill="#58B8EA" transform="rotate(18 333 131)"/>
+  <!-- Balcony door: sky, hills, laundry line, railing -->
+  <rect x="632" y="42" width="256" height="390" rx="18" fill="#FFF7E6" stroke="#CDB68B" stroke-width="5"/>
+  <rect x="648" y="58" width="224" height="368" rx="6" fill="#BFE6FF"/>
+  <g fill="#FFFFFF"><circle cx="690" cy="96" r="14"/><circle cx="708" cy="88" r="18"/><circle cx="728" cy="98" r="12"/><circle cx="820" cy="84" r="12"/><circle cx="836" cy="78" r="15"/></g>
+  <path d="M648 272 Q720 236 790 262 T872 250 V426 H648Z" fill="#7FAF6B"/>
+  <path d="M648 300 Q700 284 750 300 T872 296 V426 H648Z" fill="#6FA263"/>
+  <path d="M648 146 Q760 178 872 146" fill="none" stroke="#8A6A4F" stroke-width="3"/>
+  <!-- laundry -->
+  <path d="M672 154 L684 152 Q692 160 700 156 L712 160 L716 176 L708 178 V206 H678 V178 L670 176Z" fill="#E5508A" stroke="#B8396A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M728 164 H742 V190 Q742 196 750 196 H756 Q760 196 760 202 Q760 208 754 208 H736 Q728 208 728 200Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="782" y="164" width="40" height="52" rx="5" fill="#58B8EA" stroke="#3B8DBF" stroke-width="3"/>
+  <path d="M782 196 H822" stroke="#FFFFFF" stroke-width="4"/>
+  <path d="M836 158 H856 L866 202 Q866 206 862 206 H830 Q826 206 826 202Z" fill="#7FAF6B" stroke="#55864A" stroke-width="3" stroke-linejoin="round"/>
+  <g fill="#6B4C35"><rect x="680" y="146" width="4" height="12" rx="2"/><rect x="700" y="150" width="4" height="12" rx="2"/><rect x="733" y="158" width="4" height="12" rx="2"/><rect x="788" y="160" width="4" height="12" rx="2"/><rect x="814" y="160" width="4" height="12" rx="2"/><rect x="844" y="152" width="4" height="12" rx="2"/></g>
+  <!-- railing -->
+  <g stroke="#3E8E7E" stroke-width="6" stroke-linecap="round">
+    <path d="M650 318H870M650 418H870"/>
+    <path d="M672 318V418M698 318V418M724 318V418M796 318V418M822 318V418M848 318V418"/>
+  </g>
+  <!-- door frame over the scene -->
+  <rect x="752" y="58" width="16" height="368" fill="#FFF7E6"/>
+  <g fill="none" stroke="#CDB68B" stroke-width="4">
+    <rect x="648" y="58" width="104" height="368" rx="6"/>
+    <rect x="768" y="58" width="104" height="368" rx="6"/>
+  </g>
+  <rect x="738" y="226" width="10" height="34" rx="5" fill="#8FA3AD" stroke="#6F838D" stroke-width="3"/>
+  <!-- Floor tiles -->
+  <rect y="430" width="1100" height="170" fill="#E8C7A0"/>
+  <rect y="430" width="1100" height="10" fill="#D5AF84"/>
+  <g stroke="#D5AF84" stroke-width="4">
+    <path d="M0 500H1100M0 550H1100"/>
+    <path d="M110 440L75 600M330 440L312 600M550 440V600M770 440L788 600M990 440L1025 600"/>
+  </g>
+  <!-- Round rug -->
+  <ellipse cx="560" cy="520" rx="180" ry="36" fill="#E5508A" stroke="#B8396A" stroke-width="4"/>
+  <ellipse cx="560" cy="520" rx="152" ry="29" fill="#FFF2D9"/>
+  <g fill="#3E8E7E"><circle cx="696" cy="520" r="5"/><circle cx="677" cy="532" r="5"/><circle cx="627" cy="541" r="5"/><circle cx="560" cy="545" r="5"/><circle cx="493" cy="541" r="5"/><circle cx="443" cy="532" r="5"/><circle cx="424" cy="520" r="5"/><circle cx="443" cy="508" r="5"/><circle cx="493" cy="499" r="5"/><circle cx="560" cy="495" r="5"/><circle cx="627" cy="499" r="5"/><circle cx="677" cy="508" r="5"/></g>
+  <ellipse cx="560" cy="520" rx="116" ry="21" fill="#FFC23C"/>
+  <ellipse cx="560" cy="520" rx="84" ry="14" fill="none" stroke="#E5508A" stroke-width="4" stroke-dasharray="10 8"/>
+  <ellipse cx="560" cy="520" rx="46" ry="8" fill="#3E8E7E"/>
+</svg>

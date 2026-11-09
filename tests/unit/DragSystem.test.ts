@@ -1,5 +1,24 @@
 import { describe, expect, it } from 'vitest';
-import { resolveDrop, type Surface } from '../../src/engine/DragSystem';
+import { isHidden, openSurfaces, resolveDrop, type Surface } from '../../src/engine/DragSystem';
+
+describe('containers', () => {
+  const shelf: Surface = { id: 'fridge-1', x: 0, y: 0, width: 100, container: { prop: 'fridge', key: 'open' } };
+  const floorShelf: Surface = { id: 'table', x: 0, y: 0, width: 100 };
+  const closed = [{ id: 'fridge', state: { open: false } }];
+  const open = [{ id: 'fridge', state: { open: true } }];
+  const milk = { id: 'milk', on: 'fridge-1' };
+
+  it('offers a container shelf only while it is open', () => {
+    expect(openSurfaces([shelf, floorShelf], closed).map((s) => s.id)).toEqual(['table']);
+    expect(openSurfaces([shelf, floorShelf], open)).toHaveLength(2);
+  });
+
+  it('hides what is inside a closed container', () => {
+    expect(isHidden(milk, [shelf], closed)).toBe(true);
+    expect(isHidden(milk, [shelf], open)).toBe(false);
+    expect(isHidden({ id: 'apple' }, [shelf], closed)).toBe(false);
+  });
+});
 
 const table: Surface = { id: 'table', x: 100, y: 300, width: 200 };
 const shelf: Surface = { id: 'shelf', x: 100, y: 120, width: 200 };

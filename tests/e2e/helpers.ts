@@ -5,9 +5,11 @@ export interface Point {
   y: number;
 }
 
+export type SceneName = 'home' | 'playground';
+
 /** Waits for the start screen, with the test hook on. */
-export async function openStartScreen(page: Page): Promise<void> {
-  await page.goto('./?e2e');
+export async function openStartScreen(page: Page, scene: SceneName = 'playground'): Promise<void> {
+  await page.goto(scene === 'home' ? './?e2e' : `./?e2e&scene=${scene}`);
   await page.waitForFunction(() => window.__shchuna?.stage === 'start');
 }
 
@@ -21,9 +23,29 @@ export async function tapToStart(page: Page): Promise<void> {
 }
 
 /** Opens the game and goes straight into play. */
-export async function openGame(page: Page): Promise<void> {
-  await openStartScreen(page);
+export async function openGame(page: Page, scene: SceneName = 'playground'): Promise<void> {
+  await openStartScreen(page, scene);
   await tapToStart(page);
+}
+
+/** Drags the room sideways until a prop is in the middle third of the screen. */
+export async function scrollTo(page: Page, id: string): Promise<Point> {
+  const size = page.viewportSize();
+  if (!size) throw new Error('no viewport');
+  let previous: number | null = null;
+  for (let i = 0; i < 12; i++) {
+    const center = await propCenter(page, id);
+    const offset = size.width / 2 - center.x;
+    if (Math.abs(offset) < size.width / 6) return center;
+    // At the end of the room it can't move further; on screen is good enough then.
+    if (previous !== null && Math.abs(center.x - previous) < 2) return center;
+    previous = center.x;
+    const step = Math.sign(offset) * Math.min(Math.abs(offset), size.width - 200);
+    const y = 30;
+    const from = step > 0 ? 100 : size.width - 100;
+    await touchDrag(page, { x: from, y }, { x: from + step, y });
+  }
+  return propCenter(page, id);
 }
 
 export async function propCenter(page: Page, id: string): Promise<Point> {

@@ -13,9 +13,9 @@ import type { LocationId, PropDef, PropInstance } from '../types';
 import { getArt, loadArt } from './art';
 import type { SoundPlayer } from './AudioManager';
 import { rtl } from './text';
-import { resolveDrop, type FloorBand, type Surface } from './DragSystem';
+import { isHidden, openSurfaces, resolveDrop, type FloorBand, type Surface } from './DragSystem';
 import { Entity, PropEntity } from './Entity';
-import { GestureTracker, resolveTap, resolveUseOn } from './InteractionSystem';
+import { allArtOf, GestureTracker, petSound, resolveTap, resolveUseOn } from './InteractionSystem';
 import { easeOutBack, tween } from './tween';
 
 /** Scene height in world units; the scale is derived from the screen height. */
@@ -29,7 +29,8 @@ const NAME_FONT_PX = 40;
 export interface LocationData {
   id: LocationId;
   width: number;
-  background: string;
+  /** Background tiles, laid out left to right. */
+  background: string[];
   floor: FloorBand;
   surfaces: Surface[];
   props: PropInstance[];
@@ -84,17 +85,21 @@ export class Scene {
     const { actions, app, store } = this.ctx;
     actions.seedProps(this.data.props);
     const instances = this.instances();
-    const art = instances.flatMap((instance) => {
-      const def = this.defOf(instance);
-      return [def.art, ...(def.artStates?.map((entry) => entry.art) ?? [])];
-    });
-    await Promise.all([loadArt(art), loadArt([this.data.background], true)]);
+    const art = instances.flatMap((instance) => allArtOf(this.defOf(instance)));
+    await Promise.all([loadArt(art), loadArt(this.data.background, true)]);
 
-    const background = new Sprite(getArt(this.data.background));
-    background.eventMode = 'static';
-    background.on('pointerdown', (event) => this.onBackgroundDown(event));
-    this.backgroundLayer.addChild(background);
+    // Tiles keep each texture inside the 4096px limit of older iPads.
+    let tileX = 0;
+    for (const path of this.data.background) {
+      const tile = new Sprite(getArt(path));
+      tile.x = tileX;
+      tileX += tile.texture.width;
+      tile.eventMode = 'static';
+      tile.on('pointerdown', (event) => this.onBackgroundDown(event));
+      this.backgroundLayer.addChild(tile);
+    }
     for (const instance of instances) this.addEntity(instance);
+    this.sync();
 
     this.unsubscribe = store.subscribe(() => this.sync());
     const stage = app.stage;
@@ -132,6 +137,10 @@ export class Scene {
     return { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
   }
 
+  isEntityVisible(id: string): boolean {
+    return this.entities.get(id)?.visible ?? false;
+  }
+
   private instances(): PropInstance[] {
     return this.ctx.store.state.props.filter((prop) => prop.location === this.data.id);
   }
@@ -152,10 +161,14 @@ export class Scene {
 
   /** Brings entities in line with game state, whichever action changed it. */
   private sync(): void {
-    for (const instance of this.instances()) {
+    const instances = this.instances();
+    for (const instance of instances) {
       const entity = this.entities.get(instance.id);
       if (!entity) continue;
       entity.applyInstance(instance);
+      if (!this.isDragging(entity)) {
+        entity.setHidden(isHidden(instance, this.data.surfaces, instances));
+      }
       const moved = entity.targetX !== instance.x || entity.targetY !== instance.y;
       if (moved && !this.isDragging(entity)) entity.moveTo(instance.x, instance.y, true);
     }
@@ -251,7 +264,14 @@ export class Scene {
     const instance = this.instances().find((prop) => prop.id === entity.entityId);
     if (!instance) return;
     const change = resolveTap(entity.def, instance);
-    if (!change) return;
+    if (!change) {
+      const sound = petSound(entity.def);
+      if (sound) {
+        this.ctx.audio.sfx(sound);
+        entity.wiggle();
+      }
+      return;
+    }
     this.ctx.audio.sfx('toggle');
     this.ctx.actions.commit(this.data.id, [change]);
   }
@@ -261,18 +281,33 @@ export class Scene {
     const instance = instances.find((prop) => prop.id === entity.entityId);
     if (!instance) return;
     const { floor, surfaces, width, id } = this.data;
-    const landing = resolveDrop({ x: entity.x, y: entity.y }, surfaces, floor, width);
+    const usable = openSurfaces(surfaces, instances);
+    const landing = resolveDrop({ x: entity.x, y: entity.y }, usable, floor, width);
     entity.setLifted(false);
     const effects = resolveUseOn(instance, landing, this.ctx.defs, instances);
-    const own = effects.find((effect) => effect.id === entity.entityId);
-    const others = effects.filter((effect) => effect !== own);
-    this.ctx.audio.sfx(effects.length > 0 ? 'success' : 'drop');
+    const own = effects.filter((effect) => effect.id === entity.entityId);
+    const others = effects.filter((effect) => effect.id !== entity.entityId);
+    const started = effects.some((effect) =>
+      Object.values(effect.state ?? {}).some((value) => value !== undefined),
+    );
+    this.ctx.audio.sfx(started ? 'success' : 'drop');
     entity.moveTo(landing.x, landing.y, true);
-    this.ctx.actions.commit(id, [{ ...own, id: entity.entityId, x: landing.x, y: landing.y }, ...others]);
+    const state = Object.assign({}, ...own.map((effect) => effect.state));
+    this.ctx.actions.commit(id, [
+      {
+        id: entity.entityId,
+        x: landing.x,
+        y: landing.y,
+        on: landing.surfaceId,
+        ...(own.length > 0 ? { state } : {}),
+      },
+      ...others,
+    ]);
   }
 
   private readonly onTick = (ticker: Ticker): void => {
     const now = performance.now();
+    for (const entity of this.entities.values()) entity.animate(ticker.deltaMS);
     for (const session of this.pointers.values()) {
       if (session.kind !== 'entity') continue;
       if (session.gesture.tick(now)) {

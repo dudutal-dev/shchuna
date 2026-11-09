@@ -14,6 +14,35 @@ export interface Surface {
   width: number;
   /** Fixed x positions, for example spots on a shop shelf. */
   slots?: number[];
+  /** A shelf inside something that opens: usable, and its props visible, only while open. */
+  container?: { prop: string; key: string };
+}
+
+interface StatefulProp {
+  id: string;
+  on?: string;
+  state?: Record<string, unknown>;
+}
+
+function isOpen(surface: Surface, props: readonly StatefulProp[]): boolean {
+  if (!surface.container) return true;
+  const { prop, key } = surface.container;
+  return props.find((p) => p.id === prop)?.state?.[key] === true;
+}
+
+/** The surfaces a prop can be dropped on right now. */
+export function openSurfaces(surfaces: readonly Surface[], props: readonly StatefulProp[]): Surface[] {
+  return surfaces.filter((surface) => isOpen(surface, props));
+}
+
+/** True for a prop shut away inside something closed. */
+export function isHidden(
+  prop: StatefulProp,
+  surfaces: readonly Surface[],
+  props: readonly StatefulProp[],
+): boolean {
+  const surface = prop.on ? surfaces.find((s) => s.id === prop.on) : undefined;
+  return surface ? !isOpen(surface, props) : false;
 }
 
 /** The strip of floor props can stand on; it has depth because the room has perspective. */

@@ -44,8 +44,19 @@ export type Interaction =
   | { type: 'tap'; set: PropState }
   /** Tapping flips a boolean state key. */
   | { type: 'toggle'; key: string }
-  /** Dropping this prop near a target prop changes either or both of them. */
-  | { type: 'useOn'; target: string; setSource?: PropState; setTarget?: PropState }
+  /**
+   * Dropping this prop near a target prop changes either or both of them. With
+   * `whileNear`, moving it away again clears the `setSource` keys (a pot leaving the stove).
+   */
+  | {
+      type: 'useOn';
+      target: string;
+      setSource?: PropState;
+      setTarget?: PropState;
+      whileNear?: boolean;
+    }
+  /** Tapping gets a reaction but changes nothing, like stroking the cat. */
+  | { type: 'pet'; sfx: 'purr' }
   | { type: 'holdIn' }
   | { type: 'sitOn' }
   | { type: 'lieOn' };
@@ -56,8 +67,11 @@ export interface PropDef {
   voiceLine: string;
   /** Path under assets/art. */
   art: string;
-  /** Alternate art by state. The first entry whose `when` matches wins. */
-  artStates?: Array<{ when: PropState; art: string }>;
+  /**
+   * Alternate art by state. The first entry whose `when` matches wins. With
+   * `frames`, the art cycles through them instead (a boiling pot, a TV that's on).
+   */
+  artStates?: Array<{ when: PropState; art: string; frames?: string[] }>;
   /** Furniture draws behind items, so an apple on a table is in front of the table. */
   layer: 'furniture' | 'item';
   draggable: boolean;
@@ -74,6 +88,8 @@ export interface PropInstance {
   location: LocationId;
   x: number;
   y: number;
+  /** The surface it rests on, if any. Props in a closed fridge are hidden. */
+  on?: string;
   state?: PropState;
 }
 

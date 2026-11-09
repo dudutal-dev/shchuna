@@ -8,6 +8,9 @@ export const easeOutBack: Ease = (t) => {
   return 1 + (c + 1) * (t - 1) ** 3 + c * (t - 1) ** 2;
 };
 
+export const easeOutElastic: Ease = (t) =>
+  t === 0 || t === 1 ? t : 2 ** (-10 * t) * Math.sin((t * 10 - 0.75) * ((2 * Math.PI) / 3)) + 1;
+
 interface Tween {
   target: Record<string, number>;
   from: Record<string, number>;

@@ -7,6 +7,8 @@ export interface PropChange {
   id: string;
   x?: number;
   y?: number;
+  /** The surface it now rests on; null for the floor. */
+  on?: string | null;
   state?: PropState;
 }
 
@@ -74,6 +76,10 @@ export class Actions {
       inverse.y = prop.y;
       changed = true;
     }
+    if (change.on !== undefined && change.on !== (prop.on ?? null)) {
+      inverse.on = prop.on ?? null;
+      changed = true;
+    }
     if (change.state) {
       const previous: PropState = {};
       for (const [key, value] of Object.entries(change.state)) {
@@ -93,6 +99,8 @@ export class Actions {
         if (!prop) continue;
         if (change.x !== undefined) prop.x = change.x;
         if (change.y !== undefined) prop.y = change.y;
+        if (change.on === null) delete prop.on;
+        else if (change.on !== undefined) prop.on = change.on;
         if (change.state) {
           const next: PropState = { ...prop.state };
           for (const [key, value] of Object.entries(change.state)) {

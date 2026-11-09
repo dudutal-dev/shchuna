@@ -14,7 +14,7 @@ test('the start screen waits for a touch, then greets', async ({ page }, testInf
 test('a long press names the prop in a bubble and in speech', async ({ page }, testInfo) => {
   await openStartScreen(page);
   await tapToStart(page);
-  await touchHold(page, await propCenter(page, 'apple'), 900);
+  await touchHold(page, await propCenter(page, 'pg-apple'), 900);
   await expect.poll(() => page.evaluate(lastLine)).toBe('prop.apple');
   await page.screenshot({ path: `docs/screens/m2-bubble-${testInfo.project.name}.png` });
 });
@@ -22,7 +22,7 @@ test('a long press names the prop in a bubble and in speech', async ({ page }, t
 test('a quick tap does not speak', async ({ page }) => {
   await openStartScreen(page);
   await tapToStart(page);
-  await tap(page, await propCenter(page, 'ball'));
+  await tap(page, await propCenter(page, 'pg-ball'));
   await page.waitForTimeout(700);
   expect(await page.evaluate(lastLine)).toBe('ui.welcome');
 });

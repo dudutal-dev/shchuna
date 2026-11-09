@@ -4,7 +4,9 @@ import { strings } from '../content/strings.he';
 import { AudioManager, BrowserAudioBackend } from '../engine/AudioManager';
 import { SaveManager } from '../engine/SaveManager';
 import { Scene } from '../engine/Scene';
+import { home } from '../locations/home/home.data';
 import { playground } from '../locations/playground/playground.data';
+import type { LocationData } from '../engine/Scene';
 import { Hud } from '../ui/Hud';
 import { StartScreen } from '../ui/StartScreen';
 import { Actions } from './actions';
@@ -22,6 +24,12 @@ async function createAudio(store: GameStore): Promise<AudioManager> {
   const audio = new AudioManager(backend, () => store.state.settings);
   await audio.init();
   return audio;
+}
+
+/** The home, until the map arrives (M7). Tests can open the engine playground instead. */
+function pickLocation(): LocationData {
+  const params = new URLSearchParams(location.search);
+  return params.has('e2e') && params.get('scene') === 'playground' ? playground : home;
 }
 
 /** Boots the Pixi application and wires the game together. */
@@ -54,10 +62,11 @@ export class Game {
       if (document.visibilityState === 'hidden') void this.saves.flush();
     });
 
-    const scene = new Scene({ app: this.app, store, actions, defs: propDefs, audio }, playground);
+    const location = pickLocation();
+    const scene = new Scene({ app: this.app, store, actions, defs: propDefs, audio }, location);
     const hud = new Hud(this.app, () => {
       audio.sfx('undo');
-      actions.undo(playground.id);
+      actions.undo(location.id);
     });
     const hook = installTestHook({ store, scene, hud, audio, saves: this.saves });
     await Promise.all([scene.enter(), hud.init()]);

@@ -1,5 +1,5 @@
 import type { PropChange } from '../app/actions';
-import type { PropDef, PropInstance } from '../types';
+import type { Interaction, PropDef, PropInstance, PropState } from '../types';
 import type { Point } from './DragSystem';
 
 export const LONG_PRESS_MS = 500;
@@ -64,6 +64,7 @@ export function resolveUseOn(
   if (!def) return [];
   let best: PropChange[] = [];
   let bestDistance = USE_ON_RADIUS;
+  let matched: Interaction | undefined;
   for (const interaction of def.interactions) {
     if (interaction.type !== 'useOn') continue;
     for (const other of instances) {
@@ -73,19 +74,42 @@ export function resolveUseOn(
       const distance = Math.hypot(other.x + point.x - at.x, other.y + point.y - at.y);
       if (distance > bestDistance) continue;
       bestDistance = distance;
+      matched = interaction;
       best = [];
       if (interaction.setSource) best.push({ id: source.id, state: interaction.setSource });
       if (interaction.setTarget) best.push({ id: other.id, state: interaction.setTarget });
     }
   }
+  // Effects that only last while near their target end when the prop is moved away.
+  const cleared: PropState = {};
+  for (const interaction of def.interactions) {
+    if (interaction.type !== 'useOn' || !interaction.whileNear || interaction === matched) continue;
+    for (const key of Object.keys(interaction.setSource ?? {})) {
+      if (source.state?.[key] !== undefined) cleared[key] = undefined;
+    }
+  }
+  if (Object.keys(cleared).length > 0) best.push({ id: source.id, state: cleared });
   return best;
 }
 
-/** The art to show for a prop in its current state. */
-export function artFor(def: PropDef, instance: PropInstance): string {
+/** The art to show for a prop in its current state: one image, or frames to cycle. */
+export function artFor(def: PropDef, instance: PropInstance): string[] {
   const state = instance.state ?? {};
   const match = def.artStates?.find(({ when }) =>
     Object.entries(when).every(([key, value]) => state[key] === value),
   );
-  return match?.art ?? def.art;
+  if (!match) return [def.art];
+  return match.frames?.length ? match.frames : [match.art];
+}
+
+/** Every art file a prop can show, to load up front. */
+export function allArtOf(def: PropDef): string[] {
+  const states = def.artStates ?? [];
+  return [def.art, ...states.flatMap((entry) => [entry.art, ...(entry.frames ?? [])])];
+}
+
+/** The reaction to a tap that changes nothing, if this prop has one. */
+export function petSound(def: PropDef): 'purr' | null {
+  const pet = def.interactions.find((interaction) => interaction.type === 'pet');
+  return pet?.type === 'pet' ? pet.sfx : null;
 }

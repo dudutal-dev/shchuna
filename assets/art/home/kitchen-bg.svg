@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#F3E3C3"/>
+  <!-- Stone courses on the wall -->
+  <g fill="none" stroke="#E2CDA3" stroke-width="3" stroke-linecap="round">
+    <path d="M0 110H1100M0 220H1100M0 330H1100"/>
+    <path d="M140 0V110M470 0V110M960 0V110M240 110V220M540 110V220M1000 110V220M560 220V330M960 220V330M380 330V430M760 330V430M1000 330V430"/>
+  </g>
+  <!-- Tiled backsplash -->
+  <rect x="40" y="250" width="480" height="80" rx="10" fill="#F4F8F6" stroke="#A9C9C1" stroke-width="4"/>
+  <g stroke="#D5E4E0" stroke-width="3">
+    <path d="M42 290H518M80 252V328M120 252V328M160 252V328M200 252V328M240 252V328M280 252V328M320 252V328M360 252V328M400 252V328M440 252V328M480 252V328"/>
+  </g>
+  <path fill="#3E8E7E" d="M60 262l8 8-8 8-8-8zM100 262l8 8-8 8-8-8zM140 262l8 8-8 8-8-8zM180 262l8 8-8 8-8-8zM220 262l8 8-8 8-8-8zM260 262l8 8-8 8-8-8zM300 262l8 8-8 8-8-8zM340 262l8 8-8 8-8-8zM380 262l8 8-8 8-8-8zM420 262l8 8-8 8-8-8zM460 262l8 8-8 8-8-8zM500 262l8 8-8 8-8-8z"/>
+  <path fill="#E5508A" d="M60 302l8 8-8 8-8-8zM100 302l8 8-8 8-8-8zM140 302l8 8-8 8-8-8zM180 302l8 8-8 8-8-8zM220 302l8 8-8 8-8-8zM260 302l8 8-8 8-8-8zM300 302l8 8-8 8-8-8zM340 302l8 8-8 8-8-8zM380 302l8 8-8 8-8-8zM420 302l8 8-8 8-8-8zM460 302l8 8-8 8-8-8zM500 302l8 8-8 8-8-8z"/>
+  <!-- Pendant light -->
+  <path d="M300 0V64" stroke="#6B4C35" stroke-width="4"/>
+  <circle cx="300" cy="110" r="11" fill="#FFE9A8" stroke="#C78F1E" stroke-width="3"/>
+  <rect x="290" y="58" width="20" height="14" rx="5" fill="#6B4C35"/>
+  <path d="M260 108 Q260 70 300 70 Q340 70 340 108Z" fill="#3E8E7E" stroke="#2F7264" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M274 96 Q276 84 290 80" fill="none" stroke="#6FB5A8" stroke-width="5" stroke-linecap="round"/>
+  <!-- Window: sky, hill, olive tree and bougainvillea -->
+  <g transform="translate(620 64)">
+    <rect x="-8" y="-8" width="236" height="216" rx="22" fill="#FFF7E6" stroke="#CDB68B" stroke-width="5"/>
+    <rect width="220" height="200" rx="16" fill="#BFE6FF"/>
+    <circle cx="160" cy="44" r="22" fill="#FFC23C"/>
+    <path d="M0 150 Q70 104 140 140 T220 126 V184 Q220 200 204 200 H16 Q0 200 0 184Z" fill="#7FAF6B"/>
+    <rect x="142" y="104" width="12" height="54" rx="5" fill="#8A6A4F"/>
+    <circle cx="148" cy="90" r="30" fill="#5E9457"/>
+    <circle cx="124" cy="104" r="19" fill="#6FA263"/>
+    <circle cx="172" cy="104" r="19" fill="#6FA263"/>
+    <g fill="#E5508A"><circle cx="16" cy="20" r="14"/><circle cx="40" cy="12" r="12"/><circle cx="12" cy="46" r="11"/><circle cx="66" cy="10" r="9"/><circle cx="14" cy="72" r="8"/></g>
+    <path d="M110 0V200M0 100H220" stroke="#FFF7E6" stroke-width="7"/>
+  </g>
+  <g fill="#3E8E7E">
+    <rect x="556" y="56" width="48" height="216" rx="9"/>
+    <rect x="856" y="56" width="48" height="216" rx="9"/>
+  </g>
+  <g stroke="#2F7264" stroke-width="4" stroke-linecap="round">
+    <path d="M566 86H594M566 116H594M566 146H594M566 176H594M566 206H594M566 236H594"/>
+    <path d="M866 86H894M866 116H894M866 146H894M866 176H894M866 206H894M866 236H894"/>
+  </g>
+  <rect x="600" y="276" width="260" height="14" rx="7" fill="#FFF7E6" stroke="#CDB68B" stroke-width="4"/>
+  <!-- Floor tiles -->
+  <rect y="430" width="1100" height="170" fill="#E8C7A0"/>
+  <rect y="430" width="1100" height="10" fill="#D5AF84"/>
+  <g stroke="#D5AF84" stroke-width="4">
+    <path d="M0 500H1100M0 550H1100"/>
+    <path d="M110 440L75 600M330 440L312 600M550 440V600M770 440L788 600M990 440L1025 600"/>
+  </g>
+</svg>

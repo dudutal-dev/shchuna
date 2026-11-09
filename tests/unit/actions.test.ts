@@ -65,6 +65,13 @@ describe('Actions', () => {
     expect(prop('b')?.state).toEqual({ on: true });
   });
 
+  it('undoes the surface a prop rests on, back to the floor', () => {
+    actions.commit('home', [{ id: 'a', x: 50, on: 'table' }]);
+    expect(prop('a')?.on).toBe('table');
+    actions.undo('home');
+    expect(prop('a')?.on).toBeUndefined();
+  });
+
   it('seeds only the props a save is missing', () => {
     actions.commit('home', [{ id: 'a', x: 999 }]);
     actions.seedProps(seed);

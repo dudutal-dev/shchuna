@@ -4,14 +4,14 @@ import type { PropInstance } from '../../types';
 const LOCATION = 'playground';
 
 function prop(id: string, defId: string, x: number, y: number): PropInstance {
-  return { id, defId, location: LOCATION, x, y };
+  return { id: `pg-${id}`, defId, location: LOCATION, x, y };
 }
 
 /** Exercises every engine system. Opens at its right end, so the sink starts off-screen. */
 export const playground: LocationData = {
   id: LOCATION,
   width: 1500,
-  background: 'playground/room.svg',
+  background: ['playground/room.svg'],
   floor: { top: 440, bottom: 570 },
   surfaces: [
     { id: 'table', x: 915, y: 322, width: 270 },

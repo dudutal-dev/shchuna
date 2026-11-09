@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="340" viewBox="0 0 220 340">
+  <g fill="#A87B54" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round">
+    <rect x="26" y="322" width="20" height="16" rx="5"/>
+    <rect x="174" y="322" width="20" height="16" rx="5"/>
+  </g>
+  <rect x="8" y="14" width="204" height="312" rx="14" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <!-- interior -->
+  <rect x="22" y="30" width="176" height="282" rx="8" fill="#EAD3B4" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M24 54 H196" stroke="#8FA3AD" stroke-width="6" stroke-linecap="round"/>
+  <!-- clothes -->
+  <g fill="none" stroke="#6B4C35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 54 V62 M46 70 L60 62 L74 70"/>
+    <path d="M110 54 V62 M96 70 L110 62 L124 70"/>
+    <path d="M160 54 V62 M146 70 L160 62 L174 70"/>
+  </g>
+  <path d="M40 70 L52 66 Q60 72 68 66 L80 70 L88 92 L78 96 V150 Q78 154 74 154 H46 Q42 154 42 150 V96 L32 92Z" fill="#3E8E7E" stroke="#2F7264" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M140 70 L152 66 Q160 72 168 66 L180 70 L188 92 L178 96 V150 Q178 154 174 154 H146 Q142 154 142 150 V96 L132 92Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M98 70 Q110 76 122 70 L126 110 L140 184 Q140 190 134 190 H86 Q80 190 80 184 L94 110Z" fill="#E5508A" stroke="#B8396A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M94 110 H126" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <!-- shelf -->
+  <path d="M30 250 H190" stroke="#6B4C35" stroke-width="6" stroke-linecap="round"/>
+  <!-- open doors at both edges -->
+  <g fill="#F7D9C4" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round">
+    <path d="M2 30 Q2 22 10 24 L24 30 V312 L10 318 Q2 320 2 312Z"/>
+    <path d="M218 30 Q218 22 210 24 L196 30 V312 L210 318 Q218 320 218 312Z"/>
+  </g>
+  <g fill="#FFC23C" stroke="#C78F1E" stroke-width="3">
+    <circle cx="13" cy="170" r="5"/>
+    <circle cx="207" cy="170" r="5"/>
+  </g>
+  <rect x="2" y="4" width="216" height="20" rx="9" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+</svg>

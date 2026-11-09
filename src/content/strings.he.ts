@@ -4,13 +4,35 @@ export const strings = {
   ui: {
     tapToStart: 'גַּע כְּדֵי לְהַתְחִיל!', // TODO: proofread
   },
+  // TODO: proofread — every prop name below.
   props: {
-    apple: 'תַּפּוּחַ', // TODO: proofread
-    ball: 'כַּדּוּר', // TODO: proofread
-    cup: 'כּוֹס', // TODO: proofread
-    lamp: 'מְנוֹרָה', // TODO: proofread
-    shelf: 'מַדָּף', // TODO: proofread
-    sink: 'כִּיּוֹר', // TODO: proofread
-    table: 'שֻׁלְחָן', // TODO: proofread
+    apple: 'תַּפּוּחַ',
+    aquarium: 'אַקְוַרְיוּם',
+    ball: 'כַּדּוּר',
+    bed: 'מִטָּה',
+    book: 'סֵפֶר',
+    bread: 'לֶחֶם',
+    cake: 'עוּגָה',
+    candles: 'נֵרוֹת',
+    cat: 'חָתוּל',
+    chair: 'כִּסֵּא',
+    cup: 'כּוֹס',
+    fridge: 'מְקָרֵר',
+    hippo: 'הִפּוֹפּוֹטָם',
+    lamp: 'מְנוֹרָה',
+    milk: 'חָלָב',
+    plant: 'עָצִיץ',
+    plate: 'צַלַּחַת',
+    pot: 'סִיר',
+    shelf: 'מַדָּף',
+    sink: 'כִּיּוֹר',
+    sofa: 'סַפָּה',
+    stove: 'כִּירַיִם',
+    table: 'שֻׁלְחָן',
+    teddy: 'דֻּבִּי',
+    train: 'רַכֶּבֶת',
+    tv: 'טֵלֶוִיזְיָה',
+    tvCabinet: 'שִׁדָּה',
+    wardrobe: 'אָרוֹן',
   },
 } as const;

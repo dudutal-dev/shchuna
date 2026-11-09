@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="170" viewBox="0 0 360 170">
+  <g fill="#A87B54" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round">
+    <rect x="22" y="128" width="16" height="40" rx="5"/>
+    <rect x="316" y="128" width="16" height="40" rx="5"/>
+  </g>
+  <!-- headboard (right) -->
+  <rect x="300" y="6" width="54" height="142" rx="24" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <circle cx="327" cy="40" r="12" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+  <!-- frame rail -->
+  <rect x="12" y="104" width="300" height="32" rx="12" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <!-- mattress -->
+  <rect x="22" y="60" width="284" height="50" rx="14" fill="#FFF7E6" stroke="#CDB68B" stroke-width="4"/>
+  <!-- pillow -->
+  <rect x="232" y="38" width="66" height="30" rx="14" fill="#FFFFFF" stroke="#B9C6CF" stroke-width="4"/>
+  <!-- blanket -->
+  <path d="M18 60 H238 Q246 60 246 68 V116 Q246 124 238 124 H26 Q18 124 18 116Z" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4" stroke-linejoin="round"/>
+  <g>
+    <rect x="30" y="68" width="40" height="22" rx="6" fill="#FFC23C"/>
+    <rect x="122" y="68" width="40" height="22" rx="6" fill="#E5508A"/>
+    <rect x="76" y="94" width="40" height="22" rx="6" fill="#7FAF6B"/>
+    <rect x="168" y="94" width="40" height="22" rx="6" fill="#FFC23C"/>
+    <rect x="76" y="68" width="40" height="22" rx="6" fill="#B9E3F7"/>
+    <rect x="30" y="94" width="40" height="22" rx="6" fill="#E5508A"/>
+    <rect x="168" y="68" width="40" height="22" rx="6" fill="#7FAF6B"/>
+    <rect x="122" y="94" width="40" height="22" rx="6" fill="#B9E3F7"/>
+  </g>
+  <path d="M214 68 V116" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="6 6" stroke-linecap="round"/>
+  <!-- footboard (left) -->
+  <rect x="6" y="48" width="26" height="100" rx="12" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M312 24 V60" stroke="#DDB78F" stroke-width="5" stroke-linecap="round"/>
+</svg>
