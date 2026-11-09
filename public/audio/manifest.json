@@ -1,1 +1,58 @@
-{ "lines": {} }
+{
+  "lines": {
+    "ui.tap_to_start": {
+      "file": "public/audio/lines/ui.tap_to_start.mp3",
+      "text": "גַּע כְּדֵי לְהַתְחִיל!",
+      "durationMs": 1520,
+      "hash": "8bcd745f7a4abd7c554d31fd609811267cff1b6f52fa8d02cb30d20bbec86294"
+    },
+    "ui.welcome": {
+      "file": "public/audio/lines/ui.welcome.mp3",
+      "text": "בְּרוּכִים הַבָּאִים לַשְּׁכוּנָה!",
+      "durationMs": 1600,
+      "hash": "eef78a4f9e7c9b84875e2656cf08575918c24c8755d5390ed452bb529f99ddd6"
+    },
+    "prop.apple": {
+      "file": "public/audio/lines/prop.apple.mp3",
+      "text": "תַּפּוּחַ",
+      "durationMs": 1600,
+      "hash": "b51292429b0ce532964599ea26347c1d4df5913b4183f881d198652e05f29819"
+    },
+    "prop.ball": {
+      "file": "public/audio/lines/prop.ball.mp3",
+      "text": "כַּדּוּר",
+      "durationMs": 960,
+      "hash": "b0c7276f5658a9a3f5b82cfb3f3136d5d89d83908bf1bd2e3c31ed94d1af2a7d"
+    },
+    "prop.cup": {
+      "file": "public/audio/lines/prop.cup.mp3",
+      "text": "כּוֹס",
+      "durationMs": 1600,
+      "hash": "043d799f92f087707af8c17507f3d4b5d0611fd998b286c4083d0857db78d713"
+    },
+    "prop.lamp": {
+      "file": "public/audio/lines/prop.lamp.mp3",
+      "text": "מְנוֹרָה",
+      "durationMs": 1760,
+      "hash": "2585ea0a7b3288347d0b833874ce1a0901c535cd0133d5e7b789cdb0343be11f"
+    },
+    "prop.shelf": {
+      "file": "public/audio/lines/prop.shelf.mp3",
+      "text": "מַדָּף",
+      "durationMs": 1680,
+      "hash": "8e3270c3acecf7979a71533066f8b37ded9848ccc0a7d33ff5ad2f366e7d180c"
+    },
+    "prop.sink": {
+      "file": "public/audio/lines/prop.sink.mp3",
+      "text": "כִּיּוֹר",
+      "durationMs": 1840,
+      "hash": "491fe184c395af39f87b7d2e02bb8c9da42ef6c7d76d984b8096701fd6438abf"
+    },
+    "prop.table": {
+      "file": "public/audio/lines/prop.table.mp3",
+      "text": "שֻׁלְחָן",
+      "durationMs": 1280,
+      "hash": "0827bb7106f2ad956075a4856d2bb9a5be3b2e8f9b9b93922a132939853a83ac"
+    }
+  }
+}

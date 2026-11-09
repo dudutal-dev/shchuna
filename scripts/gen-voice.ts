@@ -19,7 +19,7 @@ import {
 
 config({ quiet: true });
 
-const LINES_PATH = 'src/content/voice-lines.json';
+const LINES_PATH ='src/content/voice-lines.json';
 const AUDIO_DIR = 'public/audio';
 const LINES_DIR = `${AUDIO_DIR}/lines`;
 const MANIFEST_PATH = `${AUDIO_DIR}/manifest.json`;
@@ -150,6 +150,7 @@ async function main(): Promise<void> {
     if (canNormalize) await normalize(file);
     manifest.lines[line.id] = {
       file,
+      text: line.text,
       durationMs: await durationMs(file, canProbe),
       hash: lineHash(line, voiceId(line.voice), model),
     };

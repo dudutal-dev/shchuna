@@ -11,6 +11,8 @@ export interface VoiceLine {
 
 export interface ManifestEntry {
   file: string;
+  /** The text this audio was made from, so the build can spot stale recordings without a voice ID. */
+  text: string;
   durationMs: number;
   hash: string;
 }
@@ -19,7 +21,7 @@ export interface Manifest {
   lines: Record<string, ManifestEntry>;
 }
 
-export const DEFAULT_MODEL = 'eleven_v4';
+export const DEFAULT_MODEL = 'eleven_v3';
 export const VOICE_SETTINGS = { stability: 0.5, similarity_boost: 0.75, style: 0, speed: 0.95 };
 
 /** USD per 1,000 characters, from elevenlabs.io/pricing/api (November 2026). */
@@ -77,7 +79,7 @@ export function linesMissingAudio(
   return lines
     .filter((line) => {
       const entry = manifest.lines[line.id];
-      return !entry || !fileExists(entry.file);
+      return !entry || entry.text !== line.text || !fileExists(entry.file);
     })
     .map((line) => line.id);
 }

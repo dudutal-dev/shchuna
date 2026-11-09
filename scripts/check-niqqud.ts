@@ -27,7 +27,7 @@ for (const [path, text] of leaves(strings, '')) {
 const missingAudio = linesMissingAudio(lines, manifest, existsSync);
 if (missingAudio.length > 0) {
   const message = `${missingAudio.length} of ${lines.length} voice lines have no audio (run: npm run voice)`;
-  // Only for tests and for deploys made before the voices exist. Real releases don't set it.
+  // Only for e2e runs. The deploy workflow doesn't set it, so a missing line blocks a release.
   if (process.env.SHCHUNA_ALLOW_MISSING_VOICE) console.warn(`Warning: ${message}`);
   else problems.push(message);
 }

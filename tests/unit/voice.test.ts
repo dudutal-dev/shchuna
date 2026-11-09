@@ -62,7 +62,12 @@ describe('lineHash', () => {
 });
 
 describe('linesMissingAudio', () => {
-  const entry = { file: 'a.mp3', durationMs: 1, hash: 'x' };
+  const entry = { file: 'a.mp3', text: line.text, durationMs: 1, hash: 'x' };
+
+  it('lists a line whose text changed after it was recorded', () => {
+    const stale = { ...entry, text: 'חָלָב יָשָׁן' };
+    expect(linesMissingAudio([line], { lines: { a: stale } }, () => true)).toEqual(['a']);
+  });
 
   it('lists lines absent from the manifest or whose file is gone', () => {
     expect(linesMissingAudio([line], { lines: {} }, () => true)).toEqual(['a']);
