@@ -11,6 +11,8 @@ import type { Actions } from '../app/actions';
 import type { GameStore } from '../app/store';
 import type { LocationId, PropDef, PropInstance } from '../types';
 import { getArt, loadArt } from './art';
+import type { SoundPlayer } from './AudioManager';
+import { rtl } from './text';
 import { resolveDrop, type FloorBand, type Surface } from './DragSystem';
 import { Entity, PropEntity } from './Entity';
 import { GestureTracker, resolveTap, resolveUseOn } from './InteractionSystem';
@@ -38,6 +40,7 @@ export interface SceneContext {
   store: GameStore;
   actions: Actions;
   defs: Readonly<Record<string, PropDef>>;
+  audio: SoundPlayer;
 }
 
 type PointerSession =
@@ -187,6 +190,7 @@ export class Scene {
 
   private onEntityDown(entity: PropEntity, event: FederatedPointerEvent): void {
     event.stopPropagation();
+    this.ctx.audio.sfx('tap');
     entity.squish();
     const gesture = new GestureTracker();
     gesture.down(event.global.x, event.global.y, performance.now());
@@ -221,6 +225,7 @@ export class Scene {
         return;
       }
       session.dragging = true;
+      this.ctx.audio.sfx('lift');
       session.entity.setLifted(true);
       session.entity.zIndex = 100_000;
       this.hideBubble();
@@ -246,7 +251,9 @@ export class Scene {
     const instance = this.instances().find((prop) => prop.id === entity.entityId);
     if (!instance) return;
     const change = resolveTap(entity.def, instance);
-    if (change) this.ctx.actions.commit(this.data.id, [change]);
+    if (!change) return;
+    this.ctx.audio.sfx('toggle');
+    this.ctx.actions.commit(this.data.id, [change]);
   }
 
   private drop(entity: PropEntity): void {
@@ -259,6 +266,7 @@ export class Scene {
     const effects = resolveUseOn(instance, landing, this.ctx.defs, instances);
     const own = effects.find((effect) => effect.id === entity.entityId);
     const others = effects.filter((effect) => effect !== own);
+    this.ctx.audio.sfx(effects.length > 0 ? 'success' : 'drop');
     entity.moveTo(landing.x, landing.y, true);
     this.ctx.actions.commit(id, [{ ...own, id: entity.entityId, x: landing.x, y: landing.y }, ...others]);
   }
@@ -267,7 +275,10 @@ export class Scene {
     const now = performance.now();
     for (const session of this.pointers.values()) {
       if (session.kind !== 'entity') continue;
-      if (session.gesture.tick(now)) this.showBubble(session.entity);
+      if (session.gesture.tick(now)) {
+        this.showBubble(session.entity);
+        this.ctx.audio.say(session.entity.def.voiceLine);
+      }
       if (session.dragging) this.edgeScroll(session, ticker.deltaMS);
     }
   };
@@ -290,7 +301,7 @@ export class Scene {
     this.hideBubble();
     const bubble = new Container();
     const label = new Text({
-      text: entity.def.nameHe,
+      text: rtl(entity.def.nameHe),
       style: { fontFamily: 'Rubik', fontSize: NAME_FONT_PX, fontWeight: '600', fill: 0x3b2f2f, padding: 12 },
     });
     label.anchor.set(0.5);

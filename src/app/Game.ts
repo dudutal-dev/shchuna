@@ -1,15 +1,28 @@
 import { Application } from 'pixi.js';
 import { propDefs } from '../content/props';
 import { strings } from '../content/strings.he';
-import { Scene } from '../engine/Scene';
+import { AudioManager, BrowserAudioBackend } from '../engine/AudioManager';
 import { SaveManager } from '../engine/SaveManager';
+import { Scene } from '../engine/Scene';
 import { playground } from '../locations/playground/playground.data';
 import { Hud } from '../ui/Hud';
+import { StartScreen } from '../ui/StartScreen';
 import { Actions } from './actions';
 import { GameStore } from './store';
 import { installTestHook } from './testHook';
 
 const SKY = 0xbfe6ff;
+
+async function createAudio(store: GameStore): Promise<AudioManager> {
+  // A dynamic import keeps the line texts and the Web Speech fallback out of production.
+  const fallback = import.meta.env.DEV
+    ? (await import('../engine/devSpeech')).speakWithBrowserVoice
+    : undefined;
+  const backend = new BrowserAudioBackend(import.meta.env.BASE_URL, fallback);
+  const audio = new AudioManager(backend, () => store.state.settings);
+  await audio.init();
+  return audio;
+}
 
 /** Boots the Pixi application and wires the game together. */
 export class Game {
@@ -29,20 +42,40 @@ export class Game {
     this.app.canvas.setAttribute('aria-label', strings.appName);
     host.appendChild(this.app.canvas);
 
+    const startScreen = new StartScreen(this.app);
+    await startScreen.show();
+
     const store = new GameStore(await this.saves.load());
     const actions = new Actions(store, this.saves);
+    const audio = await createAudio(store);
 
     // Closing the tab can't wait for the debounce.
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') void this.saves.flush();
     });
 
-    const scene = new Scene({ app: this.app, store, actions, defs: propDefs }, playground);
-    await scene.enter();
-    const hud = new Hud(this.app, () => actions.undo(playground.id));
-    await hud.init();
-    this.app.stage.addChild(scene.view, hud.view);
+    const scene = new Scene({ app: this.app, store, actions, defs: propDefs, audio }, playground);
+    const hud = new Hud(this.app, () => {
+      audio.sfx('undo');
+      actions.undo(playground.id);
+    });
+    const hook = installTestHook({ store, scene, hud, audio, saves: this.saves });
+    await Promise.all([scene.enter(), hud.init()]);
+    audio.preload([
+      'ui.tap_to_start',
+      'ui.welcome',
+      ...Object.values(propDefs).map((def) => def.voiceLine),
+    ]);
 
-    installTestHook({ store, scene, hud, saves: this.saves });
+    // Heard right away where the browser allows it. Otherwise iOS holds it until the
+    // first touch, and the greeting below cuts it off.
+    audio.say('ui.tap_to_start');
+    if (hook) hook.stage = 'start';
+    await startScreen.waitForTap();
+    audio.sfx('success');
+    audio.say('ui.welcome');
+    startScreen.destroy();
+    this.app.stage.addChild(scene.view, hud.view);
+    if (hook) hook.stage = 'playing';
   }
 }

@@ -1,0 +1,11 @@
+[
+  { "id": "ui.tap_to_start", "text": "גַּע כְּדֵי לְהַתְחִיל!", "voice": "narrator", "proofread": false },
+  { "id": "ui.welcome", "text": "בְּרוּכִים הַבָּאִים לַשְּׁכוּנָה!", "voice": "narrator", "proofread": false },
+  { "id": "prop.apple", "text": "תַּפּוּחַ", "voice": "narrator", "proofread": false },
+  { "id": "prop.ball", "text": "כַּדּוּר", "voice": "narrator", "proofread": false },
+  { "id": "prop.cup", "text": "כּוֹס", "voice": "narrator", "proofread": false },
+  { "id": "prop.lamp", "text": "מְנוֹרָה", "voice": "narrator", "proofread": false },
+  { "id": "prop.shelf", "text": "מַדָּף", "voice": "narrator", "proofread": false },
+  { "id": "prop.sink", "text": "כִּיּוֹר", "voice": "narrator", "proofread": false },
+  { "id": "prop.table", "text": "שֻׁלְחָן", "voice": "narrator", "proofread": false }
+]

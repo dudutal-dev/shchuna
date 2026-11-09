@@ -30,6 +30,9 @@ jobs:
       # Visual comparisons are skipped: baselines are per-OS and live on Dudu's machine.
       - run: npm run e2e -- --grep-invert @visual
       - run: npm run build
+        env:
+          # TODO: remove once the recordings are committed (M2), so a missing line blocks a deploy.
+          SHCHUNA_ALLOW_MISSING_VOICE: '1'
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

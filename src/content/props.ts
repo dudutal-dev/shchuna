@@ -1,4 +1,4 @@
-import type { PropDef } from '../types';
+import type { PropDef } from '../types.ts';
 import { strings } from './strings.he';
 
 const names = strings.props;

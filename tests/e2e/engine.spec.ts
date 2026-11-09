@@ -1,5 +1,5 @@
 import { expect, test } from './fixtures';
-import { openGame, propCenter, propState, tap, touchDrag } from './helpers';
+import { openGame, propCenter, propState, tap, tapToStart, touchDrag } from './helpers';
 
 const TABLE_Y = 322;
 
@@ -19,7 +19,7 @@ test.describe('engine playground', () => {
 
     await page.evaluate(() => window.__shchuna?.flushSave());
     await page.reload();
-    await page.waitForFunction(() => window.__shchuna !== undefined);
+    await tapToStart(page);
     const reloaded = await propState(page, 'ball');
     expect(reloaded).toMatchObject({ x: moved.x, y: moved.y });
   });

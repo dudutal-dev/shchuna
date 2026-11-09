@@ -33,6 +33,8 @@ export default defineConfig({
     command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,
     url: `http://localhost:${PORT}/`,
     reuseExistingServer: false,
+    // These flows don't depend on the recordings, and a new line shouldn't need paid audio to test.
+    env: { SHCHUNA_ALLOW_MISSING_VOICE: '1' },
     timeout: 180_000,
   },
 });

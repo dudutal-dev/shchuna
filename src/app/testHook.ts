@@ -1,3 +1,4 @@
+import type { AudioManager } from '../engine/AudioManager';
 import type { SaveManager } from '../engine/SaveManager';
 import type { Scene } from '../engine/Scene';
 import type { SaveGame } from '../types';
@@ -5,9 +6,11 @@ import type { Hud } from '../ui/Hud';
 import type { GameStore } from './store';
 
 export interface TestHook {
+  stage: 'loading' | 'start' | 'playing';
   state(): SaveGame;
   center(id: string): { x: number; y: number } | null;
   undoCenter(): { x: number; y: number };
+  lastLine(): string | null;
   flushSave(): Promise<void>;
 }
 
@@ -17,18 +20,23 @@ declare global {
   }
 }
 
-/** Canvas has no DOM to query, so e2e tests read positions here. Only with `?e2e` in the URL. */
+/** Canvas has no DOM to query, so e2e tests read the game here. Only with `?e2e` in the URL. */
 export function installTestHook(parts: {
   store: GameStore;
   scene: Scene;
   hud: Hud;
+  audio: AudioManager;
   saves: SaveManager;
-}): void {
-  if (!new URLSearchParams(location.search).has('e2e')) return;
-  window.__shchuna = {
+}): TestHook | null {
+  if (!new URLSearchParams(location.search).has('e2e')) return null;
+  const hook: TestHook = {
+    stage: 'loading',
     state: () => parts.store.state,
     center: (id) => parts.scene.entityCenter(id),
     undoCenter: () => parts.hud.undoCenter(),
+    lastLine: () => parts.audio.lastLine,
     flushSave: () => parts.saves.flush(),
   };
+  window.__shchuna = hook;
+  return hook;
 }
