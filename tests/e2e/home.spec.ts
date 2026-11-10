@@ -71,6 +71,8 @@ test.describe('home', () => {
   });
 
   test('the kids room wardrobe opens to show the hippo', async ({ page }, testInfo) => {
+    // Scrolls across the whole house: slow on software-rendered WebGL.
+    test.slow();
     await openGame(page, 'home');
     expect(await isVisible(page, 'hippo')).toBe(false);
     await tap(page, await scrollTo(page, 'wardrobe'));

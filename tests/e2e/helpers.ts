@@ -40,9 +40,11 @@ export async function scrollTo(page: Page, id: string): Promise<Point> {
     // At the end of the room it can't move further; on screen is good enough then.
     if (previous !== null && Math.abs(center.x - previous) < 2) return center;
     previous = center.x;
-    const step = Math.sign(offset) * Math.min(Math.abs(offset), size.width - 200);
+    const step = Math.sign(offset) * Math.min(Math.abs(offset), size.width - 320);
+    // The top strip of wall is above every prop. Leftward drags start left of the
+    // book and door buttons in the top-right corner.
     const y = 30;
-    const from = step > 0 ? 100 : size.width - 100;
+    const from = step > 0 ? 100 : size.width - 220;
     await touchDrag(page, { x: from, y }, { x: from + step, y });
   }
   return propCenter(page, id);

@@ -2,6 +2,7 @@ import { UndoStack } from '../engine/UndoStack';
 import type {
   Character,
   CharacterAppearance,
+  LetterProgress,
   LocationId,
   PropInstance,
   PropState,
@@ -96,6 +97,14 @@ export class Actions {
       });
     }
     this.apply(changes);
+  }
+
+  /** Letter-hunt progress. Not undoable: a letter, once found, stays found. */
+  setLetters(letters: LetterProgress[]): void {
+    this.store.update((state) => {
+      state.letters = letters;
+    });
+    this.save();
   }
 
   setWallet(amount: number): void {

@@ -7,7 +7,7 @@ export const BUTTON_SIZE = 72;
 const MARGIN = 12;
 const ICON_ALPHA = 0.8;
 
-export type HudButtonId = 'undo' | 'family' | 'go';
+export type HudButtonId = 'undo' | 'family' | 'go' | 'book';
 
 /** A round icon button that squishes when pressed. */
 export function makeButton(art: string, size: number, onPress: () => void): Container {
@@ -47,6 +47,7 @@ export class Hud {
       undo: 'ui/undo.svg',
       family: 'ui/family.svg',
       go: 'ui/go.svg',
+      book: 'ui/letter-book.svg',
     };
     await loadArt(Object.values(art));
     for (const id of Object.keys(art) as HudButtonId[]) {
@@ -83,5 +84,9 @@ export class Hud {
     this.buttons.get('family')?.position.set(MARGIN + half, bottom - BUTTON_SIZE - MARGIN);
     // Top-right: the way out, where SPEC §11 puts the map button.
     this.buttons.get('go')?.position.set(this.app.screen.width - MARGIN - half, MARGIN + half);
+    // The letter book sits beside it, always in reach.
+    this.buttons
+      .get('book')
+      ?.position.set(this.app.screen.width - MARGIN * 2 - BUTTON_SIZE - half, MARGIN + half);
   };
 }

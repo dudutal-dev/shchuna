@@ -11,7 +11,8 @@ import type { Actions, EntityChange } from '../app/actions';
 import { cycle } from '../characters/catalog';
 import type { GameStore } from '../app/store';
 import { CharacterEntity, characterArt } from '../characters/CharacterEntity';
-import type { Character, LocationId, PropDef, PropInstance } from '../types';
+import type { Character, HebrewLetter, LocationId, PropDef, PropInstance } from '../types';
+import { LetterSparkle } from './LetterSparkle';
 import { getArt, loadArt } from './art';
 import type { SoundPlayer } from './AudioManager';
 import { rtl } from './text';
@@ -52,6 +53,11 @@ export interface SceneContext {
   audio: SoundPlayer;
   /** The piggy bank was tapped. */
   onCoins?: (amount: number) => void;
+  /** The letter hunt: which prop hides a letter, and what happens when one is tapped. */
+  letters?: {
+    on(instanceId: string): HebrewLetter | null;
+    found(letter: HebrewLetter, screenPoint: { x: number; y: number }): void;
+  };
 }
 
 type PointerSession =
@@ -77,6 +83,7 @@ export class Scene {
   private readonly overlay = new Container();
   private readonly entities = new Map<string, PropEntity>();
   private readonly characters = new Map<string, CharacterEntity>();
+  private readonly sparkles = new Map<string, LetterSparkle>();
   private readonly darkness = new Graphics();
   private darknessTarget = 0;
   private readonly pointers = new Map<number, PointerSession>();
@@ -168,6 +175,31 @@ export class Scene {
     else this.world.addChildAt(child, this.world.getChildIndex(this.darkness));
   }
 
+  /** Screen position of a prop's hidden letter, or null if it has none showing. */
+  letterCenter(instanceId: string): { x: number; y: number } | null {
+    const sparkle = this.sparkles.get(instanceId);
+    return sparkle?.parent ? sparkle.getGlobalPosition() : null;
+  }
+
+  /** Puts a sparkle on each prop whose letter is still hidden, and takes found ones away. */
+  private syncSparkles(): void {
+    const letters = this.ctx.letters;
+    if (!letters) return;
+    for (const [id, entity] of this.entities) {
+      const letter = letters.on(id);
+      const current = this.sparkles.get(id);
+      if (current && current.letter !== letter) {
+        current.destroy({ children: true });
+        this.sparkles.delete(id);
+      }
+      if (!letter || this.sparkles.has(id)) continue;
+      const sparkle = new LetterSparkle(letter);
+      sparkle.position.copyFrom(entity.letterSpot());
+      entity.addChild(sparkle);
+      this.sparkles.set(id, sparkle);
+    }
+  }
+
   /** World units to screen pixels, and back. */
   toScreen(point: { x: number; y: number }): { x: number; y: number } {
     return this.world.toGlobal(point);
@@ -238,6 +270,7 @@ export class Scene {
       const moved = entity.targetX !== instance.x || entity.targetY !== instance.y;
       if (moved && !this.isDragging(entity)) entity.moveTo(instance.x, instance.y, true);
     }
+    this.syncSparkles();
     let dark = false;
     for (const character of this.people()) {
       const entity = this.characters.get(character.id);
@@ -349,6 +382,12 @@ export class Scene {
   private tap(entity: PropEntity): void {
     const instance = this.instances().find((prop) => prop.id === entity.entityId);
     if (!instance) return;
+    // A tap on a prop with a hidden letter finds the letter.
+    const sparkle = this.sparkles.get(entity.entityId);
+    if (sparkle && this.ctx.letters) {
+      this.ctx.letters.found(sparkle.letter, sparkle.getGlobalPosition());
+      return;
+    }
     const coins = entity.def.interactions.find((i) => i.type === 'coins');
     if (coins?.type === 'coins') {
       entity.wiggle();
@@ -490,6 +529,7 @@ export class Scene {
   private readonly onTick = (ticker: Ticker): void => {
     const now = performance.now();
     for (const entity of this.entities.values()) entity.animate(ticker.deltaMS);
+    for (const sparkle of this.sparkles.values()) sparkle.animate(ticker.deltaMS);
     for (const entity of this.characters.values()) entity.animate(ticker.deltaMS);
     this.placeHeldProps();
     for (const session of this.pointers.values()) {

@@ -12,7 +12,12 @@ import { makolet } from '../locations/makolet/makolet.data';
 import { playground } from '../locations/playground/playground.data';
 import type { LocationId } from '../types';
 import { Hud } from '../ui/Hud';
+import { LetterBook } from '../ui/LetterBook';
+import { revealLetter } from '../ui/LetterReveal';
 import { StartScreen } from '../ui/StartScreen';
+import { letterInfo } from '../content/letters';
+import { find, hear, letterLines, letterOn } from '../learning/LetterHunt';
+import type { HebrewLetter } from '../types';
 import { Actions } from './actions';
 import { GameStore } from './store';
 import { installTestHook, type TestHook } from './testHook';
@@ -54,6 +59,7 @@ export class Game {
   private checkout: Checkout | null = null;
   private location: LocationData = home;
   private creator: CharacterCreator | null = null;
+  private book: LetterBook | null = null;
   private moving = false;
   /** True until the child taps in: the only time an update may reload the page. */
   onStartScreen = true;
@@ -92,6 +98,7 @@ export class Game {
       family: () => void this.openCreator(),
       // Until the map (M7), the door goes between the two places there are.
       go: () => void this.goTo(this.location.id === 'home' ? makolet : home),
+      book: () => void this.openBook(),
     });
     this.hook = installTestHook({
       store: this.store,
@@ -124,7 +131,7 @@ export class Game {
 
   /** Leaves this place and opens another, saving on the way. */
   private async goTo(next: LocationData): Promise<void> {
-    if (this.moving || this.creator || next.id === this.location.id) return;
+    if (this.moving || this.creator || this.book || next.id === this.location.id) return;
     this.moving = true;
     this.audio.sfx('success');
     void this.saves.flush();
@@ -148,6 +155,10 @@ export class Game {
         defs: propDefs,
         audio: this.audio,
         onCoins: (amount) => this.addToPurse(amount),
+        letters: {
+          on: (instanceId) => letterOn(this.store.state.letters, instanceId),
+          found: (letter, at) => void this.foundLetter(letter, at),
+        },
       },
       data,
     );
@@ -176,9 +187,42 @@ export class Game {
     this.audio.say('shop.piggy');
   }
 
+  /** A letter was tapped: it is found, said aloud, shown big, then flies into the book. */
+  private async foundLetter(letter: HebrewLetter, at: { x: number; y: number }): Promise<void> {
+    const { progress, isNew } = find(this.store.state.letters, letter, Date.now());
+    if (!isNew) return;
+    this.actions.setLetters(progress);
+    this.audio.sfx('tada');
+    this.audio.say(letterLines.found(letter));
+    await revealLetter(this.app, letter, letterInfo(letter).word, at, () => this.hud.center('book'));
+  }
+
+  private async openBook(): Promise<void> {
+    if (this.book || this.creator) return;
+    this.audio.sfx('tap');
+    const book = new LetterBook(
+      this.app,
+      this.store,
+      this.audio,
+      propDefs,
+      [...home.props, ...makolet.props],
+      (letter) => this.actions.setLetters(hear(this.store.state.letters, letter)),
+      () => {
+        this.book = null;
+        if (this.hook) this.hook.bookCenter = null;
+        this.setStage('playing');
+      },
+    );
+    this.book = book;
+    await book.open();
+    this.app.stage.addChild(book.view);
+    if (this.hook) this.hook.bookCenter = (id) => book.center(id as HebrewLetter | 'done');
+    this.setStage('book');
+  }
+
   private async openCreator(): Promise<void> {
     const here = this.store.state.characters.filter((c) => c.location === this.location.id);
-    if (this.creator || here.length === 0) return;
+    if (this.creator || this.book || here.length === 0) return;
     this.audio.sfx('tap');
     const creator = new CharacterCreator(
       this.app,

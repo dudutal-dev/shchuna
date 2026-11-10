@@ -110,6 +110,11 @@ export class PropEntity extends Entity {
     tween(this, { rotation: 0 }, 420, easeOutElastic);
   }
 
+  /** Where a hidden letter sits: the top corner of the art, on the reading side (right). */
+  letterSpot(): { x: number; y: number } {
+    return { x: this.sprite.width / 2 - 14, y: -this.sprite.height + 14 };
+  }
+
   private showFrame(): void {
     const art = this.frames[this.frameIndex];
     if (!art) return;

@@ -108,6 +108,8 @@ test.describe('characters', () => {
   });
 
   test('a toy given to a character is held, and moves with them', async ({ page }) => {
+    // Scrolls across the whole house: slow on software-rendered WebGL.
+    test.slow();
     await openGame(page, 'home');
     const scale = page.viewportSize()!.height / 600;
     // The TV stands between the plant and the toddler, so both are on screen.

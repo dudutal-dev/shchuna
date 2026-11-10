@@ -1,0 +1,54 @@
+import type { HebrewLetter } from '../types.ts';
+
+/** Where in the neighbourhood a letter hides, for the "maybe in the kitchen?" hint. */
+export type LetterArea = 'kitchen' | 'living' | 'kids' | 'makolet' | 'map' | 'later';
+
+export interface LetterInfo {
+  letter: HebrewLetter;
+  /** Latin id for voice lines and files. */
+  id: string;
+  /** The letter's name, pointed. */
+  name: string;
+  /** The anchor word, pointed; it starts with the letter. */
+  word: string;
+  /** Voice line for the word on its own. Reuses the prop's line where they match. */
+  wordLine: string;
+  area: LetterArea;
+  /** The prop instance it hides on in phase 0, if it is one of the phase-0 letters. */
+  hidesOn?: string;
+}
+
+// TODO: proofread — every name and word below (SPEC §7.3).
+export const LETTERS: readonly LetterInfo[] = [
+  { letter: 'א', id: 'alef', name: 'אָלֶף', word: 'אֲבַטִּיחַ', wordLine: 'prop.watermelon', area: 'later' },
+  { letter: 'ב', id: 'bet', name: 'בֵּית', word: 'בַּיִת', wordLine: 'letter.word.bet', area: 'map' },
+  { letter: 'ג', id: 'gimel', name: 'גִּימֶל', word: 'גְּלִידָה', wordLine: 'prop.icecream', area: 'later' },
+  { letter: 'ד', id: 'dalet', name: 'דָּלֶת', word: 'דָּג', wordLine: 'letter.word.dalet', area: 'living', hidesOn: 'aquarium' },
+  { letter: 'ה', id: 'he', name: 'הֵא', word: 'הִפּוֹפּוֹטָם', wordLine: 'prop.hippo', area: 'later' },
+  { letter: 'ו', id: 'vav', name: 'וָו', word: 'וֶרֶד', wordLine: 'letter.word.vav', area: 'later' },
+  { letter: 'ז', id: 'zayin', name: 'זַיִן', word: 'זַיִת', wordLine: 'letter.word.zayin', area: 'later' },
+  { letter: 'ח', id: 'het', name: 'חֵית', word: 'חָלָב', wordLine: 'prop.milk', area: 'kitchen', hidesOn: 'milk' },
+  { letter: 'ט', id: 'tet', name: 'טֵית', word: 'טַוָּס', wordLine: 'letter.word.tet', area: 'later' },
+  { letter: 'י', id: 'yod', name: 'יוֹד', word: 'יָרֵחַ', wordLine: 'letter.word.yod', area: 'later' },
+  { letter: 'כ', id: 'kaf', name: 'כַּף', word: 'כַּדּוּר', wordLine: 'prop.ball', area: 'kids', hidesOn: 'ball' },
+  { letter: 'ל', id: 'lamed', name: 'לָמֶד', word: 'לֶחֶם', wordLine: 'prop.bread', area: 'kitchen', hidesOn: 'bread' },
+  { letter: 'מ', id: 'mem', name: 'מֵם', word: 'מְכוֹנִית', wordLine: 'letter.word.mem', area: 'later' },
+  { letter: 'נ', id: 'nun', name: 'נוּן', word: 'נֵר', wordLine: 'letter.word.nun', area: 'later' },
+  { letter: 'ס', id: 'samekh', name: 'סָמֶךְ', word: 'סֵפֶר', wordLine: 'prop.book', area: 'kids', hidesOn: 'book' },
+  { letter: 'ע', id: 'ayin', name: 'עַיִן', word: 'עוּגָה', wordLine: 'prop.cake', area: 'kitchen', hidesOn: 'cake' },
+  { letter: 'פ', id: 'pe', name: 'פֵּא', word: 'פִּיל', wordLine: 'letter.word.pe', area: 'later' },
+  { letter: 'צ', id: 'tsadi', name: 'צָדִי', word: 'צָב', wordLine: 'letter.word.tsadi', area: 'later' },
+  { letter: 'ק', id: 'qof', name: 'קוֹף', word: 'קוֹף', wordLine: 'letter.word.qof', area: 'later' },
+  { letter: 'ר', id: 'resh', name: 'רֵישׁ', word: 'רַכֶּבֶת', wordLine: 'prop.train', area: 'later' },
+  { letter: 'ש', id: 'shin', name: 'שִׁין', word: 'שֶׁמֶשׁ', wordLine: 'letter.word.shin', area: 'later' },
+  { letter: 'ת', id: 'tav', name: 'תָּו', word: 'תַּפּוּחַ', wordLine: 'prop.apple', area: 'kitchen', hidesOn: 'apple' },
+];
+
+export function letterInfo(letter: HebrewLetter): LetterInfo {
+  const info = LETTERS.find((l) => l.letter === letter);
+  if (!info) throw new Error(`Unknown letter ${letter}`);
+  return info;
+}
+
+/** The phase-0 letters a child can find now. */
+export const HIDDEN_LETTERS: readonly LetterInfo[] = LETTERS.filter((l) => l.hidesOn);

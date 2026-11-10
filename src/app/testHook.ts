@@ -10,7 +10,7 @@ import type { GameStore } from './store';
 type Point = { x: number; y: number };
 
 export interface TestHook {
-  stage: 'loading' | 'start' | 'playing' | 'creator';
+  stage: 'loading' | 'start' | 'playing' | 'creator' | 'book';
   state(): SaveGame;
   /** A prop or character in the scene. */
   center(id: string): Point | null;
@@ -26,6 +26,10 @@ export interface TestHook {
   flushSave(): Promise<void>;
   /** Set while the character creator is open. */
   creatorCenter: ((id: string) => Point | null) | null;
+  /** The sparkling letter on a prop, while it is still hidden. */
+  letterCenter(instanceId: string): Point | null;
+  /** Set while the letter book is open: a letter's slot, or 'done'. */
+  bookCenter: ((id: string) => Point | null) | null;
   /** In the shop only. */
   coinCenter(coin: Coin): Point | null;
   trayCenter(): Point | null;
@@ -60,6 +64,8 @@ export function installTestHook(parts: {
     spoken: () => [...parts.audio.history],
     flushSave: () => parts.saves.flush(),
     creatorCenter: null,
+    letterCenter: (id) => parts.scene()?.letterCenter(id) ?? null,
+    bookCenter: null,
     coinCenter: (coin) => parts.checkout()?.coinCenter(coin) ?? null,
     trayCenter: () => parts.checkout()?.trayCenter() ?? null,
   };
