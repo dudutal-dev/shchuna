@@ -242,5 +242,18 @@
   {"id": "invite.swim", "text": "מִי רוֹצֶה לִשְׂחוֹת בַּיָּם?", "voice": "narrator", "proofread": false},
   {"id": "invite.castle", "text": "בּוֹאוּ נִבְנֶה אַרְמוֹן חוֹל!", "voice": "narrator", "proofread": false},
   {"id": "invite.bus", "text": "הָאוֹטוֹבּוּס הִגִּיעַ! נִפְתַּח אֶת הַדְּלָתוֹת?", "voice": "narrator", "proofread": false},
-  {"id": "invite.ride", "text": "מִי נוֹסֵעַ בָּאוֹטוֹבּוּס?", "voice": "narrator", "proofread": false}
+  {"id": "invite.ride", "text": "מִי נוֹסֵעַ בָּאוֹטוֹבּוּס?", "voice": "narrator", "proofread": false},
+  {"id": "react.thanks", "text": "תּוֹדָה!", "voice": "narrator", "proofread": false},
+  {"id": "prop.fruit-bowl", "text": "קְעָרָה", "voice": "narrator", "proofread": false},
+  {"id": "invite.count", "text": "כַּמָּה דְּבָרִים נִכְנָסִים לַקְּעָרָה?", "voice": "narrator", "proofread": false},
+  {"id": "number.1", "text": "אַחַת", "voice": "narrator", "proofread": false},
+  {"id": "number.2", "text": "שְׁתַּיִם", "voice": "narrator", "proofread": false},
+  {"id": "number.3", "text": "שָׁלֹשׁ", "voice": "narrator", "proofread": false},
+  {"id": "number.4", "text": "אַרְבַּע", "voice": "narrator", "proofread": false},
+  {"id": "number.5", "text": "חָמֵשׁ", "voice": "narrator", "proofread": false},
+  {"id": "number.6", "text": "שֵׁשׁ", "voice": "narrator", "proofread": false},
+  {"id": "number.7", "text": "שֶׁבַע", "voice": "narrator", "proofread": false},
+  {"id": "number.8", "text": "שְׁמוֹנֶה", "voice": "narrator", "proofread": false},
+  {"id": "number.9", "text": "תֵּשַׁע", "voice": "narrator", "proofread": false},
+  {"id": "number.10", "text": "עֶשֶׂר", "voice": "narrator", "proofread": false}
 ]

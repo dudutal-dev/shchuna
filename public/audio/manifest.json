@@ -1463,6 +1463,84 @@
       "text": "מִי נוֹסֵעַ בָּאוֹטוֹבּוּס?",
       "durationMs": 1600,
       "hash": "9f6b88fed7aedcf69cfa6ddf494dbec491b3844943bf613d6258185c06f69ed5"
+    },
+    "react.thanks": {
+      "file": "public/audio/lines/react.thanks.mp3",
+      "text": "תּוֹדָה!",
+      "durationMs": 960,
+      "hash": "7535e977742c384e7ca407dd0227a0363775025b9d8dae9e5a7e7f2cc7f5de0f"
+    },
+    "prop.fruit-bowl": {
+      "file": "public/audio/lines/prop.fruit-bowl.mp3",
+      "text": "קְעָרָה",
+      "durationMs": 1120,
+      "hash": "e42eb6856ca2c18395e5a2090898183fae7bc5fefaf02459aac39b1228de7ae3"
+    },
+    "invite.count": {
+      "file": "public/audio/lines/invite.count.mp3",
+      "text": "כַּמָּה דְּבָרִים נִכְנָסִים לַקְּעָרָה?",
+      "durationMs": 2160,
+      "hash": "1e59dfcadf1c98d2ea42ce7d1a428b0bceb919c6c85d8b0b18fe70e7aed06246"
+    },
+    "number.1": {
+      "file": "public/audio/lines/number.1.mp3",
+      "text": "אַחַת",
+      "durationMs": 960,
+      "hash": "0c0451a9349d981aefb6fb9abc49981d587273250ca6ef079b3981afc2badecc"
+    },
+    "number.2": {
+      "file": "public/audio/lines/number.2.mp3",
+      "text": "שְׁתַּיִם",
+      "durationMs": 960,
+      "hash": "ca383a2aa6ebf6f9c11fd801b541c4a3cfdcae882fb216490f3160be65009405"
+    },
+    "number.3": {
+      "file": "public/audio/lines/number.3.mp3",
+      "text": "שָׁלֹשׁ",
+      "durationMs": 1040,
+      "hash": "f4d039958eb3406a31d046d248885c7a55709aee374f3fd2247b2d947d77033d"
+    },
+    "number.4": {
+      "file": "public/audio/lines/number.4.mp3",
+      "text": "אַרְבַּע",
+      "durationMs": 720,
+      "hash": "300b52962caadf050a6d252c70c473b0ba0697a585f48bd26ae7d1116b8bd013"
+    },
+    "number.5": {
+      "file": "public/audio/lines/number.5.mp3",
+      "text": "חָמֵשׁ",
+      "durationMs": 960,
+      "hash": "f2c866ef09d90850dbbea3808daafbd2f7dd8fa9d5da94c2c1b495bbf8ada325"
+    },
+    "number.6": {
+      "file": "public/audio/lines/number.6.mp3",
+      "text": "שֵׁשׁ",
+      "durationMs": 880,
+      "hash": "6ae2b02af9c143e74d97ff6d72ef82b1700cffd8a5abf27a470433d7241fd272"
+    },
+    "number.7": {
+      "file": "public/audio/lines/number.7.mp3",
+      "text": "שֶׁבַע",
+      "durationMs": 880,
+      "hash": "c75f2b94cc4a28fb9066eb91cb22ce334abd68b3e624a3fd9333ed04dadf50be"
+    },
+    "number.8": {
+      "file": "public/audio/lines/number.8.mp3",
+      "text": "שְׁמוֹנֶה",
+      "durationMs": 880,
+      "hash": "5963f74c51c0288f32852e9f583093586059c8bef6f35fc9c42a6ab8f2288b37"
+    },
+    "number.9": {
+      "file": "public/audio/lines/number.9.mp3",
+      "text": "תֵּשַׁע",
+      "durationMs": 800,
+      "hash": "b32c04ac35e79d062c062586b0d9ac9c134973416b64d2b0d4c06025fb3b1021"
+    },
+    "number.10": {
+      "file": "public/audio/lines/number.10.mp3",
+      "text": "עֶשֶׂר",
+      "durationMs": 800,
+      "hash": "6ebd3f810868a95fe68ef485ddcd7a7816baa0adfc7ade1e33bbfd6cfee009fd"
     }
   }
 }

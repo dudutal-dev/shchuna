@@ -35,6 +35,12 @@ export const INVITATIONS: Partial<Record<LocationId, readonly Invitation[]>> = {
     { id: 'fridge', line: 'invite.fridge', show: { tap: { prop: ['fridge'] } }, doneWhen: { state: { prop: 'fridge', key: 'open' } } },
     { id: 'tv', line: 'invite.tv', show: { tap: { prop: ['tv'] } }, doneWhen: { state: { prop: 'tv', key: 'on' } } },
     { id: 'sofa', line: 'invite.sofa', show: { drag: person, to: { surface: 'sofa' } }, doneWhen: { activity: 'watch' } },
+    {
+      id: 'count',
+      line: 'invite.count',
+      show: { drag: { prop: ['bread', 'cake', 'apple', 'milk'] }, to: { surface: 'fruit-bowl' } },
+      doneWhen: { surface: 'fruit-bowl' },
+    },
     { id: 'cat', line: 'invite.cat', show: { tap: { prop: ['cat'] } }, doneWhen: { tap: 'cat' } },
     { id: 'eat', line: 'invite.eat', show: { drag: person, to: { surface: 'chair' } }, doneWhen: { activity: 'eat' } },
     { id: 'sleep', line: 'invite.sleep', show: { drag: person, to: { surface: 'bed' } }, doneWhen: { activity: 'sleep' } },

@@ -29,6 +29,8 @@ export interface TestHook {
   /** Puts a character on a surface as a drop would. For checking what places do with them. */
   put(characterId: string, surfaceId: string): boolean;
   characterVisible(id: string): boolean;
+  /** The wish showing over someone's head, if any. */
+  wish(): { characterId: string; kind: string } | null;
   /** Whether the see-through hand of an invitation is showing. */
   ghostShowing(): boolean;
   /** A side arrow that slides the room, or null while it is hidden. */
@@ -96,6 +98,7 @@ export function installTestHook(parts: {
     put: (characterId, surfaceId) => parts.scene()?.testPut(characterId, surfaceId) ?? false,
     characterVisible: (id) => parts.scene()?.isCharacterVisible(id) ?? false,
     ghostShowing: () => parts.scene()?.ghostShowing ?? false,
+    wish: () => parts.scene()?.currentWish ?? null,
     music: parts.music,
     fps: parts.fps,
     frameCost: parts.frameCost,

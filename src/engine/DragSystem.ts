@@ -20,6 +20,8 @@ export interface Surface {
   pose?: 'sit' | 'lie';
   /** What a character does here, beyond sitting or lying. */
   activity?: Activity;
+  /** Things put here are counted aloud: "one, two, three" (the fruit bowl). */
+  counts?: boolean;
 }
 
 /** Things a place does with a character put on one of its surfaces. */

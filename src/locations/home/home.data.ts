@@ -48,6 +48,9 @@ const CHAIR_X = KITCHEN + 775;
 const STOVE_X = KITCHEN + 420;
 // In front of the tiled backsplash.
 const SINK_X = KITCHEN + 155;
+// On the counter, left of the sink.
+const BOWL_X = SINK_X - 80;
+const BOWL_FEET = WALL_FEET - 220 + 82;
 
 // Living room.
 const CABINET_X = LIVING + 230;
@@ -67,8 +70,11 @@ const surfaces: Surface[] = [
   across('fridge-2', FRIDGE_X, WALL_FEET, FRIDGE, 200, 50, 185, fridgeOpen),
   across('fridge-3', FRIDGE_X, WALL_FEET, FRIDGE, 280, 50, 185, fridgeOpen),
   across('stove', STOVE_X, WALL_FEET, { width: 220, height: 250 }, 40, 20, 200),
-  across('counter', SINK_X, WALL_FEET, { width: 300, height: 220 }, 82, 10, 290),
+  // The counter starts right of the fruit bowl, so a drop over the bowl lands in it.
+  across('counter', SINK_X, WALL_FEET, { width: 300, height: 220 }, 82, 175, 290),
   across('table', TABLE_X, TABLE_FEET, { width: 320, height: 160 }, 12, 15, 305),
+  // Food put in the fruit bowl is counted aloud.
+  { ...across('fruit-bowl', BOWL_X, BOWL_FEET, { width: 150, height: 60 }, 22, 22, 128), counts: true },
   { ...across('chair', CHAIR_X, 550, { width: 110, height: 190 }, 100, 10, 100, undefined, 'sit'), activity: { kind: 'eat', table: 'table' } },
 
   across('tv-cabinet', CABINET_X, WALL_FEET, { width: 260, height: 110 }, 8, 10, 250),
@@ -115,6 +121,7 @@ export const home: LocationData = {
     on('cake', 'cake', FRIDGE_X, 'fridge-1'),
     on('apple', 'apple', FRIDGE_X + 20, 'fridge-3'),
     on('pot', 'pot', SINK_X + 100, 'counter'),
+    prop('fruit-bowl', BOWL_X, BOWL_FEET),
     on('cup', 'cup', TABLE_X - 100, 'table'),
     on('plate', 'plate', TABLE_X, 'table'),
     on('bread', 'bread', TABLE_X + 100, 'table'),

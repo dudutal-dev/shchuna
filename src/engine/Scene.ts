@@ -16,6 +16,8 @@ import { starBurst } from './effects';
 import { HintSystem, hintIdleMs } from './HintSystem';
 import { INVITATIONS, pickInvitation, type Invitation, type InviteTarget } from '../content/invitations';
 import { GhostFinger, HAND_ART } from '../ui/GhostFinger';
+import { WISH_ART, WishBubble, type WishKind } from '../ui/WishBubble';
+import { wishTiming } from './wishTiming';
 import { LetterSparkle } from './LetterSparkle';
 import { buttonSize, safeArea } from './safeArea';
 import { getArt, loadArt } from './art';
@@ -135,6 +137,9 @@ export class Scene {
   }
   /** The prop the last hint pointed at, for tests. */
   lastHint: string | null = null;
+  /** The wish showing now, if any: one at a time in a place. */
+  private wish: { characterId: string; kind: WishKind; bubble: WishBubble; until: number } | null = null;
+  private nextWishAt = performance.now() + wishTiming().first;
   /** The see-through hand that shows what an invitation means. */
   private readonly ghost = new GhostFinger();
   /** Invitations the child has already taken up in this visit. */
@@ -166,7 +171,10 @@ export class Scene {
     const instances = this.instances();
     const art = instances.flatMap((instance) => allArtOf(this.defOf(instance)));
     if (this.people().length > 0) art.push(...characterArt());
-    await Promise.all([loadArt([...art, ARROW_ART, HAND_ART]), loadArt(this.data.background, true)]);
+    await Promise.all([
+      loadArt([...art, ARROW_ART, HAND_ART, ...Object.values(WISH_ART)]),
+      loadArt(this.data.background, true),
+    ]);
 
     // Tiles keep each texture inside the 4096px limit of older iPads.
     let tileX = 0;
@@ -584,6 +592,27 @@ export class Scene {
       ...release,
     ]);
     if (started) this.celebrate(others[0]?.id ?? entity.entityId);
+    if (!back && landing.surfaceId) this.afterPutOn(entity, landing.surfaceId);
+  }
+
+  /** Something was put on a surface: counted in the bowl, or eaten by someone at the table. */
+  private afterPutOn(entity: PropEntity, surfaceId: string): void {
+    const surface = this.data.surfaces.find((s) => s.id === surfaceId);
+    if (surface?.counts) {
+      const count = this.instances().filter((p) => p.on === surfaceId).length;
+      this.ctx.audio.say(`number.${Math.min(count, 10)}`);
+      this.celebrate(entity.entityId);
+      return;
+    }
+    if (!entity.def.food) return;
+    const seat = this.data.surfaces.find((s) => s.activity?.kind === 'eat' && s.activity.table === surfaceId);
+    const diner = seat && this.people().find((c) => c.on === seat.id);
+    const food = this.instances().find((p) => p.id === entity.entityId);
+    if (!diner || !food) return;
+    setTimeout(() => {
+      const now = this.instances().find((p) => p.id === food.id);
+      if (now?.on === surfaceId) this.eat(diner, now, []);
+    }, 600);
   }
 
   /** The character under a screen point, if any, other than `except`. */
@@ -611,6 +640,8 @@ export class Scene {
     person?.munch();
     this.ctx.audio.sfx('yum');
     this.ctx.audio.say('react.yum');
+    const fullPita = instance.defId === 'falafel-pita' && instance.state?.stuffed === true;
+    this.grantWish(receiver.id, fullPita ? ['eat', 'order'] : ['eat']);
     this.celebrate(receiver.id);
     this.ctx.actions.commit(this.data.id, [
       { id: instance.id, x: origin.x, y: origin.y, on: origin.on ?? null, state },
@@ -629,6 +660,7 @@ export class Scene {
       return;
     }
     this.ctx.audio.sfx('success');
+    this.grantWish(receiver.id, ['play']);
     const changes: EntityChange[] = [
       ...release,
       { id: receiver.id, holding: instance.id },
@@ -675,6 +707,7 @@ export class Scene {
   /** What happens the moment a character is put somewhere that does something. */
   private startActivity(entity: CharacterEntity, activity: Activity): void {
     this.noteDone({ activity: activity.kind });
+    if (activity.kind === 'sleep') this.grantWish(entity.entityId, ['sleep']);
     const say = (line: string) => this.ctx.audio.say(line);
     switch (activity.kind) {
       case 'slide': {
@@ -793,6 +826,83 @@ export class Scene {
     if (!vehicle) return false;
     this.tap(vehicle);
     return true;
+  }
+
+  /**
+   * Now and then a character wishes for something, shown as a picture in a thought bubble:
+   * food, bed, a toy, or (the customer at the falafel stand) a full pita. One at a time, only
+   * what can be done here, and it simply fades if nobody gets to it.
+   */
+  private updateWish(): void {
+    const now = performance.now();
+    const timing = wishTiming();
+    if (this.wish) {
+      if (now > this.wish.until) {
+        this.wish.bubble.pop();
+        this.wish = null;
+        this.nextWishAt = now + timing.every;
+      }
+      return;
+    }
+    if (now < this.nextWishAt) return;
+    const instances = this.instances();
+    const defs = instances.map((p) => this.defOf(p));
+    const hasFood = instances.some((p, i) => defs[i]!.food && !isHidden(p, this.data.surfaces, instances));
+    const hasBed = this.data.surfaces.some((s) => s.activity?.kind === 'sleep');
+    const hasToy = defs.some((d) => d.draggable && !d.food && d.layer === 'item');
+    const options: Array<{ characterId: string; kind: WishKind }> = [];
+    const { width } = this.ctx.app.screen;
+    for (const character of this.people()) {
+      const entity = this.characters.get(character.id);
+      const at = this.entityCenter(character.id);
+      if (!entity?.visible || this.isDragging(entity) || !at || at.x < 80 || at.x > width - 80) continue;
+      const seat = character.on ? this.data.surfaces.find((s) => s.id === character.on) : undefined;
+      // Someone sitting at a table waits to be served.
+      if (seat?.activity?.kind === 'eat' && this.data.id === 'falafel') {
+        options.push({ characterId: character.id, kind: 'order' });
+        continue;
+      }
+      if (character.pose !== 'stand' || character.on) continue;
+      if (hasFood) options.push({ characterId: character.id, kind: 'eat' });
+      if (hasBed) options.push({ characterId: character.id, kind: 'sleep' });
+      if (hasToy) options.push({ characterId: character.id, kind: 'play' });
+    }
+    const choice = options[Math.floor(Math.random() * options.length)];
+    if (!choice) {
+      this.nextWishAt = now + 5000;
+      return;
+    }
+    const entity = this.characters.get(choice.characterId)!;
+    // Towards the middle of the screen, so it never hangs off an edge.
+    const atRight = (this.entityCenter(choice.characterId)?.x ?? 0) > width / 2;
+    const bubble = new WishBubble(choice.kind, atRight ? 'left' : 'right');
+    const top = entity.getLocalBounds().y;
+    bubble.position.set(atRight ? -45 : 45, top - 90);
+    entity.addChild(bubble);
+    this.ctx.audio.sfx('toggle');
+    this.wish = { ...choice, bubble, until: now + timing.lasts };
+  }
+
+  /** Something happened to a character; if it was what they wished for, they are delighted. */
+  private grantWish(characterId: string, kinds: readonly WishKind[]): void {
+    const wish = this.wish;
+    if (!wish || wish.characterId !== characterId || !kinds.includes(wish.kind)) return;
+    wish.bubble.pop();
+    this.wish = null;
+    this.nextWishAt = performance.now() + wishTiming().every;
+    const entity = this.characters.get(characterId);
+    setTimeout(() => {
+      if (!entity || entity.destroyed) return;
+      entity.hop();
+      this.celebrate(characterId);
+      this.ctx.audio.sfx('tada');
+      this.ctx.audio.say('react.thanks');
+    }, 700);
+  }
+
+  /** The wish showing now, for tests. */
+  get currentWish(): { characterId: string; kind: WishKind } | null {
+    return this.wish ? { characterId: this.wish.characterId, kind: this.wish.kind } : null;
   }
 
   /** A sleeper was tapped: they wake up and get out of bed. */
@@ -1006,6 +1116,7 @@ export class Scene {
     this.updateArrows();
     this.cull();
     this.updateActivities();
+    if (this.shown) this.updateWish();
     for (const entity of this.entities.values()) entity.animate(ticker.deltaMS);
     for (const sparkle of this.sparkles.values()) sparkle.animate(ticker.deltaMS);
     for (const entity of this.characters.values()) entity.animate(ticker.deltaMS);

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="60" viewBox="0 0 150 60">
+  <!-- A wide, shallow fruit bowl standing on the kitchen counter. Things put in it rest on
+       the inside at about y 22. -->
+  <ellipse cx="75" cy="56" rx="30" ry="4" fill="#C9A27A"/>
+  <path d="M6 18 Q10 50 46 54 L104 54 Q140 50 144 18 Z" fill="#3E8E7E" stroke="#2F7264" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="75" cy="18" rx="69" ry="9" fill="#5FAE9C" stroke="#2F7264" stroke-width="4"/>
+  <ellipse cx="75" cy="19" rx="58" ry="5" fill="#2F7264" opacity=".35"/>
+  <!-- A little pattern of white dots around the side. -->
+  <g fill="#FFF7E6">
+    <circle cx="34" cy="34" r="3"/>
+    <circle cx="54" cy="40" r="3"/>
+    <circle cx="75" cy="42" r="3"/>
+    <circle cx="96" cy="40" r="3"/>
+    <circle cx="116" cy="34" r="3"/>
+  </g>
+  <path d="M22 26 Q30 40 44 46" fill="none" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="4" stroke-linecap="round"/>
+</svg>

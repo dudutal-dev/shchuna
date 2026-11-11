@@ -89,6 +89,12 @@ function firstStop(): LocationData | 'map' {
   return (asked && LOCATIONS[asked]) || 'map';
 }
 
+/** In tests, invitations speak only in the tests that ask for them (`?e2e&invites`). */
+function invitationsAllowed(): boolean {
+  const params = new URLSearchParams(location.search);
+  return !params.has('e2e') || params.has('invites');
+}
+
 /** Boots the Pixi application, wires the game together and moves between places. */
 export class Game {
   readonly app = new Application();
@@ -311,7 +317,7 @@ export class Game {
         audio: this.audio,
         onCoins: (amount) => this.addToPurse(amount),
         invites: {
-          enabled: () => this.store.state.settings.invitations !== false,
+          enabled: () => this.store.state.settings.invitations !== false && invitationsAllowed(),
           canSpeak: () => performance.now() - this.lastInviteAt > INVITE_GAP_MS || this.lastInviteAt === 0,
           spoke: () => (this.lastInviteAt = performance.now()),
         },

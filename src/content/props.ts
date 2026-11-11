@@ -129,6 +129,7 @@ const definitions: PropDef[] = [
   prop('teddy', 'teddy', { art: 'home/teddy.svg' }),
   // Over the moon painted in the night window; it is there so a letter can hide on it.
   prop('moon', 'moon', { art: 'home/moon.svg', layer: 'furniture' }),
+  prop('fruit-bowl', 'fruitBowl', { art: 'home/bowl.svg', layer: 'furniture' }),
   prop('train', 'train', { art: 'home/train.svg' }),
   prop('hippo', 'hippo', { art: 'home/hippo.svg' }),
   prop('piggy', 'piggy', {
