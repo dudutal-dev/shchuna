@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="220" viewBox="0 0 240 220">
+  <!-- Ground pad and path stub -->
+  <rect x="10" y="202" width="220" height="16" rx="8" fill="#C9B489" stroke="#A8936A" stroke-width="3"/>
+  <path d="M90 206 H130 L136 218 H84Z" fill="#E8D9B4" stroke="#C2AD82" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Building -->
+  <rect x="26" y="66" width="168" height="140" rx="10" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4"/>
+  <rect x="18" y="54" width="184" height="22" rx="10" fill="#CFEDE7" stroke="#8CC4B8" stroke-width="4"/>
+  <path d="M38 88 V150" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+  <!-- Teal plus badge -->
+  <circle cx="110" cy="38" r="26" fill="#FFFFFF" stroke="#B9C6CC" stroke-width="4"/>
+  <path d="M103 22 H117 V31 H126 V45 H117 V54 H103 V45 H94 V31 H103Z" fill="#3EB59B" stroke="#2A8A74" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Windows -->
+  <rect x="42" y="96" width="38" height="36" rx="6" fill="#BFE6FF" stroke="#8CC4B8" stroke-width="3.5"/>
+  <rect x="140" y="96" width="38" height="36" rx="6" fill="#BFE6FF" stroke="#8CC4B8" stroke-width="3.5"/>
+  <path d="M61 96 V132 M159 96 V132" stroke="#8CC4B8" stroke-width="3"/>
+  <path d="M48 104 L54 100" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Glass door -->
+  <rect x="88" y="104" width="44" height="102" rx="6" fill="#3EB59B" stroke="#2A8A74" stroke-width="4"/>
+  <rect x="95" y="112" width="30" height="50" rx="4" fill="#BFE6FF" stroke="#2A8A74" stroke-width="3"/>
+  <path d="M100 184 H120" stroke="#E9EEF1" stroke-width="4" stroke-linecap="round"/>
+  <!-- Small potted plant -->
+  <g stroke-linejoin="round">
+    <g fill="#7FAF6B" stroke="#55864A" stroke-width="3"><circle cx="40" cy="166" r="11"/><circle cx="52" cy="160" r="12"/><circle cx="62" cy="168" r="10"/></g>
+    <path d="M36 176 H66 L62 204 H40Z" fill="#C8673E" stroke="#8F4426" stroke-width="3.5"/>
+  </g>
+  <!-- Bench -->
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <path d="M160 186 V204 M222 186 V204" stroke="#6B4C35" stroke-width="5"/>
+    <rect x="150" y="160" width="82" height="10" rx="5" fill="#C4966B" stroke="#6B4C35" stroke-width="3.5"/>
+    <rect x="146" y="178" width="90" height="12" rx="6" fill="#C4966B" stroke="#6B4C35" stroke-width="3.5"/>
+    <path d="M162 170 V178 M220 170 V178" stroke="#6B4C35" stroke-width="4"/>
+  </g>
+</svg>

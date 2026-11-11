@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="200" viewBox="0 0 240 200">
+  <!-- Ground pad -->
+  <rect x="14" y="182" width="212" height="16" rx="8" fill="#C9B489" stroke="#A8936A" stroke-width="3"/>
+  <!-- Poles -->
+  <path d="M36 186 V50 M204 186 V50" stroke="#6B4C35" stroke-width="7" stroke-linecap="round"/>
+  <!-- Back wall of the kiosk -->
+  <rect x="42" y="72" width="156" height="60" rx="6" fill="#F6DCC6" stroke="#D9B08C" stroke-width="3.5"/>
+  <g fill="#FFFFFF" stroke="#CDB68B" stroke-width="2.5"><rect x="56" y="82" width="22" height="14" rx="3"/><rect x="88" y="82" width="22" height="14" rx="3"/></g>
+  <!-- Striped awning -->
+  <path d="M22 50 Q22 30 42 30 H198 Q218 30 218 50 V64 H22Z" fill="#FFF7E6" stroke="#B8611A" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="#F28C28"><rect x="46" y="32" width="20" height="32"/><rect x="86" y="32" width="20" height="32"/><rect x="126" y="32" width="20" height="32"/><rect x="166" y="32" width="20" height="32"/></g>
+  <path d="M22 64 Q32 76 42 64 Q52 76 62 64 Q72 76 82 64 Q92 76 102 64 Q112 76 122 64 Q132 76 142 64 Q152 76 162 64 Q172 76 182 64 Q192 76 202 64 Q212 76 218 64Z" fill="#F28C28" stroke="#B8611A" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M40 40 H70" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+  <!-- Fryer pot with falafel balls -->
+  <path d="M138 106 H190 V126 Q190 132 184 132 H144 Q138 132 138 126Z" fill="#C9D2D6" stroke="#8E99A1" stroke-width="3.5" stroke-linejoin="round"/>
+  <rect x="134" y="100" width="60" height="10" rx="5" fill="#E9EEF1" stroke="#8E99A1" stroke-width="3"/>
+  <g fill="#9C6A2E" stroke="#6B4520" stroke-width="2.5"><circle cx="150" cy="98" r="6"/><circle cx="164" cy="96" r="6.5"/><circle cx="178" cy="98" r="6"/></g>
+  <g fill="#FFFFFF" stroke="#C9D2D6" stroke-width="2"><circle cx="157" cy="88" r="3"/><circle cx="172" cy="84" r="2.5"/></g>
+  <!-- Pita tray -->
+  <rect x="58" y="124" width="62" height="8" rx="4" fill="#C9D2D6" stroke="#8E99A1" stroke-width="3"/>
+  <g fill="#F3D29A" stroke="#C49A57" stroke-width="3"><ellipse cx="89" cy="120" rx="26" ry="7"/><ellipse cx="89" cy="112" rx="26" ry="7"/><ellipse cx="89" cy="104" rx="26" ry="7"/></g>
+  <!-- Counter -->
+  <rect x="30" y="130" width="180" height="14" rx="7" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <rect x="40" y="144" width="160" height="42" rx="6" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <path fill="#FFC23C" d="M70 156l9 9-9 9-9-9zM120 156l9 9-9 9-9-9zM170 156l9 9-9 9-9-9z"/>
+  <path fill="#E5508A" d="M95 156l9 9-9 9-9-9zM145 156l9 9-9 9-9-9z"/>
+  <path d="M60 137 H120" stroke="#DDB48A" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

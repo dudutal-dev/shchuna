@@ -10,7 +10,13 @@ import type { GameStore } from './store';
 type Point = { x: number; y: number };
 
 export interface TestHook {
-  stage: 'loading' | 'start' | 'playing' | 'creator' | 'book';
+  stage: 'loading' | 'start' | 'map' | 'playing' | 'creator' | 'book' | 'gate' | 'settings';
+  /** The place being played in, or 'map'. */
+  here(): string;
+  /** Set while the map shows: a place's middle, or the letter sparkling on it. */
+  mapCenter: ((id: string) => Point | null) | null;
+  /** Set while the parents' gate is open. */
+  gateAnswer: (() => number | null) | null;
   state(): SaveGame;
   /** A prop or character in the scene. */
   center(id: string): Point | null;
@@ -47,12 +53,16 @@ export function installTestHook(parts: {
   scene: () => Scene | null;
   checkout: () => Checkout | null;
   hud: Hud;
+  here: () => string;
   audio: AudioManager;
   saves: SaveManager;
 }): TestHook | null {
   if (!new URLSearchParams(location.search).has('e2e')) return null;
   const hook: TestHook = {
     stage: 'loading',
+    here: parts.here,
+    mapCenter: null,
+    gateAnswer: null,
     state: () => parts.store.state,
     center: (id) => parts.scene()?.entityCenter(id) ?? null,
     isVisible: (id) => parts.scene()?.isEntityVisible(id) ?? false,

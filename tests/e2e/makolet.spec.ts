@@ -1,17 +1,13 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { openGame, propCenter, scrollTo, tap, touchDrag, touchPath } from './helpers';
+import { openGame, propCenter, scrollTo, tap, touchDrag, touchPath, travel } from './helpers';
 
 type Point = { x: number; y: number };
 
+/** Between the shop and the home, by way of the map. */
 async function goOut(page: Page): Promise<void> {
-  const before = await page.evaluate(() => window.__shchuna!.trayCenter());
-  await tap(page, await page.evaluate(() => window.__shchuna!.hudCenter('go')));
-  // Waits for the other place to be fully up.
-  await page.waitForFunction(
-    (wasShop) => (window.__shchuna!.trayCenter() !== null) !== wasShop,
-    before !== null,
-  );
+  const here = await page.evaluate(() => window.__shchuna!.here());
+  await travel(page, here === 'makolet' ? 'home' : 'makolet');
 }
 
 const hookPoint = async (page: Page, read: () => Point | null | undefined): Promise<Point> => {

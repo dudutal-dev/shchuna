@@ -7,6 +7,7 @@ import type {
   PropInstance,
   PropState,
   SaveGame,
+  Settings,
 } from '../types';
 import type { GameStore } from './store';
 
@@ -27,7 +28,6 @@ export interface EntityChange {
   holding?: string | null;
   appearance?: CharacterAppearance;
 }
-
 
 interface Saver {
   schedule(snapshot: () => SaveGame): void;
@@ -103,6 +103,14 @@ export class Actions {
   setLetters(letters: LetterProgress[]): void {
     this.store.update((state) => {
       state.letters = letters;
+    });
+    this.save();
+  }
+
+  /** The parents' settings. Not undoable: the undo button is the child's. */
+  setSettings(patch: Partial<Settings>): void {
+    this.store.update((state) => {
+      state.settings = { ...state.settings, ...patch };
     });
     this.save();
   }

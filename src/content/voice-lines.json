@@ -102,5 +102,13 @@
   {"id": "letter.hint.kids", "text": "אוּלַי בַּחֶדֶר שֶׁל הַיְּלָדִים?", "voice": "narrator", "proofread": false},
   {"id": "letter.hint.makolet", "text": "אוּלַי בַּמַּכֹּלֶת?", "voice": "narrator", "proofread": false},
   {"id": "letter.hint.map", "text": "אוּלַי בַּמַּפָּה?", "voice": "narrator", "proofread": false},
-  {"id": "letter.hint.later", "text": "עוֹד מְעַט!", "voice": "narrator", "proofread": false}
+  {"id": "letter.hint.later", "text": "עוֹד מְעַט!", "voice": "narrator", "proofread": false},
+  {"id": "map.where", "text": "לְאָן הוֹלְכִים?", "voice": "narrator", "proofread": false},
+  {"id": "place.home", "text": "הַבַּיִת", "voice": "narrator", "proofread": false},
+  {"id": "place.makolet", "text": "הַמַּכֹּלֶת", "voice": "narrator", "proofread": false},
+  {"id": "place.gan", "text": "הַגַּן", "voice": "narrator", "proofread": false},
+  {"id": "place.clinic", "text": "הַמִּרְפָּאָה", "voice": "narrator", "proofread": false},
+  {"id": "place.falafel", "text": "הַפָלָאפֶלִיָּה", "spoken": "הפלאפליה", "voice": "narrator", "proofread": false},
+  {"id": "place.beach", "text": "חוֹף הַיָּם", "voice": "narrator", "proofread": false},
+  {"id": "place.station", "text": "הַתַּחֲנָה", "voice": "narrator", "proofread": false}
 ]

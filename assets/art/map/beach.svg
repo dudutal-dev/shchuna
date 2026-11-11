@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <!-- Sea strip -->
+  <path d="M20 112 V82 Q20 66 36 66 H264 Q280 66 280 82 V112Z" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M34 84 q10 -8 20 0 t20 0 M120 78 q10 -8 20 0 t20 0 M210 86 q10 -8 20 0 t20 0" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Sand patch, flat on the bottom edge -->
+  <path d="M6 186 Q4 110 40 102 Q90 96 150 104 Q210 96 260 102 Q296 110 294 186 Q294 198 282 198 H18 Q6 198 6 186Z" fill="#F2D59B" stroke="#D2AE68" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M40 104 Q80 112 120 106 Q170 114 210 106 Q240 112 262 104" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M30 140 Q50 130 74 134" fill="none" stroke="#F8E6BF" stroke-width="6" stroke-linecap="round"/>
+  <!-- Towel -->
+  <rect x="148" y="150" width="70" height="36" rx="6" fill="#58B8EA" stroke="#3B8DBF" stroke-width="3.5" transform="rotate(-6 183 168)"/>
+  <path d="M160 156 L162 184 M206 151 L209 180" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <!-- Beach umbrella -->
+  <path d="M96 186 L104 60" stroke="#6B4C35" stroke-width="5" stroke-linecap="round"/>
+  <path d="M42 76 Q50 26 104 22 Q158 26 166 76 Q153 68 140 76 Q127 68 114 76 Q104 68 94 76 Q81 68 68 76 Q55 68 42 76Z" fill="#FFFFFF" stroke="#B8396A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M68 76 Q70 40 104 22 Q86 46 94 76 Q81 68 68 76Z M114 76 Q122 46 104 22 Q138 40 140 76 Q127 68 114 76Z" fill="#E5508A" stroke="#B8396A" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="104" cy="20" r="4" fill="#FFC23C" stroke="#C78F1E" stroke-width="2.5"/>
+  <!-- Beach ball -->
+  <circle cx="250" cy="164" r="20" fill="#FFFFFF" stroke="#B8611A" stroke-width="3.5"/>
+  <path d="M250 144 Q238 164 250 184 Q234 178 230 164 Q234 150 250 144Z" fill="#F28C28"/>
+  <path d="M250 144 Q262 164 250 184 Q266 178 270 164 Q266 150 250 144Z" fill="#58B8EA"/>
+  <circle cx="250" cy="164" r="20" fill="none" stroke="#B8611A" stroke-width="3.5"/>
+  <path d="M240 152 Q244 148 248 148" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <!-- Shells -->
+  <path d="M30 180 Q30 166 42 166 Q54 166 54 180Z" fill="#FFB3A8" stroke="#D97A6E" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M36 180 L40 168 M42 180 V167 M48 180 L44 168" stroke="#D97A6E" stroke-width="2" stroke-linecap="round"/>
+  <path d="M124 176 q8 -12 16 0 q-8 6 -16 0Z" fill="#FFF7E6" stroke="#CDB68B" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="70" cy="186" r="4" fill="#FFF7E6" stroke="#CDB68B" stroke-width="2.5"/>
+</svg>

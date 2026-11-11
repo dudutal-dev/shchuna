@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1000" viewBox="0 0 2400 1000">
+  <rect width="2400" height="1000" fill="#BFE6FF"/>
+  <!-- Soft sun and a few sky puffs -->
+  <circle cx="1720" cy="120" r="58" fill="#FFD866" stroke="#F0B93A" stroke-width="4"/>
+  <path d="M1690 100 Q1700 84 1718 82" fill="none" stroke="#FFEFB0" stroke-width="7" stroke-linecap="round"/>
+  <g fill="#FFFFFF">
+    <circle cx="320" cy="130" r="26"/><circle cx="350" cy="116" r="34"/><circle cx="386" cy="132" r="24"/>
+    <circle cx="1120" cy="90" r="22"/><circle cx="1146" cy="78" r="30"/><circle cx="1176" cy="92" r="20"/>
+    <circle cx="2080" cy="150" r="24"/><circle cx="2108" cy="136" r="32"/><circle cx="2140" cy="152" r="22"/>
+  </g>
+  <!-- Distant hills -->
+  <path d="M0 330 Q160 250 330 300 T700 280 T1060 300 T1420 270 T1800 296 T2160 268 T2400 300 V420 H0Z" fill="#A6C88C" stroke="#86AD6E" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M0 360 Q220 310 460 350 T940 340 T1420 350 T1900 336 T2400 352 V420 H0Z" fill="#95BE7C" stroke="#78A462" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Meadow -->
+  <path d="M0 372 Q300 352 600 368 T1200 366 T1800 362 T2400 370 V1000 H0Z" fill="#A9CF8E" stroke="#8DB872" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M120 470 Q600 440 1100 466" fill="none" stroke="#BEDCA6" stroke-width="10" stroke-linecap="round"/>
+  <!-- Grass patches -->
+  <g fill="#9BC67F">
+    <ellipse cx="260" cy="640" rx="170" ry="36"/><ellipse cx="900" cy="860" rx="210" ry="40"/>
+    <ellipse cx="1560" cy="560" rx="160" ry="30"/><ellipse cx="2140" cy="800" rx="190" ry="38"/>
+    <ellipse cx="620" cy="520" rx="120" ry="24"/><ellipse cx="1300" cy="950" rx="180" ry="32"/>
+  </g>
+  <!-- Grass tufts -->
+  <g fill="none" stroke="#7FAF6B" stroke-width="5" stroke-linecap="round">
+    <path d="M90 520 l8 -18 M104 522 l0 -22 M118 520 l-8 -18"/>
+    <path d="M480 760 l8 -18 M494 762 l0 -22 M508 760 l-8 -18"/>
+    <path d="M1020 600 l8 -18 M1034 602 l0 -22 M1048 600 l-8 -18"/>
+    <path d="M1460 820 l8 -18 M1474 822 l0 -22 M1488 820 l-8 -18"/>
+    <path d="M1880 560 l8 -18 M1894 562 l0 -22 M1908 560 l-8 -18"/>
+    <path d="M2300 940 l8 -18 M2314 942 l0 -22 M2328 940 l-8 -18"/>
+    <path d="M700 960 l8 -18 M714 962 l0 -22 M728 960 l-8 -18"/>
+    <path d="M1720 990 l8 -18 M1734 992 l0 -22 M1748 990 l-8 -18"/>
+  </g>
+  <!-- Cypresses -->
+  <g fill="#4F8A4E" stroke="#3A6A3B" stroke-width="4" stroke-linejoin="round">
+    <path d="M430 400 Q404 330 430 236 Q456 330 430 400Z"/>
+    <path d="M466 404 Q446 348 466 280 Q486 348 466 404Z"/>
+    <path d="M1380 396 Q1354 326 1380 230 Q1406 326 1380 396Z"/>
+    <path d="M2250 400 Q2224 330 2250 240 Q2276 330 2250 400Z"/>
+    <path d="M2286 404 Q2266 350 2286 286 Q2306 350 2286 404Z"/>
+  </g>
+  <path d="M424 360 Q418 320 426 286" fill="none" stroke="#6FA868" stroke-width="5" stroke-linecap="round"/>
+  <!-- Olive trees -->
+  <g stroke-linejoin="round">
+    <g transform="translate(150 300)">
+      <path d="M44 120 Q40 90 30 74 M46 120 Q52 92 66 76" fill="none" stroke="#6B4C35" stroke-width="12" stroke-linecap="round"/>
+      <path d="M44 120 Q40 90 30 74 M46 120 Q52 92 66 76" fill="none" stroke="#8A6A4F" stroke-width="6" stroke-linecap="round"/>
+      <path d="M6 60 Q-6 30 22 22 Q30 0 56 8 Q84 4 88 30 Q104 50 82 68 Q60 82 40 72 Q14 82 6 60Z" fill="#9DB58A" stroke="#6F8A5E" stroke-width="4"/>
+      <path d="M26 36 Q34 24 48 24" fill="none" stroke="#BCD0AA" stroke-width="6" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(980 290)">
+      <path d="M44 120 Q40 90 30 74 M46 120 Q52 92 66 76" fill="none" stroke="#6B4C35" stroke-width="12" stroke-linecap="round"/>
+      <path d="M44 120 Q40 90 30 74 M46 120 Q52 92 66 76" fill="none" stroke="#8A6A4F" stroke-width="6" stroke-linecap="round"/>
+      <path d="M6 60 Q-6 30 22 22 Q30 0 56 8 Q84 4 88 30 Q104 50 82 68 Q60 82 40 72 Q14 82 6 60Z" fill="#9DB58A" stroke="#6F8A5E" stroke-width="4"/>
+      <path d="M26 36 Q34 24 48 24" fill="none" stroke="#BCD0AA" stroke-width="6" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(1900 296)">
+      <path d="M44 120 Q40 90 30 74 M46 120 Q52 92 66 76" fill="none" stroke="#6B4C35" stroke-width="12" stroke-linecap="round"/>
+      <path d="M44 120 Q40 90 30 74 M46 120 Q52 92 66 76" fill="none" stroke="#8A6A4F" stroke-width="6" stroke-linecap="round"/>
+      <path d="M6 60 Q-6 30 22 22 Q30 0 56 8 Q84 4 88 30 Q104 50 82 68 Q60 82 40 72 Q14 82 6 60Z" fill="#9DB58A" stroke="#6F8A5E" stroke-width="4"/>
+      <path d="M26 36 Q34 24 48 24" fill="none" stroke="#BCD0AA" stroke-width="6" stroke-linecap="round"/>
+    </g>
+  </g>
+  <!-- Bougainvillea bushes -->
+  <g stroke-linejoin="round">
+    <g transform="translate(40 880)">
+      <path d="M0 60 Q-6 26 26 20 Q40 -4 70 8 Q100 2 106 30 Q126 44 112 64Z" fill="#6E9F5E" stroke="#4F7F44" stroke-width="4"/>
+      <g fill="#E5508A" stroke="#B8396A" stroke-width="3"><circle cx="30" cy="30" r="10"/><circle cx="62" cy="18" r="11"/><circle cx="90" cy="34" r="10"/><circle cx="54" cy="46" r="9"/><circle cx="100" cy="54" r="8"/></g>
+    </g>
+    <g transform="translate(1180 690)">
+      <path d="M0 60 Q-6 26 26 20 Q40 -4 70 8 Q100 2 106 30 Q126 44 112 64Z" fill="#6E9F5E" stroke="#4F7F44" stroke-width="4"/>
+      <g fill="#E5508A" stroke="#B8396A" stroke-width="3"><circle cx="30" cy="30" r="10"/><circle cx="62" cy="18" r="11"/><circle cx="90" cy="34" r="10"/><circle cx="54" cy="46" r="9"/><circle cx="100" cy="54" r="8"/></g>
+    </g>
+    <g transform="translate(2240 600)">
+      <path d="M0 60 Q-6 26 26 20 Q40 -4 70 8 Q100 2 106 30 Q126 44 112 64Z" fill="#6E9F5E" stroke="#4F7F44" stroke-width="4"/>
+      <g fill="#E5508A" stroke="#B8396A" stroke-width="3"><circle cx="30" cy="30" r="10"/><circle cx="62" cy="18" r="11"/><circle cx="90" cy="34" r="10"/><circle cx="54" cy="46" r="9"/><circle cx="100" cy="54" r="8"/></g>
+    </g>
+  </g>
+  <!-- Little flowers -->
+  <g stroke-width="2.5">
+    <g fill="#FFC23C" stroke="#C78F1E"><circle cx="330" cy="560" r="7"/><circle cx="780" cy="640" r="7"/><circle cx="1240" cy="520" r="7"/><circle cx="1650" cy="900" r="7"/><circle cx="2020" cy="660" r="7"/><circle cx="560" cy="930" r="7"/></g>
+    <g fill="#FFFFFF" stroke="#C9D2D6"><circle cx="352" cy="574" r="6"/><circle cx="1100" cy="780" r="6"/><circle cx="1822" cy="720" r="6"/><circle cx="2360" cy="520" r="6"/><circle cx="196" cy="760" r="6"/></g>
+    <g fill="#E5508A" stroke="#B8396A"><circle cx="800" cy="656" r="6"/><circle cx="1530" cy="640" r="6"/><circle cx="2160" cy="980" r="6"/><circle cx="960" cy="520" r="6"/></g>
+  </g>
+</svg>

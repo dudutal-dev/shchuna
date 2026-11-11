@@ -5,11 +5,12 @@ export interface Point {
   y: number;
 }
 
-export type SceneName = 'home' | 'playground';
+/** A place to open straight into, or 'map' for the real way in: start screen, then map. */
+export type SceneName = 'home' | 'makolet' | 'playground' | 'map';
 
 /** Waits for the start screen, with the test hook on. */
 export async function openStartScreen(page: Page, scene: SceneName = 'playground'): Promise<void> {
-  await page.goto(scene === 'home' ? './?e2e' : `./?e2e&scene=${scene}`);
+  await page.goto(scene === 'map' ? './?e2e' : `./?e2e&scene=${scene}`);
   await page.waitForFunction(() => window.__shchuna?.stage === 'start');
 }
 
@@ -19,7 +20,22 @@ export async function tapToStart(page: Page): Promise<void> {
   const size = page.viewportSize();
   if (!size) throw new Error('no viewport');
   await page.touchscreen.tap(size.width / 2, size.height / 2);
-  await page.waitForFunction(() => window.__shchuna?.stage === 'playing');
+  await page.waitForFunction(() => ['playing', 'map'].includes(window.__shchuna?.stage ?? ''));
+}
+
+/** From inside a place: back to the map, then into another place. */
+export async function travel(page: Page, place: string): Promise<void> {
+  await tap(page, await page.evaluate(() => window.__shchuna!.hudCenter('map')));
+  await page.waitForFunction(() => window.__shchuna?.stage === 'map');
+  const at = await page.evaluate((id) => window.__shchuna!.mapCenter?.(id), place);
+  if (!at) throw new Error(`No place on the map: ${place}`);
+  await tap(page, at);
+  // A letter found on the way in takes a few seconds to fly into the book.
+  await page.waitForFunction(
+    (id) => window.__shchuna?.stage === 'playing' && window.__shchuna.here() === id,
+    place,
+    { timeout: 30_000 },
+  );
 }
 
 /** Opens the game and goes straight into play. */

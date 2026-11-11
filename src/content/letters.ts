@@ -14,14 +14,19 @@ export interface LetterInfo {
   /** Voice line for the word on its own. Reuses the prop's line where they match. */
   wordLine: string;
   area: LetterArea;
-  /** The prop instance it hides on in phase 0, if it is one of the phase-0 letters. */
+  /**
+   * Where it hides in phase 0, if it is one of the phase-0 letters: a prop instance, or
+   * `map-<place>` for a place on the neighbourhood map.
+   */
   hidesOn?: string;
+  /** The picture in the letter book, when it doesn't hide on a prop. */
+  picture?: string;
 }
 
 // TODO: proofread — every name and word below (SPEC §7.3).
 export const LETTERS: readonly LetterInfo[] = [
   { letter: 'א', id: 'alef', name: 'אָלֶף', word: 'אֲבַטִּיחַ', wordLine: 'prop.watermelon', area: 'later' },
-  { letter: 'ב', id: 'bet', name: 'בֵּית', word: 'בַּיִת', wordLine: 'letter.word.bet', area: 'map' },
+  { letter: 'ב', id: 'bet', name: 'בֵּית', word: 'בַּיִת', wordLine: 'letter.word.bet', area: 'map', hidesOn: 'map-home', picture: 'map/home.svg' },
   { letter: 'ג', id: 'gimel', name: 'גִּימֶל', word: 'גְּלִידָה', wordLine: 'prop.icecream', area: 'later' },
   { letter: 'ד', id: 'dalet', name: 'דָּלֶת', word: 'דָּג', wordLine: 'letter.word.dalet', area: 'living', hidesOn: 'aquarium' },
   { letter: 'ה', id: 'he', name: 'הֵא', word: 'הִפּוֹפּוֹטָם', wordLine: 'prop.hippo', area: 'later' },

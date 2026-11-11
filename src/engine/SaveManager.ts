@@ -116,6 +116,14 @@ export class SaveManager {
     if (snapshot) await this.write(SAVE_KEY, snapshot());
   }
 
+  /** Starts over (the parents' reset): drops any pending save and stores a new game. */
+  async reset(): Promise<void> {
+    clearTimeout(this.timer);
+    this.timer = undefined;
+    this.pending = undefined;
+    await this.write(SAVE_KEY, createNewSave());
+  }
+
   private async write(key: string, value: unknown): Promise<void> {
     try {
       await this.storage.set(key, value);

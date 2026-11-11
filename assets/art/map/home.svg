@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="240" viewBox="0 0 260 240">
+  <!-- Ground pad and path stub -->
+  <rect x="18" y="222" width="224" height="16" rx="8" fill="#C9B489" stroke="#A8936A" stroke-width="3"/>
+  <path d="M112 226 H148 L156 238 H104Z" fill="#E8D9B4" stroke="#C2AD82" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Solar water heater on the roof -->
+  <path d="M164 74 L206 60 L214 82 L172 96Z" fill="#4A78B5" stroke="#2F5687" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M178 70 L186 92 M192 66 L200 88" stroke="#6D97CC" stroke-width="3" stroke-linecap="round"/>
+  <rect x="166" y="40" width="50" height="20" rx="10" fill="#E9EEF1" stroke="#9AA7AF" stroke-width="3.5"/>
+  <path d="M174 60 V74 M208 60 V66" stroke="#9AA7AF" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Walls -->
+  <rect x="40" y="100" width="180" height="126" rx="8" fill="#F3E3C3" stroke="#CDB68B" stroke-width="4"/>
+  <g fill="none" stroke="#E2CDA3" stroke-width="3" stroke-linecap="round">
+    <path d="M44 128 H216 M44 156 H216 M44 184 H216 M44 210 H216"/>
+    <path d="M90 104 V128 M160 104 V128 M120 128 V156 M196 128 V156 M70 156 V184 M184 156 V184 M100 184 V210 M206 184 V210"/>
+  </g>
+  <path d="M50 112 V170" stroke="#FBF1DC" stroke-width="6" stroke-linecap="round"/>
+  <!-- Roof -->
+  <path d="M26 104 L130 46 L234 104 Q238 112 230 112 H30 Q22 112 26 104Z" fill="#E0673A" stroke="#A8452A" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="none" stroke="#C4532E" stroke-width="3" stroke-linecap="round">
+    <path d="M72 88 H188 M98 72 H162"/>
+    <path d="M60 96 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0"/>
+  </g>
+  <path d="M84 70 L118 52" stroke="#F0946A" stroke-width="5" stroke-linecap="round"/>
+  <!-- Windows with green shutters -->
+  <g stroke-linejoin="round">
+    <rect x="66" y="132" width="32" height="38" rx="5" fill="#BFE6FF" stroke="#CDB68B" stroke-width="3"/>
+    <rect x="50" y="130" width="16" height="42" rx="4" fill="#3E8E7E" stroke="#2F7264" stroke-width="3"/>
+    <rect x="98" y="130" width="16" height="42" rx="4" fill="#3E8E7E" stroke="#2F7264" stroke-width="3"/>
+    <rect x="162" y="132" width="32" height="38" rx="5" fill="#BFE6FF" stroke="#CDB68B" stroke-width="3"/>
+    <rect x="146" y="130" width="16" height="42" rx="4" fill="#3E8E7E" stroke="#2F7264" stroke-width="3"/>
+    <rect x="194" y="130" width="16" height="42" rx="4" fill="#3E8E7E" stroke="#2F7264" stroke-width="3"/>
+  </g>
+  <g stroke="#2F7264" stroke-width="2.5" stroke-linecap="round">
+    <path d="M54 140 H62 M54 150 H62 M54 160 H62 M102 140 H110 M102 150 H110 M102 160 H110"/>
+    <path d="M150 140 H158 M150 150 H158 M150 160 H158 M198 140 H206 M198 150 H206 M198 160 H206"/>
+  </g>
+  <!-- Door -->
+  <path d="M114 224 V176 Q114 160 130 160 Q146 160 146 176 V224Z" fill="#C4966B" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M122 182 V214 M138 182 V214" stroke="#A97C55" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="140" cy="196" r="3.5" fill="#FFC23C"/>
+  <!-- Bougainvillea climbing the left side -->
+  <g stroke-linejoin="round">
+    <path d="M30 226 Q24 186 36 160 Q34 130 52 112 Q58 138 50 160 Q60 190 52 226Z" fill="#6E9F5E" stroke="#4F7F44" stroke-width="3.5"/>
+    <g fill="#E5508A" stroke="#B8396A" stroke-width="3">
+      <circle cx="48" cy="118" r="8"/><circle cx="36" cy="140" r="9"/><circle cx="52" cy="152" r="7"/>
+      <circle cx="34" cy="172" r="9"/><circle cx="52" cy="186" r="8"/><circle cx="36" cy="204" r="8"/><circle cx="50" cy="214" r="7"/>
+    </g>
+  </g>
+</svg>

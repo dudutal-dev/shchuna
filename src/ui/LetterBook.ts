@@ -66,6 +66,7 @@ export class LetterBook {
 
   /** The art of the prop a letter hides on, shown under it once found. */
   private pictureOf(info: LetterInfo): string | null {
+    if (info.picture) return info.picture;
     const instance = this.seedProps.find((p) => p.id === info.hidesOn);
     return instance ? (this.defs[instance.defId]?.art ?? null) : null;
   }

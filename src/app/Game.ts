@@ -1,23 +1,27 @@
 import { Application } from 'pixi.js';
 import { defaultFamily } from '../characters/catalog';
 import { CharacterCreator } from '../characters/CharacterCreator';
+import { letterInfo } from '../content/letters';
+import { isOpen, type PlaceInfo } from '../content/places';
 import { propDefs } from '../content/props';
 import { strings } from '../content/strings.he';
 import { AudioManager, BrowserAudioBackend } from '../engine/AudioManager';
 import { SaveManager } from '../engine/SaveManager';
 import { Scene, type LocationData } from '../engine/Scene';
+import { setNiqqudShown } from '../engine/text';
+import { find, hear, letterLines, letterOn } from '../learning/LetterHunt';
 import { home } from '../locations/home/home.data';
 import { Checkout } from '../locations/makolet/Checkout';
 import { makolet } from '../locations/makolet/makolet.data';
 import { playground } from '../locations/playground/playground.data';
-import type { LocationId } from '../types';
+import type { HebrewLetter, LocationId, Settings } from '../types';
 import { Hud } from '../ui/Hud';
 import { LetterBook } from '../ui/LetterBook';
 import { revealLetter } from '../ui/LetterReveal';
+import { NeighbourhoodMap } from '../ui/NeighbourhoodMap';
+import { ParentGate } from '../ui/ParentGate';
+import { SettingsScreen } from '../ui/SettingsScreen';
 import { StartScreen } from '../ui/StartScreen';
-import { letterInfo } from '../content/letters';
-import { find, hear, letterLines, letterOn } from '../learning/LetterHunt';
-import type { HebrewLetter } from '../types';
 import { Actions } from './actions';
 import { GameStore } from './store';
 import { installTestHook, type TestHook } from './testHook';
@@ -39,11 +43,14 @@ async function createAudio(store: GameStore): Promise<AudioManager> {
   return audio;
 }
 
-/** Where a new session opens. Tests can ask for another place with `?e2e&scene=`. */
-function firstLocation(): LocationData {
+/**
+ * Where a session opens after the start screen: the map. Tests can go straight into
+ * a place with `?e2e&scene=`.
+ */
+function firstStop(): LocationData | 'map' {
   const params = new URLSearchParams(location.search);
   const asked = params.has('e2e') ? (params.get('scene') as LocationId | null) : null;
-  return (asked && LOCATIONS[asked]) || home;
+  return (asked && LOCATIONS[asked]) || 'map';
 }
 
 /** Boots the Pixi application, wires the game together and moves between places. */
@@ -57,9 +64,13 @@ export class Game {
   private hook: TestHook | null = null;
   private scene: Scene | null = null;
   private checkout: Checkout | null = null;
+  private map: NeighbourhoodMap | null = null;
+  /** The place being played in; meaningless while the map shows. */
   private location: LocationData = home;
   private creator: CharacterCreator | null = null;
   private book: LetterBook | null = null;
+  /** True while a parents' screen covers the game. */
+  private parents = false;
   private moving = false;
   /** True until the child taps in: the only time an update may reload the page. */
   onStartScreen = true;
@@ -77,10 +88,12 @@ export class Game {
     this.app.canvas.setAttribute('aria-label', strings.appName);
     host.appendChild(this.app.canvas);
 
+    // The save comes first, so even the start screen follows the niqqud setting.
+    this.store = new GameStore(await this.saves.load());
+    setNiqqudShown(this.store.state.settings.showNiqqud);
     const startScreen = new StartScreen(this.app);
     await startScreen.show();
 
-    this.store = new GameStore(await this.saves.load());
     this.actions = new Actions(this.store, this.saves);
     this.audio = await createAudio(this.store);
     this.actions.seedCharacters(defaultFamily());
@@ -96,9 +109,10 @@ export class Game {
         this.actions.undo(this.location.id);
       },
       family: () => void this.openCreator(),
-      // Until the map (M7), the door goes between the two places there are.
-      go: () => void this.goTo(this.location.id === 'home' ? makolet : home),
+      map: () => void this.showMap(),
       book: () => void this.openBook(),
+      lockPress: () => this.audio.sfx('tap'),
+      lockHeld: () => void this.openParents(),
     });
     this.hook = installTestHook({
       store: this.store,
@@ -107,11 +121,15 @@ export class Game {
       hud: this.hud,
       audio: this.audio,
       saves: this.saves,
+      here: () => (this.map ? 'map' : this.location.id),
     });
-    await Promise.all([this.enter(firstLocation()), this.hud.init()]);
+    const first = firstStop();
+    // Everything loads behind the start screen, so the first tap goes straight in.
+    await Promise.all([first === 'map' ? this.openMap() : this.enter(first), this.hud.init()]);
     this.audio.preload([
       'ui.tap_to_start',
       'ui.welcome',
+      'map.where',
       ...Object.values(propDefs).map((def) => def.voiceLine),
     ]);
 
@@ -122,27 +140,96 @@ export class Game {
     await startScreen.waitForTap();
     this.onStartScreen = false;
     this.audio.sfx('success');
-    this.audio.say('ui.welcome');
     startScreen.destroy();
     this.app.stage.addChild(this.hud.view);
-    this.showScene();
-    this.setStage('playing');
+    if (this.map) {
+      this.audio.sayAll(['ui.welcome', 'map.where']);
+      this.showMapView();
+    } else {
+      this.audio.say('ui.welcome');
+      this.showScene();
+    }
   }
 
-  /** Leaves this place and opens another, saving on the way. */
-  private async goTo(next: LocationData): Promise<void> {
-    if (this.moving || this.creator || this.book || next.id === this.location.id) return;
+  /** Leaves the place for the neighbourhood map. */
+  private async showMap(): Promise<void> {
+    if (this.busy() || this.map) return;
     this.moving = true;
     this.audio.sfx('success');
     void this.saves.flush();
+    this.leaveScene();
+    await this.openMap();
+    this.audio.say('map.where');
+    this.showMapView();
+    this.moving = false;
+  }
+
+  private async openMap(): Promise<void> {
+    const map = new NeighbourhoodMap(
+      this.app,
+      (id) => isOpen(id, this.store.state.unlocked),
+      (id) => letterOn(this.store.state.letters, `map-${id}`),
+      (place, open) => void this.onPlace(place, open),
+    );
+    await map.open();
+    this.map = map;
+  }
+
+  private showMapView(): void {
+    if (!this.map) return;
+    this.app.stage.addChildAt(this.map.view, 0);
+    this.hud.setMode('map');
+    if (this.hook) {
+      const map = this.map;
+      this.hook.mapCenter = (id) =>
+        id === 'letter' ? map.sparkleCenter() : map.center(id as LocationId);
+    }
+    this.setStage('map');
+  }
+
+  /** A place on the map was tapped. */
+  private async onPlace(place: PlaceInfo, open: boolean): Promise<void> {
+    if (this.busy()) return;
+    this.audio.sfx('tap');
+    const data = LOCATIONS[place.id];
+    if (!open || !data) {
+      this.map?.wiggle(place.id);
+      this.audio.sayAll([place.line, 'letter.hint.later']);
+      return;
+    }
+    this.moving = true;
+    // A letter on the place is found on the way in; then in we go.
+    const letter = letterOn(this.store.state.letters, `map-${place.id}`);
+    const at = this.map?.sparkleCenter();
+    if (letter && at) {
+      this.map?.clearLetter();
+      await this.foundLetter(letter, at);
+    }
+    this.audio.say(place.line);
+    this.moving = false;
+    await this.goTo(data);
+  }
+
+  /** Opens a place, saving on the way. */
+  private async goTo(next: LocationData): Promise<void> {
+    if (this.busy()) return;
+    this.moving = true;
+    this.audio.sfx('success');
+    void this.saves.flush();
+    this.map?.destroy();
+    this.map = null;
+    if (this.hook) this.hook.mapCenter = null;
+    this.leaveScene();
+    await this.enter(next);
+    this.showScene();
+    this.moving = false;
+  }
+
+  private leaveScene(): void {
     this.checkout?.destroy();
     this.checkout = null;
     this.scene?.destroy();
     this.scene = null;
-    await this.enter(next);
-    this.showScene();
-    this.moving = false;
-    this.setStage('playing');
   }
 
   private async enter(data: LocationData): Promise<void> {
@@ -176,8 +263,10 @@ export class Game {
     if (!this.scene) return;
     const people = this.store.state.characters.some((c) => c.location === this.location.id);
     this.hud.setVisible('family', people);
+    this.hud.setMode('scene');
     this.app.stage.addChildAt(this.scene.view, 0);
     if (this.checkout) this.app.stage.addChildAt(this.checkout.strip, 1);
+    this.setStage('playing');
   }
 
   private addToPurse(amount: number): void {
@@ -198,7 +287,7 @@ export class Game {
   }
 
   private async openBook(): Promise<void> {
-    if (this.book || this.creator) return;
+    if (this.busy()) return;
     this.audio.sfx('tap');
     const book = new LetterBook(
       this.app,
@@ -210,7 +299,7 @@ export class Game {
       () => {
         this.book = null;
         if (this.hook) this.hook.bookCenter = null;
-        this.setStage('playing');
+        this.setStage(this.map ? 'map' : 'playing');
       },
     );
     this.book = book;
@@ -222,7 +311,7 @@ export class Game {
 
   private async openCreator(): Promise<void> {
     const here = this.store.state.characters.filter((c) => c.location === this.location.id);
-    if (this.creator || this.book || here.length === 0) return;
+    if (this.busy() || this.map || here.length === 0) return;
     this.audio.sfx('tap');
     const creator = new CharacterCreator(
       this.app,
@@ -243,6 +332,44 @@ export class Game {
       this.hook.creatorCenter = (id) => creator.center(id as Parameters<CharacterCreator['center']>[0]);
     }
     this.setStage('creator');
+  }
+
+  /** The lock was held for two seconds: the gate, then settings if it is passed. */
+  private async openParents(): Promise<void> {
+    if (this.busy()) return;
+    this.parents = true;
+    const gate = new ParentGate();
+    if (this.hook) this.hook.gateAnswer = () => gate.question?.answer ?? null;
+    this.setStage('gate');
+    const passed = await gate.open();
+    if (this.hook) this.hook.gateAnswer = null;
+    if (passed) {
+      this.setStage('settings');
+      await new SettingsScreen().open(this.store.state.settings, {
+        change: (patch) => this.changeSettings(patch),
+        reset: () => void this.resetGame(),
+      });
+    }
+    this.parents = false;
+    this.setStage(this.map ? 'map' : 'playing');
+  }
+
+  private changeSettings(patch: Partial<Settings>): void {
+    this.actions.setSettings(patch);
+    setNiqqudShown(this.store.state.settings.showNiqqud);
+    this.audio.settingsChanged();
+    if (patch.sfx !== undefined) this.audio.sfx('tap');
+  }
+
+  /** The parents confirmed twice: a new game, from the start screen. */
+  private async resetGame(): Promise<void> {
+    await this.saves.reset();
+    location.reload();
+  }
+
+  /** Something already holds the screen, or the game is between places. */
+  private busy(): boolean {
+    return this.moving || this.parents || this.creator !== null || this.book !== null;
   }
 
   private setStage(stage: TestHook['stage']): void {

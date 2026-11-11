@@ -17,9 +17,13 @@ function urlOf(path: string): string {
   return url;
 }
 
-/** Loads art so `getArt` can return it synchronously. Paths are relative to assets/art. */
-export async function loadArt(paths: readonly string[], background = false): Promise<void> {
-  const resolution = background ? BACKGROUND_RESOLUTION : ART_RESOLUTION;
+/**
+ * Loads art so `getArt` can return it synchronously. Paths are relative to assets/art.
+ * `background` lowers the resolution for wide art; a number sets it outright.
+ */
+export async function loadArt(paths: readonly string[], background: boolean | number = false): Promise<void> {
+  const resolution =
+    typeof background === 'number' ? background : background ? BACKGROUND_RESOLUTION : ART_RESOLUTION;
   await Promise.all(
     [...new Set(paths)].map((path) =>
       Assets.load({ alias: path, src: urlOf(path), data: { resolution } }),

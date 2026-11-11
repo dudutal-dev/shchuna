@@ -623,6 +623,54 @@
       "text": "עוֹד מְעַט!",
       "durationMs": 1040,
       "hash": "1d7e311ee86aef452cc7dbccdad9438a363cb5926f657471645db99dde1cc519"
+    },
+    "map.where": {
+      "file": "public/audio/lines/map.where.mp3",
+      "text": "לְאָן הוֹלְכִים?",
+      "durationMs": 1520,
+      "hash": "0730bae611d7382f354ca447d1ce252370d485f2112f3969b2b8a83fc925a73b"
+    },
+    "place.home": {
+      "file": "public/audio/lines/place.home.mp3",
+      "text": "הַבַּיִת",
+      "durationMs": 2000,
+      "hash": "22c5a0ecbe217af48efff28b011574967954abacac6cd8ed8c85ccf0d5463f39"
+    },
+    "place.makolet": {
+      "file": "public/audio/lines/place.makolet.mp3",
+      "text": "הַמַּכֹּלֶת",
+      "durationMs": 1680,
+      "hash": "d5ca180aa6bf1a1e215730892246eae3566f887359515d25b7715bc459148818"
+    },
+    "place.gan": {
+      "file": "public/audio/lines/place.gan.mp3",
+      "text": "הַגַּן",
+      "durationMs": 960,
+      "hash": "aae0d10f302dec62fa4b768fce03241804118b42c2417e73e7516d71e7c7e6b5"
+    },
+    "place.clinic": {
+      "file": "public/audio/lines/place.clinic.mp3",
+      "text": "הַמִּרְפָּאָה",
+      "durationMs": 1760,
+      "hash": "05c2906df5cc502f7870af5ebbf023d64776a3cd712d87d367fdb1705c1aa0fc"
+    },
+    "place.falafel": {
+      "file": "public/audio/lines/place.falafel.mp3",
+      "text": "הפלאפליה",
+      "durationMs": 1280,
+      "hash": "ca69ae47d1be8d1be17c4dacc53bea622937cd70cd8f8bdb55e844c3029cd0fd"
+    },
+    "place.beach": {
+      "file": "public/audio/lines/place.beach.mp3",
+      "text": "חוֹף הַיָּם",
+      "durationMs": 2000,
+      "hash": "bcd7005196d513fffc2e141999253efbb6956430b0e202a2d5b92edf0ad45890"
+    },
+    "place.station": {
+      "file": "public/audio/lines/place.station.mp3",
+      "text": "הַתַּחֲנָה",
+      "durationMs": 1680,
+      "hash": "03ad7eab9db0db64c188d899c3d31d4b12d59e2852c060018b5f7c07396e0aab"
     }
   }
 }

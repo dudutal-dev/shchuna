@@ -6,7 +6,8 @@ const isVisible = (page: Page, id: string) =>
   page.evaluate((prop) => window.__shchuna?.isVisible(prop) ?? false, id);
 
 test.describe('home', () => {
-  // SPEC §16.2 flow 1. The map comes in M7; until then the start screen opens the home.
+  // Opening straight into the home starts in the kitchen. The full flow 1, through the
+  // map, is in map.spec.ts.
   test('start screen opens into the kitchen', async ({ page }, testInfo) => {
     await openGame(page, 'home');
     const fridge = await propCenter(page, 'fridge');

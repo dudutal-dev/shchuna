@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="44" fill="#FFFFFF" stroke="#3B2F2F" stroke-opacity=".35" stroke-width="3"/>
+  <!-- Folded map, three panels -->
+  <path d="M20 30 L36 24 L36 68 L20 74Z" fill="#CFE7B8" stroke="#6F8A5E" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M36 24 L60 30 L60 74 L36 68Z" fill="#E7F2D8" stroke="#6F8A5E" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M60 30 L76 24 L76 68 L60 74Z" fill="#CFE7B8" stroke="#6F8A5E" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- Little path -->
+  <path d="M26 64 Q34 54 44 58 Q54 62 58 50 Q62 42 70 46" fill="none" stroke="#C4966B" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1 6"/>
+  <!-- Pin -->
+  <path d="M66 46 Q56 34 56 28 A10 10 0 0 1 76 28 Q76 34 66 46Z" fill="#E5508A" stroke="#B8396A" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="66" cy="28" r="3.5" fill="#FFFFFF"/>
+</svg>

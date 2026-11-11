@@ -9,6 +9,9 @@ export default defineConfig({
   // WebGL runs on the CPU here (SwiftShader), so drags are far slower than on a device.
   timeout: 90_000,
   fullyParallel: true,
+  // Software WebGL is heavy: more than three pages at once on an 8-thread laptop starves
+  // the frame loop, and slow frames time tests out.
+  workers: process.env.CI ? undefined : 3,
   forbidOnly: !!process.env.CI,
   // Software WebGL under load is occasionally flaky locally; a retry is reported as "flaky", not hidden.
   retries: 1,

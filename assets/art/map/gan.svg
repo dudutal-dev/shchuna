@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="220" viewBox="0 0 240 220">
+  <!-- Ground pad -->
+  <rect x="6" y="202" width="228" height="16" rx="8" fill="#C9B489" stroke="#A8936A" stroke-width="3"/>
+  <!-- Low building -->
+  <rect x="64" y="86" width="164" height="118" rx="10" fill="#FFE3A3" stroke="#D9A94A" stroke-width="4"/>
+  <rect x="56" y="72" width="180" height="22" rx="10" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4"/>
+  <g fill="#FFFFFF"><circle cx="82" cy="83" r="4"/><circle cx="112" cy="83" r="4"/><circle cx="142" cy="83" r="4"/><circle cx="172" cy="83" r="4"/><circle cx="202" cy="83" r="4"/></g>
+  <!-- Sun-shaped window over the door -->
+  <path d="M120 70 A26 26 0 0 1 172 70Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M146 58 V44 M128 62 L120 52 M164 62 L172 52" stroke="#C78F1E" stroke-width="4" stroke-linecap="round"/>
+  <!-- Round windows -->
+  <circle cx="96" cy="124" r="16" fill="#BFE6FF" stroke="#D9A94A" stroke-width="4"/>
+  <circle cx="200" cy="124" r="16" fill="#BFE6FF" stroke="#D9A94A" stroke-width="4"/>
+  <path d="M88 118 Q92 112 98 112 M192 118 Q196 112 202 112" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Door -->
+  <path d="M128 204 V130 Q128 116 146 116 Q164 116 164 130 V204Z" fill="#E5508A" stroke="#B8396A" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="156" cy="164" r="3.5" fill="#FFF7E6"/>
+  <path d="M76 100 H112" stroke="#FFF0C8" stroke-width="5" stroke-linecap="round"/>
+  <!-- Little slide -->
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <path d="M18 196 V112 M38 196 V112" stroke="#3B8DBF" stroke-width="6"/>
+    <path d="M18 132 H38 M18 152 H38 M18 172 H38" stroke="#3B8DBF" stroke-width="4"/>
+    <rect x="12" y="104" width="32" height="12" rx="6" fill="#FFC23C" stroke="#C78F1E" stroke-width="3.5"/>
+    <path d="M40 108 Q52 108 60 140 Q68 180 86 186 L84 198 Q60 196 50 150 Q44 120 40 120Z" fill="#F04A36" stroke="#B32E1F" stroke-width="3.5"/>
+  </g>
+  <!-- Colourful fence -->
+  <g stroke-width="3" stroke-linejoin="round">
+    <path d="M8 180 H232" stroke="#A97C55" stroke-width="5" stroke-linecap="round"/>
+    <path d="M10 204 V172 Q10 164 17 164 Q24 164 24 172 V204Z" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M30 204 V172 Q30 164 37 164 Q44 164 44 172 V204Z" fill="#FFC23C" stroke="#C78F1E"/>
+    <path d="M50 204 V172 Q50 164 57 164 Q64 164 64 172 V204Z" fill="#58B8EA" stroke="#3B8DBF"/>
+    <path d="M70 204 V172 Q70 164 77 164 Q84 164 84 172 V204Z" fill="#7FAF6B" stroke="#55864A"/>
+    <path d="M90 204 V172 Q90 164 97 164 Q104 164 104 172 V204Z" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M176 204 V172 Q176 164 183 164 Q190 164 190 172 V204Z" fill="#FFC23C" stroke="#C78F1E"/>
+    <path d="M196 204 V172 Q196 164 203 164 Q210 164 210 172 V204Z" fill="#58B8EA" stroke="#3B8DBF"/>
+    <path d="M216 204 V172 Q216 164 223 164 Q230 164 230 172 V204Z" fill="#7FAF6B" stroke="#55864A"/>
+  </g>
+</svg>

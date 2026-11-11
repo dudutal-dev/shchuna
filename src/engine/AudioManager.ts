@@ -119,6 +119,13 @@ export class AudioManager implements SoundPlayer {
     clip.play();
   }
 
+  /** The parents moved a volume: music follows at once, and so does a line being said. */
+  settingsChanged(): void {
+    const { music, voice } = this.settings();
+    this.current?.volume(voice);
+    this.backend.setMusicVolume(this.current ? music * DUCKED_MUSIC : music);
+  }
+
   sfx(id: SfxId): void {
     this.backend.playSfx(id, this.settings().sfx);
   }
