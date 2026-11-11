@@ -1,8 +1,10 @@
 import { Application, Container, Graphics, Rectangle, Sprite, type Ticker } from 'pixi.js';
 import { MAP_HEIGHT, MAP_WIDTH, PLACES, type PlaceInfo } from '../content/places';
 import { getArt, loadArt } from '../engine/art';
+import { starBurst } from '../engine/effects';
+import { HintSystem, hintIdleMs } from '../engine/HintSystem';
 import { LetterSparkle } from '../engine/LetterSparkle';
-import { easeOutBack, tween } from '../engine/tween';
+import { easeOutBack, easeOutElastic, tween } from '../engine/tween';
 import type { HebrewLetter, LocationId } from '../types';
 
 const BACKGROUND_ART = 'map/background.svg';
@@ -39,6 +41,18 @@ export class NeighbourhoodMap {
   private readonly world = new Container();
   private readonly places = new Map<LocationId, Container>();
   private sparkle: LetterSparkle | null = null;
+  private readonly hints = new HintSystem(performance.now(), hintIdleMs());
+  /** Hints wait until the child can see this, not while it loads behind the start screen. */
+  private shown = false;
+
+  /** Now on screen: the quiet time before a hint starts counting from here. */
+  wake(): void {
+    this.shown = true;
+    this.hints.touched(performance.now());
+  }
+  private readonly onAnyTouch = (): void => this.hints.touched(performance.now());
+  /** The place the last hint pointed at, for tests. */
+  lastHint: LocationId | null = null;
 
   constructor(
     private readonly app: Application,
@@ -71,12 +85,14 @@ export class NeighbourhoodMap {
     }
     this.app.renderer.on('resize', this.layout);
     this.app.ticker.add(this.animate);
+    document.addEventListener('pointerdown', this.onAnyTouch, true);
     this.layout();
   }
 
   destroy(): void {
     this.app.renderer.off('resize', this.layout);
     this.app.ticker.remove(this.animate);
+    document.removeEventListener('pointerdown', this.onAnyTouch, true);
     this.view.destroy({ children: true });
   }
 
@@ -153,7 +169,30 @@ export class NeighbourhoodMap {
 
   private readonly animate = (ticker: Ticker): void => {
     if (this.sparkle && !this.sparkle.destroyed) this.sparkle.animate(ticker.deltaMS);
+    if (this.shown && this.hints.due(performance.now())) this.showHint();
   };
+
+  /** A quiet child is shown somewhere to go: an open place wiggles and twinkles. */
+  private showHint(): void {
+    const open = PLACES.filter((place) => this.isOpen(place.id));
+    const place = open[Math.floor(Math.random() * open.length)];
+    const view = place && this.places.get(place.id);
+    if (!place || !view) return;
+    const inner = view.children[0];
+    if (inner) {
+      inner.rotation = 0.06;
+      tween(inner, { rotation: 0 }, 600, easeOutElastic);
+    }
+    const bounds = view.getBounds();
+    starBurst(this.view, bounds.x + bounds.width / 2, bounds.y + bounds.height * 0.3, {
+      count: 6,
+      radius: 50,
+      size: 10,
+      duration: 1200,
+      colours: [0xffc23c, 0xfff1b8],
+    });
+    this.lastHint = place.id;
+  }
 
   private readonly layout = (): void => {
     const { width, height } = this.app.screen;

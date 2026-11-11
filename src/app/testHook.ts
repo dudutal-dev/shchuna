@@ -13,6 +13,14 @@ export interface TestHook {
   stage: 'loading' | 'start' | 'map' | 'playing' | 'creator' | 'book' | 'gate' | 'settings';
   /** The place being played in, or 'map'. */
   here(): string;
+  /** What the last idle hint pointed at: a prop, or a place on the map. */
+  lastHint(): string | null;
+  /** The background loop playing now. */
+  music(): string | null;
+  /** Frames per second right now. */
+  fps(): number;
+  /** Average milliseconds to update and draw one frame, GPU included, over `frames` frames. */
+  frameCost(frames: number): number;
   /** Set while the map shows: a place's middle, or the letter sparkling on it. */
   mapCenter: ((id: string) => Point | null) | null;
   /** Set while the parents' gate is open. */
@@ -54,6 +62,10 @@ export function installTestHook(parts: {
   checkout: () => Checkout | null;
   hud: Hud;
   here: () => string;
+  lastHint: () => string | null;
+  music: () => string | null;
+  fps: () => number;
+  frameCost: (frames: number) => number;
   audio: AudioManager;
   saves: SaveManager;
 }): TestHook | null {
@@ -61,6 +73,10 @@ export function installTestHook(parts: {
   const hook: TestHook = {
     stage: 'loading',
     here: parts.here,
+    lastHint: parts.lastHint,
+    music: parts.music,
+    fps: parts.fps,
+    frameCost: parts.frameCost,
     mapCenter: null,
     gateAnswer: null,
     state: () => parts.store.state,

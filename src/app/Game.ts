@@ -32,6 +32,13 @@ const PURSE_MAX = 50;
 
 const LOCATIONS: Partial<Record<LocationId, LocationData>> = { home, makolet, playground };
 
+/** Background loops from scripts/gen-music.ts. The engine test scene has none. */
+const MUSIC: Partial<Record<LocationId | 'map', string>> = {
+  home: 'audio/music/home.mp3',
+  makolet: 'audio/music/makolet.mp3',
+  map: 'audio/music/map.mp3',
+};
+
 async function createAudio(store: GameStore): Promise<AudioManager> {
   // A dynamic import keeps the line texts and the Web Speech fallback out of production.
   const fallback = import.meta.env.DEV
@@ -72,6 +79,7 @@ export class Game {
   /** True while a parents' screen covers the game. */
   private parents = false;
   private moving = false;
+  private playing: string | null = null;
   /** True until the child taps in: the only time an update may reload the page. */
   onStartScreen = true;
 
@@ -122,6 +130,21 @@ export class Game {
       audio: this.audio,
       saves: this.saves,
       here: () => (this.map ? 'map' : this.location.id),
+      lastHint: () => (this.map ? this.map.lastHint : (this.scene?.lastHint ?? null)),
+      music: () => this.playing,
+      fps: () => this.app.ticker.FPS,
+      frameCost: (frames) => {
+        const gl = (this.app.renderer as unknown as { gl?: WebGL2RenderingContext }).gl;
+        const pixel = new Uint8Array(4);
+        const start = performance.now();
+        for (let i = 0; i < frames; i++) {
+          // The ticker runs the game and then draws: the application renders on it.
+          this.app.ticker.update(performance.now());
+          // Reading a pixel waits for the GPU to finish the frame.
+          gl?.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+        }
+        return (performance.now() - start) / frames;
+      },
     });
     const first = firstStop();
     // Everything loads behind the start screen, so the first tap goes straight in.
@@ -149,6 +172,14 @@ export class Game {
       this.audio.say('ui.welcome');
       this.showScene();
     }
+  }
+
+  /** Starts a place's loop, leaving it alone if it is already the one playing. */
+  private playMusic(where: LocationId | 'map'): void {
+    const url = MUSIC[where] ?? null;
+    if (url === this.playing) return;
+    this.playing = url;
+    this.audio.music(url);
   }
 
   /** Leaves the place for the neighbourhood map. */
@@ -179,6 +210,8 @@ export class Game {
     if (!this.map) return;
     this.app.stage.addChildAt(this.map.view, 0);
     this.hud.setMode('map');
+    this.playMusic('map');
+    this.map.wake();
     if (this.hook) {
       const map = this.map;
       this.hook.mapCenter = (id) =>
@@ -264,7 +297,9 @@ export class Game {
     const people = this.store.state.characters.some((c) => c.location === this.location.id);
     this.hud.setVisible('family', people);
     this.hud.setMode('scene');
+    this.playMusic(this.location.id);
     this.app.stage.addChildAt(this.scene.view, 0);
+    this.scene.wake();
     if (this.checkout) this.app.stage.addChildAt(this.checkout.strip, 1);
     this.setStage('playing');
   }

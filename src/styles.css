@@ -194,3 +194,45 @@ canvas {
 .parent-link {
   color: #2f7264;
 }
+
+/* SPEC §15: a phone held upright gets an illustrated "please turn me" (no reading needed). */
+#rotate {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--sky);
+}
+
+@media (orientation: portrait) and (max-width: 600px) {
+  #rotate {
+    display: flex;
+  }
+}
+
+.rotate-phone {
+  transform-origin: 100px 100px;
+  animation: rotate-hint 2.4s ease-in-out infinite;
+}
+
+@keyframes rotate-hint {
+  0%,
+  25% {
+    transform: rotate(0deg);
+  }
+  55%,
+  85% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotate-phone {
+    animation: none;
+    transform: rotate(90deg);
+  }
+}

@@ -16,6 +16,19 @@
   </head>
   <body>
     <main id="app"></main>
+    <!-- SPEC §15: a phone held upright is asked, without words, to turn sideways. -->
+    <div id="rotate" aria-hidden="true">
+      <svg viewBox="0 0 200 200" width="200" height="200">
+        <circle cx="100" cy="100" r="92" fill="#FFF7E6" />
+        <path d="M150 52 A64 64 0 0 1 164 96" fill="none" stroke="#3E8E7E" stroke-width="8" stroke-linecap="round" />
+        <path d="M152 86 L164 100 L176 84" fill="none" stroke="#3E8E7E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+        <g class="rotate-phone">
+          <rect x="72" y="46" width="56" height="108" rx="14" fill="#58B8EA" stroke="#2F6F94" stroke-width="6" />
+          <rect x="80" y="58" width="40" height="78" rx="6" fill="#BFE6FF" />
+          <circle cx="100" cy="145" r="4" fill="#2F6F94" />
+        </g>
+      </svg>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

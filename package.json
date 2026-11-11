@@ -10,7 +10,8 @@
     "e2e": "playwright test",
     "voice": "node scripts/gen-voice.ts",
     "lint": "tsc --noEmit && eslint .",
-    "icons": "node scripts/gen-icons.ts"
+    "icons": "node scripts/gen-icons.ts",
+    "music": "node scripts/gen-music.ts"
   },
   "type": "module",
   "private": true,

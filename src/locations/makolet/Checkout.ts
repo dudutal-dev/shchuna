@@ -329,6 +329,8 @@ export class Checkout {
       this.finishing = false;
     }
     this.belt = new Set(this.beltItems().map((p) => p.id));
+    // The full bag gets its "ta-da!".
+    this.scene.celebrate(BAG_ID);
     clearTimeout(this.bagTimer);
     this.bagTimer = setTimeout(() => {
       this.actions.applyFinal([{ id: BAG_ID, state: { full: undefined } }]);

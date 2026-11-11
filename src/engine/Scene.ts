@@ -12,6 +12,8 @@ import { cycle } from '../characters/catalog';
 import type { GameStore } from '../app/store';
 import { CharacterEntity, characterArt } from '../characters/CharacterEntity';
 import type { Character, HebrewLetter, LocationId, PropDef, PropInstance } from '../types';
+import { starBurst } from './effects';
+import { HintSystem, hintIdleMs } from './HintSystem';
 import { LetterSparkle } from './LetterSparkle';
 import { getArt, loadArt } from './art';
 import type { SoundPlayer } from './AudioManager';
@@ -32,6 +34,8 @@ const NAME_FONT_PX = 40;
 const OUTFIT_RADIUS = 150;
 /** Characters are aimed by their body, not their feet, so seats catch them from further away. */
 const SEAT_SNAP_RADIUS = 150;
+/** World units beyond the screen edges that still get drawn: the widest prop fits inside. */
+const CULL_MARGIN = 400;
 
 export interface LocationData {
   id: LocationId;
@@ -91,6 +95,17 @@ export class Scene {
   private scale = 1;
   private bubble: Container | undefined;
   private bubbleTimer: ReturnType<typeof setTimeout> | undefined;
+  private readonly hints = new HintSystem(performance.now(), hintIdleMs());
+  /** Hints wait until the child can see this, not while it loads behind the start screen. */
+  private shown = false;
+
+  /** Now on screen: the quiet time before a hint starts counting from here. */
+  wake(): void {
+    this.shown = true;
+    this.hints.touched(performance.now());
+  }
+  /** The prop the last hint pointed at, for tests. */
+  lastHint: string | null = null;
 
   constructor(
     private readonly ctx: SceneContext,
@@ -139,6 +154,8 @@ export class Scene {
     stage.on('pointercancel', this.onPointerUp);
     app.ticker.add(this.onTick);
     app.renderer.on('resize', this.layout);
+    // Any touch anywhere, HUD included, counts as the child being busy.
+    document.addEventListener('pointerdown', this.onAnyTouch, true);
     this.layout();
     // The neighbourhood reads right to left, so a place opens at its right end.
     this.world.x = this.minScroll();
@@ -153,6 +170,7 @@ export class Scene {
     app.stage.off('pointercancel', this.onPointerUp);
     app.ticker.remove(this.onTick);
     app.renderer.off('resize', this.layout);
+    document.removeEventListener('pointerdown', this.onAnyTouch, true);
     clearTimeout(this.bubbleTimer);
     this.view.destroy({ children: true });
   }
@@ -405,6 +423,7 @@ export class Scene {
     }
     this.ctx.audio.sfx('toggle');
     this.ctx.actions.commit(this.data.id, [change]);
+    this.celebrate(entity.entityId);
   }
 
   private drop(entity: PropEntity): void {
@@ -444,6 +463,7 @@ export class Scene {
       ...others,
       ...release,
     ]);
+    if (started) this.celebrate(entity.entityId);
   }
 
   /** The character under a screen point, if any, other than `except`. */
@@ -470,6 +490,7 @@ export class Scene {
       const origin = this.data.props.find((p) => p.id === instance.id) ?? instance;
       person?.munch();
       this.ctx.audio.sfx('yum');
+      this.celebrate(receiver.id);
       this.ctx.actions.commit(this.data.id, [
         { id: instance.id, x: origin.x, y: origin.y, on: origin.on ?? null },
         ...release,
@@ -526,8 +547,64 @@ export class Scene {
     });
   }
 
+  private readonly onAnyTouch = (): void => this.hints.touched(performance.now());
+
+  /**
+   * Skips drawing what is off screen. A house is three rooms wide and shows about one,
+   * so this saves most of the frame.
+   */
+  private cull(): void {
+    const left = -this.world.x / this.scale - CULL_MARGIN;
+    const right = left + this.ctx.app.screen.width / this.scale + 2 * CULL_MARGIN;
+    for (const tile of this.backgroundLayer.children) {
+      if (tile instanceof Sprite) tile.renderable = tile.x < right && tile.x + tile.texture.width > left;
+    }
+    for (const layer of [this.furnitureLayer, this.itemLayer]) {
+      for (const child of layer.children) child.renderable = child.x > left && child.x < right;
+    }
+  }
+
+  /** A small "ta-da!" over an entity: something just happened to it. */
+  celebrate(id: string): void {
+    const at = this.entityCenter(id);
+    if (at) starBurst(this.overlay, at.x, at.y, { radius: 70 * Math.max(this.scale, 0.8) });
+  }
+
+  /**
+   * Nudges a quiet child (SPEC §5.2): something on screen that does something when
+   * tapped wiggles, with a few soft twinkles. A hidden letter is the first choice.
+   */
+  private showHint(): void {
+    const width = this.ctx.app.screen.width;
+    const candidates = [...this.entities.values()].filter((entity) => {
+      if (!entity.visible || this.isDragging(entity)) return false;
+      const at = this.entityCenter(entity.entityId);
+      if (!at || at.x < 60 || at.x > width - 60) return false;
+      return (
+        this.sparkles.has(entity.entityId) ||
+        entity.def.interactions.some((i) => ['tap', 'toggle', 'pet', 'coins'].includes(i.type))
+      );
+    });
+    const letters = candidates.filter((entity) => this.sparkles.has(entity.entityId));
+    const pool = letters.length > 0 ? letters : candidates;
+    const entity = pool[Math.floor(Math.random() * pool.length)];
+    if (!entity) return;
+    const bounds = entity.getBounds();
+    entity.wiggle();
+    starBurst(this.overlay, bounds.x + bounds.width / 2, bounds.y + bounds.height * 0.3, {
+      count: 6,
+      radius: 50,
+      size: 10,
+      duration: 1200,
+      colours: [0xffc23c, 0xfff1b8],
+    });
+    this.lastHint = entity.entityId;
+  }
+
   private readonly onTick = (ticker: Ticker): void => {
     const now = performance.now();
+    if (this.shown && this.pointers.size === 0 && this.hints.due(now)) this.showHint();
+    this.cull();
     for (const entity of this.entities.values()) entity.animate(ticker.deltaMS);
     for (const sparkle of this.sparkles.values()) sparkle.animate(ticker.deltaMS);
     for (const entity of this.characters.values()) entity.animate(ticker.deltaMS);

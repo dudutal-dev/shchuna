@@ -1,4 +1,5 @@
 import { Application, Container, Graphics, Text } from 'pixi.js';
+import { starBurst } from '../engine/effects';
 import { rtl } from '../engine/text';
 import { easeOutBack, easeOutQuad, tween } from '../engine/tween';
 import type { HebrewLetter } from '../types';
@@ -60,6 +61,13 @@ export function revealLetter(
   return new Promise((resolve) => {
     tween(view, { x: width / 2, y: height / 2 }, 450, easeOutQuad);
     tween(view.scale, { x: unit, y: unit }, 450, easeOutBack);
+    // Stars burst behind the card as it arrives.
+    setTimeout(() => {
+      if (!view.destroyed) {
+        starBurst(app.stage, width / 2, height / 2, { count: 14, radius: 200 * unit, size: 18 });
+        app.stage.setChildIndex(view, app.stage.children.length - 1);
+      }
+    }, 380);
     setTimeout(() => {
       if (view.destroyed) return resolve();
       const target = bookAt();
