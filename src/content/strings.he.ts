@@ -108,5 +108,15 @@ export const strings = {
     matkot: 'מַטְקוֹת',
     shell: 'צֶדֶף',
     lifeguardTower: 'מִגְדַּל מַצִּיל',
+    moon: 'יָרֵחַ',
+    // Station.
+    busShelter: 'תַּחֲנַת אוֹטוֹבּוּס',
+    bus: 'אוֹטוֹבּוּס',
+    car: 'מְכוֹנִית',
+    trafficLight: 'רַמְזוֹר',
+    busSign: 'שֶׁלֶט',
+    suitcase: 'מִזְוָדָה',
+    backpack: 'תִּיק גַּב',
+    ticket: 'כַּרְטִיס',
   },
 } as const;

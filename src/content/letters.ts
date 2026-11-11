@@ -9,6 +9,7 @@ export type LetterArea =
   | 'map'
   | 'gan'
   | 'beach'
+  | 'station'
   | 'later';
 
 export interface LetterInfo {
@@ -42,10 +43,10 @@ export const LETTERS: readonly LetterInfo[] = [
   { letter: 'ז', id: 'zayin', name: 'זַיִן', word: 'זַיִת', wordLine: 'letter.word.zayin', area: 'makolet', hidesOn: 'mk-olives' },
   { letter: 'ח', id: 'het', name: 'חֵית', word: 'חָלָב', wordLine: 'prop.milk', area: 'kitchen', hidesOn: 'milk' },
   { letter: 'ט', id: 'tet', name: 'טֵית', word: 'טַוָּס', wordLine: 'prop.peacock', area: 'gan', hidesOn: 'gan-peacock' },
-  { letter: 'י', id: 'yod', name: 'יוֹד', word: 'יָרֵחַ', wordLine: 'letter.word.yod', area: 'later' },
+  { letter: 'י', id: 'yod', name: 'יוֹד', word: 'יָרֵחַ', wordLine: 'prop.moon', area: 'kids', hidesOn: 'moon' },
   { letter: 'כ', id: 'kaf', name: 'כַּף', word: 'כַּדּוּר', wordLine: 'prop.ball', area: 'kids', hidesOn: 'ball' },
   { letter: 'ל', id: 'lamed', name: 'לָמֶד', word: 'לֶחֶם', wordLine: 'prop.bread', area: 'kitchen', hidesOn: 'bread' },
-  { letter: 'מ', id: 'mem', name: 'מֵם', word: 'מְכוֹנִית', wordLine: 'letter.word.mem', area: 'later' },
+  { letter: 'מ', id: 'mem', name: 'מֵם', word: 'מְכוֹנִית', wordLine: 'prop.car', area: 'station', hidesOn: 'station-car' },
   { letter: 'נ', id: 'nun', name: 'נוּן', word: 'נֵר', wordLine: 'letter.word.nun', area: 'living', hidesOn: 'candles' },
   { letter: 'ס', id: 'samekh', name: 'סָמֶךְ', word: 'סֵפֶר', wordLine: 'prop.book', area: 'kids', hidesOn: 'book' },
   { letter: 'ע', id: 'ayin', name: 'עַיִן', word: 'עוּגָה', wordLine: 'prop.cake', area: 'kitchen', hidesOn: 'cake' },

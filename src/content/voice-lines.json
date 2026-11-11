@@ -201,5 +201,21 @@
   {"id": "letter.found.shin.m", "text": "מָצָאתָ אֶת הָאוֹת שִׁין! שֶׁמֶשׁ.", "voice": "narrator", "proofread": false},
   {"id": "letter.found.shin.f", "text": "מָצָאת אֶת הָאוֹת שִׁין! שֶׁמֶשׁ.", "voice": "narrator", "proofread": false},
   {"id": "letter.name.shin", "text": "שִׁין", "voice": "narrator", "proofread": false},
-  {"id": "letter.hint.beach", "text": "אוּלַי בַּחוֹף?", "voice": "narrator", "proofread": false}
+  {"id": "letter.hint.beach", "text": "אוּלַי בַּחוֹף?", "voice": "narrator", "proofread": false},
+  {"id": "prop.moon", "text": "יָרֵחַ", "voice": "narrator", "proofread": false},
+  {"id": "prop.bus-shelter", "text": "תַּחֲנַת אוֹטוֹבּוּס", "voice": "narrator", "proofread": false},
+  {"id": "prop.bus-sign", "text": "שֶׁלֶט", "voice": "narrator", "proofread": false},
+  {"id": "prop.ticket", "text": "כַּרְטִיס", "voice": "narrator", "proofread": false},
+  {"id": "prop.suitcase", "text": "מִזְוָדָה", "voice": "narrator", "proofread": false},
+  {"id": "prop.backpack", "text": "תִּיק גַּב", "voice": "narrator", "proofread": false},
+  {"id": "prop.bus", "text": "אוֹטוֹבּוּס", "voice": "narrator", "proofread": false},
+  {"id": "prop.traffic-light", "text": "רַמְזוֹר", "voice": "narrator", "proofread": false},
+  {"id": "prop.car", "text": "מְכוֹנִית", "voice": "narrator", "proofread": false},
+  {"id": "letter.found.yod.m", "text": "מָצָאתָ אֶת הָאוֹת יוֹד! יָרֵחַ.", "voice": "narrator", "proofread": false},
+  {"id": "letter.found.yod.f", "text": "מָצָאת אֶת הָאוֹת יוֹד! יָרֵחַ.", "voice": "narrator", "proofread": false},
+  {"id": "letter.name.yod", "text": "יוֹד", "voice": "narrator", "proofread": false},
+  {"id": "letter.found.mem.m", "text": "מָצָאתָ אֶת הָאוֹת מֵם! מְכוֹנִית.", "voice": "narrator", "proofread": false},
+  {"id": "letter.found.mem.f", "text": "מָצָאת אֶת הָאוֹת מֵם! מְכוֹנִית.", "voice": "narrator", "proofread": false},
+  {"id": "letter.name.mem", "text": "מֵם", "voice": "narrator", "proofread": false},
+  {"id": "letter.hint.station", "text": "אוּלַי בַּתַּחֲנָה?", "voice": "narrator", "proofread": false}
 ]

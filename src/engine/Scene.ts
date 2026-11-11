@@ -15,13 +15,15 @@ import type { Character, HebrewLetter, LocationId, PropDef, PropInstance } from 
 import { starBurst } from './effects';
 import { HintSystem, hintIdleMs } from './HintSystem';
 import { LetterSparkle } from './LetterSparkle';
+import { buttonSize, safeArea } from './safeArea';
 import { getArt, loadArt } from './art';
 import type { SoundPlayer } from './AudioManager';
 import { rtl } from './text';
 import { isHidden, openSurfaces, resolveDrop, type FloorBand, type Surface } from './DragSystem';
 import { Entity, PropEntity } from './Entity';
 import { allArtOf, GestureTracker, petSound, resolveTap, resolveUseOn } from './InteractionSystem';
-import { easeOutBack, tween } from './tween';
+import { BUTTON_SIZE, makeButton } from '../ui/Hud';
+import { easeOutBack, easeOutQuad, killTweens, tween } from './tween';
 
 /** Scene height in world units; the scale is derived from the screen height. */
 export const WORLD_HEIGHT = 600;
@@ -32,6 +34,18 @@ const NAME_BUBBLE_MS = 2500;
 const NAME_FONT_PX = 40;
 /** How close to an open wardrobe a character must be put down to change clothes. */
 const OUTFIT_RADIUS = 150;
+/** A flick keeps the room sliding: it starts at the finger's speed and slows by this per frame. */
+const FLING_FRICTION = 0.94;
+const FLING_MIN_PX_PER_MS = 0.25;
+const FLING_MAX_PX_PER_MS = 4;
+/**
+ * Lifting the finger within this many frames of its last move is a flick; later, a stop.
+ * Counted in frames, not milliseconds, so a slow device judges it the same way.
+ */
+const FLING_WINDOW_FRAMES = 3;
+/** The arrows move the room by most of a screen, so something already seen stays in view. */
+const ARROW_STEP = 0.8;
+const ARROW_ART = 'ui/arrow.svg';
 /** Characters are aimed by their body, not their feet, so seats catch them from further away. */
 const SEAT_SNAP_RADIUS = 150;
 /** World units beyond the screen edges that still get drawn: the widest prop fits inside. */
@@ -65,7 +79,7 @@ export interface SceneContext {
 }
 
 type PointerSession =
-  | { kind: 'pan'; lastX: number }
+  | { kind: 'pan'; lastX: number; lastAt: number; velocity: number; idleFrames: number }
   | {
       kind: 'entity';
       entity: PropEntity | CharacterEntity;
@@ -106,6 +120,10 @@ export class Scene {
   }
   /** The prop the last hint pointed at, for tests. */
   lastHint: string | null = null;
+  /** Pixels per millisecond the room is still sliding after a flick. */
+  private fling = 0;
+  /** Big arrows at the screen's sides that slide the room: easier than a swipe for small hands. */
+  private readonly arrows = new Map<'left' | 'right', Container>();
 
   constructor(
     private readonly ctx: SceneContext,
@@ -124,7 +142,7 @@ export class Scene {
     const instances = this.instances();
     const art = instances.flatMap((instance) => allArtOf(this.defOf(instance)));
     if (this.people().length > 0) art.push(...characterArt());
-    await Promise.all([loadArt(art), loadArt(this.data.background, true)]);
+    await Promise.all([loadArt([...art, ARROW_ART]), loadArt(this.data.background, true)]);
 
     // Tiles keep each texture inside the 4096px limit of older iPads.
     let tileX = 0;
@@ -135,6 +153,13 @@ export class Scene {
       tile.eventMode = 'static';
       tile.on('pointerdown', (event) => this.onBackgroundDown(event));
       this.backgroundLayer.addChild(tile);
+    }
+    for (const side of ['left', 'right'] as const) {
+      // Left shows what lies to the left: the room moves right.
+      const arrow = makeButton(ARROW_ART, BUTTON_SIZE, () => this.slide(side === 'left' ? 1 : -1));
+      arrow.alpha = 0.85;
+      this.arrows.set(side, arrow);
+      this.view.addChild(arrow);
     }
     for (const instance of instances) this.addEntity(instance);
     for (const character of this.people()) this.addCharacter(character);
@@ -313,10 +338,42 @@ export class Scene {
   }
 
   private readonly layout = (): void => {
-    this.scale = this.ctx.app.screen.height / WORLD_HEIGHT;
+    const { width, height } = this.ctx.app.screen;
+    this.scale = height / WORLD_HEIGHT;
     this.world.scale.set(this.scale);
     this.scrollTo(this.world.x);
+    // Mid-height, between the corner buttons above and the family button below, clear of a notch.
+    const size = buttonSize(height);
+    const safe = safeArea();
+    for (const arrow of this.arrows.values()) arrow.scale.y = size / BUTTON_SIZE;
+    this.arrows.get('left')?.scale.set(size / BUTTON_SIZE);
+    this.arrows.get('right')?.scale.set(-size / BUTTON_SIZE, size / BUTTON_SIZE);
+    this.arrows.get('left')?.position.set(safe.left + 12 + size / 2, height * 0.42);
+    this.arrows.get('right')?.position.set(width - safe.right - 12 - size / 2, height * 0.42);
+    this.updateArrows();
   };
+
+  /** An arrow shows only when there is more of the place that way. */
+  private updateArrows(): void {
+    const min = this.minScroll();
+    this.arrows.get('left')!.visible = min < 0 && this.world.x < -1;
+    this.arrows.get('right')!.visible = min < 0 && this.world.x > min + 1;
+  }
+
+  /** An arrow was tapped: the room glides most of a screen that way. */
+  private slide(direction: 1 | -1): void {
+    this.fling = 0;
+    this.ctx.audio.sfx('tap');
+    const min = this.minScroll();
+    const target = Math.min(Math.max(this.world.x + direction * this.ctx.app.screen.width * ARROW_STEP, min), 0);
+    tween(this.world, { x: target }, 450, easeOutQuad);
+  }
+
+  /** Screen centre of a side arrow, or null while it is hidden. For tests. */
+  arrowCenter(side: 'left' | 'right'): { x: number; y: number } | null {
+    const arrow = this.arrows.get(side);
+    return arrow?.visible ? { x: arrow.x, y: arrow.y } : null;
+  }
 
   private minScroll(): number {
     return this.ctx.app.screen.width - this.data.width * this.scale;
@@ -329,7 +386,20 @@ export class Scene {
   }
 
   private onBackgroundDown(event: FederatedPointerEvent): void {
-    this.pointers.set(event.pointerId, { kind: 'pan', lastX: event.global.x });
+    this.startPan(event.pointerId, event.global.x);
+  }
+
+  /** A finger on the room stops any glide and takes over the scrolling. */
+  private startPan(pointerId: number, x: number): void {
+    this.fling = 0;
+    killTweens(this.world);
+    this.pointers.set(pointerId, {
+      kind: 'pan',
+      lastX: x,
+      lastAt: performance.now(),
+      velocity: 0,
+      idleFrames: 0,
+    });
   }
 
   private onEntityDown(entity: PropEntity | CharacterEntity, event: FederatedPointerEvent): void {
@@ -356,8 +426,15 @@ export class Scene {
     if (!session) return;
     const { x, y } = event.global;
     if (session.kind === 'pan') {
-      this.scrollTo(this.world.x + x - session.lastX);
+      const now = performance.now();
+      const dx = x - session.lastX;
+      const dt = Math.max(now - session.lastAt, 1);
+      // Smoothed, so one jittery event doesn't decide the flick.
+      session.velocity = session.velocity * 0.3 + (dx / dt) * 0.7;
+      this.scrollTo(this.world.x + dx);
       session.lastX = x;
+      session.lastAt = now;
+      session.idleFrames = 0;
       return;
     }
     session.screenX = x;
@@ -365,7 +442,7 @@ export class Scene {
     if (session.gesture.move(x, y)) {
       if (!session.entity.draggable) {
         // Dragging from fixed furniture scrolls the room, like dragging the wall.
-        this.pointers.set(event.pointerId, { kind: 'pan', lastX: x });
+        this.startPan(event.pointerId, x);
         return;
       }
       session.dragging = true;
@@ -386,7 +463,14 @@ export class Scene {
     const session = this.pointers.get(event.pointerId);
     if (!session) return;
     this.pointers.delete(event.pointerId);
-    if (session.kind !== 'entity') return;
+    if (session.kind === 'pan') {
+      // Let go while still moving: the room keeps gliding.
+      const recent = session.idleFrames <= FLING_WINDOW_FRAMES;
+      if (recent && Math.abs(session.velocity) > FLING_MIN_PX_PER_MS) {
+        this.fling = Math.max(-FLING_MAX_PX_PER_MS, Math.min(FLING_MAX_PX_PER_MS, session.velocity));
+      }
+      return;
+    }
     const { entity } = session;
     if (entity instanceof CharacterEntity) {
       if (session.dragging) this.dropCharacter(entity);
@@ -613,12 +697,21 @@ export class Scene {
   private readonly onTick = (ticker: Ticker): void => {
     const now = performance.now();
     if (this.shown && this.pointers.size === 0 && this.hints.due(now)) this.showHint();
+    if (this.fling !== 0) {
+      const before = this.world.x;
+      this.scrollTo(before + this.fling * ticker.deltaMS);
+      this.fling *= FLING_FRICTION ** (ticker.deltaMS / 16.7);
+      // Stopped, or reached the end of the place.
+      if (Math.abs(this.fling) < 0.02 || this.world.x === before) this.fling = 0;
+    }
+    this.updateArrows();
     this.cull();
     for (const entity of this.entities.values()) entity.animate(ticker.deltaMS);
     for (const sparkle of this.sparkles.values()) sparkle.animate(ticker.deltaMS);
     for (const entity of this.characters.values()) entity.animate(ticker.deltaMS);
     this.placeHeldProps();
     for (const session of this.pointers.values()) {
+      if (session.kind === 'pan') session.idleFrames += 1;
       if (session.kind !== 'entity') continue;
       if (session.gesture.tick(now) && session.entity instanceof PropEntity) {
         this.showBubble(session.entity);

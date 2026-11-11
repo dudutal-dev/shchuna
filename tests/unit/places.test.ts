@@ -10,7 +10,9 @@ import {
   defaultFamily,
   falafelPeople,
   ganPeople,
+  stationPeople,
 } from '../../src/characters/catalog';
+import { station, TRAVELLER_SEAT } from '../../src/locations/station/station.data';
 import { beach, LIFEGUARD_SEAT } from '../../src/locations/beach/beach.data';
 import { CUSTOMER_SEAT, falafel } from '../../src/locations/falafel/falafel.data';
 import { BENCH_SEAT, clinic } from '../../src/locations/clinic/clinic.data';
@@ -39,7 +41,7 @@ describe('neighbourhood map', () => {
     expect(ids.has('map.where')).toBe(true);
   });
 
-  it('opens every place but the station; nothing is paid yet', () => {
+  it('opens all seven places; nothing is paid yet', () => {
     const { unlocked } = createNewSave();
     expect(PLACES.filter((p) => isOpen(p.id, unlocked)).map((p) => p.id)).toEqual([
       'home',
@@ -47,6 +49,7 @@ describe('neighbourhood map', () => {
       'gan',
       'clinic',
       'falafel',
+      'station',
       'beach',
     ]);
     for (const p of PLACES) expect(isPremium(p.id)).toBe(false);
@@ -93,7 +96,15 @@ describe('parents settings', () => {
 describe('the gan', () => {
   it('opens in a save from before it was built', () => {
     const old = { ...createNewSave(0), version: 1, unlocked: ['home', 'makolet'] };
-    expect(migrate(old)?.unlocked).toEqual(['home', 'makolet', 'gan', 'clinic', 'falafel', 'beach']);
+    expect(migrate(old)?.unlocked).toEqual([
+      'home',
+      'makolet',
+      'gan',
+      'clinic',
+      'falafel',
+      'beach',
+      'station',
+    ]);
   });
 
   it('brings its people into a game that already has a family', () => {
@@ -114,6 +125,15 @@ describe('the gan', () => {
       ...beachPeople(),
     ]);
     expect(store.state.characters).toHaveLength(13);
+    actions.seedCharacters([
+      ...defaultFamily(),
+      ...ganPeople(),
+      ...clinicPeople(),
+      ...falafelPeople(),
+      ...beachPeople(),
+      ...stationPeople(),
+    ]);
+    expect(store.state.characters).toHaveLength(15);
     expect(store.state.characters.filter((c) => c.location === 'gan')).toHaveLength(3);
   });
 
@@ -122,6 +142,7 @@ describe('the gan', () => {
     ['clinic', clinic],
     ['falafel', falafel],
     ['beach', beach],
+    ['station', station],
   ])('%s: a voice line for every prop, ids apart from the home', (_name, place) => {
     const ids = new Set(voiceLines.map((line) => line.id));
     const homeIds = new Set(home.props.map((p) => p.id));
@@ -183,5 +204,12 @@ describe('the beach', () => {
       setTarget: { built: true },
     });
     expect(propDefs.bucket!.returnsAfterUse).toBe(true);
+  });
+});
+
+describe('the station', () => {
+  it('has the traveller waiting on the shelter bench', () => {
+    const [, traveller] = stationPeople();
+    expect(traveller).toMatchObject({ ...TRAVELLER_SEAT, pose: 'sit' });
   });
 });

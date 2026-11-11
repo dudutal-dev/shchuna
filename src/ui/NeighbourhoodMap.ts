@@ -5,6 +5,7 @@ import { starBurst } from '../engine/effects';
 import { HintSystem, hintIdleMs } from '../engine/HintSystem';
 import { LetterSparkle } from '../engine/LetterSparkle';
 import { easeOutBack, easeOutElastic, tween } from '../engine/tween';
+import { safeArea } from '../engine/safeArea';
 import type { HebrewLetter, LocationId } from '../types';
 
 const BACKGROUND_ART = 'map/background.svg';
@@ -200,11 +201,13 @@ export class NeighbourhoodMap {
     this.background.scale.set(Math.max(width / art.width, height / art.height));
     this.background.position.set(width / 2, height);
 
-    const scale = Math.min(width / MAP_WIDTH, (height - TOP_INSET) / MAP_HEIGHT);
+    // The places stay clear of a notch and the rounded corners; the landscape runs under them.
+    const safe = safeArea();
+    const across = width - safe.left - safe.right;
+    const top = TOP_INSET + safe.top;
+    const down = height - top - safe.bottom;
+    const scale = Math.min(across / MAP_WIDTH, down / MAP_HEIGHT);
     this.world.scale.set(scale);
-    this.world.position.set(
-      (width - MAP_WIDTH * scale) / 2,
-      TOP_INSET + (height - TOP_INSET - MAP_HEIGHT * scale) / 2,
-    );
+    this.world.position.set(safe.left + (across - MAP_WIDTH * scale) / 2, top + (down - MAP_HEIGHT * scale) / 2);
   };
 }

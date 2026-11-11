@@ -6,6 +6,7 @@ import {
   Text,
   type FederatedPointerEvent,
 } from 'pixi.js';
+import { safeArea } from '../../engine/safeArea';
 import type { Actions, EntityChange } from '../../app/actions';
 import type { GameStore } from '../../app/store';
 import { CharacterEntity, characterArt } from '../../characters/CharacterEntity';
@@ -409,6 +410,7 @@ export class Checkout {
       source?.position.set(rowWidth / 2 - size / 2 - index * (size + STRIP_GAP), 0);
     });
     this.purseLabel.position.set(-rowWidth / 2 - 60, 0);
-    this.strip.position.set(width / 2 + 30, height - size / 2 - 8);
+    // Above the home bar on an iPhone.
+    this.strip.position.set(width / 2 + 30, height - safeArea().bottom - size / 2 - 8);
   };
 }

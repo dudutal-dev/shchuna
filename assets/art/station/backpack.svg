@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="75" height="85" viewBox="0 0 75 85">
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <!-- Carry loop -->
+    <path d="M30 14 Q37 2 44 14" fill="none" stroke="#8F2C55" stroke-width="5"/>
+    <!-- Side straps -->
+    <g fill="#C7417A" stroke="#8F2C55" stroke-width="3"><rect x="5" y="30" width="9" height="36" rx="4.5"/><rect x="61" y="30" width="9" height="36" rx="4.5"/></g>
+    <!-- Body -->
+    <path d="M12 34 Q12 12 37 12 Q62 12 62 34 V74 Q62 82 54 82 H20 Q12 82 12 74Z" fill="#E5508A" stroke="#B8396A" stroke-width="4"/>
+    <!-- Flap -->
+    <path d="M15 34 Q15 18 37 18 Q59 18 59 34 V40 Q37 48 15 40Z" fill="#F27BAA" stroke="#B8396A" stroke-width="3"/>
+    <path d="M22 28 Q25 22 31 21" fill="none" stroke="#FFC2DA" stroke-width="3.5"/>
+    <rect x="33" y="40" width="8" height="10" rx="3" fill="#3E8E7E" stroke="#2F7264" stroke-width="2.5"/>
+    <!-- Front pocket -->
+    <rect x="20" y="54" width="34" height="22" rx="8" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+    <path d="M25 60 H49" stroke="#C78F1E" stroke-width="2.5"/>
+    <circle cx="49" cy="64" r="2.5" fill="#FFFFFF" stroke="#C78F1E" stroke-width="2"/>
+    <!-- Flower patch -->
+    <g fill="#FFFFFF" stroke="#B8396A" stroke-width="2"><circle cx="37" cy="24" r="3.5"/><circle cx="43" cy="28" r="3.5"/><circle cx="31" cy="28" r="3.5"/><circle cx="37" cy="32" r="3.5"/></g>
+    <circle cx="37" cy="28" r="3" fill="#FFC23C" stroke="#C78F1E" stroke-width="2"/>
+  </g>
+</svg>

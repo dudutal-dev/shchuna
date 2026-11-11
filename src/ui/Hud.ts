@@ -1,5 +1,6 @@
 import { Application, Container, Graphics, Rectangle, Sprite } from 'pixi.js';
 import { getArt, loadArt } from '../engine/art';
+import { buttonSize, safeArea } from '../engine/safeArea';
 import { easeOutBack, tween } from '../engine/tween';
 
 /** Screen pixels, so buttons stay the same physical size on every device. */
@@ -176,24 +177,31 @@ export class Hud {
   }
 
   private readonly layout = (): void => {
-    const half = BUTTON_SIZE / 2;
     const { width, height } = this.app.screen;
-    const top = MARGIN + half;
-    const bottom = height - MARGIN - half;
-    const right = width - MARGIN - half;
+    // Smaller on a short phone, and clear of the notch and the rounded corners.
+    const size = buttonSize(height);
+    const half = size / 2;
+    const safe = safeArea();
+    const left = safe.left + MARGIN + half;
+    const right = width - safe.right - MARGIN - half;
+    const top = safe.top + MARGIN + half;
+    const bottom = height - safe.bottom - MARGIN - half;
     const onMap = this.mode === 'map';
     const shown = (id: HudButtonId): boolean =>
       !this.hidden.has(id) && (!onMap || id === 'book' || id === 'lock');
-    for (const [id, button] of this.buttons) button.visible = shown(id);
+    for (const [id, button] of this.buttons) {
+      button.visible = shown(id);
+      button.scale.set(size / BUTTON_SIZE);
+    }
 
     // SPEC §11. Bottom-left, stacked upwards: undo, then family.
-    this.buttons.get('undo')?.position.set(MARGIN + half, bottom);
-    this.buttons.get('family')?.position.set(MARGIN + half, bottom - BUTTON_SIZE - MARGIN);
+    this.buttons.get('undo')?.position.set(left, bottom);
+    this.buttons.get('family')?.position.set(left, bottom - size - MARGIN);
     // Top-right: back to the map, with the letter book beside it. On the map the book
     // takes the corner itself.
     this.buttons.get('map')?.position.set(right, top);
-    this.buttons.get('book')?.position.set(onMap ? right : right - MARGIN - BUTTON_SIZE, top);
+    this.buttons.get('book')?.position.set(onMap ? right : right - MARGIN - size, top);
     // Top-left: the parents' lock, small and out of the way.
-    this.buttons.get('lock')?.position.set(MARGIN + half, top);
+    this.buttons.get('lock')?.position.set(left, top);
   };
 }

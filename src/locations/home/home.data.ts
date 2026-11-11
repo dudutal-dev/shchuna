@@ -129,6 +129,8 @@ export const home: LocationData = {
 
     // Kids' room.
     prop('wardrobe', WARDROBE_X, WALL_FEET),
+    // Exactly over the crescent in kids-bg.svg's night window.
+    prop('moon', KIDS + 856, 142),
     { ...prop('shelf', KIDS_SHELF_X, WALL_SHELF_FEET), id: 'kids-shelf' },
     prop('bed', BED_X, 490),
     on('book', 'book', KIDS_SHELF_X, 'kids-shelf'),

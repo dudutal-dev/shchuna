@@ -2,6 +2,7 @@ import { Application, Container, Graphics, Rectangle, Sprite, Text } from 'pixi.
 import { LETTERS, type LetterInfo } from '../content/letters';
 import type { GameStore } from '../app/store';
 import { getArt, loadArt } from '../engine/art';
+import { safeArea } from '../engine/safeArea';
 import type { SoundPlayer } from '../engine/AudioManager';
 import { easeOutBack, tween } from '../engine/tween';
 import { bookLines, isFound } from '../learning/LetterHunt';
@@ -121,12 +122,15 @@ export class LetterBook {
     const { width, height } = this.app.screen;
     this.backdrop.clear().rect(0, 0, width, height).fill(PANEL);
     const margin = 16;
-    const top = 96;
-    const cell = Math.min((width - 2 * margin) / COLUMNS, (height - top - margin) / ROWS);
+    // Clear of a notch and the rounded corners.
+    const safe = safeArea();
+    const top = 96 + safe.top;
+    const across = width - safe.left - safe.right;
+    const cell = Math.min((across - 2 * margin) / COLUMNS, (height - top - margin - safe.bottom) / ROWS);
     // Never below the 64pt touch minimum.
     this.slotScale = Math.max(64, cell - 10) / 100;
     const gridWidth = cell * COLUMNS;
-    const left = (width - gridWidth) / 2;
+    const left = safe.left + (across - gridWidth) / 2;
     // Alef at the top right: the book reads right to left.
     LETTERS.forEach((info, index) => {
       const column = index % COLUMNS;
@@ -135,6 +139,6 @@ export class LetterBook {
       slot?.scale.set(this.slotScale);
       slot?.position.set(left + gridWidth - cell * (column + 0.5), top + cell * (row + 0.5));
     });
-    this.doneButton.position.set(margin + 42, margin + 42);
+    this.doneButton.position.set(safe.left + margin + 42, safe.top + margin + 42);
   };
 }

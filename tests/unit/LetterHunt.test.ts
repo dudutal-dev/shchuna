@@ -4,6 +4,7 @@ import { PLACES } from '../../src/content/places';
 import { gan } from '../../src/locations/gan/gan.data';
 import { makolet } from '../../src/locations/makolet/makolet.data';
 import { beach } from '../../src/locations/beach/beach.data';
+import { station } from '../../src/locations/station/station.data';
 import { propDefs } from '../../src/content/props';
 import voiceLines from '../../src/content/voice-lines.json';
 import { createNewSave } from '../../src/engine/SaveManager';
@@ -27,12 +28,13 @@ describe('letters content', () => {
     for (const l of LETTERS) expect(l.word.startsWith(l.letter)).toBe(true);
   });
 
-  it('hides twenty letters on props in the places, or on a place on the map', () => {
-    expect(HIDDEN_LETTERS.map((l) => l.letter).sort().join('')).toBe('אבגדהוזחטכלנסעפצקרשת');
+  it('hides all 22 letters on props in the places, or on a place on the map', () => {
+    expect(HIDDEN_LETTERS.map((l) => l.letter).sort().join('')).toBe('אבגדהוזחטיכלמנסעפצקרשת');
     const ids = new Set([
       ...home.props.map((p) => p.id),
       ...makolet.props.map((p) => p.id),
       ...beach.props.map((p) => p.id),
+      ...station.props.map((p) => p.id),
       ...gan.props.map((p) => p.id),
       ...PLACES.map((p) => `map-${p.id}`),
     ]);
@@ -101,6 +103,6 @@ describe('LetterHunt', () => {
     const found = find(fresh(), 'ל', 1).progress;
     expect(bookLines(found, 'ל')).toEqual(['letter.name.lamed', 'prop.bread']);
     expect(bookLines(fresh(), 'ל')).toEqual(['letter.hint.kitchen']);
-    expect(bookLines(fresh(), 'מ')).toEqual(['letter.hint.later']);
+    expect(bookLines(fresh(), 'מ')).toEqual(['letter.hint.station']);
   });
 });

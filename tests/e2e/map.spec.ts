@@ -44,14 +44,6 @@ test.describe('neighbourhood map', () => {
     expect(await spoken(page)).toContain('place.home');
   });
 
-  test('a locked place says its name and "soon", and stays on the map', async ({ page }) => {
-    await openGame(page, 'map');
-    await tap(page, await mapPoint(page, 'station'));
-    await expect.poll(async () => (await spoken(page)).slice(-1)).toEqual(['place.station']);
-    await page.waitForTimeout(500);
-    expect(await here(page)).toBe('map');
-  });
-
   test('the map button goes back to the map, and on to the makolet', async ({ page }) => {
     await openGame(page, 'home');
     await travel(page, 'makolet');

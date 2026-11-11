@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="290" viewBox="0 0 80 290">
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <!-- Pole, base and push-button box -->
+    <rect x="34" y="126" width="12" height="156" rx="6" fill="#9AA5AD" stroke="#6F7A82" stroke-width="3.5"/>
+    <path d="M38 140 V270" stroke="#C7CDD2" stroke-width="3"/>
+    <rect x="22" y="278" width="36" height="10" rx="5" fill="#9AA5AD" stroke="#6F7A82" stroke-width="3.5"/>
+    <rect x="26" y="168" width="28" height="40" rx="8" fill="#FFC23C" stroke="#C78F1E" stroke-width="3.5"/>
+    <circle cx="40" cy="184" r="7" fill="#FFFFFF" stroke="#C78F1E" stroke-width="3"/>
+    <path d="M32 198 H48" stroke="#C78F1E" stroke-width="3"/>
+    <!-- Housing -->
+    <rect x="10" y="8" width="60" height="124" rx="14" fill="#4A5258" stroke="#343A3F" stroke-width="4"/>
+    <path d="M18 24 V56" stroke="#6B747B" stroke-width="4"/>
+    <circle cx="40" cy="40" r="24" fill="#30363B" stroke="#343A3F" stroke-width="3"/>
+    <circle cx="40" cy="100" r="24" fill="#30363B" stroke="#343A3F" stroke-width="3"/>
+    <!-- Green lit, red dark -->
+    <circle cx="40" cy="40" r="21" fill="#FF8A7A" opacity="0"/>
+    <circle cx="40" cy="100" r="21" fill="#7FE3A8" opacity=".4"/>
+    <!-- Standing figure (red) -->
+    <g fill="#6E3B38" stroke="#6E3B38">
+      <circle cx="40" cy="25" r="5" stroke="none"/>
+      <rect x="34" y="31" width="12" height="18" rx="5" stroke="none"/>
+      <path d="M37 48 V58 M43 48 V58" fill="none" stroke-width="5"/>
+    </g>
+    <!-- Walking figure (green) -->
+    <g fill="none" stroke="#4FD18A">
+      <circle cx="42" cy="84" r="5" fill="#4FD18A" stroke="none"/>
+      <path d="M41 90 L38 104" stroke-width="8"/>
+      <path d="M38 104 L31 116 M38 104 L47 114" stroke-width="5"/>
+      <path d="M40 93 L32 100 M40 93 L49 98" stroke-width="4"/>
+    </g>
+  </g>
+</svg>

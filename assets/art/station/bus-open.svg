@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="300" viewBox="0 0 540 300">
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <!-- Roof unit -->
+    <rect x="250" y="16" width="170" height="24" rx="10" fill="#E9F3F1" stroke="#9DB5B1" stroke-width="4"/>
+    <!-- Body (front on the left) -->
+    <path d="M44 34 H500 Q530 34 530 64 V256 Q530 268 518 268 H490 A50 50 0 0 0 390 268 H220 A50 50 0 0 0 120 268 H24 Q12 268 12 256 V96 Q12 34 44 34Z" fill="#3AA99F" stroke="#23766F" stroke-width="4"/>
+    <path d="M60 46 H230" stroke="#6FC7BD" stroke-width="5"/>
+    <!-- Yellow belt stripe -->
+    <rect x="14" y="166" width="514" height="22" fill="#FFC23C"/>
+    <path d="M14 166 H528 M14 188 H528" stroke="#C78F1E" stroke-width="3"/>
+    <!-- Driver window -->
+    <path d="M22 104 Q24 60 56 58 H60 V152 H22Z" fill="#A9D7F2" stroke="#23766F" stroke-width="3.5"/>
+    <path d="M30 96 Q32 76 44 70" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+    <!-- Passenger windows -->
+    <g fill="#A9D7F2" stroke="#23766F" stroke-width="3.5">
+      <rect x="126" y="58" width="80" height="94" rx="10"/>
+      <rect x="214" y="58" width="68" height="94" rx="10"/>
+      <rect x="358" y="58" width="76" height="94" rx="10"/>
+      <rect x="442" y="58" width="72" height="94" rx="10"/>
+    </g>
+    <path d="M138 80 L156 68 M138 96 L174 72 M226 80 L244 68 M370 80 L388 68 M370 96 L404 72 M454 80 L472 68" stroke="#FFFFFF" stroke-width="4"/>
+    <!-- Doors (open: folding leaves pushed to the sides) -->
+    <g>
+      <rect x="66" y="54" width="52" height="210" rx="8" fill="#DCEFEA" stroke="#23766F" stroke-width="3.5"/>
+      <rect x="68" y="242" width="48" height="20" rx="4" fill="#9AA5AD" stroke="#6F7A82" stroke-width="3"/>
+      <path d="M92 70 V240" stroke="#C78F1E" stroke-width="8"/>
+      <path d="M92 70 V240" stroke="#FFC23C" stroke-width="4"/>
+      <g fill="#A9D7F2" stroke="#23766F" stroke-width="3"><rect x="68" y="56" width="11" height="206" rx="5"/><rect x="105" y="56" width="11" height="206" rx="5"/></g>
+      <rect x="290" y="54" width="60" height="210" rx="8" fill="#DCEFEA" stroke="#23766F" stroke-width="3.5"/>
+      <rect x="292" y="242" width="56" height="20" rx="4" fill="#9AA5AD" stroke="#6F7A82" stroke-width="3"/>
+      <path d="M320 70 V240" stroke="#C78F1E" stroke-width="8"/>
+      <path d="M320 70 V240" stroke="#FFC23C" stroke-width="4"/>
+      <g fill="#A9D7F2" stroke="#23766F" stroke-width="3"><rect x="292" y="56" width="11" height="206" rx="5"/><rect x="337" y="56" width="11" height="206" rx="5"/></g>
+    </g>
+    <!-- Mirror -->
+    <path d="M18 72 Q6 74 7 84" fill="none" stroke="#23766F" stroke-width="4"/>
+    <ellipse cx="7" cy="94" rx="5" ry="11" fill="#3AA99F" stroke="#23766F" stroke-width="3.5"/>
+    <!-- Headlight (off), bumpers, tail light -->
+    <ellipse cx="20" cy="216" rx="7" ry="10" fill="#FFF7E0" stroke="#C9B48A" stroke-width="3"/>
+    <rect x="6" y="238" width="34" height="18" rx="9" fill="#C7CDD2" stroke="#8A8F96" stroke-width="3.5"/>
+    <rect x="502" y="238" width="34" height="18" rx="9" fill="#C7CDD2" stroke="#8A8F96" stroke-width="3.5"/>
+    <rect x="518" y="198" width="12" height="24" rx="6" fill="#E5508A" stroke="#B8396A" stroke-width="3"/>
+    <!-- Wheels -->
+    <circle cx="170" cy="262" r="34" fill="#4A4F57" stroke="#2E3238" stroke-width="4"/>
+    <circle cx="440" cy="262" r="34" fill="#4A4F57" stroke="#2E3238" stroke-width="4"/>
+    <circle cx="170" cy="262" r="16" fill="#DDE3E8" stroke="#8A8F96" stroke-width="3"/>
+    <circle cx="440" cy="262" r="16" fill="#DDE3E8" stroke="#8A8F96" stroke-width="3"/>
+    <circle cx="170" cy="262" r="5" fill="#3AA99F" stroke="#23766F" stroke-width="2.5"/>
+    <circle cx="440" cy="262" r="5" fill="#3AA99F" stroke="#23766F" stroke-width="2.5"/>
+    <path d="M150 248 Q158 238 170 236 M420 248 Q428 238 440 236" fill="none" stroke="#6B717A" stroke-width="3"/>
+  </g>
+</svg>

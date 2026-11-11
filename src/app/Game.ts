@@ -5,6 +5,7 @@ import {
   defaultFamily,
   falafelPeople,
   ganPeople,
+  stationPeople,
 } from '../characters/catalog';
 import { CharacterCreator } from '../characters/CharacterCreator';
 import { letterInfo } from '../content/letters';
@@ -24,6 +25,7 @@ import { home } from '../locations/home/home.data';
 import { Checkout } from '../locations/makolet/Checkout';
 import { makolet } from '../locations/makolet/makolet.data';
 import { playground } from '../locations/playground/playground.data';
+import { station } from '../locations/station/station.data';
 import type { HebrewLetter, LocationId, Settings } from '../types';
 import { Hud } from '../ui/Hud';
 import { LetterBook } from '../ui/LetterBook';
@@ -34,6 +36,7 @@ import { ParentGuide } from '../ui/ParentGuide';
 import { SettingsScreen } from '../ui/SettingsScreen';
 import { StartScreen } from '../ui/StartScreen';
 import { Actions } from './actions';
+import { hideInstallHint, showInstallHint } from './installHint';
 import { GameStore } from './store';
 import { installTestHook, type TestHook } from './testHook';
 
@@ -41,7 +44,16 @@ const SKY = 0xbfe6ff;
 /** Coins in the purse at most; the piggy bank stops topping up beyond this. */
 const PURSE_MAX = 50;
 
-const LOCATIONS: Partial<Record<LocationId, LocationData>> = { home, makolet, gan, clinic, falafel, beach, playground };
+const LOCATIONS: Partial<Record<LocationId, LocationData>> = {
+  home,
+  makolet,
+  gan,
+  clinic,
+  falafel,
+  beach,
+  station,
+  playground,
+};
 
 /** Background loops from scripts/gen-music.ts. The engine test scene has none. */
 const MUSIC: Partial<Record<LocationId | 'map', string>> = {
@@ -51,6 +63,7 @@ const MUSIC: Partial<Record<LocationId | 'map', string>> = {
   clinic: 'audio/music/clinic.mp3',
   falafel: 'audio/music/falafel.mp3',
   beach: 'audio/music/beach.mp3',
+  station: 'audio/music/station.mp3',
   map: 'audio/music/map.mp3',
 };
 
@@ -116,10 +129,13 @@ export class Game {
     setNiqqudShown(this.store.state.settings.showNiqqud);
     const startScreen = new StartScreen(this.app);
     await startScreen.show();
+    showInstallHint();
 
     this.actions = new Actions(this.store, this.saves);
     this.audio = await createAudio(this.store);
-    this.actions.seedCharacters([...defaultFamily(), ...ganPeople(), ...clinicPeople(), ...falafelPeople(), ...beachPeople()]);
+    this.actions.seedCharacters([...defaultFamily(), ...ganPeople(), ...clinicPeople(), ...falafelPeople(), ...beachPeople(), ...stationPeople()]);
+
+    this.catchBackButton();
 
     // Closing the tab can't wait for the debounce.
     document.addEventListener('visibilitychange', () => {
@@ -177,6 +193,7 @@ export class Game {
     this.setStage('start');
     await startScreen.waitForTap();
     this.onStartScreen = false;
+    hideInstallHint();
     this.audio.sfx('success');
     startScreen.destroy();
     this.app.stage.addChild(this.hud.view);
@@ -344,7 +361,7 @@ export class Game {
       this.store,
       this.audio,
       propDefs,
-      [...home.props, ...makolet.props, ...gan.props, ...clinic.props, ...falafel.props, ...beach.props],
+      [...home.props, ...makolet.props, ...gan.props, ...clinic.props, ...falafel.props, ...beach.props, ...station.props],
       (letter) => this.actions.setLetters(hear(this.store.state.letters, letter)),
       () => {
         this.book = null;
@@ -427,6 +444,24 @@ export class Game {
   private async resetGame(): Promise<void> {
     await this.saves.reset();
     location.reload();
+  }
+
+  /**
+   * Android's back button (and the browser's): one step back inside the game instead of
+   * leaving it. It closes the letter book or the character creator, and from a place goes to
+   * the map. On the map or the start screen it does nothing, so a child can't leave by
+   * accident; a parent leaves with the phone's home button.
+   */
+  private catchBackButton(): void {
+    history.pushState({ shchuna: true }, '');
+    addEventListener('popstate', () => {
+      // Stay one step ahead, so the next press is caught too.
+      history.pushState({ shchuna: true }, '');
+      if (this.onStartScreen || this.moving || this.parents) return;
+      if (this.book) this.book.close();
+      else if (this.creator) this.creator.close();
+      else if (!this.map) void this.showMap();
+    });
   }
 
   /** Something already holds the screen, or the game is between places. */

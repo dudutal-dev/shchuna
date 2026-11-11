@@ -50,6 +50,8 @@ export const OUTFITS: Readonly<Record<string, Outfit>> = {
   cook: { top: 'tshirt', bottom: 'pants', topColor: 0xf7f1e3, bottomColor: 0x3b4a6b, shoesColor: 0x6b4c35 },
   // The lifeguard's red shirt and yellow shorts.
   lifeguard: { top: 'tshirt', bottom: 'shorts', topColor: 0xe4573d, bottomColor: 0xffc23c, shoesColor: 0xf3e3c3 },
+  // The bus driver's blue shirt.
+  driver: { top: 'tshirt', bottom: 'pants', topColor: 0x3e7cb1, bottomColor: 0x3b4a6b, shoesColor: 0x3b2f2f },
   // The doctor's white coat over teal trousers.
   whitecoat: { top: 'sweater', bottom: 'pants', topColor: 0xffffff, bottomColor: 0x3e8e7e, shoesColor: 0xf3f3f3 },
 };
@@ -220,6 +222,30 @@ export function beachPeople(): Character[] {
       x: 1420,
       y: 550,
       pose: 'stand',
+    },
+  ];
+}
+
+/** The station's people: the bus driver by the road, and a grandmother waiting with her suitcase. */
+export function stationPeople(): Character[] {
+  return [
+    {
+      id: 'station-1',
+      appearance: { body: 'adult', skinTone: 5, hair: 'short', hairColor: 'black', outfit: 'driver', accessory: 'glasses' },
+      location: 'station',
+      x: 965,
+      y: 548,
+      pose: 'stand',
+    },
+    // Sitting on TRAVELLER_SEAT in station.data.ts.
+    {
+      id: 'station-2',
+      appearance: { body: 'elder', skinTone: 2, hair: 'bun', hairColor: 'grey', outfit: 'bougainvillea', accessory: 'headscarf' },
+      location: 'station',
+      x: 1750,
+      y: 400,
+      on: 'shelter-bench',
+      pose: 'sit',
     },
   ];
 }

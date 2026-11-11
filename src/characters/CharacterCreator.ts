@@ -1,4 +1,5 @@
 import { Application, Container, Graphics, Rectangle } from 'pixi.js';
+import { safeArea } from '../engine/safeArea';
 import type { Actions } from '../app/actions';
 import type { GameStore } from '../app/store';
 import { loadArt } from '../engine/art';
@@ -181,37 +182,50 @@ export class CharacterCreator {
     const { width, height } = this.app.screen;
     this.backdrop.clear().rect(0, 0, width, height).fill(PANEL);
     const margin = 16;
+    // Clear of a notch and the rounded corners.
+    const safe = safeArea();
+    const top = safe.top + margin;
+    const bottom = height - safe.bottom - margin;
+    const leftEdge = safe.left + margin;
+    const rightEdge = width - safe.right - margin;
 
-    // Category icons down the right side, the start of a Hebrew reading line. On a short
-    // phone screen they shrink to fit, but never below the 64pt touch minimum.
+    // Category icons down the right side, the start of a Hebrew reading line. They shrink to
+    // fit a short phone, never below the 64pt touch minimum; when even that is too tall,
+    // they go in two columns.
     const gap = 8;
-    const size = Math.max(64, Math.min(CATEGORY_SIZE, (height - 2 * margin) / CATEGORIES.length - gap));
+    const fits = (rows: number) => (bottom - top) / rows - gap;
+    const columns = fits(CATEGORIES.length) >= 64 ? 1 : 2;
+    const rows = Math.ceil(CATEGORIES.length / columns);
+    const size = Math.max(64, Math.min(CATEGORY_SIZE, fits(rows)));
     const step = size + gap;
     CATEGORIES.forEach(({ id }, index) => {
       const button = this.categoryButtons.get(id);
+      // Down the first column, then the next one inwards (to the left).
+      const column = Math.floor(index / rows);
+      const row = index % rows;
       button?.scale.set(size / CATEGORY_SIZE);
-      button?.position.set(width - margin - size / 2, margin + size / 2 + index * step);
+      button?.position.set(rightEdge - size / 2 - column * step, top + size / 2 + row * step);
     });
+    const categoriesWidth = columns * step;
     this.doneButton.scale.set(size / CATEGORY_SIZE);
-    this.doneButton.position.set(margin + size / 2, height - margin - size / 2);
+    this.doneButton.position.set(leftEdge + size / 2, bottom - size / 2);
 
-    // Family along the top, right to left.
+    // Family along the top, right to left, between the categories and the left edge.
     const slotScale = Math.min(1, height / 600);
     this.slots.scale.set(slotScale);
     [...this.slotEntities.values()].forEach(({ holder }, index) => {
       holder.position.set(-index * (SLOT + 14), 0);
     });
-    this.slots.position.set(width - margin * 2 - CATEGORY_SIZE - (SLOT / 2) * slotScale - 10, margin + (SLOT / 2) * slotScale);
+    this.slots.position.set(rightEdge - categoriesWidth - (SLOT / 2) * slotScale - 10, top + (SLOT / 2) * slotScale);
 
     // The character, big, in the space that's left.
     if (this.preview) {
-      const top = margin + SLOT * slotScale + 10;
-      const available = height - top - margin;
-      const scale = available / 330;
+      const previewTop = top + SLOT * slotScale + 10;
+      const scale = (bottom - previewTop) / 330;
       this.preview.scale.set(scale);
-      const left = margin + CATEGORY_SIZE;
-      const right = width - margin * 2 - CATEGORY_SIZE;
-      this.preview.position.set((left + right) / 2, height - margin);
+      const left = leftEdge + size;
+      const right = rightEdge - categoriesWidth;
+      this.preview.position.set((left + right) / 2, bottom);
     }
   };
 }

@@ -26,6 +26,8 @@ export interface TestHook {
   here(): string;
   /** What the last idle hint pointed at: a prop, or a place on the map. */
   lastHint(): string | null;
+  /** A side arrow that slides the room, or null while it is hidden. */
+  arrowCenter(side: 'left' | 'right'): Point | null;
   /** The background loop playing now. */
   music(): string | null;
   /** Frames per second right now. */
@@ -85,6 +87,7 @@ export function installTestHook(parts: {
     stage: 'loading',
     here: parts.here,
     lastHint: parts.lastHint,
+    arrowCenter: (side) => parts.scene()?.arrowCenter(side) ?? null,
     music: parts.music,
     fps: parts.fps,
     frameCost: parts.frameCost,

@@ -1217,6 +1217,102 @@
       "text": "אוּלַי בַּחוֹף?",
       "durationMs": 1120,
       "hash": "e669036d450ff73de40d9885f69cadf84e49337ab70a21ec8a2cac0c70477fc6"
+    },
+    "prop.moon": {
+      "file": "public/audio/lines/prop.moon.mp3",
+      "text": "יָרֵחַ",
+      "durationMs": 1120,
+      "hash": "72e46f17f35920511c9b5f91a8a7683ab145e189efb1bfa6d4d7b8b3adcc3f91"
+    },
+    "prop.bus-shelter": {
+      "file": "public/audio/lines/prop.bus-shelter.mp3",
+      "text": "תַּחֲנַת אוֹטוֹבּוּס",
+      "durationMs": 1600,
+      "hash": "a1c472191867d53ed9dc08d9a210153ddcd1e80dc3b219bb7b9d22eff94a2284"
+    },
+    "prop.bus-sign": {
+      "file": "public/audio/lines/prop.bus-sign.mp3",
+      "text": "שֶׁלֶט",
+      "durationMs": 960,
+      "hash": "78da9b6d8bf7f19bb7ef4e6167f0ba711eaf4fc607a2ce5552f2b3b5269690ed"
+    },
+    "prop.ticket": {
+      "file": "public/audio/lines/prop.ticket.mp3",
+      "text": "כַּרְטִיס",
+      "durationMs": 960,
+      "hash": "fad55e2ef8cfa26bbb6110dc47e98ec77480b9769844873ea0ce86342afc3102"
+    },
+    "prop.suitcase": {
+      "file": "public/audio/lines/prop.suitcase.mp3",
+      "text": "מִזְוָדָה",
+      "durationMs": 1040,
+      "hash": "3da1bec00d7dbf91f611b3e06aba0f2767452f610a4b8a7015a1f62e589ac80b"
+    },
+    "prop.backpack": {
+      "file": "public/audio/lines/prop.backpack.mp3",
+      "text": "תִּיק גַּב",
+      "durationMs": 1040,
+      "hash": "dd713369d2d45ae99d7152859fdcf156c786c21f6c89bb463083746c67b06188"
+    },
+    "prop.bus": {
+      "file": "public/audio/lines/prop.bus.mp3",
+      "text": "אוֹטוֹבּוּס",
+      "durationMs": 960,
+      "hash": "77aac44c1e8a7007524695e55906363618009413a6cb113ff1e0b2386d1da82a"
+    },
+    "prop.traffic-light": {
+      "file": "public/audio/lines/prop.traffic-light.mp3",
+      "text": "רַמְזוֹר",
+      "durationMs": 960,
+      "hash": "913024da0677b1f58e5f960d653cd98e8be458cd32457010327f7bc4c5e14bcb"
+    },
+    "prop.car": {
+      "file": "public/audio/lines/prop.car.mp3",
+      "text": "מְכוֹנִית",
+      "durationMs": 1040,
+      "hash": "b3821cb892f667e1f0e68ad3558c254e5a56ceeb7570cae00a93512e21d81f82"
+    },
+    "letter.found.yod.m": {
+      "file": "public/audio/lines/letter.found.yod.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת יוֹד! יָרֵחַ.",
+      "durationMs": 2880,
+      "hash": "c00c7729bcebb2e19d582b6e9dbdedb99449180110aa9fcb2d71410bdaf853a6"
+    },
+    "letter.found.yod.f": {
+      "file": "public/audio/lines/letter.found.yod.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת יוֹד! יָרֵחַ.",
+      "durationMs": 2960,
+      "hash": "b38a3aafe1beb4e4fcee66c3f3ae70039081f0bd8784b5b4e444fb1475fba5df"
+    },
+    "letter.name.yod": {
+      "file": "public/audio/lines/letter.name.yod.mp3",
+      "text": "יוֹד",
+      "durationMs": 800,
+      "hash": "31144687ca2a5ba3c38b186824ca27723691f561891440f4667c835d8d65c16d"
+    },
+    "letter.found.mem.m": {
+      "file": "public/audio/lines/letter.found.mem.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת מֵם! מְכוֹנִית.",
+      "durationMs": 2800,
+      "hash": "ab23eadb3f88b8ccce0a4daa1a90171ced72537a0e09f86e08239f464c7088fd"
+    },
+    "letter.found.mem.f": {
+      "file": "public/audio/lines/letter.found.mem.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת מֵם! מְכוֹנִית.",
+      "durationMs": 2800,
+      "hash": "6dd373d9544c4c99a2896751ff4f713363494bacfe3302ab69a64cbabaddf483"
+    },
+    "letter.name.mem": {
+      "file": "public/audio/lines/letter.name.mem.mp3",
+      "text": "מֵם",
+      "durationMs": 800,
+      "hash": "829ef26e9aec37d085e8d072b14ae3744d26eeb01eb01a1486d91b81ba5fc83b"
+    },
+    "letter.hint.station": {
+      "file": "public/audio/lines/letter.hint.station.mp3",
+      "text": "אוּלַי בַּתַּחֲנָה?",
+      "durationMs": 1360,
+      "hash": "29791f4b1a5c66ead1baf5e31085f74b3922e8aaaab7436dda5404c1415a3c73"
     }
   }
 }

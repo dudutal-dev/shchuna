@@ -27,7 +27,7 @@ export const PLACES: readonly PlaceInfo[] = [
 ];
 
 /** Places built so far. The others stay under a cloud. */
-const BUILT: ReadonlySet<LocationId> = new Set(['home', 'makolet', 'gan', 'clinic', 'falafel', 'beach']);
+const BUILT: ReadonlySet<LocationId> = new Set(['home', 'makolet', 'gan', 'clinic', 'falafel', 'beach', 'station']);
 
 /** Paid places, once there is a subscription (SPEC §13). Nothing is paid in phase 0. */
 export function isPremium(id: LocationId): boolean {

@@ -44,6 +44,8 @@ const TRACKS: Track[] = [
   { name: 'falafel', bpm: 112, root: 62, progression: [0, 3, 4, 0, 5, 4, 3, 4], cycles: 2, density: 0.55, tick: true, seed: 77 },
   // The beach: slow and sunny, a wave's sway.
   { name: 'beach', bpm: 84, root: 65, progression: [0, 5, 3, 4, 0, 3, 4, 0], cycles: 2, density: 0.4, tick: false, seed: 5 },
+  // The station: steady and cheerful, wheels on the road.
+  { name: 'station', bpm: 96, root: 60, progression: [0, 4, 5, 3, 0, 4, 3, 4], cycles: 2, density: 0.45, tick: true, seed: 33 },
   // The map: light, like a walk outside.
   { name: 'map', bpm: 88, root: 65, progression: [0, 4, 5, 3], cycles: 3, density: 0.42, tick: false, seed: 3 },
 ];

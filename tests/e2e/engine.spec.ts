@@ -94,3 +94,68 @@ test.describe('engine playground', () => {
     await expect.poll(async () => (await propState(page, 'pg-apple')).y).not.toBe(start.y);
   });
 });
+
+test.describe('scrolling made easy', () => {
+  test('a quick flick keeps the room gliding after the finger lifts', async ({ page }) => {
+    await openGame(page, 'home');
+    const size = page.viewportSize()!;
+    const before = await propCenter(page, 'fridge');
+    // A real flick takes a few milliseconds: far faster than CDP touches on software
+    // WebGL, so the finger's events are sent from inside the page, in one go.
+    const distance = size.width * 0.2;
+    await page.evaluate(
+      ({ from, to, y }) => {
+        const canvas = document.querySelector('canvas')!;
+        const send = (type: string, x: number) =>
+          canvas.dispatchEvent(
+            new PointerEvent(type, {
+              pointerId: 7,
+              pointerType: 'touch',
+              isPrimary: true,
+              clientX: x,
+              clientY: y,
+              bubbles: true,
+              buttons: type === 'pointerup' ? 0 : 1,
+            }),
+          );
+        send('pointerdown', from);
+        for (let i = 1; i <= 6; i++) send('pointermove', from + ((to - from) * i) / 6);
+        send('pointerup', to);
+      },
+      { from: size.width * 0.4, to: size.width * 0.4 + distance, y: 40 },
+    );
+    // It goes on well past where the finger stopped. A busy test machine draws few frames,
+    // so the glide may take a while to finish.
+    await expect
+      .poll(async () => (await propCenter(page, 'fridge')).x - before.x, { timeout: 8000 })
+      .toBeGreaterThan(distance * 1.5);
+  });
+
+  test('a slow drag stops where the finger stops', async ({ page }) => {
+    await openGame(page, 'home');
+    const size = page.viewportSize()!;
+    const before = await propCenter(page, 'fridge');
+    await touchDrag(page, { x: size.width * 0.4, y: 40 }, { x: size.width * 0.6, y: 40 }, 600);
+    await page.waitForTimeout(800);
+    const settled = await propCenter(page, 'fridge');
+    expect(Math.abs(settled.x - before.x - size.width * 0.2)).toBeLessThan(8);
+  });
+
+  test('the side arrows slide the room, and show only where there is more', async ({
+    page,
+  }, testInfo) => {
+    await openGame(page, 'home');
+    // The home opens at its right end: nothing more to the right.
+    expect(await page.evaluate(() => window.__shchuna!.arrowCenter('right'))).toBeNull();
+    const left = await page.evaluate(() => window.__shchuna!.arrowCenter('left'));
+    expect(left).not.toBeNull();
+    await page.screenshot({ path: `docs/screens/m9-arrows-${testInfo.project.name}.png` });
+
+    const before = await propCenter(page, 'fridge');
+    await tap(page, left!);
+    await expect
+      .poll(async () => (await propCenter(page, 'fridge')).x - before.x)
+      .toBeGreaterThan(page.viewportSize()!.width * 0.6);
+    await expect.poll(() => page.evaluate(() => window.__shchuna!.arrowCenter('right'))).not.toBeNull();
+  });
+});

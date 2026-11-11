@@ -127,6 +127,8 @@ const definitions: PropDef[] = [
   }),
   prop('book', 'book', { art: 'home/book.svg' }),
   prop('teddy', 'teddy', { art: 'home/teddy.svg' }),
+  // Over the moon painted in the night window; it is there so a letter can hide on it.
+  prop('moon', 'moon', { art: 'home/moon.svg', layer: 'furniture' }),
   prop('train', 'train', { art: 'home/train.svg' }),
   prop('hippo', 'hippo', { art: 'home/hippo.svg' }),
   prop('piggy', 'piggy', {
@@ -331,6 +333,33 @@ const definitions: PropDef[] = [
   prop('lifeguard-tower', 'lifeguardTower', { art: 'beach/lifeguard-tower.svg', layer: 'furniture' }),
   prop('turtle', 'turtle', { art: 'beach/turtle.svg' }),
   prop('shell', 'shell', { art: 'beach/shell.svg' }),
+
+  // Station: the stop.
+  prop('bus-shelter', 'busShelter', { art: 'station/bus-shelter.svg', layer: 'furniture' }),
+  prop('bus-sign', 'busSign', { art: 'station/bus-sign.svg', layer: 'furniture' }),
+  prop('ticket', 'ticket', { art: 'station/ticket.svg' }),
+  prop('suitcase', 'suitcase', { art: 'station/suitcase.svg' }),
+  prop('backpack', 'backpack', { art: 'station/backpack.svg' }),
+
+  // Station: the road.
+  prop('bus', 'bus', {
+    art: 'station/bus.svg',
+    artStates: when({ open: true }, 'station/bus-open.svg'),
+    layer: 'furniture',
+    interactions: toggle('open'),
+  }),
+  prop('traffic-light', 'trafficLight', {
+    art: 'station/traffic-light.svg',
+    artStates: when({ green: true }, 'station/traffic-light-green.svg'),
+    layer: 'furniture',
+    interactions: toggle('green'),
+  }),
+  // A car to drive around; tapped, its headlights go on.
+  prop('car', 'car', {
+    art: 'station/car.svg',
+    artStates: when({ lights: true }, 'station/car-lights.svg'),
+    interactions: toggle('lights'),
+  }),
 ];
 
 export const propDefs: Readonly<Record<string, PropDef>> = Object.fromEntries(

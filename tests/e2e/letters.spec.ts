@@ -60,7 +60,7 @@ test.describe('letter hunt', () => {
     await tap(page, await point(page, () => window.__shchuna!.bookCenter?.('ח')));
     await expect.poll(async () => (await spoken(page)).slice(-1)).toEqual(['letter.hint.kitchen']);
     await tap(page, await point(page, () => window.__shchuna!.bookCenter?.('מ')));
-    await expect.poll(async () => (await spoken(page)).slice(-1)).toEqual(['letter.hint.later']);
+    await expect.poll(async () => (await spoken(page)).slice(-1)).toEqual(['letter.hint.station']);
     await tap(page, await point(page, () => window.__shchuna!.bookCenter?.('done')));
     await page.waitForFunction(() => window.__shchuna?.stage === 'playing');
   });
@@ -94,4 +94,16 @@ test.describe('letter hunt', () => {
     await page.waitForTimeout(700);
     await page.screenshot({ path: `docs/screens/m9-alef-${testInfo.project.name}.png` });
   });
+});
+
+test('yod hides on the moon in the kids-room window', async ({ page }) => {
+  // Scrolls across the whole house: slow on software-rendered WebGL.
+  test.slow();
+  await openGame(page, 'home');
+  await tap(page, await scrollTo(page, 'moon'));
+  await expect
+    .poll(() =>
+      page.evaluate(() => window.__shchuna!.state().letters.filter((l) => l.found).map((l) => l.letter)),
+    )
+    .toEqual(['י']);
 });

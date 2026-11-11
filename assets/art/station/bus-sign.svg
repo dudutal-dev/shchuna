@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="270" viewBox="0 0 70 270">
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <!-- Pole and base -->
+    <rect x="29" y="60" width="12" height="202" rx="6" fill="#9AA5AD" stroke="#6F7A82" stroke-width="3.5"/>
+    <path d="M33 84 V250" stroke="#C7CDD2" stroke-width="3"/>
+    <rect x="17" y="258" width="36" height="10" rx="5" fill="#9AA5AD" stroke="#6F7A82" stroke-width="3.5"/>
+    <!-- Sign plate -->
+    <rect x="5" y="6" width="60" height="70" rx="14" fill="#FFC23C" stroke="#C78F1E" stroke-width="4"/>
+    <path d="M12 16 L22 12" stroke="#FFE08A" stroke-width="3"/>
+    <rect x="11" y="18" width="48" height="40" rx="10" fill="#FFFFFF" stroke="#C78F1E" stroke-width="2.5"/>
+    <!-- Bus pictogram (front on the left) -->
+    <path d="M18 30 Q18 25 24 25 H50 Q54 25 54 29 V46 Q54 48 52 48 H18Z" fill="#3E8E7E" stroke="#2F7264" stroke-width="2.5"/>
+    <g fill="#FFFFFF"><rect x="21" y="29" width="7" height="7" rx="2"/><rect x="31" y="29" width="8" height="7" rx="2"/><rect x="42" y="29" width="8" height="7" rx="2"/></g>
+    <path d="M18 40 H54" stroke="#FFC23C" stroke-width="2.5"/>
+    <g fill="#4A4F57" stroke="#2E3238" stroke-width="2"><circle cx="26" cy="49" r="4"/><circle cx="46" cy="49" r="4"/></g>
+    <!-- Little clock box (pictogram only) -->
+    <rect x="15" y="100" width="40" height="44" rx="10" fill="#EEF1F4" stroke="#9DA7AF" stroke-width="3.5"/>
+    <circle cx="35" cy="122" r="13" fill="#FFFFFF" stroke="#3E8E7E" stroke-width="3"/>
+    <path d="M35 122 V114 M35 122 L41 125" stroke="#2F7264" stroke-width="3"/>
+  </g>
+</svg>

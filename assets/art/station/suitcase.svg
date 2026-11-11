@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="95" viewBox="0 0 90 95">
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <!-- Telescopic handle (up) -->
+    <path d="M34 36 V10 M56 36 V10" stroke="#6F7A82" stroke-width="6"/>
+    <path d="M34 36 V10 M56 36 V10" stroke="#C7CDD2" stroke-width="2.5"/>
+    <rect x="28" y="3" width="34" height="11" rx="5.5" fill="#3E8E7E" stroke="#2F7264" stroke-width="3.5"/>
+    <!-- Wheels -->
+    <g fill="#4A4F57" stroke="#2E3238" stroke-width="3"><circle cx="22" cy="88" r="5"/><circle cx="68" cy="88" r="5"/></g>
+    <!-- Case -->
+    <rect x="8" y="30" width="74" height="54" rx="12" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4"/>
+    <path d="M30 36 V78 M60 36 V78" stroke="#3B8DBF" stroke-width="3"/>
+    <path d="M15 42 V58" stroke="#9AD3F2" stroke-width="4"/>
+    <!-- Stickers -->
+    <path d="M45 41 L48 48 H55 L50 53 L52 60 L45 56 L38 60 L40 53 L35 48 H42Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="2.5"/>
+    <circle cx="20" cy="70" r="6" fill="#E5508A" stroke="#B8396A" stroke-width="2.5"/>
+    <circle cx="20" cy="70" r="2" fill="#FFFFFF"/>
+    <path d="M70 76 Q60 69 62 64 Q64 59 70 63 Q76 59 78 64 Q80 69 70 76Z" fill="#7FAF6B" stroke="#55864A" stroke-width="2.5"/>
+    <rect x="38" y="66" width="16" height="10" rx="5" fill="#FFFFFF" stroke="#B8396A" stroke-width="2.5"/>
+  </g>
+</svg>
