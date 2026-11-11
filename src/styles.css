@@ -236,3 +236,98 @@ canvas {
     transform: rotate(90deg);
   }
 }
+
+/* The parents' guided tour: the screen dims, except a lit circle around one button. */
+.guide-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: max(12px, env(safe-area-inset-top)) 16px max(12px, env(safe-area-inset-bottom));
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.guide-overlay.dim {
+  align-items: center;
+  background: rgb(59 47 47 / 55%);
+}
+
+.guide-spot {
+  position: fixed;
+  width: 104px;
+  height: 104px;
+  border: 5px solid #ffc23c;
+  border-radius: 50%;
+  box-shadow: 0 0 0 200vmax rgb(59 47 47 / 55%);
+  pointer-events: none;
+  transition:
+    left 0.25s ease,
+    top 0.25s ease;
+}
+
+.guide-card {
+  position: relative;
+  max-height: calc(100% - 140px);
+  margin-top: 110px;
+}
+
+.guide-overlay.dim .guide-card {
+  max-height: 100%;
+  margin-top: 0;
+}
+
+/* The lit button is in the top half: the card goes below it. Otherwise above. */
+.guide-card:not(.low) {
+  margin-top: 0;
+}
+
+.guide-overlay:not(.dim) .guide-card:not(.low) {
+  align-self: flex-start;
+}
+
+.guide-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.guide-head .parent-title {
+  margin: 0;
+}
+
+.guide-icon {
+  width: 52px;
+  height: 52px;
+}
+
+.guide-body {
+  margin: 12px 0;
+  line-height: 1.5;
+}
+
+.guide-points {
+  margin: 0 0 12px;
+  padding-inline-start: 20px;
+  line-height: 1.5;
+}
+
+.guide-points li + li {
+  margin-top: 4px;
+}
+
+.guide-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.guide-count {
+  margin-inline-start: auto;
+  font-size: 15px;
+  opacity: 0.7;
+}

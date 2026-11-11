@@ -23,6 +23,7 @@ import { LetterBook } from '../ui/LetterBook';
 import { revealLetter } from '../ui/LetterReveal';
 import { NeighbourhoodMap } from '../ui/NeighbourhoodMap';
 import { ParentGate } from '../ui/ParentGate';
+import { ParentGuide } from '../ui/ParentGuide';
 import { SettingsScreen } from '../ui/SettingsScreen';
 import { StartScreen } from '../ui/StartScreen';
 import { Actions } from './actions';
@@ -386,13 +387,25 @@ export class Game {
     if (this.hook) this.hook.gateAnswer = null;
     if (passed) {
       this.setStage('settings');
+      let guide = false;
       await new SettingsScreen().open(this.store.state.settings, {
         change: (patch) => this.changeSettings(patch),
         reset: () => void this.resetGame(),
+        guide: () => (guide = true),
       });
+      if (guide) await this.runGuide();
     }
     this.parents = false;
     this.setStage(this.map ? 'map' : 'playing');
+  }
+
+  /** The parents' guided tour, over the screen the child was on. */
+  private async runGuide(): Promise<void> {
+    const tour = new ParentGuide();
+    this.setStage('guide');
+    if (this.hook) this.hook.guideStep = () => tour.step;
+    await tour.open((id) => this.hud.visibleCenter(id));
+    if (this.hook) this.hook.guideStep = null;
   }
 
   private changeSettings(patch: Partial<Settings>): void {

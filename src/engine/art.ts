@@ -11,6 +11,11 @@ const ART_RESOLUTION = 3;
 /** Backgrounds are wide; 2x keeps them inside the 4096px texture limit of older iPads. */
 const BACKGROUND_RESOLUTION = 2;
 
+/** The served URL of a piece of art, for HTML screens (the parents' guide). */
+export function artUrl(path: string): string {
+  return urlOf(path);
+}
+
 function urlOf(path: string): string {
   const url = urls[`/assets/art/${path}`];
   if (!url) throw new Error(`Unknown art: ${path}`);

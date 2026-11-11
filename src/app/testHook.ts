@@ -10,7 +10,18 @@ import type { GameStore } from './store';
 type Point = { x: number; y: number };
 
 export interface TestHook {
-  stage: 'loading' | 'start' | 'map' | 'playing' | 'creator' | 'book' | 'gate' | 'settings';
+  stage:
+    | 'loading'
+    | 'start'
+    | 'map'
+    | 'playing'
+    | 'creator'
+    | 'book'
+    | 'gate'
+    | 'settings'
+    | 'guide';
+  /** Set while the parents' guided tour runs: the step showing, from 0. */
+  guideStep: (() => number) | null;
   /** The place being played in, or 'map'. */
   here(): string;
   /** What the last idle hint pointed at: a prop, or a place on the map. */
@@ -79,6 +90,7 @@ export function installTestHook(parts: {
     frameCost: parts.frameCost,
     mapCenter: null,
     gateAnswer: null,
+    guideStep: null,
     state: () => parts.store.state,
     center: (id) => parts.scene()?.entityCenter(id) ?? null,
     isVisible: (id) => parts.scene()?.isEntityVisible(id) ?? false,

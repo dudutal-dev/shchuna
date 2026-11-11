@@ -83,6 +83,38 @@ test.describe('parents gate', () => {
     expect(save.wallet).toBe(20);
   });
 
+  test("the parents' guide walks through every button, then back to the game", async ({
+    page,
+  }, testInfo) => {
+    test.slow();
+    await openGame(page, 'home');
+    await openGate(page);
+    await answer(page, true);
+    await page.waitForFunction(() => window.__shchuna?.stage === 'settings');
+    await page.getByRole('button', { name: 'איך משחקים? הדרכה להורים' }).tap();
+    await page.waitForFunction(() => window.__shchuna?.stage === 'guide');
+    await expect(page.getByRole('heading', { name: 'ברוכים הבאים לשכונה' })).toBeVisible();
+
+    // Step 2 lights up the map button, where it really is.
+    await page.getByRole('button', { name: 'הבא' }).tap();
+    await expect(page.getByRole('heading', { name: 'המפה' })).toBeVisible();
+    const map = await page.evaluate(() => window.__shchuna!.hudCenter('map'));
+    const spot = await page.locator('.guide-spot').boundingBox();
+    expect(Math.abs(spot!.x + spot!.width / 2 - map.x)).toBeLessThan(4);
+    await page.screenshot({ path: `docs/screens/m9-guide-${testInfo.project.name}.png` });
+
+    // Back one, then on to the end.
+    await page.getByRole('button', { name: 'הקודם' }).tap();
+    await expect(page.getByRole('heading', { name: 'ברוכים הבאים לשכונה' })).toBeVisible();
+    for (let i = 0; i < 20 && (await page.getByRole('button', { name: 'הבא' }).count()) > 0; i++) {
+      await page.getByRole('button', { name: 'הבא' }).tap();
+    }
+    await expect(page.getByRole('heading', { name: 'זהו!' })).toBeVisible();
+    await page.getByRole('button', { name: 'סיום' }).tap();
+    await page.waitForFunction(() => window.__shchuna?.stage === 'playing');
+    await expect(page.locator('.guide-overlay')).toHaveCount(0);
+  });
+
   // SPEC §16.2 flow 6.
   test('the whole app, gate included, is right to left', async ({ page }) => {
     await openGame(page, 'home');

@@ -164,6 +164,12 @@ export class Hud {
     this.layout();
   }
 
+  /** Where a button is, or null while it isn't showing (the guided tour lights it up). */
+  visibleCenter(id: HudButtonId): { x: number; y: number } | null {
+    const button = this.buttons.get(id);
+    return button?.visible ? { x: button.x, y: button.y } : null;
+  }
+
   /** Kept for existing tests. */
   undoCenter(): { x: number; y: number } {
     return this.center('undo');

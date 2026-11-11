@@ -7,6 +7,8 @@ const text = parentStrings.settings;
 export interface SettingsHandlers {
   change(patch: Partial<Settings>): void;
   reset(): void;
+  /** Settings close, and the parents' guided tour starts. */
+  guide(): void;
 }
 
 /** The parents' settings (SPEC §12), reached only through the gate. Resolves when closed. */
@@ -83,6 +85,17 @@ export class SettingsScreen {
       link.rel = 'noopener';
       privacy.append(el('h3', '', text.privacyTitle), el('p', 'parent-hint', text.privacy), link);
 
+      // First on the screen: a parent who just arrived most likely wants to know how it works.
+      const guide = el('div', 'parent-group');
+      const guideButton = el('button', 'parent-button', text.guide);
+      guideButton.type = 'button';
+      guideButton.addEventListener('click', () => {
+        this.close();
+        resolve();
+        handlers.guide();
+      });
+      guide.append(guideButton, el('p', 'parent-hint', text.guideHint));
+
       const close = el('button', 'parent-button', text.close);
       close.type = 'button';
       close.addEventListener('click', () => {
@@ -90,7 +103,7 @@ export class SettingsScreen {
         resolve();
       });
 
-      card.append(title, volumes, niqqudRow, gender, reset, privacy, close);
+      card.append(title, guide, volumes, niqqudRow, gender, reset, privacy, close);
     });
   }
 
