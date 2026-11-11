@@ -15,7 +15,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   // Software WebGL under load is occasionally flaky locally; a retry is reported as "flaky", not hidden.
   retries: 1,
-  reporter: [['list']],
+  // On CI, failures also become annotations, readable on GitHub without downloading logs.
+  reporter: process.env.CI ? [['list'], ['github']] : [['list']],
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.03 } },
   snapshotPathTemplate: '{testDir}/__screenshots__/{projectName}/{arg}{ext}',
   use: {

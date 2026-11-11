@@ -4,8 +4,26 @@
     {
       "name": "preview",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite", "preview", "--port", "4174", "--strictPort"],
+      "runtimeArgs": [
+        "vite",
+        "preview",
+        "--port",
+        "4174",
+        "--strictPort"
+      ],
       "port": 4174
+    },
+    {
+      "name": "voice-compare",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "vite",
+        ".voice-samples/compare",
+        "--port",
+        "4175",
+        "--strictPort"
+      ],
+      "port": 4175
     }
   ]
 }

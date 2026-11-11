@@ -27,7 +27,8 @@ export interface Manifest {
   lines: Record<string, ManifestEntry>;
 }
 
-export const DEFAULT_MODEL = 'eleven_v3';
+// Dudu compared v3 and v4, each with and without niqqud: v4 with niqqud read Hebrew best.
+export const DEFAULT_MODEL = 'eleven_v4';
 export const VOICE_SETTINGS = { stability: 0.5, similarity_boost: 0.75, style: 0, speed: 0.95 };
 
 /** USD per 1,000 characters, from elevenlabs.io/pricing/api (November 2026). */

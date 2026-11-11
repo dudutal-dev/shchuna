@@ -1,6 +1,6 @@
 [
   {"id": "ui.tap_to_start", "text": "גַּע כְּדֵי לְהַתְחִיל!", "voice": "narrator", "proofread": false},
-  {"id": "ui.welcome", "text": "בְּרוּכִים הַבָּאִים לַשְּׁכוּנָה!", "spoken": "ברוכים הבאים לשכונה!", "voice": "narrator", "proofread": false},
+  {"id": "ui.welcome", "text": "בְּרוּכִים הַבָּאִים לַשְּׁכוּנָה!", "voice": "narrator", "proofread": false},
   {"id": "prop.apple", "text": "תַּפּוּחַ", "voice": "narrator", "proofread": false},
   {"id": "prop.ball", "text": "כַּדּוּר", "voice": "narrator", "proofread": false},
   {"id": "prop.cup", "text": "כּוֹס", "voice": "narrator", "proofread": false},
@@ -108,7 +108,7 @@
   {"id": "place.makolet", "text": "הַמַּכֹּלֶת", "voice": "narrator", "proofread": false},
   {"id": "place.gan", "text": "הַגַּן", "voice": "narrator", "proofread": false},
   {"id": "place.clinic", "text": "הַמִּרְפָּאָה", "voice": "narrator", "proofread": false},
-  {"id": "place.falafel", "text": "הַפָלָאפֶלִיָּה", "spoken": "הפלאפליה", "voice": "narrator", "proofread": false},
+  {"id": "place.falafel", "text": "הַפָלָאפֶלִיָּה", "voice": "narrator", "proofread": false},
   {"id": "place.beach", "text": "חוֹף הַיָּם", "voice": "narrator", "proofread": false},
   {"id": "place.station", "text": "הַתַּחֲנָה", "voice": "narrator", "proofread": false},
   {"id": "prop.puppet-theater", "text": "תֵּאַטְרוֹן בֻּבּוֹת", "voice": "narrator", "proofread": false},
