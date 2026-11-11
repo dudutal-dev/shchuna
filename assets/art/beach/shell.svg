@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="40" viewBox="0 0 55 40">
+  <!-- Hinge ears -->
+  <path d="M17 31 H38 L35 38 H20Z" fill="#FFB3A8" stroke="#D97A6E" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Scalloped fan -->
+  <path d="M27.5 36 L6 20 Q3 12 9 9 Q12 3 19 4 Q23 1 27.5 2 Q32 1 36 4 Q43 3 46 9 Q52 12 49 20Z" fill="#FFB3A8" stroke="#D97A6E" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M27.5 33 L10 14 M27.5 33 L18 8 M27.5 33 V6 M27.5 33 L37 8 M27.5 33 L45 14" fill="none" stroke="#E8897D" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M12 12 Q14 8 18 7" fill="none" stroke="#FFE0D8" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

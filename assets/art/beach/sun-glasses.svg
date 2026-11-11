@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <!-- Soft rounded rays (same as sun.svg) -->
+  <g fill="#FFC23C" stroke="#E0A92E" stroke-width="4" stroke-linejoin="round">
+    <path d="M78 40 Q90 -16 102 40Z"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(30 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(60 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(90 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(120 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(150 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(180 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(210 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(240 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(270 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(300 90 90)"/>
+    <path d="M78 40 Q90 -16 102 40Z" transform="rotate(330 90 90)"/>
+  </g>
+  <!-- Face -->
+  <circle cx="90" cy="90" r="58" fill="#FFD866" stroke="#E0A92E" stroke-width="4"/>
+  <path d="M50 70 Q58 52 76 44" fill="none" stroke="#FFEFB0" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#F7A55A" opacity=".6"><circle cx="56" cy="108" r="9"/><circle cx="124" cy="108" r="9"/></g>
+  <!-- Cool sunglasses -->
+  <g stroke="#26313B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M51 78 L36 72 M129 78 L144 72 M84 79 Q90 74 96 79" fill="none"/>
+    <path d="M52 74 H84 Q87 74 86 80 Q83 98 68 98 Q53 98 50 80 Q49 74 52 74Z" fill="#34424F"/>
+    <path d="M96 74 H128 Q131 74 130 80 Q127 98 112 98 Q97 98 94 80 Q93 74 96 74Z" fill="#34424F"/>
+  </g>
+  <path d="M58 80 L66 90 M102 80 L110 90" stroke="#8FB3C8" stroke-width="4" stroke-linecap="round"/>
+  <!-- Wide grin -->
+  <path d="M62 110 Q90 140 118 110 Q90 118 62 110Z" fill="#A8442E" stroke="#B8611A" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="90" cy="121" rx="9" ry="3.5" fill="#F2888C"/>
+</svg>

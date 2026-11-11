@@ -4,7 +4,14 @@ import { GameStore } from '../../src/app/store';
 import { isOpen, isPremium, MAP_HEIGHT, MAP_WIDTH, PLACES } from '../../src/content/places';
 import voiceLines from '../../src/content/voice-lines.json';
 import { createNewSave, migrate, SaveManager, type SaveStorage } from '../../src/engine/SaveManager';
-import { clinicPeople, defaultFamily, falafelPeople, ganPeople } from '../../src/characters/catalog';
+import {
+  beachPeople,
+  clinicPeople,
+  defaultFamily,
+  falafelPeople,
+  ganPeople,
+} from '../../src/characters/catalog';
+import { beach, LIFEGUARD_SEAT } from '../../src/locations/beach/beach.data';
 import { CUSTOMER_SEAT, falafel } from '../../src/locations/falafel/falafel.data';
 import { BENCH_SEAT, clinic } from '../../src/locations/clinic/clinic.data';
 import { propDefs } from '../../src/content/props';
@@ -32,7 +39,7 @@ describe('neighbourhood map', () => {
     expect(ids.has('map.where')).toBe(true);
   });
 
-  it('opens home, the makolet, the gan, the clinic and the falafel stand; nothing is paid yet', () => {
+  it('opens every place but the station; nothing is paid yet', () => {
     const { unlocked } = createNewSave();
     expect(PLACES.filter((p) => isOpen(p.id, unlocked)).map((p) => p.id)).toEqual([
       'home',
@@ -40,6 +47,7 @@ describe('neighbourhood map', () => {
       'gan',
       'clinic',
       'falafel',
+      'beach',
     ]);
     for (const p of PLACES) expect(isPremium(p.id)).toBe(false);
     // A place not unlocked in the save stays shut even once built.
@@ -85,7 +93,7 @@ describe('parents settings', () => {
 describe('the gan', () => {
   it('opens in a save from before it was built', () => {
     const old = { ...createNewSave(0), version: 1, unlocked: ['home', 'makolet'] };
-    expect(migrate(old)?.unlocked).toEqual(['home', 'makolet', 'gan', 'clinic', 'falafel']);
+    expect(migrate(old)?.unlocked).toEqual(['home', 'makolet', 'gan', 'clinic', 'falafel', 'beach']);
   });
 
   it('brings its people into a game that already has a family', () => {
@@ -98,6 +106,14 @@ describe('the gan', () => {
     expect(store.state.characters).toHaveLength(9);
     actions.seedCharacters([...defaultFamily(), ...ganPeople(), ...clinicPeople(), ...falafelPeople()]);
     expect(store.state.characters).toHaveLength(11);
+    actions.seedCharacters([
+      ...defaultFamily(),
+      ...ganPeople(),
+      ...clinicPeople(),
+      ...falafelPeople(),
+      ...beachPeople(),
+    ]);
+    expect(store.state.characters).toHaveLength(13);
     expect(store.state.characters.filter((c) => c.location === 'gan')).toHaveLength(3);
   });
 
@@ -105,6 +121,7 @@ describe('the gan', () => {
     ['gan', gan],
     ['clinic', clinic],
     ['falafel', falafel],
+    ['beach', beach],
   ])('%s: a voice line for every prop, ids apart from the home', (_name, place) => {
     const ids = new Set(voiceLines.map((line) => line.id));
     const homeIds = new Set(home.props.map((p) => p.id));
@@ -150,5 +167,21 @@ describe('the falafel stand', () => {
     const [cook, customer] = falafelPeople();
     expect(cook!.appearance.outfit).toBe('cook');
     expect(customer).toMatchObject({ x: CUSTOMER_SEAT.x, y: CUSTOMER_SEAT.y, on: CUSTOMER_SEAT.on, pose: 'sit' });
+  });
+});
+
+describe('the beach', () => {
+  it('seats the lifeguard up on the tower', () => {
+    const [lifeguard] = beachPeople();
+    expect(lifeguard).toMatchObject({ ...LIFEGUARD_SEAT, pose: 'sit' });
+  });
+
+  it('builds a sandcastle with the bucket, which then goes back to its place', () => {
+    expect(propDefs.bucket!.interactions).toContainEqual({
+      type: 'useOn',
+      target: 'sand-mound',
+      setTarget: { built: true },
+    });
+    expect(propDefs.bucket!.returnsAfterUse).toBe(true);
   });
 });

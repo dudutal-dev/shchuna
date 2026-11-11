@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="70" viewBox="0 0 120 70">
+  <defs>
+    <clipPath id="tt-shell"><path d="M14 52 Q14 10 58 8 Q100 10 100 52Z"/></clipPath>
+  </defs>
+  <!-- Back flippers and tail -->
+  <g fill="#9CD38A" stroke="#5E9457" stroke-width="3.5" stroke-linejoin="round">
+    <path d="M14 54 L2 52 L12 46Z"/>
+    <ellipse cx="26" cy="61" rx="14" ry="7" transform="rotate(-18 26 61)"/>
+    <ellipse cx="72" cy="62" rx="12" ry="6" transform="rotate(10 72 62)"/>
+  </g>
+  <!-- Head -->
+  <g fill="#9CD38A" stroke="#5E9457" stroke-width="3.5" stroke-linejoin="round">
+    <path d="M86 44 Q90 32 98 26 Q102 22 108 22 Q118 24 118 36 Q118 48 106 50 Q96 52 88 52Z"/>
+  </g>
+  <!-- Shell -->
+  <path d="M14 52 Q14 10 58 8 Q100 10 100 52Z" fill="#5E9E52"/>
+  <g clip-path="url(#tt-shell)" fill="#7FBF6B" stroke="#3F7A3A" stroke-width="3" stroke-linejoin="round">
+    <path d="M69 32 L63 21 H51 L45 32 L51 43 H63Z"/>
+    <path d="M41 40 L35 30 H23 L17 40 L23 50 H35Z"/>
+    <path d="M97 40 L91 30 H79 L73 40 L79 50 H91Z"/>
+    <path d="M45 12 L40 4 H28 L22 12 L28 20 H40Z"/>
+    <path d="M92 12 L87 4 H75 L70 12 L75 20 H87Z"/>
+  </g>
+  <path d="M14 52 Q14 10 58 8 Q100 10 100 52Z" fill="none" stroke="#3F7A3A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M30 26 Q38 16 50 13" fill="none" stroke="#B5DFA0" stroke-width="4" stroke-linecap="round"/>
+  <!-- Shell rim -->
+  <path d="M10 52 H104 Q106 58 100 58 H14 Q8 58 10 52Z" fill="#C8E3A0" stroke="#6E9E48" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- Front flipper -->
+  <ellipse cx="90" cy="61" rx="15" ry="7" transform="rotate(22 90 61)" fill="#9CD38A" stroke="#5E9457" stroke-width="3.5"/>
+  <!-- Big kind eye, cheek and smile -->
+  <circle cx="106" cy="33" r="7" fill="#FFFFFF" stroke="#5E9457" stroke-width="2.5"/>
+  <circle cx="107" cy="34" r="4.5" fill="#3B2F2F"/>
+  <circle cx="108.5" cy="32" r="1.6" fill="#FFFFFF"/>
+  <circle cx="110" cy="44" r="3.5" fill="#F7A8C4" opacity=".8"/>
+  <path d="M104 45 Q110 49 116 43" fill="none" stroke="#3F7A3A" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

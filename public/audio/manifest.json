@@ -1109,6 +1109,114 @@
       "text": "שְׁרַפְרַף",
       "durationMs": 1200,
       "hash": "432f8a22a8d2cb4445221f8f95e58bc1f28cf4533d21cb0fdf42fef46870b829"
+    },
+    "prop.umbrella": {
+      "file": "public/audio/lines/prop.umbrella.mp3",
+      "text": "שִׁמְשִׁיָּה",
+      "durationMs": 1040,
+      "hash": "e567f49ec5bb87efd76c4f8b9039dbb6c0c504676456536b1a047fdbad034028"
+    },
+    "prop.beach-chair": {
+      "file": "public/audio/lines/prop.beach-chair.mp3",
+      "text": "כִּסֵּא נוֹחַ",
+      "durationMs": 1440,
+      "hash": "090456c7bf3939b37033659bf8a062d7398d13f56f32f08c9a250b811e25f4be"
+    },
+    "prop.towel": {
+      "file": "public/audio/lines/prop.towel.mp3",
+      "text": "מַגֶּבֶת",
+      "durationMs": 1200,
+      "hash": "6b657a6ac32d832aa420c94e41c88a396958d48c4a6e26ef9a7bdbe844f87f3e"
+    },
+    "prop.sand-mound": {
+      "file": "public/audio/lines/prop.sand-mound.mp3",
+      "text": "אַרְמוֹן חוֹל",
+      "durationMs": 1280,
+      "hash": "e78145001c97ad1734a9810b4d3a589851f200876eab40e2e2e0594fb121f785"
+    },
+    "prop.cooler": {
+      "file": "public/audio/lines/prop.cooler.mp3",
+      "text": "צֵידָנִית",
+      "durationMs": 1120,
+      "hash": "42e4c437379e36513261c5a7933755129bd8c09b1d7d24f62aa3ba7fcb24308d"
+    },
+    "prop.ice-pop": {
+      "file": "public/audio/lines/prop.ice-pop.mp3",
+      "text": "אַרְטִיק",
+      "durationMs": 1040,
+      "hash": "4ac31f3d5e623a21b68620b0e262da98a101e97a3e8ebb6424087223373f5874"
+    },
+    "prop.turtle": {
+      "file": "public/audio/lines/prop.turtle.mp3",
+      "text": "צָב",
+      "durationMs": 960,
+      "hash": "3768d4572e99a6730ad97bcd6821cb7b4e2685edef9763d5d9623fa7a7dfb84b"
+    },
+    "prop.sun": {
+      "file": "public/audio/lines/prop.sun.mp3",
+      "text": "שֶׁמֶשׁ",
+      "durationMs": 1040,
+      "hash": "7b85160093725d08b8560bd77a9ef6cc9322e933fbd80e0d61c714fa2c56287a"
+    },
+    "prop.matkot": {
+      "file": "public/audio/lines/prop.matkot.mp3",
+      "text": "מַטְקוֹת",
+      "durationMs": 1040,
+      "hash": "a7b8e45dcf7a91bc934c31883a566a3d554a529ac2ed4dcfd71565e0b4c2f563"
+    },
+    "prop.shell": {
+      "file": "public/audio/lines/prop.shell.mp3",
+      "text": "צֶדֶף",
+      "durationMs": 880,
+      "hash": "aa513d524481d4012a7ce02eeca187c3f7b0c99d38e401166d245c236e2c84e1"
+    },
+    "prop.lifeguard-tower": {
+      "file": "public/audio/lines/prop.lifeguard-tower.mp3",
+      "text": "מִגְדַּל מַצִּיל",
+      "durationMs": 1840,
+      "hash": "1daacff250dd2842cae88b076e0b1bd617f478624042e937dade6d7e2bcac55e"
+    },
+    "letter.found.tsadi.m": {
+      "file": "public/audio/lines/letter.found.tsadi.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת צָדִי! צָב.",
+      "durationMs": 2720,
+      "hash": "d672572992521c039efa388e681ea67427f865ef199c9440ed2dda8f2302de8a"
+    },
+    "letter.found.tsadi.f": {
+      "file": "public/audio/lines/letter.found.tsadi.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת צָדִי! צָב.",
+      "durationMs": 2720,
+      "hash": "f850002f6991e9f23415afb526c9c85d533f3fe590cf0ae1dd26226fbdca357e"
+    },
+    "letter.name.tsadi": {
+      "file": "public/audio/lines/letter.name.tsadi.mp3",
+      "text": "צָדִי",
+      "durationMs": 800,
+      "hash": "abcc87466842bc29376440cc621c8f68ce8567ad810f047ff5b2625a3c1b891d"
+    },
+    "letter.found.shin.m": {
+      "file": "public/audio/lines/letter.found.shin.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת שִׁין! שֶׁמֶשׁ.",
+      "durationMs": 2880,
+      "hash": "a799f0115d3bed69678bc087721fd686c7491414e32c032a7a8ca1e8f617d939"
+    },
+    "letter.found.shin.f": {
+      "file": "public/audio/lines/letter.found.shin.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת שִׁין! שֶׁמֶשׁ.",
+      "durationMs": 2800,
+      "hash": "bd5839d4c662cee4471f269f6818676323fd955db10b18e554163e0a012a01ca"
+    },
+    "letter.name.shin": {
+      "file": "public/audio/lines/letter.name.shin.mp3",
+      "text": "שִׁין",
+      "durationMs": 880,
+      "hash": "c928cef1600858e4d3fda15ef30557776f2c8f643cab48440e5df1786ae9696d"
+    },
+    "letter.hint.beach": {
+      "file": "public/audio/lines/letter.hint.beach.mp3",
+      "text": "אוּלַי בַּחוֹף?",
+      "durationMs": 1120,
+      "hash": "e669036d450ff73de40d9885f69cadf84e49337ab70a21ec8a2cac0c70477fc6"
     }
   }
 }

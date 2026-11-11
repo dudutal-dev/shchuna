@@ -96,5 +96,17 @@ export const strings = {
     juice: 'מִיץ',
     umbrellaTable: 'שֻׁלְחָן עִם שִׁמְשִׁיָּה',
     stool: 'שְׁרַפְרַף',
+    // Beach.
+    umbrella: 'שִׁמְשִׁיָּה',
+    beachChair: 'כִּסֵּא נוֹחַ',
+    towel: 'מַגֶּבֶת',
+    sandcastle: 'אַרְמוֹן חוֹל',
+    cooler: 'צֵידָנִית',
+    icePop: 'אַרְטִיק',
+    turtle: 'צָב',
+    sun: 'שֶׁמֶשׁ',
+    matkot: 'מַטְקוֹת',
+    shell: 'צֶדֶף',
+    lifeguardTower: 'מִגְדַּל מַצִּיל',
   },
 } as const;

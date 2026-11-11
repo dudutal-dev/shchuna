@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <g fill="#F2D59B" stroke="#D2AE68" stroke-width="4" stroke-linejoin="round">
+    <!-- Main wall -->
+    <path d="M30 128 V82 H40 V74 H50 V82 H100 V74 H110 V82 H120 V128Z"/>
+    <!-- Side towers -->
+    <path d="M14 128 V60 Q14 56 18 56 H20 V48 H28 V56 H32 V48 H40 V56 H42 Q46 56 46 60 V128Z"/>
+    <path d="M104 128 V60 Q104 56 108 56 H110 V48 H118 V56 H122 V48 H130 V56 H132 Q136 56 136 60 V128Z"/>
+    <!-- Central tower -->
+    <path d="M56 100 V38 Q56 34 60 34 H62 V24 H70 V34 H80 V24 H88 V34 H90 Q94 34 94 38 V100Z"/>
+  </g>
+  <!-- Flag on a stick -->
+  <path d="M75 34 V4" stroke="#8A6A4F" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M77 5 Q88 6 96 11 Q88 15 77 17Z" fill="#E5508A" stroke="#B8396A" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Door and windows -->
+  <g fill="#C9A35E" stroke="#B08A4A" stroke-width="3" stroke-linejoin="round">
+    <path d="M64 128 V108 Q64 96 75 96 Q86 96 86 108 V128Z"/>
+    <path d="M70 62 V54 Q70 48 75 48 Q80 48 80 54 V62Z"/>
+    <path d="M25 84 V78 Q25 73 30 73 Q35 73 35 78 V84Z"/>
+    <path d="M115 84 V78 Q115 73 120 73 Q125 73 125 78 V84Z"/>
+  </g>
+  <!-- Sand texture, a pink shell and a highlight -->
+  <g fill="#E3C072"><circle cx="22" cy="104" r="2.5"/><circle cx="48" cy="92" r="2.5"/><circle cx="102" cy="96" r="2.5"/><circle cx="128" cy="106" r="2.5"/><circle cx="66" cy="78" r="2.5"/></g>
+  <path d="M96 112 Q96 104 102 104 Q108 104 108 112Z" fill="#FFB3A8" stroke="#D97A6E" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M61 44 V70" stroke="#F8E6BF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Base mound, same footprint as sand-mound.svg -->
+  <path d="M4 148 Q8 124 36 120 H114 Q142 124 146 148Z" fill="#F2D59B" stroke="#D2AE68" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M30 130 Q44 124 60 125" fill="none" stroke="#F8E6BF" stroke-width="4" stroke-linecap="round"/>
+  <g fill="#E3C072"><circle cx="90" cy="134" r="2.5"/><circle cx="118" cy="140" r="2.5"/><circle cx="50" cy="142" r="2.5"/></g>
+</svg>

@@ -201,7 +201,12 @@ const definitions: PropDef[] = [
   prop('bucket', 'bucket', {
     art: 'gan/bucket.svg',
     artStates: when({ full: true }, 'gan/bucket-full.svg'),
-    interactions: [{ type: 'useOn', target: 'sandbox', setSource: { full: true } }],
+    interactions: [
+      { type: 'useOn', target: 'sandbox', setSource: { full: true } },
+      // At the beach: turned over on the sand pile, it makes a castle.
+      { type: 'useOn', target: 'sand-mound', setTarget: { built: true } },
+    ],
+    returnsAfterUse: true,
   }),
   prop('spade', 'spade', { art: 'gan/spade.svg' }),
   prop('tricycle', 'tricycle', { art: 'gan/tricycle.svg' }),
@@ -289,6 +294,43 @@ const definitions: PropDef[] = [
   // Falafel stand: the terrace.
   prop('umbrella-table', 'umbrellaTable', { art: 'falafel/umbrella-table.svg', layer: 'furniture' }),
   prop('stool', 'stool', { art: 'falafel/stool.svg', layer: 'furniture' }),
+
+  // Beach: the sand.
+  prop('umbrella', 'umbrella', {
+    art: 'beach/umbrella.svg',
+    artStates: when({ open: true }, 'beach/umbrella-open.svg'),
+    layer: 'furniture',
+    interactions: toggle('open'),
+  }),
+  prop('beach-chair', 'beachChair', { art: 'beach/beach-chair.svg', layer: 'furniture' }),
+  prop('towel', 'towel', { art: 'beach/towel.svg', layer: 'furniture' }),
+  prop('sand-mound', 'sandcastle', {
+    art: 'beach/sand-mound.svg',
+    artStates: when({ built: true }, 'beach/sandcastle.svg'),
+    layer: 'furniture',
+    interactions: toggle('built'),
+    useOnPoint: { x: 0, y: -30 },
+  }),
+  prop('cooler', 'cooler', {
+    art: 'beach/cooler.svg',
+    artStates: when({ open: true }, 'beach/cooler-open.svg'),
+    layer: 'furniture',
+    interactions: toggle('open'),
+  }),
+  prop('ice-pop', 'icePop', { art: 'beach/ice-pop.svg', food: true }),
+  // Tapped, the sun puts on its sunglasses.
+  prop('sun', 'sun', {
+    art: 'beach/sun.svg',
+    artStates: when({ glasses: true }, 'beach/sun-glasses.svg'),
+    layer: 'furniture',
+    interactions: toggle('glasses'),
+  }),
+  prop('matkot', 'matkot', { art: 'beach/matkot.svg' }),
+
+  // Beach: the water's edge.
+  prop('lifeguard-tower', 'lifeguardTower', { art: 'beach/lifeguard-tower.svg', layer: 'furniture' }),
+  prop('turtle', 'turtle', { art: 'beach/turtle.svg' }),
+  prop('shell', 'shell', { art: 'beach/shell.svg' }),
 ];
 
 export const propDefs: Readonly<Record<string, PropDef>> = Object.fromEntries(

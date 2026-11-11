@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="80" viewBox="0 0 32 80">
+  <!-- Stick -->
+  <rect x="12" y="46" width="8" height="32" rx="4" fill="#E8C9A0" stroke="#B08A5E" stroke-width="3"/>
+  <!-- Lolly: yellow bottom, pink top -->
+  <path d="M4 54 V20 Q4 3 16 3 Q28 3 28 20 V54 Q28 58 24 58 H8 Q4 58 4 54Z" fill="#FFD866" stroke="#C78F1E" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M4 32 V20 Q4 3 16 3 Q28 3 28 20 V32 Q22 38 16 32 Q10 26 4 32Z" fill="#F06C8C" stroke="#B8396A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M9 14 Q10 9 14 7 M9 40 V50" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+</svg>

@@ -3,6 +3,7 @@ import { HIDDEN_LETTERS, LETTERS } from '../../src/content/letters';
 import { PLACES } from '../../src/content/places';
 import { gan } from '../../src/locations/gan/gan.data';
 import { makolet } from '../../src/locations/makolet/makolet.data';
+import { beach } from '../../src/locations/beach/beach.data';
 import { propDefs } from '../../src/content/props';
 import voiceLines from '../../src/content/voice-lines.json';
 import { createNewSave } from '../../src/engine/SaveManager';
@@ -26,11 +27,12 @@ describe('letters content', () => {
     for (const l of LETTERS) expect(l.word.startsWith(l.letter)).toBe(true);
   });
 
-  it('hides eighteen letters on props in the places, or on a place on the map', () => {
-    expect(HIDDEN_LETTERS.map((l) => l.letter).sort().join('')).toBe('אבגדהוזחטכלנסעפקרת');
+  it('hides twenty letters on props in the places, or on a place on the map', () => {
+    expect(HIDDEN_LETTERS.map((l) => l.letter).sort().join('')).toBe('אבגדהוזחטכלנסעפצקרשת');
     const ids = new Set([
       ...home.props.map((p) => p.id),
       ...makolet.props.map((p) => p.id),
+      ...beach.props.map((p) => p.id),
       ...gan.props.map((p) => p.id),
       ...PLACES.map((p) => `map-${p.id}`),
     ]);

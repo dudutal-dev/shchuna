@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="80" viewBox="0 0 130 80">
+  <defs>
+    <clipPath id="mk-head"><rect x="-22" y="-28" width="44" height="52" rx="20"/></clipPath>
+  </defs>
+  <!-- Left paddle (blue band) -->
+  <g transform="translate(44 38) rotate(-28)">
+    <rect x="-6" y="18" width="12" height="26" rx="5" fill="#58B8EA" stroke="#3B8DBF" stroke-width="3"/>
+    <path d="M-6 26 H6 M-6 34 H6" stroke="#3B8DBF" stroke-width="2.5"/>
+    <rect x="-22" y="-28" width="44" height="52" rx="20" fill="#C4966B"/>
+    <rect x="-22" y="-6" width="44" height="10" fill="#58B8EA" clip-path="url(#mk-head)"/>
+    <path d="M-10 -18 Q-6 -10 -10 -2 M10 8 Q6 14 10 18" fill="none" stroke="#A87B54" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="-22" y="-28" width="44" height="52" rx="20" fill="none" stroke="#6B4C35" stroke-width="4"/>
+    <path d="M-14 -16 Q-12 -22 -4 -24" fill="none" stroke="#DDB78F" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+  <!-- Right paddle (pink band) -->
+  <g transform="translate(86 38) rotate(28)">
+    <rect x="-6" y="18" width="12" height="26" rx="5" fill="#E5508A" stroke="#B8396A" stroke-width="3"/>
+    <path d="M-6 26 H6 M-6 34 H6" stroke="#B8396A" stroke-width="2.5"/>
+    <rect x="-22" y="-28" width="44" height="52" rx="20" fill="#C4966B"/>
+    <rect x="-22" y="-6" width="44" height="10" fill="#E5508A" clip-path="url(#mk-head)"/>
+    <path d="M10 -18 Q6 -10 10 -2 M-10 8 Q-6 14 -10 18" fill="none" stroke="#A87B54" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="-22" y="-28" width="44" height="52" rx="20" fill="none" stroke="#6B4C35" stroke-width="4"/>
+    <path d="M-14 -16 Q-12 -22 -4 -24" fill="none" stroke="#DDB78F" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+  <!-- Small rubber ball -->
+  <circle cx="115" cy="69" r="9" fill="#F28C28" stroke="#B8611A" stroke-width="3"/>
+  <path d="M110 66 Q112 63 115 63" fill="none" stroke="#FFD2A6" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

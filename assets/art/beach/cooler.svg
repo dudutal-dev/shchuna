@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="110" viewBox="0 0 150 110">
+  <!-- Carry handle -->
+  <path d="M42 28 V16 Q42 8 50 8 H100 Q108 8 108 16 V28" fill="none" stroke="#9FB6C2" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M42 28 V16 Q42 8 50 8 H100 Q108 8 108 16 V28" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Body (same as cooler-open.svg) -->
+  <rect x="8" y="38" width="134" height="68" rx="14" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4"/>
+  <rect x="50" y="68" width="50" height="12" rx="6" fill="#3B8DBF"/>
+  <path d="M20 62 V92" stroke="#9ED5EE" stroke-width="5" stroke-linecap="round"/>
+  <!-- Lid -->
+  <rect x="4" y="24" width="142" height="22" rx="10" fill="#FFFFFF" stroke="#9FB6C2" stroke-width="4"/>
+  <path d="M18 31 H70" stroke="#E6F6FB" stroke-width="4" stroke-linecap="round"/>
+  <!-- Latches -->
+  <g fill="#FFFFFF" stroke="#9FB6C2" stroke-width="3"><rect x="22" y="40" width="16" height="16" rx="5"/><rect x="112" y="40" width="16" height="16" rx="5"/></g>
+</svg>

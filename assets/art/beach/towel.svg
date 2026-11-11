@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="230" height="30" viewBox="0 0 230 30">
+  <defs>
+    <clipPath id="bt-top"><path d="M12 6 H218 L226 22 H4Z"/></clipPath>
+  </defs>
+  <!-- Thickness of the towel at the front edge -->
+  <rect x="4" y="18" width="222" height="10" rx="4" fill="#3B8DBF" stroke="#2C6F98" stroke-width="3"/>
+  <!-- Top surface at y 6 -->
+  <path d="M12 6 H218 L226 22 H4Z" fill="#58B8EA"/>
+  <g clip-path="url(#bt-top)">
+    <g fill="#FFFFFF"><path d="M24 0 H38 L36 30 H18Z"/><path d="M192 0 H206 L212 30 H194Z"/></g>
+    <g fill="#FFC23C"><path d="M44 0 H52 L50 30 H40Z"/><path d="M178 0 H186 L190 30 H180Z"/><path d="M104 0 H126 L127 30 H103Z"/></g>
+  </g>
+  <path d="M12 6 H218 L226 22 H4Z" fill="none" stroke="#2C6F98" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M62 11 H92" stroke="#9ED5EE" stroke-width="3" stroke-linecap="round"/>
+</svg>

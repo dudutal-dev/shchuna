@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <!-- Sky (same as sand-bg) -->
+  <rect width="1100" height="600" fill="#BFE6FF"/>
+  <g fill="#FFFFFF">
+    <circle cx="160" cy="80" r="18"/><circle cx="186" cy="66" r="26"/><circle cx="216" cy="80" r="18"/><rect x="160" y="76" width="56" height="22" rx="11"/>
+    <circle cx="760" cy="120" r="22"/><circle cx="792" cy="102" r="31"/><circle cx="828" cy="120" r="22"/><rect x="760" y="116" width="68" height="26" rx="13"/>
+  </g>
+  <path d="M774 98 Q782 86 796 84" fill="none" stroke="#E6F6FF" stroke-width="5" stroke-linecap="round"/>
+  <!-- Sea, horizon at y 300 -->
+  <rect y="300" width="1100" height="200" fill="#58B8EA"/>
+  <rect y="300" width="1100" height="14" fill="#4FA8DB"/>
+  <path d="M0 300 H1100" stroke="#3B8DBF" stroke-width="3"/>
+  <!-- Distant sailboat on the horizon -->
+  <g stroke-linejoin="round">
+    <path d="M440 254 V296" stroke="#8A6A4F" stroke-width="3" stroke-linecap="round"/>
+    <path d="M443 256 Q466 276 470 292 H443Z" fill="#FFFFFF" stroke="#8FA3AD" stroke-width="3"/>
+    <path d="M437 262 Q424 280 422 292 H437Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+    <path d="M418 296 H476 Q472 306 462 306 H430 Q420 306 418 296Z" fill="#E5508A" stroke="#B8396A" stroke-width="3"/>
+  </g>
+  <!-- Gentle waves -->
+  <path d="M60 336 q14 -8 28 0 t28 0 M300 344 q14 -8 28 0 t28 0 M620 332 q14 -8 28 0 t28 0 M880 340 q14 -8 28 0 t28 0" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="4" opacity=".85"/>
+  <path d="M120 372 q18 -10 36 0 t36 0 t36 0 M460 368 q18 -10 36 0 t36 0 t36 0 M780 366 q18 -10 36 0 t36 0" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="5"/>
+  <!-- Shallow water near the shore -->
+  <path d="M0 392 Q300 404 600 398 Q860 392 1100 360 Q960 384 860 412 Q750 440 600 430 Q450 418 300 428 Q150 438 0 426Z" fill="#8FD3F2"/>
+  <path d="M40 404 Q90 398 140 406 M380 410 Q440 402 500 410 M690 414 Q740 406 790 410" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Wet darker sand at the waterline (meets sand-bg at y 360 / 402 on the right edge) -->
+  <path d="M0 426 Q150 438 300 428 Q450 418 600 430 Q750 440 860 412 Q960 384 1100 360 V600 H0Z" fill="#DEBD7E"/>
+  <path d="M0 426 Q150 438 300 428 Q450 418 600 430 Q750 440 860 412 Q960 384 1100 360" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+  <path d="M30 420 q10 -8 20 0 q10 -8 20 0 M250 424 q10 -8 20 0 q10 -8 20 0 M540 422 q10 -8 20 0 q10 -8 20 0 M900 392 q10 -8 20 0 q10 -8 20 0" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Dry sand in the floor band -->
+  <path d="M0 458 Q250 450 500 456 Q700 462 860 446 Q960 432 1100 402 V600 H0Z" fill="#F2D59B"/>
+  <path d="M0 458 Q250 450 500 456 Q700 462 860 446 Q960 432 1100 402" fill="none" stroke="#D2AE68" stroke-width="4"/>
+  <path d="M100 490 Q160 480 220 488 M480 500 Q540 490 600 498 M260 556 Q320 546 380 554 M760 530 Q820 520 880 528" fill="none" stroke="#F8E6BF" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#E3C072"><circle cx="60" cy="520" r="3"/><circle cx="330" cy="480" r="3"/><circle cx="420" cy="590" r="3"/><circle cx="660" cy="540" r="3"/><circle cx="700" cy="478" r="3"/><circle cx="940" cy="480" r="3"/><circle cx="1000" cy="560" r="3"/><circle cx="160" cy="580" r="3"/></g>
+  <path d="M540 586 Q570 576 600 586 M960 520 Q990 510 1020 520" fill="none" stroke="#E3C072" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="130" viewBox="0 0 150 130">
+  <!-- Lid standing up at the back, showing its inner face -->
+  <rect x="10" y="4" width="130" height="46" rx="10" fill="#FFFFFF" stroke="#9FB6C2" stroke-width="4"/>
+  <rect x="22" y="12" width="106" height="28" rx="7" fill="#DDF3FF"/>
+  <path d="M30 18 H70" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Inside of the box -->
+  <rect x="12" y="40" width="126" height="34" rx="8" fill="#9ED5EE" stroke="#3B8DBF" stroke-width="4"/>
+  <rect x="18" y="45" width="114" height="8" rx="4" fill="#7CC4E6"/>
+  <!-- Ice; the inner floor is at y 70 -->
+  <g fill="#F2FBFF" stroke="#8FC6E2" stroke-width="2.5" stroke-linejoin="round">
+    <rect x="18" y="52" width="16" height="14" rx="4" transform="rotate(-10 26 59)"/>
+    <rect x="36" y="55" width="14" height="12" rx="4" transform="rotate(8 43 61)"/>
+    <rect x="96" y="54" width="16" height="13" rx="4" transform="rotate(12 104 60)"/>
+    <rect x="116" y="52" width="15" height="14" rx="4" transform="rotate(-8 123 59)"/>
+    <rect x="66" y="56" width="14" height="11" rx="4" transform="rotate(-6 73 61)"/>
+  </g>
+  <!-- Body (same width and bottom as cooler.svg) -->
+  <rect x="8" y="66" width="134" height="60" rx="14" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4"/>
+  <rect x="50" y="94" width="50" height="12" rx="6" fill="#3B8DBF"/>
+  <path d="M20 88 V112" stroke="#9ED5EE" stroke-width="5" stroke-linecap="round"/>
+  <!-- Front rim -->
+  <rect x="6" y="64" width="138" height="12" rx="6" fill="#FFFFFF" stroke="#9FB6C2" stroke-width="3.5"/>
+  <g fill="#FFFFFF" stroke="#9FB6C2" stroke-width="3"><rect x="22" y="72" width="16" height="14" rx="5"/><rect x="112" y="72" width="16" height="14" rx="5"/></g>
+</svg>

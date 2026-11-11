@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+  <defs>
+    <clipPath id="bu-canopy"><path d="M6 96 C22 50 64 22 100 18 C136 22 178 50 194 96Z"/></clipPath>
+  </defs>
+  <!-- Pole (same position in umbrella.svg) -->
+  <rect x="95" y="16" width="10" height="256" rx="5" fill="#C4966B" stroke="#6B4C35" stroke-width="3.5"/>
+  <path d="M98 110 V240" stroke="#DDB78F" stroke-width="3" stroke-linecap="round"/>
+  <!-- Little heap of sand where the pole is stuck in -->
+  <path d="M64 280 Q70 262 100 260 Q130 262 136 280Z" fill="#F2D59B" stroke="#D2AE68" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M82 268 Q90 264 98 264" fill="none" stroke="#F8E6BF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Striped canopy -->
+  <path d="M6 96 C22 50 64 22 100 18 C136 22 178 50 194 96Z" fill="#FFFFFF"/>
+  <g clip-path="url(#bu-canopy)" fill="#E5508A">
+    <path d="M100 18 Q40 40 4 100 H43.6 Q58 52 100 18Z"/>
+    <path d="M100 18 Q84 52 81.2 100 H118.8 Q116 52 100 18Z"/>
+    <path d="M100 18 Q160 40 196 100 H156.4 Q142 52 100 18Z"/>
+  </g>
+  <path d="M6 96 C22 50 64 22 100 18 C136 22 178 50 194 96 Q175.2 84 156.4 96 Q137.6 84 118.8 96 Q100 84 81.2 96 Q62.4 84 43.6 96 Q24.8 84 6 96Z" fill="none" stroke="#B8396A" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Scalloped hem -->
+  <path d="M6 96 Q24.8 84 43.6 96 Q62.4 84 81.2 96 Q100 84 118.8 96 Q137.6 84 156.4 96 Q175.2 84 194 96 Q175.2 108 156.4 96 Q137.6 108 118.8 96 Q100 108 81.2 96 Q62.4 108 43.6 96 Q24.8 108 6 96Z" fill="#E5508A" stroke="#B8396A" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M40 60 Q56 42 78 32" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+  <circle cx="100" cy="14" r="7" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+</svg>

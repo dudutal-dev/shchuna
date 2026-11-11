@@ -16,8 +16,12 @@ concurrency:
 
 jobs:
   build:
-    # Pinned: ubuntu-latest moved to Ubuntu 26 (Oct 2026), which Playwright does not support yet.
     runs-on: ubuntu-24.04
+    # Playwright's own image already has Chromium and every system package it needs. Installing
+    # them with apt on each run failed when the runner couldn't reach the Ubuntu mirror (DNS).
+    # The tag must match @playwright/test in package.json.
+    container:
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -27,7 +31,6 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run test
-      - run: npx playwright install --with-deps chromium
       # Visual comparisons are skipped: baselines are per-OS and live on Dudu's machine.
       - run: npm run e2e -- --grep-invert @visual
       - run: npm run build
@@ -36,7 +39,6 @@ jobs:
           path: dist
   deploy:
     needs: build
-    # Pinned: ubuntu-latest moved to Ubuntu 26 (Oct 2026), which Playwright does not support yet.
     runs-on: ubuntu-24.04
     environment:
       name: github-pages

@@ -1,7 +1,15 @@
 import type { HebrewLetter } from '../types.ts';
 
 /** Where in the neighbourhood a letter hides, for the "maybe in the kitchen?" hint. */
-export type LetterArea = 'kitchen' | 'living' | 'kids' | 'makolet' | 'map' | 'gan' | 'later';
+export type LetterArea =
+  | 'kitchen'
+  | 'living'
+  | 'kids'
+  | 'makolet'
+  | 'map'
+  | 'gan'
+  | 'beach'
+  | 'later';
 
 export interface LetterInfo {
   letter: HebrewLetter;
@@ -42,10 +50,10 @@ export const LETTERS: readonly LetterInfo[] = [
   { letter: 'ס', id: 'samekh', name: 'סָמֶךְ', word: 'סֵפֶר', wordLine: 'prop.book', area: 'kids', hidesOn: 'book' },
   { letter: 'ע', id: 'ayin', name: 'עַיִן', word: 'עוּגָה', wordLine: 'prop.cake', area: 'kitchen', hidesOn: 'cake' },
   { letter: 'פ', id: 'pe', name: 'פֵּא', word: 'פִּיל', wordLine: 'prop.elephant', area: 'gan', hidesOn: 'gan-elephant' },
-  { letter: 'צ', id: 'tsadi', name: 'צָדִי', word: 'צָב', wordLine: 'letter.word.tsadi', area: 'later' },
+  { letter: 'צ', id: 'tsadi', name: 'צָדִי', word: 'צָב', wordLine: 'prop.turtle', area: 'beach', hidesOn: 'beach-turtle' },
   { letter: 'ק', id: 'qof', name: 'קוֹף', word: 'קוֹף', wordLine: 'prop.monkey', area: 'gan', hidesOn: 'gan-monkey' },
   { letter: 'ר', id: 'resh', name: 'רֵישׁ', word: 'רַכֶּבֶת', wordLine: 'prop.train', area: 'kids', hidesOn: 'train' },
-  { letter: 'ש', id: 'shin', name: 'שִׁין', word: 'שֶׁמֶשׁ', wordLine: 'letter.word.shin', area: 'later' },
+  { letter: 'ש', id: 'shin', name: 'שִׁין', word: 'שֶׁמֶשׁ', wordLine: 'prop.sun', area: 'beach', hidesOn: 'beach-sun' },
   { letter: 'ת', id: 'tav', name: 'תָּו', word: 'תַּפּוּחַ', wordLine: 'prop.apple', area: 'kitchen', hidesOn: 'apple' },
 ];
 

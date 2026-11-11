@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+  <defs>
+    <clipPath id="bu-furled"><path d="M100 20 Q126 40 121 82 Q116 124 104 160 H96 Q84 124 79 82 Q74 40 100 20Z"/></clipPath>
+  </defs>
+  <!-- Pole (same position as umbrella-open.svg) -->
+  <rect x="95" y="16" width="10" height="256" rx="5" fill="#C4966B" stroke="#6B4C35" stroke-width="3.5"/>
+  <path d="M98 170 V240" stroke="#DDB78F" stroke-width="3" stroke-linecap="round"/>
+  <!-- Little heap of sand where the pole is stuck in -->
+  <path d="M64 280 Q70 262 100 260 Q130 262 136 280Z" fill="#F2D59B" stroke="#D2AE68" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M82 268 Q90 264 98 264" fill="none" stroke="#F8E6BF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Furled canopy wrapped around the pole -->
+  <path d="M100 20 Q126 40 121 82 Q116 124 104 160 H96 Q84 124 79 82 Q74 40 100 20Z" fill="#FFFFFF"/>
+  <g clip-path="url(#bu-furled)" fill="#E5508A">
+    <path d="M70 30 Q90 80 92 170 H80 Q78 90 60 40Z"/>
+    <path d="M100 18 Q112 80 104 170 H116 Q122 80 112 22Z"/>
+  </g>
+  <path d="M100 20 Q126 40 121 82 Q116 124 104 160 H96 Q84 124 79 82 Q74 40 100 20Z" fill="none" stroke="#B8396A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M86 44 Q84 60 86 76" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+  <!-- Tie strap -->
+  <rect x="78" y="96" width="44" height="12" rx="6" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+  <circle cx="100" cy="14" r="7" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+</svg>

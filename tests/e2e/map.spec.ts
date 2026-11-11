@@ -46,8 +46,8 @@ test.describe('neighbourhood map', () => {
 
   test('a locked place says its name and "soon", and stays on the map', async ({ page }) => {
     await openGame(page, 'map');
-    await tap(page, await mapPoint(page, 'beach'));
-    await expect.poll(async () => (await spoken(page)).slice(-1)).toEqual(['place.beach']);
+    await tap(page, await mapPoint(page, 'station'));
+    await expect.poll(async () => (await spoken(page)).slice(-1)).toEqual(['place.station']);
     await page.waitForTimeout(500);
     expect(await here(page)).toBe('map');
   });

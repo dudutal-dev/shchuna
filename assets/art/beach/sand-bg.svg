@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <!-- Sky (no sun: the sun is a separate prop) -->
+  <rect width="1100" height="600" fill="#BFE6FF"/>
+  <g fill="#FFFFFF">
+    <circle cx="250" cy="104" r="22"/><circle cx="280" cy="88" r="30"/><circle cx="314" cy="104" r="21"/><rect x="250" y="100" width="64" height="25" rx="12"/>
+    <circle cx="620" cy="166" r="15"/><circle cx="642" cy="154" r="22"/><circle cx="667" cy="166" r="15"/><rect x="620" y="160" width="47" height="21" rx="10"/>
+  </g>
+  <path d="M262 84 Q270 72 284 70" fill="none" stroke="#E6F6FF" stroke-width="5" stroke-linecap="round"/>
+  <!-- Far sea with a soft horizon at y 300 -->
+  <rect y="300" width="1100" height="90" fill="#58B8EA"/>
+  <rect y="300" width="1100" height="14" fill="#4FA8DB"/>
+  <path d="M0 300 H1100" stroke="#3B8DBF" stroke-width="3"/>
+  <path d="M120 332 q12 -7 24 0 t24 0 M420 326 q12 -7 24 0 t24 0 M690 338 q12 -7 24 0 t24 0" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+  <!-- Wet sand strip with foam at the waterline (y 360 at both edges) -->
+  <path d="M0 360 Q140 352 280 360 Q420 368 560 360 Q700 352 840 362 Q970 370 1100 360 V600 H0Z" fill="#DEBD7E"/>
+  <path d="M0 360 Q140 352 280 360 Q420 368 560 360 Q700 352 840 362 Q970 370 1100 360" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>
+  <path d="M60 374 H110 M330 380 H372 M610 372 H660" stroke="#CBA766" stroke-width="4" stroke-linecap="round"/>
+  <!-- Palm tree planted on the promenade, far right -->
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <path d="M1030 346 Q1036 240 1000 132" fill="none" stroke="#6B4C35" stroke-width="26"/>
+    <path d="M1030 346 Q1036 240 1000 132" fill="none" stroke="#A97C55" stroke-width="18"/>
+    <path d="M1023 320 h16 M1025 290 h16 M1023 260 h16 M1019 230 h16 M1013 200 h16 M1007 172 h16" stroke="#8A6A4F" stroke-width="4"/>
+    <g fill="#7FAF6B" stroke="#55864A" stroke-width="4">
+      <path d="M1000 130 Q940 96 880 128 Q930 110 1000 136Z"/>
+      <path d="M1000 130 Q930 150 900 210 Q950 160 1004 138Z"/>
+      <path d="M1000 130 Q1060 92 1120 116 Q1060 108 1004 136Z"/>
+      <path d="M1000 130 Q1070 150 1096 214 Q1050 160 998 138Z"/>
+      <path d="M1000 130 Q980 70 1020 40 Q1000 80 1006 132Z"/>
+      <path d="M1000 130 Q950 66 900 70 Q950 84 996 134Z"/>
+    </g>
+    <path d="M940 112 Q966 108 990 120" fill="none" stroke="#A3CC8E" stroke-width="4"/>
+    <g fill="#A97C55" stroke="#6B4C35" stroke-width="3.5"><circle cx="992" cy="144" r="9"/><circle cx="1010" cy="146" r="9"/></g>
+  </g>
+  <!-- Promenade: low stone wall with a railing -->
+  <path d="M860 420 V354 Q860 342 874 342 H1100 V420Z" fill="#F3E3C3"/>
+  <path d="M1100 342 H874 Q860 342 860 354 V420" fill="none" stroke="#E2CDA3" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M866 366 H1100 M866 392 H1100 M920 342 V366 M1060 342 V366 M990 366 V392 M930 392 V404 M1050 392 V404" stroke="#E2CDA3" stroke-width="3"/>
+  <g stroke-linecap="round">
+    <path d="M884 342 V292 M924 342 V292 M964 342 V292 M1004 342 V292 M1044 342 V292 M1084 342 V292" stroke="#2F7264" stroke-width="9"/>
+    <path d="M876 294 H1100 M876 318 H1100" stroke="#2F7264" stroke-width="10"/>
+    <path d="M884 342 V292 M924 342 V292 M964 342 V292 M1004 342 V292 M1044 342 V292 M1084 342 V292" stroke="#3E8E7E" stroke-width="4"/>
+    <path d="M876 294 H1100 M876 318 H1100" stroke="#3E8E7E" stroke-width="5"/>
+  </g>
+  <!-- Warm dry sand (y 400 down) -->
+  <path d="M0 402 Q180 394 360 402 Q540 410 720 400 Q900 392 1100 402 V600 H0Z" fill="#F2D59B"/>
+  <path d="M0 402 Q180 394 360 402 Q540 410 720 400 Q900 392 1100 402" fill="none" stroke="#D2AE68" stroke-width="4"/>
+  <path d="M80 430 Q130 420 190 428 M560 452 Q620 442 680 450 M300 520 Q360 510 420 518 M820 540 Q880 530 940 538" fill="none" stroke="#F8E6BF" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#E3C072"><circle cx="140" cy="470" r="3"/><circle cx="260" cy="440" r="3"/><circle cx="410" cy="480" r="3"/><circle cx="520" cy="560" r="3"/><circle cx="700" cy="490" r="3"/><circle cx="860" cy="460" r="3"/><circle cx="980" cy="510" r="3"/><circle cx="70" cy="560" r="3"/><circle cx="640" cy="580" r="3"/><circle cx="1040" cy="580" r="3"/></g>
+  <path d="M220 584 Q250 574 280 584 M760 590 Q790 580 820 590" fill="none" stroke="#E3C072" stroke-width="3" stroke-linecap="round"/>
+</svg>

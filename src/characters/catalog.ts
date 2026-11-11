@@ -48,6 +48,8 @@ export const OUTFITS: Readonly<Record<string, Outfit>> = {
   stripes: { top: 'sweater', bottom: 'shorts', topColor: 0xe4573d, bottomColor: 0x3b4a6b, shoesColor: 0x58b8ea },
   // The cook's white shirt and dark trousers.
   cook: { top: 'tshirt', bottom: 'pants', topColor: 0xf7f1e3, bottomColor: 0x3b4a6b, shoesColor: 0x6b4c35 },
+  // The lifeguard's red shirt and yellow shorts.
+  lifeguard: { top: 'tshirt', bottom: 'shorts', topColor: 0xe4573d, bottomColor: 0xffc23c, shoesColor: 0xf3e3c3 },
   // The doctor's white coat over teal trousers.
   whitecoat: { top: 'sweater', bottom: 'pants', topColor: 0xffffff, bottomColor: 0x3e8e7e, shoesColor: 0xf3f3f3 },
 };
@@ -194,6 +196,30 @@ export function falafelPeople(): Character[] {
       y: 450,
       on: 'stool-2',
       pose: 'sit',
+    },
+  ];
+}
+
+/** The beach's people: the lifeguard up on the tower, and a child on the sand. */
+export function beachPeople(): Character[] {
+  return [
+    // Sitting on LIFEGUARD_SEAT in beach.data.ts.
+    {
+      id: 'beach-1',
+      appearance: { body: 'adult', skinTone: 2, hair: 'short', hairColor: 'blonde', outfit: 'lifeguard', accessory: 'cap' },
+      location: 'beach',
+      x: 250,
+      y: 280,
+      on: 'tower-seat',
+      pose: 'sit',
+    },
+    {
+      id: 'beach-2',
+      appearance: { body: 'kid', skinTone: 4, hair: 'ponytail', hairColor: 'black', outfit: 'sunny' },
+      location: 'beach',
+      x: 1420,
+      y: 550,
+      pose: 'stand',
     },
   ];
 }
