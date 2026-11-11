@@ -84,4 +84,14 @@ test.describe('letter hunt', () => {
     // The other letters are still waiting.
     expect(await page.evaluate(() => window.__shchuna!.letterCenter('cake'))).not.toBeNull();
   });
+
+  test('alef waits on the watermelon in the makolet', async ({ page }, testInfo) => {
+    await openGame(page, 'makolet');
+    await scrollTo(page, 'mk-watermelon');
+    await tap(page, await point(page, () => window.__shchuna!.letterCenter('mk-watermelon')));
+    await expect.poll(() => found(page)).toEqual(['א']);
+    expect(await spoken(page)).toContain('letter.found.alef');
+    await page.waitForTimeout(700);
+    await page.screenshot({ path: `docs/screens/m9-alef-${testInfo.project.name}.png` });
+  });
 });

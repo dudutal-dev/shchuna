@@ -899,6 +899,150 @@
       "text": "תְּרוּפָה",
       "durationMs": 1360,
       "hash": "a55603656adbbdc63747ef3cb63694e5b758ade2b936cfcf446d8c457bc8e60a"
+    },
+    "letter.found.alef.m": {
+      "file": "public/audio/lines/letter.found.alef.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת אָלֶף! אֲבַטִּיחַ.",
+      "durationMs": 2640,
+      "hash": "553a21d66709798380ae03b47a817e531bbb8ea0d1f6901fbf4b93a6afa30fb7"
+    },
+    "letter.found.alef.f": {
+      "file": "public/audio/lines/letter.found.alef.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת אָלֶף! אֲבַטִּיחַ.",
+      "durationMs": 2880,
+      "hash": "62421826622c020a8a6844ee6e01e5b226762ac8089aaca45f028746dc9f2624"
+    },
+    "letter.name.alef": {
+      "file": "public/audio/lines/letter.name.alef.mp3",
+      "text": "אָלֶף",
+      "durationMs": 960,
+      "hash": "bd3921bfbb9d6a5dfda7ce77ec127dcca2ced3817cd1eeb5c7df56f29ef027ac"
+    },
+    "letter.found.gimel.m": {
+      "file": "public/audio/lines/letter.found.gimel.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת גִּימֶל! גְּלִידָה.",
+      "durationMs": 2720,
+      "hash": "4aa15a6057bfe35c736c450edb34c56a03df63d56ae2c11745925a020bc0ae23"
+    },
+    "letter.found.gimel.f": {
+      "file": "public/audio/lines/letter.found.gimel.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת גִּימֶל! גְּלִידָה.",
+      "durationMs": 3040,
+      "hash": "b7a5683731b489768a692eb52729333064e08e036d0f7a53be8ef6e802fe3339"
+    },
+    "letter.name.gimel": {
+      "file": "public/audio/lines/letter.name.gimel.mp3",
+      "text": "גִּימֶל",
+      "durationMs": 2000,
+      "hash": "5eda104b4f3efa1531310980c6d33946f9b278c05b64ffc511544fb2ff29720d"
+    },
+    "letter.found.he.m": {
+      "file": "public/audio/lines/letter.found.he.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת הֵא! הִפּוֹפּוֹטָם.",
+      "durationMs": 2800,
+      "hash": "a70aceb965d91cab4d7c6297a6405a6af306a7cb955df27b4d7b3745fb57f7a9"
+    },
+    "letter.found.he.f": {
+      "file": "public/audio/lines/letter.found.he.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת הֵא! הִפּוֹפּוֹטָם.",
+      "durationMs": 2480,
+      "hash": "84c16a0ea1f93fab807572816c8d3e23fc8fbc70c8daabbe96cca7bf26c1ec0b"
+    },
+    "letter.name.he": {
+      "file": "public/audio/lines/letter.name.he.mp3",
+      "text": "הֵא",
+      "durationMs": 480,
+      "hash": "22eaed001d80e8e581e491f0e795b04cbe939683df4e9c756bc42cd89135a5c8"
+    },
+    "letter.found.vav.m": {
+      "file": "public/audio/lines/letter.found.vav.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת וָו! וֶרֶד.",
+      "durationMs": 2480,
+      "hash": "4b6ab6aa4b7de00477b6f35811b05f0c187ab0eea9390f876b01bc9c9938c6fb"
+    },
+    "letter.found.vav.f": {
+      "file": "public/audio/lines/letter.found.vav.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת וָו! וֶרֶד.",
+      "durationMs": 2640,
+      "hash": "d8e238be6d418ff3f691da4662afee0c0c317372c26487fc2522d7130ea415fd"
+    },
+    "letter.name.vav": {
+      "file": "public/audio/lines/letter.name.vav.mp3",
+      "text": "וָו",
+      "durationMs": 720,
+      "hash": "bf4302dc1655c346a82b771fd6a87aa3bb5f639c9521cc8647e9c8557ecb13f6"
+    },
+    "letter.found.zayin.m": {
+      "file": "public/audio/lines/letter.found.zayin.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת זַיִן! זַיִת.",
+      "durationMs": 2560,
+      "hash": "b87bdcc7c87fdd54a64c55128a7a639b1c5e99439c4d41f07e82e3bba54849bf"
+    },
+    "letter.found.zayin.f": {
+      "file": "public/audio/lines/letter.found.zayin.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת זַיִן! זַיִת.",
+      "durationMs": 3280,
+      "hash": "b32f5a31b1a8e7e9007bc1477f89b8b02110562f3ef79d0e4e4756768095d6d2"
+    },
+    "letter.name.zayin": {
+      "file": "public/audio/lines/letter.name.zayin.mp3",
+      "text": "זַיִן",
+      "durationMs": 1520,
+      "hash": "b0a3c4bec2d825d4325295ddf7a84086a27bb225995f31568bea52837f7efef6"
+    },
+    "letter.found.nun.m": {
+      "file": "public/audio/lines/letter.found.nun.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת נוּן! נֵר.",
+      "durationMs": 2400,
+      "hash": "e728d0cf788062eee169c68ba64168a2ca86531e5fbf0d0b45132e8389ff0678"
+    },
+    "letter.found.nun.f": {
+      "file": "public/audio/lines/letter.found.nun.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת נוּן! נֵר.",
+      "durationMs": 2400,
+      "hash": "66297724ed4ddaa598c71c69a11ebb944d0bcc732a2e799ea3ea9067160d4e30"
+    },
+    "letter.name.nun": {
+      "file": "public/audio/lines/letter.name.nun.mp3",
+      "text": "נוּן",
+      "durationMs": 880,
+      "hash": "b6764217e0d0cad5fc75bfbdd5866ffaa5ead10052eb6ea61e59893f1eeebaa1"
+    },
+    "letter.found.resh.m": {
+      "file": "public/audio/lines/letter.found.resh.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת רֵישׁ! רַכֶּבֶת.",
+      "durationMs": 2880,
+      "hash": "2140bfa334195fc91caa77dfa2b08fbcb0c0f6f33c7eb944f60118bda6bd1494"
+    },
+    "letter.found.resh.f": {
+      "file": "public/audio/lines/letter.found.resh.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת רֵישׁ! רַכֶּבֶת.",
+      "durationMs": 2800,
+      "hash": "be6e8a52174a72522170c6e3334319bf2edcf4cb26527d2c96e8f7006a69633a"
+    },
+    "letter.name.resh": {
+      "file": "public/audio/lines/letter.name.resh.mp3",
+      "text": "רֵישׁ",
+      "durationMs": 1200,
+      "hash": "38e8d81a1d048e3c9610ef24d91758c6bbacdd9b02d176947fcd15767b1516b8"
+    },
+    "letter.word.vav": {
+      "file": "public/audio/lines/letter.word.vav.mp3",
+      "text": "וֶרֶד",
+      "durationMs": 1040,
+      "hash": "ab0ee9c4a9f5b1d09197aac606cb63a71aead5ef2f40b0f2de985cc04efbd948"
+    },
+    "letter.word.zayin": {
+      "file": "public/audio/lines/letter.word.zayin.mp3",
+      "text": "זַיִת",
+      "durationMs": 1760,
+      "hash": "9021931c8924f32c1fdeb7ad22ffa637c87f3c5ec2239521fb7e75672d2f13ab"
+    },
+    "letter.word.nun": {
+      "file": "public/audio/lines/letter.word.nun.mp3",
+      "text": "נֵר",
+      "durationMs": 880,
+      "hash": "6a355d68309212a8dab826271c1f4c0ec5d43bfce8da13ac66123464f1fd7bec"
     }
   }
 }
