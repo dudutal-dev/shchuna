@@ -1,7 +1,7 @@
 import { get, set } from 'idb-keyval';
 import type { HebrewLetter, SaveGame } from '../types';
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
 export const SAVE_DEBOUNCE_MS = 2000;
 const SAVE_KEY = 'shchuna.save';
 const BACKUP_KEY = 'shchuna.save.unreadable';
@@ -28,7 +28,7 @@ export function createNewSave(now: number = Date.now()): SaveGame {
     letters: LETTERS.map((letter) => ({ letter, found: false, timesHeard: 0 })),
     wallet: 20,
     settings: { music: 0.5, voice: 1, sfx: 0.8, showNiqqud: true, addressGender: 'm' },
-    unlocked: ['home', 'makolet'],
+    unlocked: ['home', 'makolet', 'gan'],
   };
 }
 
@@ -36,7 +36,13 @@ type RawSave = Record<string, unknown>;
 export type Migrations = Record<number, (save: RawSave) => RawSave>;
 
 /** Each entry upgrades a save from version N to N + 1. */
-const MIGRATIONS: Migrations = {};
+const MIGRATIONS: Migrations = {
+  // 1 → 2: the gan opens.
+  1: (save) => {
+    const unlocked = Array.isArray(save.unlocked) ? (save.unlocked as string[]) : [];
+    return { ...save, unlocked: unlocked.includes('gan') ? unlocked : [...unlocked, 'gan'] };
+  },
+};
 
 function isSaveShape(value: RawSave): boolean {
   return (

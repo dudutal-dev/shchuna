@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#FFE4CF"/>
+  <!-- Plaster courses on the wall -->
+  <g fill="none" stroke="#F4CDB0" stroke-width="3" stroke-linecap="round">
+    <path d="M0 120H1100M0 230H1100M0 340H1100"/>
+    <path d="M420 120V230M720 120V230M1040 120V230M520 230V340M860 230V340M60 340V430M460 340V430M780 340V430M1060 340V430M560 0V120"/>
+  </g>
+  <!-- Low painted dado band -->
+  <rect y="372" width="1100" height="58" fill="#BFE3D6"/>
+  <path d="M0 372H1100" stroke="#8FC4B1" stroke-width="5"/>
+  <g fill="#FFFFFF" opacity=".7">
+    <circle cx="60" cy="400" r="6"/><circle cx="160" cy="400" r="6"/><circle cx="260" cy="400" r="6"/><circle cx="360" cy="400" r="6"/><circle cx="460" cy="400" r="6"/><circle cx="560" cy="400" r="6"/><circle cx="660" cy="400" r="6"/><circle cx="760" cy="400" r="6"/><circle cx="860" cy="400" r="6"/><circle cx="960" cy="400" r="6"/><circle cx="1060" cy="400" r="6"/>
+  </g>
+  <!-- Paper garland: string with circles, stars and flags -->
+  <path d="M20 26 Q290 96 560 26 Q830 96 1080 26" fill="none" stroke="#8A6A4F" stroke-width="3"/>
+  <g stroke-width="3" stroke-linejoin="round">
+    <circle cx="80" cy="56" r="15" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M140 62 L172 68 L154 100Z" fill="#FFC23C" stroke="#C78F1E"/>
+    <path transform="translate(220 86)" d="M0-17L4.5-6.2 16.2-5.3 7.3 2.4 10 13.8 0 7.7-10 13.8-7.3 2.4-16.2-5.3-4.5-6.2Z" fill="#58B8EA" stroke="#3B8DBF"/>
+    <path d="M270 74 L302 76 L286 108Z" fill="#7FAF6B" stroke="#55864A"/>
+    <circle cx="340" cy="86" r="15" fill="#F7934C" stroke="#C96A2C"/>
+    <path d="M390 72 L422 70 L406 104Z" fill="#9B7FD1" stroke="#6E55A6"/>
+    <path transform="translate(460 70)" d="M0-17L4.5-6.2 16.2-5.3 7.3 2.4 10 13.8 0 7.7-10 13.8-7.3 2.4-16.2-5.3-4.5-6.2Z" fill="#E5508A" stroke="#B8396A"/>
+    <circle cx="515" cy="50" r="14" fill="#FFC23C" stroke="#C78F1E"/>
+    <circle cx="610" cy="52" r="14" fill="#58B8EA" stroke="#3B8DBF"/>
+    <path d="M650 62 L682 66 L666 100Z" fill="#7FAF6B" stroke="#55864A"/>
+    <path transform="translate(730 84)" d="M0-17L4.5-6.2 16.2-5.3 7.3 2.4 10 13.8 0 7.7-10 13.8-7.3 2.4-16.2-5.3-4.5-6.2Z" fill="#FFC23C" stroke="#C78F1E"/>
+    <circle cx="800" cy="88" r="15" fill="#9B7FD1" stroke="#6E55A6"/>
+    <path d="M846 76 L878 74 L862 108Z" fill="#E5508A" stroke="#B8396A"/>
+    <circle cx="920" cy="78" r="15" fill="#F7934C" stroke="#C96A2C"/>
+    <path transform="translate(980 64)" d="M0-17L4.5-6.2 16.2-5.3 7.3 2.4 10 13.8 0 7.7-10 13.8-7.3 2.4-16.2-5.3-4.5-6.2Z" fill="#58B8EA" stroke="#3B8DBF"/>
+    <path d="M1020 44 L1052 38 L1038 72Z" fill="#FFC23C" stroke="#C78F1E"/>
+  </g>
+  <g fill="#8A6A4F"><circle cx="20" cy="26" r="6"/><circle cx="560" cy="26" r="6"/><circle cx="1080" cy="26" r="6"/></g>
+  <!-- Big window with a tree outside -->
+  <g transform="translate(110 132)">
+    <rect x="-10" y="-10" width="300" height="230" rx="24" fill="#FFF7E6" stroke="#E0B892" stroke-width="5"/>
+    <rect width="280" height="210" rx="16" fill="#BFE6FF"/>
+    <g fill="#FFFFFF"><circle cx="40" cy="40" r="12"/><circle cx="56" cy="34" r="15"/><circle cx="72" cy="42" r="10"/></g>
+    <path d="M0 160 Q90 128 180 150 T280 140 V194 Q280 210 264 210 H16 Q0 210 0 194Z" fill="#9FCB80"/>
+    <rect x="186" y="100" width="16" height="70" rx="6" fill="#8A6A4F"/>
+    <path d="M194 134 L214 116" stroke="#8A6A4F" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="194" cy="76" r="44" fill="#5E9457"/>
+    <circle cx="158" cy="98" r="28" fill="#6FA263"/>
+    <circle cx="232" cy="96" r="28" fill="#6FA263"/>
+    <circle cx="208" cy="58" r="22" fill="#6FA263"/>
+    <g fill="#FFC23C"><circle cx="170" cy="86" r="5"/><circle cx="214" cy="104" r="5"/><circle cx="196" cy="62" r="5"/><circle cx="236" cy="82" r="5"/></g>
+    <g fill="#E5508A"><circle cx="30" cy="176" r="5"/><circle cx="62" cy="184" r="5"/><circle cx="110" cy="174" r="5"/></g>
+    <path d="M140 0V210M0 105H280" stroke="#FFF7E6" stroke-width="8"/>
+  </g>
+  <rect x="88" y="356" width="324" height="16" rx="8" fill="#FFF7E6" stroke="#E0B892" stroke-width="4"/>
+  <!-- Pinned kids' drawings -->
+  <g stroke-linejoin="round">
+    <!-- sun drawing -->
+    <g transform="translate(470 150) rotate(-4)">
+      <rect width="110" height="90" rx="6" fill="#FFFFFF" stroke="#E2CDA3" stroke-width="4"/>
+      <g stroke="#FFC23C" stroke-width="5" stroke-linecap="round"><path d="M55 14V24M55 66V76M24 45H34M76 45H86M33 23L40 30M70 60L77 67M33 67L40 60M70 30L77 23"/></g>
+      <circle cx="55" cy="45" r="16" fill="#FFC23C"/>
+      <circle cx="55" cy="6" r="6" fill="#E5508A" stroke="#B8396A" stroke-width="2.5"/>
+    </g>
+    <!-- flower drawing -->
+    <g transform="translate(610 170) rotate(5)">
+      <rect width="100" height="110" rx="6" fill="#FFFDF2" stroke="#E2CDA3" stroke-width="4"/>
+      <path d="M50 52 Q46 76 52 98" fill="none" stroke="#7FAF6B" stroke-width="5" stroke-linecap="round"/>
+      <path d="M50 82 Q34 70 26 80 Q38 90 50 84" fill="#7FAF6B"/>
+      <g fill="#E5508A"><circle cx="50" cy="30" r="10"/><circle cx="64" cy="40" r="10"/><circle cx="58" cy="56" r="10"/><circle cx="42" cy="56" r="10"/><circle cx="36" cy="40" r="10"/></g>
+      <circle cx="50" cy="44" r="8" fill="#FFC23C"/>
+      <circle cx="50" cy="6" r="6" fill="#58B8EA" stroke="#3B8DBF" stroke-width="2.5"/>
+    </g>
+    <!-- scribble blobs drawing -->
+    <g transform="translate(760 140) rotate(-6)">
+      <rect width="120" height="88" rx="6" fill="#FFFFFF" stroke="#E2CDA3" stroke-width="4"/>
+      <path d="M20 60 Q24 30 46 36 Q62 20 70 44 Q84 58 64 66 Q40 78 20 60Z" fill="#58B8EA"/>
+      <circle cx="90" cy="34" r="12" fill="#F7934C"/>
+      <path d="M16 74 Q40 62 60 76 T104 70" fill="none" stroke="#9B7FD1" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="60" cy="6" r="6" fill="#FFC23C" stroke="#C78F1E" stroke-width="2.5"/>
+    </g>
+    <!-- house and rainbow drawing -->
+    <g transform="translate(920 170) rotate(4)">
+      <rect width="120" height="100" rx="6" fill="#FFFDF2" stroke="#E2CDA3" stroke-width="4"/>
+      <path d="M14 70 Q14 22 60 22 Q106 22 106 70" fill="none" stroke="#E5508A" stroke-width="6" stroke-linecap="round"/>
+      <path d="M24 70 Q24 32 60 32 Q96 32 96 70" fill="none" stroke="#FFC23C" stroke-width="6" stroke-linecap="round"/>
+      <path d="M34 70 Q34 42 60 42 Q86 42 86 70" fill="none" stroke="#58B8EA" stroke-width="6" stroke-linecap="round"/>
+      <path d="M44 88 V70 L60 56 L76 70 V88Z" fill="#F7934C"/>
+      <rect x="55" y="74" width="10" height="14" rx="3" fill="#8A6A4F"/>
+      <circle cx="60" cy="6" r="6" fill="#7FAF6B" stroke="#55864A" stroke-width="2.5"/>
+    </g>
+    <!-- small hand print -->
+    <g transform="translate(830 270) rotate(3)">
+      <rect width="90" height="80" rx="6" fill="#FFFFFF" stroke="#E2CDA3" stroke-width="4"/>
+      <g fill="#7FAF6B">
+        <ellipse cx="45" cy="52" rx="17" ry="15"/>
+        <rect x="25" y="22" width="9" height="26" rx="4.5"/><rect x="36" y="16" width="9" height="30" rx="4.5"/><rect x="47" y="16" width="9" height="30" rx="4.5"/><rect x="58" y="22" width="9" height="26" rx="4.5"/>
+        <rect x="58" y="44" width="9" height="20" rx="4.5" transform="rotate(-50 62 54)"/>
+      </g>
+      <circle cx="45" cy="6" r="6" fill="#E5508A" stroke="#B8396A" stroke-width="2.5"/>
+    </g>
+  </g>
+  <!-- Soft lino floor -->
+  <rect y="430" width="1100" height="170" fill="#EFD3A8"/>
+  <rect y="430" width="1100" height="10" fill="#DDBA88"/>
+  <g stroke="#E2C293" stroke-width="4" stroke-linecap="round">
+    <path d="M0 486H1100M0 540H1100"/>
+    <path d="M90 440V486M300 440V486M520 440V486M760 440V486M980 440V486M200 486V540M420 486V540M650 486V540M880 486V540M60 540V600M330 540V600M560 540V600M820 540V600M1050 540V600"/>
+  </g>
+  <!-- Round rug -->
+  <ellipse cx="700" cy="516" rx="230" ry="56" fill="#F4A6C3" stroke="#D07798" stroke-width="4"/>
+  <ellipse cx="700" cy="516" rx="170" ry="40" fill="#FFE08A" stroke="#E3B94A" stroke-width="4"/>
+  <ellipse cx="700" cy="516" rx="100" ry="24" fill="#9ED5EE" stroke="#6FB2D3" stroke-width="4"/>
+  <ellipse cx="700" cy="516" rx="36" ry="9" fill="#FFFFFF" opacity=".7"/>
+</svg>

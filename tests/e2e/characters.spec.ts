@@ -22,7 +22,9 @@ async function openCreator(page: Page): Promise<void> {
 test.describe('characters', () => {
   test('a new game has a family of four in the living room', async ({ page }, testInfo) => {
     await openGame(page, 'home');
-    const family = await page.evaluate(() => window.__shchuna!.state().characters);
+    const family = await page.evaluate(() =>
+      window.__shchuna!.state().characters.filter((c) => c.location === 'home'),
+    );
     expect(family).toHaveLength(4);
     await scrollTo(page, 'family-2');
     await page.screenshot({ path: `docs/screens/m4-family-${testInfo.project.name}.png` });

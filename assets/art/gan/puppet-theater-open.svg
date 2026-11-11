@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="300" viewBox="0 0 260 300">
+  <!-- Feet -->
+  <g fill="#A87B54" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round">
+    <rect x="22" y="282" width="34" height="16" rx="6"/>
+    <rect x="204" y="282" width="34" height="16" rx="6"/>
+  </g>
+  <!-- Booth body -->
+  <rect x="12" y="40" width="236" height="248" rx="14" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Crest on top -->
+  <path d="M20 52 Q20 22 60 22 Q90 4 130 4 Q170 4 200 22 Q240 22 240 52Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="130" cy="30" r="10" fill="#E5508A" stroke="#B8396A" stroke-width="3"/>
+  <g fill="#58B8EA" stroke="#3B8DBF" stroke-width="3"><circle cx="82" cy="36" r="7"/><circle cx="178" cy="36" r="7"/></g>
+  <path d="M48 30 Q60 22 76 20" fill="none" stroke="#FFE08A" stroke-width="5" stroke-linecap="round"/>
+  <!-- Stage opening -->
+  <rect x="34" y="86" width="192" height="108" rx="10" fill="#8E6A4C" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Plain backdrop -->
+  <rect x="38" y="90" width="184" height="100" rx="8" fill="#CFE8F6"/>
+  <path d="M38 166 Q90 150 130 160 T222 154 V182 Q222 190 214 190 H46 Q38 190 38 182Z" fill="#B9DDA8"/>
+  <g fill="#FFFFFF" opacity=".8"><circle cx="100" cy="124" r="5"/><circle cx="160" cy="116" r="4"/><circle cx="182" cy="138" r="5"/><circle cx="84" cy="146" r="4"/></g>
+  <!-- Curtains drawn to the sides -->
+  <g stroke="#A82E46" stroke-width="4" stroke-linejoin="round">
+    <path d="M36 96 H74 Q60 128 70 146 Q78 168 64 190 H36Z" fill="#D9384F"/>
+    <path d="M224 96 H186 Q200 128 190 146 Q182 168 196 190 H224Z" fill="#D9384F"/>
+  </g>
+  <path d="M50 106 Q48 124 52 138 M210 106 Q212 124 208 138" fill="none" stroke="#B42F44" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#FFC23C" stroke="#C78F1E" stroke-width="3" stroke-linejoin="round">
+    <rect x="38" y="138" width="36" height="10" rx="5"/>
+    <rect x="186" y="138" width="36" height="10" rx="5"/>
+  </g>
+  <!-- Valance -->
+  <path d="M34 80 H226 V100 Q218 110 210 100 Q202 110 194 100 Q186 110 178 100 Q170 110 162 100 Q154 110 146 100 Q138 110 130 100 Q122 110 114 100 Q106 110 98 100 Q90 110 82 100 Q74 110 66 100 Q58 110 50 100 Q42 110 34 100Z" fill="#E5508A" stroke="#B8396A" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="26" y="66" width="208" height="18" rx="9" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Stage ledge (puppets stand at y 190) -->
+  <rect x="22" y="188" width="216" height="16" rx="8" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M34 194 H150" stroke="#DDB78F" stroke-width="4" stroke-linecap="round"/>
+  <!-- Lower painted panel -->
+  <rect x="34" y="214" width="192" height="62" rx="10" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <g stroke-width="3" stroke-linejoin="round">
+    <path transform="translate(80 245)" d="M0-14L3.7-5.1 13.3-4.3 6 2 8.2 11.3 0 6.3-8.2 11.3-6 2-13.3-4.3-3.7-5.1Z" fill="#FFC23C" stroke="#C78F1E"/>
+    <circle cx="130" cy="245" r="11" fill="#F4A6C3" stroke="#D07798"/>
+    <path transform="translate(180 245)" d="M0-14L3.7-5.1 13.3-4.3 6 2 8.2 11.3 0 6.3-8.2 11.3-6 2-13.3-4.3-3.7-5.1Z" fill="#FFC23C" stroke="#C78F1E"/>
+  </g>
+  <path d="M22 56 V170" stroke="#DDB78F" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { HIDDEN_LETTERS, LETTERS } from '../../src/content/letters';
 import { PLACES } from '../../src/content/places';
+import { gan } from '../../src/locations/gan/gan.data';
 import { propDefs } from '../../src/content/props';
 import voiceLines from '../../src/content/voice-lines.json';
 import { createNewSave } from '../../src/engine/SaveManager';
@@ -24,9 +25,13 @@ describe('letters content', () => {
     for (const l of LETTERS) expect(l.word.startsWith(l.letter)).toBe(true);
   });
 
-  it('hides the eight phase-0 letters on props in the home, or on a place on the map', () => {
-    expect(HIDDEN_LETTERS.map((l) => l.letter).sort().join('')).toBe('בדחכלסעת');
-    const ids = new Set([...home.props.map((p) => p.id), ...PLACES.map((p) => `map-${p.id}`)]);
+  it('hides eleven letters on props in the home and the gan, or on a place on the map', () => {
+    expect(HIDDEN_LETTERS.map((l) => l.letter).sort().join('')).toBe('בדחטכלסעפקת');
+    const ids = new Set([
+      ...home.props.map((p) => p.id),
+      ...gan.props.map((p) => p.id),
+      ...PLACES.map((p) => `map-${p.id}`),
+    ]);
     for (const l of HIDDEN_LETTERS) expect(ids.has(l.hidesOn!), l.hidesOn).toBe(true);
   });
 

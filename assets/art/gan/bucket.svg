@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <!-- Handle (back half) -->
+  <path d="M8 24 Q30 -6 52 24" fill="none" stroke="#C78F1E" stroke-width="7" stroke-linecap="round"/>
+  <path d="M8 24 Q30 -6 52 24" fill="none" stroke="#FFC23C" stroke-width="3" stroke-linecap="round"/>
+  <!-- Body -->
+  <path d="M7 24 L14 54 Q15 58 19 58 H41 Q45 58 46 54 L53 24Z" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M12 40 H48" stroke="#3B8DBF" stroke-width="3" stroke-linecap="round"/>
+  <!-- Rim and dark inside -->
+  <ellipse cx="30" cy="24" rx="24" ry="7" fill="#9ED5EE" stroke="#3B8DBF" stroke-width="4"/>
+  <ellipse cx="30" cy="25" rx="18" ry="4" fill="#2F7AA6"/>
+  <path d="M16 34 Q18 46 20 52" fill="none" stroke="#9ED5EE" stroke-width="4" stroke-linecap="round"/>
+  <g fill="#FFC23C" stroke="#C78F1E" stroke-width="2"><circle cx="7" cy="25" r="3"/><circle cx="53" cy="25" r="3"/></g>
+</svg>

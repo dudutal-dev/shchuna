@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="70" viewBox="0 0 130 70">
+  <g stroke-width="4" stroke-linejoin="round">
+    <!-- orange cylinder standing at the back -->
+    <path d="M12 24 V44 H36 V24Z" fill="#F7934C" stroke="#C96A2C"/>
+    <ellipse cx="24" cy="24" rx="12" ry="5" fill="#FBB27E" stroke="#C96A2C"/>
+    <!-- bottom row -->
+    <rect x="6" y="38" width="36" height="30" rx="6" fill="#E5508A" stroke="#B8396A"/>
+    <rect x="46" y="41" width="34" height="27" rx="6" fill="#FFC23C" stroke="#C78F1E" transform="rotate(-5 63 54)"/>
+    <rect x="86" y="38" width="38" height="30" rx="6" fill="#3E8E7E" stroke="#2F7264"/>
+    <!-- blue plank leaning -->
+    <rect x="30" y="28" width="62" height="13" rx="6" fill="#58B8EA" stroke="#3B8DBF" transform="rotate(-9 61 34)"/>
+    <!-- green cube tossed on top -->
+    <rect x="52" y="6" width="24" height="24" rx="5" fill="#7FAF6B" stroke="#55864A" transform="rotate(14 64 18)"/>
+    <!-- purple roof block on the teal cube -->
+    <path d="M90 37 L106 12 L122 37Z" fill="#9B7FD1" stroke="#6E55A6"/>
+  </g>
+  <g fill="none" stroke-width="3.5" stroke-linecap="round">
+    <path d="M12 46 V58" stroke="#F4A6C3"/>
+    <path d="M92 46 V58" stroke="#6FB5A8"/>
+    <path d="M40 31 L58 28" stroke="#9ED5EE"/>
+  </g>
+  <!-- painted dots on blocks -->
+  <circle cx="24" cy="53" r="5" fill="#FFFFFF" opacity=".75"/>
+  <circle cx="105" cy="53" r="5" fill="#FFFFFF" opacity=".75"/>
+</svg>

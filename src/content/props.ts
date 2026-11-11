@@ -156,6 +156,50 @@ const definitions: PropDef[] = [
     artStates: when({ full: true }, 'makolet/bag-full.svg'),
     layer: 'furniture',
   }),
+
+  // Gan: the classroom.
+  prop('puppet-theater', 'puppetTheater', {
+    art: 'gan/puppet-theater.svg',
+    artStates: when({ open: true }, 'gan/puppet-theater-open.svg'),
+    layer: 'furniture',
+    interactions: toggle('open'),
+  }),
+  prop('peacock', 'peacock', { art: 'gan/peacock.svg' }),
+  prop('elephant', 'elephant', { art: 'gan/elephant.svg' }),
+  prop('monkey', 'monkey', { art: 'gan/monkey.svg' }),
+  prop('easel', 'easel', {
+    art: 'gan/easel.svg',
+    artStates: when({ painted: true }, 'gan/easel-painted.svg'),
+    layer: 'furniture',
+    interactions: toggle('painted'),
+  }),
+  prop('blocks', 'blocks', {
+    art: 'gan/blocks.svg',
+    artStates: when({ built: true }, 'gan/blocks-tower.svg'),
+    interactions: toggle('built'),
+  }),
+  prop('cubby', 'cubby', { art: 'gan/cubby.svg', layer: 'furniture' }),
+
+  // Gan: the yard.
+  prop('slide', 'slide', { art: 'gan/slide.svg', layer: 'furniture' }),
+  prop('swing', 'swing', {
+    art: 'gan/swing.svg',
+    artStates: when({ swinging: true }, 'gan/swing-1.svg', ['gan/swing-1.svg', 'gan/swing-2.svg']),
+    layer: 'furniture',
+    interactions: toggle('swinging'),
+  }),
+  prop('sandbox', 'sandbox', {
+    art: 'gan/sandbox.svg',
+    layer: 'furniture',
+    useOnPoint: { x: 0, y: -60 },
+  }),
+  prop('bucket', 'bucket', {
+    art: 'gan/bucket.svg',
+    artStates: when({ full: true }, 'gan/bucket-full.svg'),
+    interactions: [{ type: 'useOn', target: 'sandbox', setSource: { full: true } }],
+  }),
+  prop('spade', 'spade', { art: 'gan/spade.svg' }),
+  prop('tricycle', 'tricycle', { art: 'gan/tricycle.svg' }),
 ];
 
 export const propDefs: Readonly<Record<string, PropDef>> = Object.fromEntries(

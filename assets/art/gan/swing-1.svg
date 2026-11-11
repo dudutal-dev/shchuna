@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="300" viewBox="0 0 240 300">
+  <!-- A-frame (identical in all swing files) -->
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M36 30 L14 290 M36 30 L62 290 M204 30 L178 290 M204 30 L226 290" stroke="#B32E1F" stroke-width="16" fill="none"/>
+    <path d="M36 30 L14 290 M36 30 L62 290 M204 30 L178 290 M204 30 L226 290" stroke="#F04A36" stroke-width="8" fill="none"/>
+    <path d="M24 170 H50 M190 170 H216" stroke="#B32E1F" stroke-width="10"/>
+    <path d="M24 170 H50 M190 170 H216" stroke="#F04A36" stroke-width="4"/>
+  </g>
+  <g fill="#3B8DBF" stroke="#2C6F98" stroke-width="4" stroke-linejoin="round">
+    <rect x="2" y="286" width="72" height="12" rx="6"/>
+    <rect x="166" y="286" width="72" height="12" rx="6"/>
+  </g>
+  <rect x="8" y="16" width="224" height="20" rx="10" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4"/>
+  <path d="M22 24 H120" stroke="#9ED5EE" stroke-width="4" stroke-linecap="round"/>
+  <g fill="none" stroke="#8A8F96" stroke-width="3.5"><circle cx="98" cy="38" r="4"/><circle cx="142" cy="38" r="4"/></g>
+  <!-- Ropes and seat -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M98 42 L128 208 M142 42 L172 208" stroke="#8A6A4F" stroke-width="7"/>
+    <path d="M98 42 L128 208 M142 42 L172 208" stroke="#E2C293" stroke-width="3"/>
+  </g>
+  <rect x="118" y="204" width="64" height="14" rx="7" fill="#FFC23C" stroke="#C78F1E" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M126 209 H150" stroke="#FFE08A" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

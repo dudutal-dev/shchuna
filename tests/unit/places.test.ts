@@ -3,7 +3,11 @@ import { Actions } from '../../src/app/actions';
 import { GameStore } from '../../src/app/store';
 import { isOpen, isPremium, MAP_HEIGHT, MAP_WIDTH, PLACES } from '../../src/content/places';
 import voiceLines from '../../src/content/voice-lines.json';
-import { createNewSave, SaveManager, type SaveStorage } from '../../src/engine/SaveManager';
+import { createNewSave, migrate, SaveManager, type SaveStorage } from '../../src/engine/SaveManager';
+import { defaultFamily, ganPeople } from '../../src/characters/catalog';
+import { propDefs } from '../../src/content/props';
+import { gan } from '../../src/locations/gan/gan.data';
+import { home } from '../../src/locations/home/home.data';
 import { stripNiqqud } from '../../src/engine/text';
 
 describe('neighbourhood map', () => {
@@ -26,11 +30,12 @@ describe('neighbourhood map', () => {
     expect(ids.has('map.where')).toBe(true);
   });
 
-  it('opens only home and the makolet in phase 0, and nothing is paid', () => {
+  it('opens home, the makolet and the gan, and nothing is paid yet', () => {
     const { unlocked } = createNewSave();
     expect(PLACES.filter((p) => isOpen(p.id, unlocked)).map((p) => p.id)).toEqual([
       'home',
       'makolet',
+      'gan',
     ]);
     for (const p of PLACES) expect(isPremium(p.id)).toBe(false);
     // A place not unlocked in the save stays shut even once built.
@@ -72,3 +77,33 @@ describe('parents settings', () => {
     expect(stripNiqqud('בֵּית־סֵפֶר')).toBe('בית־ספר');
   });
 });
+
+describe('the gan', () => {
+  it('opens in a save from before it was built', () => {
+    const old = { ...createNewSave(0), version: 1, unlocked: ['home', 'makolet'] };
+    expect(migrate(old)?.unlocked).toEqual(['home', 'makolet', 'gan']);
+  });
+
+  it('brings its people into a game that already has a family', () => {
+    const store = new GameStore(createNewSave(0));
+    const actions = new Actions(store, { schedule: () => undefined });
+    actions.seedCharacters(defaultFamily());
+    actions.seedCharacters([...defaultFamily(), ...ganPeople()]);
+    expect(store.state.characters).toHaveLength(7);
+    expect(store.state.characters.filter((c) => c.location === 'gan')).toHaveLength(3);
+  });
+
+  it('has a voice line and art for every prop, and keeps its ids apart from the home', () => {
+    const ids = new Set(voiceLines.map((line) => line.id));
+    const homeIds = new Set(home.props.map((p) => p.id));
+    for (const instance of gan.props) {
+      const def = propDefs[instance.defId];
+      expect(def, instance.defId).toBeDefined();
+      expect(ids.has(def!.voiceLine), def!.voiceLine).toBe(true);
+      expect(homeIds.has(instance.id), instance.id).toBe(false);
+      expect(instance.x).toBeGreaterThan(0);
+      expect(instance.x).toBeLessThan(gan.width);
+    }
+  });
+});
+

@@ -127,3 +127,22 @@ export function defaultFamily(): Character[] {
     member('family-4', 1620, { body: 'small', skinTone: 2, hair: 'curly', hairColor: 'chestnut', outfit: 'sea' }),
   ];
 }
+
+/** The gan's people: the teacher (the ganenet) and two children. */
+export function ganPeople(): Character[] {
+  const person = (id: string, x: number, appearance: CharacterAppearance): Character => ({
+    id,
+    appearance,
+    location: 'gan',
+    x,
+    y: 545,
+    pose: 'stand',
+  });
+  return [
+    // The teacher by the puppet theatre, a child in the yard, one by the cubby: nobody
+    // stands in front of the toys.
+    person('gan-1', 2120, { body: 'adult', skinTone: 4, hair: 'curly', hairColor: 'black', outfit: 'lilac' }),
+    person('gan-2', 720, { body: 'kid', skinTone: 1, hair: 'short', hairColor: 'blonde', outfit: 'sea', accessory: 'cap' }),
+    person('gan-3', 1240, { body: 'kid', skinTone: 5, hair: 'long', hairColor: 'black', outfit: 'sunny', accessory: 'bow' }),
+  ];
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="70" viewBox="0 0 60 70">
+  <!-- Body (same as bucket.svg, moved down 10) -->
+  <path d="M7 34 L14 64 Q15 68 19 68 H41 Q45 68 46 64 L53 34Z" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M12 50 H48" stroke="#3B8DBF" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="30" cy="34" rx="24" ry="7" fill="#9ED5EE" stroke="#3B8DBF" stroke-width="4"/>
+  <!-- Sand mound -->
+  <path d="M9 35 Q8 12 30 8 Q52 12 51 35 Q30 41 9 35Z" fill="#F2D68E" stroke="#D4B060" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M18 22 Q22 14 30 13" fill="none" stroke="#FAE6B4" stroke-width="4" stroke-linecap="round"/>
+  <g fill="#E3C072"><circle cx="38" cy="22" r="2"/><circle cx="24" cy="30" r="2"/><circle cx="42" cy="31" r="2"/></g>
+  <path d="M16 44 Q18 56 20 62" fill="none" stroke="#9ED5EE" stroke-width="4" stroke-linecap="round"/>
+  <!-- Handle flipped down over the front -->
+  <path d="M8 35 Q30 58 52 35" fill="none" stroke="#C78F1E" stroke-width="7" stroke-linecap="round"/>
+  <path d="M8 35 Q30 58 52 35" fill="none" stroke="#FFC23C" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#FFC23C" stroke="#C78F1E" stroke-width="2"><circle cx="7" cy="35" r="3"/><circle cx="53" cy="35" r="3"/></g>
+</svg>

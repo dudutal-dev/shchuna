@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="240" viewBox="0 0 150 240">
+  <!-- Back leg -->
+  <path d="M72 14 L84 236 H96 L82 14Z" fill="#A87B54" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Front legs -->
+  <g fill="#C4966B" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round">
+    <path d="M66 8 L10 236 H28 L78 8Z"/>
+    <path d="M84 8 L140 236 H122 L72 8Z"/>
+    <rect x="26" y="192" width="98" height="12" rx="6"/>
+  </g>
+  <!-- Board and paper -->
+  <rect x="20" y="18" width="110" height="124" rx="10" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <rect x="28" y="26" width="94" height="108" rx="5" fill="#FFFFFF" stroke="#D9D3C7" stroke-width="3"/>
+  <!-- Child's painting -->
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M36 44 Q50 36 62 44" fill="none" stroke="#9ED5EE" stroke-width="6"/>
+    <g stroke="#FFC23C" stroke-width="4"><path d="M104 32 V36 M104 58 V62 M90 47 H94 M114 47 H118 M94 37 L97 40 M111 54 L114 57 M94 57 L97 54 M111 40 L114 37"/></g>
+    <circle cx="104" cy="47" r="9" fill="#FFC23C"/>
+    <path d="M30 112 Q60 100 90 110 T120 106" fill="none" stroke="#7FAF6B" stroke-width="8"/>
+    <path d="M44 108 V82 L62 64 L80 82 V108Z" fill="#F7934C" stroke="#E5508A" stroke-width="4"/>
+    <path d="M40 84 L62 60 L84 84" fill="none" stroke="#E5508A" stroke-width="6"/>
+    <rect x="56" y="92" width="11" height="16" rx="3" fill="#58B8EA"/>
+    <path d="M100 108 Q98 94 102 80" fill="none" stroke="#55864A" stroke-width="4"/>
+    <g fill="#9B7FD1"><circle cx="102" cy="72" r="6"/><circle cx="110" cy="78" r="6"/><circle cx="94" cy="78" r="6"/><circle cx="102" cy="85" r="5"/></g>
+    <circle cx="102" cy="78" r="4" fill="#FFC23C"/>
+    <path d="M70 46 Q74 40 80 44" fill="none" stroke="#9ED5EE" stroke-width="5"/>
+  </g>
+  <g fill="#FFC23C" stroke="#C78F1E" stroke-width="3"><rect x="44" y="18" width="14" height="14" rx="4"/><rect x="92" y="18" width="14" height="14" rx="4"/></g>
+  <!-- Ledge with paint cups -->
+  <g stroke-width="3" stroke-linejoin="round">
+    <path d="M30 128 H46 L44 146 H32Z" fill="#FFFFFF" stroke="#B9B3A7"/><ellipse cx="38" cy="129" rx="7" ry="3" fill="#E5508A"/>
+    <path d="M54 128 H70 L68 146 H56Z" fill="#FFFFFF" stroke="#B9B3A7"/><ellipse cx="62" cy="129" rx="7" ry="3" fill="#FFC23C"/>
+    <path d="M78 128 H94 L92 146 H80Z" fill="#FFFFFF" stroke="#B9B3A7"/><ellipse cx="86" cy="129" rx="7" ry="3" fill="#58B8EA"/>
+    <path d="M102 128 H118 L116 146 H104Z" fill="#FFFFFF" stroke="#B9B3A7"/><ellipse cx="110" cy="129" rx="7" ry="3" fill="#7FAF6B"/>
+  </g>
+  <path d="M108 128 L118 106" stroke="#C4966B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M117 108 L120 101" stroke="#7FAF6B" stroke-width="5" stroke-linecap="round"/>
+  <rect x="10" y="142" width="130" height="14" rx="7" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M22 148 H90" stroke="#DDB78F" stroke-width="4" stroke-linecap="round"/>
+</svg>

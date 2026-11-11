@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="110" viewBox="0 0 320 110">
+  <!-- Back board -->
+  <rect x="14" y="30" width="292" height="18" rx="8" fill="#A87B54" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Sand surface and mound -->
+  <path d="M18 62 Q18 44 40 42 H280 Q302 44 302 62Z" fill="#F2D68E" stroke="#D4B060" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M150 56 Q170 8 214 12 Q252 14 262 56Z" fill="#F2D68E" stroke="#D4B060" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M184 30 Q196 18 214 18" fill="none" stroke="#FAE6B4" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#E3C072"><circle cx="70" cy="50" r="3"/><circle cx="112" cy="54" r="3"/><circle cx="280" cy="52" r="3"/><circle cx="232" cy="40" r="2.5"/><circle cx="196" cy="44" r="2.5"/></g>
+  <!-- Front board -->
+  <rect x="6" y="54" width="308" height="52" rx="12" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M10 80 H310" stroke="#A87B54" stroke-width="4"/>
+  <path d="M20 64 H170" stroke="#DDB78F" stroke-width="4" stroke-linecap="round"/>
+  <!-- Corner seats -->
+  <g fill="#C4966B" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round">
+    <rect x="2" y="46" width="48" height="16" rx="7"/>
+    <rect x="270" y="46" width="48" height="16" rx="7"/>
+  </g>
+  <g fill="#8E6A4C"><circle cx="26" cy="93" r="3"/><circle cx="294" cy="93" r="3"/><circle cx="26" cy="67" r="3"/><circle cx="294" cy="67" r="3"/></g>
+</svg>

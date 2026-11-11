@@ -671,6 +671,144 @@
       "text": "הַתַּחֲנָה",
       "durationMs": 1680,
       "hash": "03ad7eab9db0db64c188d899c3d31d4b12d59e2852c060018b5f7c07396e0aab"
+    },
+    "prop.puppet-theater": {
+      "file": "public/audio/lines/prop.puppet-theater.mp3",
+      "text": "תֵּאַטְרוֹן בֻּבּוֹת",
+      "durationMs": 1360,
+      "hash": "ace20b8ff9d1d8c5a123884ab8cdd10f43269bfdb2beaf47d76bc5aa427f334c"
+    },
+    "prop.peacock": {
+      "file": "public/audio/lines/prop.peacock.mp3",
+      "text": "טַוָּס",
+      "durationMs": 960,
+      "hash": "17b90ffcf06422c8e47fed48e12c6ee4423993cea18f3ab8ee810d2fa83dce08"
+    },
+    "prop.elephant": {
+      "file": "public/audio/lines/prop.elephant.mp3",
+      "text": "פִּיל",
+      "durationMs": 1600,
+      "hash": "160fa2990591b9a182ae42be064682c08bc98615dcc173b4ad872c1bafd14330"
+    },
+    "prop.monkey": {
+      "file": "public/audio/lines/prop.monkey.mp3",
+      "text": "קוֹף",
+      "durationMs": 960,
+      "hash": "70c19b3bf60b0fb2c44781df78f98c994fcc4d2efdd9c4b2c77e2db40f708dd3"
+    },
+    "prop.easel": {
+      "file": "public/audio/lines/prop.easel.mp3",
+      "text": "כַּן צִיּוּר",
+      "durationMs": 1200,
+      "hash": "64e87c49aa2f41e0615eceaa0fd6ca0f7dadf74be45cf47849221b77df4fb546"
+    },
+    "prop.blocks": {
+      "file": "public/audio/lines/prop.blocks.mp3",
+      "text": "קֻבִּיּוֹת",
+      "durationMs": 1200,
+      "hash": "04151406e8e9f48723fa74d3d375cdd3e5449ef0e6575cca066f63e5952e21ef"
+    },
+    "prop.cubby": {
+      "file": "public/audio/lines/prop.cubby.mp3",
+      "text": "תָּאִים",
+      "durationMs": 1120,
+      "hash": "a96e5e6a350ef7ca00efe41901eb0481db8aaf0a27200c4aeec34dbd87281d1e"
+    },
+    "prop.slide": {
+      "file": "public/audio/lines/prop.slide.mp3",
+      "text": "מַגְלֵשָׁה",
+      "durationMs": 1760,
+      "hash": "efa048359a5919b66a4f2c30a3396eb7631a2ace9bd28fb2b85f9524135bd121"
+    },
+    "prop.swing": {
+      "file": "public/audio/lines/prop.swing.mp3",
+      "text": "נַדְנֵדָה",
+      "durationMs": 1680,
+      "hash": "c40148aa40c5e2ddb6e2ffd25580f1f439cb4f87c86f9ae1eb17cc33110a3121"
+    },
+    "prop.sandbox": {
+      "file": "public/audio/lines/prop.sandbox.mp3",
+      "text": "אַרְגַּז חוֹל",
+      "durationMs": 1360,
+      "hash": "a202cd5e2a7f6978b033b5202d44f404cd00dc0f80ae2fd437484b709093260f"
+    },
+    "prop.bucket": {
+      "file": "public/audio/lines/prop.bucket.mp3",
+      "text": "דְּלִי",
+      "durationMs": 1600,
+      "hash": "10854fad5374eab8914d360beb6b8dfe7fc5d9aace10002ce734d7bfa737aa81"
+    },
+    "prop.spade": {
+      "file": "public/audio/lines/prop.spade.mp3",
+      "text": "אֵת",
+      "durationMs": 640,
+      "hash": "c50e0285a5ad74735ff9e1c732b0ffd4ae4c3010d1f27fd36f00358aaba2af25"
+    },
+    "prop.tricycle": {
+      "file": "public/audio/lines/prop.tricycle.mp3",
+      "text": "תְּלַת אוֹפַן",
+      "durationMs": 1120,
+      "hash": "3f58eba7a57f7e5797d89406b3ff4fb6738ae6846f75fb6d737e3305dbfccca1"
+    },
+    "letter.found.tet.m": {
+      "file": "public/audio/lines/letter.found.tet.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת טֵית! טַוָּס.",
+      "durationMs": 2880,
+      "hash": "919985ad63875e924e3ac8ef2a47aa633d45bf83f1bf35e70ad459b6431548c4"
+    },
+    "letter.found.tet.f": {
+      "file": "public/audio/lines/letter.found.tet.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת טֵית! טַוָּס.",
+      "durationMs": 3040,
+      "hash": "0d6976ec07bc0700b9166d7457ba8d26b942bb3cbbdf77c516667b387bdc0a24"
+    },
+    "letter.name.tet": {
+      "file": "public/audio/lines/letter.name.tet.mp3",
+      "text": "טֵית",
+      "durationMs": 880,
+      "hash": "849301164f734cbe12659b3e3cb9c0235f0833b9cd10895228a9dcf27226b498"
+    },
+    "letter.found.pe.m": {
+      "file": "public/audio/lines/letter.found.pe.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת פֵּא! פִּיל.",
+      "durationMs": 2400,
+      "hash": "991bd809fd6d7917982da275fff435c36f2ecae76235e8124b9ea3daa106f8a2"
+    },
+    "letter.found.pe.f": {
+      "file": "public/audio/lines/letter.found.pe.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת פֵּא! פִּיל.",
+      "durationMs": 2480,
+      "hash": "f3ece8dfb6630c064654ab178eea4e270776609c38e93da9b1959fd665543353"
+    },
+    "letter.name.pe": {
+      "file": "public/audio/lines/letter.name.pe.mp3",
+      "text": "פֵּא",
+      "durationMs": 720,
+      "hash": "71f3f9b78e4cd9cfd3e045545ef4c90132c08cff1d00719ff6d418cdec1b64ef"
+    },
+    "letter.found.qof.m": {
+      "file": "public/audio/lines/letter.found.qof.m.mp3",
+      "text": "מָצָאתָ אֶת הָאוֹת קוֹף! קוֹף.",
+      "durationMs": 2640,
+      "hash": "4ab8e6a35e572bc35fb876a94945e97434063450d2c27c5071f638d355a8cce4"
+    },
+    "letter.found.qof.f": {
+      "file": "public/audio/lines/letter.found.qof.f.mp3",
+      "text": "מָצָאת אֶת הָאוֹת קוֹף! קוֹף.",
+      "durationMs": 2960,
+      "hash": "61c29a67acd1e7ca7bf5480a255f27eb992a5f691439b4129a4f7aebcfac8b49"
+    },
+    "letter.name.qof": {
+      "file": "public/audio/lines/letter.name.qof.mp3",
+      "text": "קוֹף",
+      "durationMs": 1040,
+      "hash": "70c19b3bf60b0fb2c44781df78f98c994fcc4d2efdd9c4b2c77e2db40f708dd3"
+    },
+    "letter.hint.gan": {
+      "file": "public/audio/lines/letter.hint.gan.mp3",
+      "text": "אוּלַי בַּגַּן?",
+      "durationMs": 1840,
+      "hash": "4fb6b4fc82d105fafd81febe6b2162b8b53a8bb12ba8132b06a4ee9312cb8e89"
     }
   }
 }

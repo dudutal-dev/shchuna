@@ -1,7 +1,7 @@
 import type { HebrewLetter } from '../types.ts';
 
 /** Where in the neighbourhood a letter hides, for the "maybe in the kitchen?" hint. */
-export type LetterArea = 'kitchen' | 'living' | 'kids' | 'makolet' | 'map' | 'later';
+export type LetterArea = 'kitchen' | 'living' | 'kids' | 'makolet' | 'map' | 'gan' | 'later';
 
 export interface LetterInfo {
   letter: HebrewLetter;
@@ -33,7 +33,7 @@ export const LETTERS: readonly LetterInfo[] = [
   { letter: 'ו', id: 'vav', name: 'וָו', word: 'וֶרֶד', wordLine: 'letter.word.vav', area: 'later' },
   { letter: 'ז', id: 'zayin', name: 'זַיִן', word: 'זַיִת', wordLine: 'letter.word.zayin', area: 'later' },
   { letter: 'ח', id: 'het', name: 'חֵית', word: 'חָלָב', wordLine: 'prop.milk', area: 'kitchen', hidesOn: 'milk' },
-  { letter: 'ט', id: 'tet', name: 'טֵית', word: 'טַוָּס', wordLine: 'letter.word.tet', area: 'later' },
+  { letter: 'ט', id: 'tet', name: 'טֵית', word: 'טַוָּס', wordLine: 'prop.peacock', area: 'gan', hidesOn: 'gan-peacock' },
   { letter: 'י', id: 'yod', name: 'יוֹד', word: 'יָרֵחַ', wordLine: 'letter.word.yod', area: 'later' },
   { letter: 'כ', id: 'kaf', name: 'כַּף', word: 'כַּדּוּר', wordLine: 'prop.ball', area: 'kids', hidesOn: 'ball' },
   { letter: 'ל', id: 'lamed', name: 'לָמֶד', word: 'לֶחֶם', wordLine: 'prop.bread', area: 'kitchen', hidesOn: 'bread' },
@@ -41,9 +41,9 @@ export const LETTERS: readonly LetterInfo[] = [
   { letter: 'נ', id: 'nun', name: 'נוּן', word: 'נֵר', wordLine: 'letter.word.nun', area: 'later' },
   { letter: 'ס', id: 'samekh', name: 'סָמֶךְ', word: 'סֵפֶר', wordLine: 'prop.book', area: 'kids', hidesOn: 'book' },
   { letter: 'ע', id: 'ayin', name: 'עַיִן', word: 'עוּגָה', wordLine: 'prop.cake', area: 'kitchen', hidesOn: 'cake' },
-  { letter: 'פ', id: 'pe', name: 'פֵּא', word: 'פִּיל', wordLine: 'letter.word.pe', area: 'later' },
+  { letter: 'פ', id: 'pe', name: 'פֵּא', word: 'פִּיל', wordLine: 'prop.elephant', area: 'gan', hidesOn: 'gan-elephant' },
   { letter: 'צ', id: 'tsadi', name: 'צָדִי', word: 'צָב', wordLine: 'letter.word.tsadi', area: 'later' },
-  { letter: 'ק', id: 'qof', name: 'קוֹף', word: 'קוֹף', wordLine: 'letter.word.qof', area: 'later' },
+  { letter: 'ק', id: 'qof', name: 'קוֹף', word: 'קוֹף', wordLine: 'prop.monkey', area: 'gan', hidesOn: 'gan-monkey' },
   { letter: 'ר', id: 'resh', name: 'רֵישׁ', word: 'רַכֶּבֶת', wordLine: 'prop.train', area: 'later' },
   { letter: 'ש', id: 'shin', name: 'שִׁין', word: 'שֶׁמֶשׁ', wordLine: 'letter.word.shin', area: 'later' },
   { letter: 'ת', id: 'tav', name: 'תָּו', word: 'תַּפּוּחַ', wordLine: 'prop.apple', area: 'kitchen', hidesOn: 'apple' },

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="170" viewBox="0 0 130 170">
+  <g stroke-width="4" stroke-linejoin="round">
+    <!-- bottom row (same footprint as the pile) -->
+    <rect x="6" y="138" width="36" height="30" rx="6" fill="#E5508A" stroke="#B8396A"/>
+    <rect x="46" y="139" width="36" height="29" rx="6" fill="#FFC23C" stroke="#C78F1E"/>
+    <rect x="86" y="138" width="38" height="30" rx="6" fill="#3E8E7E" stroke="#2F7264"/>
+    <!-- blue plank across -->
+    <rect x="16" y="124" width="98" height="14" rx="6" fill="#58B8EA" stroke="#3B8DBF" transform="rotate(-2 65 131)"/>
+    <!-- green cube, a little off-centre -->
+    <rect x="44" y="90" width="34" height="34" rx="6" fill="#7FAF6B" stroke="#55864A" transform="rotate(4 61 107)"/>
+    <!-- orange cylinder -->
+    <path d="M48 58 V90 H74 V58Z" fill="#F7934C" stroke="#C96A2C" transform="rotate(-5 61 74)"/>
+    <ellipse cx="61" cy="58" rx="13" ry="5" fill="#FBB27E" stroke="#C96A2C" transform="rotate(-5 61 74)"/>
+    <!-- purple roof on top -->
+    <path d="M42 56 L62 22 L82 54Z" fill="#9B7FD1" stroke="#6E55A6" transform="rotate(6 62 40)"/>
+  </g>
+  <g fill="none" stroke-width="3.5" stroke-linecap="round">
+    <path d="M12 146 V158" stroke="#F4A6C3"/>
+    <path d="M92 146 V158" stroke="#6FB5A8"/>
+    <path d="M26 129 H60" stroke="#9ED5EE"/>
+    <path d="M52 98 V112" stroke="#A9CF8E"/>
+  </g>
+  <circle cx="24" cy="153" r="5" fill="#FFFFFF" opacity=".75"/>
+  <circle cx="105" cy="153" r="5" fill="#FFFFFF" opacity=".75"/>
+</svg>

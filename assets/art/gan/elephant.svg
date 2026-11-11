@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110">
+  <!-- Tail -->
+  <path d="M18 70 Q8 76 10 86" fill="none" stroke="#74869B" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="10" cy="88" r="4" fill="#74869B"/>
+  <g fill="#A9B8C9" stroke="#74869B" stroke-width="4" stroke-linejoin="round">
+    <ellipse cx="48" cy="74" rx="34" ry="25"/>
+    <ellipse cx="30" cy="99" rx="13" ry="8"/>
+    <ellipse cx="64" cy="99" rx="13" ry="8"/>
+    <circle cx="76" cy="46" r="24"/>
+  </g>
+  <!-- Trunk -->
+  <path d="M90 56 Q100 68 96 82 Q94 90 101 88" fill="none" stroke="#74869B" stroke-width="18" stroke-linecap="round"/>
+  <path d="M90 56 Q100 68 96 82 Q94 90 101 88" fill="none" stroke="#A9B8C9" stroke-width="10" stroke-linecap="round"/>
+  <path d="M95 70 h4 M95 77 h4" stroke="#8C9DB1" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Big ear -->
+  <path d="M66 30 Q40 18 34 42 Q30 66 56 68 Q66 60 66 30Z" fill="#A9B8C9" stroke="#74869B" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M60 36 Q44 30 41 46 Q40 60 55 61 Q60 54 60 36Z" fill="#F4B6C8"/>
+  <!-- Belly and toes -->
+  <ellipse cx="46" cy="78" rx="16" ry="12" fill="#D3DCE6"/>
+  <g fill="#D3DCE6"><circle cx="24" cy="100" r="3.5"/><circle cx="31" cy="102" r="3.5"/><circle cx="58" cy="100" r="3.5"/><circle cx="65" cy="102" r="3.5"/></g>
+  <!-- Face -->
+  <circle cx="82" cy="40" r="3.5" fill="#3B2F2F"/>
+  <circle cx="86" cy="52" r="4" fill="#F4A6C3"/>
+  <path d="M78 58 Q82 62 86 60" fill="none" stroke="#74869B" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M68 30 Q74 24 82 24" fill="none" stroke="#C7D2DE" stroke-width="5" stroke-linecap="round"/>
+</svg>

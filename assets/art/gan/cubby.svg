@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <!-- Plinth -->
+  <rect x="16" y="184" width="268" height="14" rx="6" fill="#A87B54" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Body -->
+  <rect x="8" y="16" width="284" height="172" rx="12" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Open cubbies -->
+  <g fill="#8E6A4C" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round">
+    <rect x="22" y="32" width="80" height="68" rx="8"/>
+    <rect x="110" y="32" width="80" height="68" rx="8"/>
+    <rect x="198" y="32" width="80" height="68" rx="8"/>
+    <rect x="22" y="108" width="80" height="68" rx="8"/>
+    <rect x="110" y="108" width="80" height="68" rx="8"/>
+    <rect x="198" y="108" width="80" height="68" rx="8"/>
+  </g>
+  <!-- Colourful bins -->
+  <g stroke-width="4" stroke-linejoin="round">
+    <path d="M28 52 H96 L93 96 Q93 100 89 100 H35 Q31 100 31 96Z" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M116 52 H184 L181 96 Q181 100 177 100 H123 Q119 100 119 96Z" fill="#FFC23C" stroke="#C78F1E"/>
+    <path d="M204 52 H272 L269 96 Q269 100 265 100 H211 Q207 100 207 96Z" fill="#3E8E7E" stroke="#2F7264"/>
+    <path d="M28 128 H96 L93 172 Q93 176 89 176 H35 Q31 176 31 172Z" fill="#58B8EA" stroke="#3B8DBF"/>
+    <path d="M116 128 H184 L181 172 Q181 176 177 176 H123 Q119 176 119 172Z" fill="#7FAF6B" stroke="#55864A"/>
+    <path d="M204 128 H272 L269 172 Q269 176 265 176 H211 Q207 176 207 172Z" fill="#9B7FD1" stroke="#6E55A6"/>
+  </g>
+  <!-- Bin handle holes -->
+  <g fill="#FFFFFF" opacity=".55">
+    <rect x="50" y="62" width="24" height="9" rx="4.5"/><rect x="138" y="62" width="24" height="9" rx="4.5"/><rect x="226" y="62" width="24" height="9" rx="4.5"/>
+    <rect x="50" y="138" width="24" height="9" rx="4.5"/><rect x="138" y="138" width="24" height="9" rx="4.5"/><rect x="226" y="138" width="24" height="9" rx="4.5"/>
+  </g>
+  <!-- Flat top -->
+  <rect x="2" y="4" width="296" height="20" rx="9" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M16 14 H150" stroke="#DDB78F" stroke-width="4" stroke-linecap="round"/>
+</svg>

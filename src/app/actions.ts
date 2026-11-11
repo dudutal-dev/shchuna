@@ -122,11 +122,16 @@ export class Actions {
     this.save();
   }
 
-  /** Gives a new game its family. Not undoable, and never runs again once there are characters. */
+  /**
+   * Adds the seed characters this save doesn't have yet: the family in a new game, and
+   * the people of a place added since (the gan). Not undoable.
+   */
   seedCharacters(seed: readonly Character[]): void {
-    if (this.store.state.characters.length > 0) return;
+    const known = new Set(this.store.state.characters.map((c) => c.id));
+    const missing = seed.filter((c) => !known.has(c.id));
+    if (missing.length === 0) return;
     this.store.update((state) => {
-      state.characters.push(...structuredClone(seed));
+      state.characters.push(...structuredClone(missing));
     });
     this.save();
   }

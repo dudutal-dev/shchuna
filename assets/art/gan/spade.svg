@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="80" viewBox="0 0 40 80">
+  <!-- Handle -->
+  <rect x="16" y="10" width="8" height="40" rx="4" fill="#FFC23C" stroke="#C78F1E" stroke-width="3.5"/>
+  <rect x="7" y="3" width="26" height="12" rx="6" fill="#FFC23C" stroke="#C78F1E" stroke-width="3.5"/>
+  <!-- Blade -->
+  <path d="M6 46 Q6 40 12 40 H28 Q34 40 34 46 V58 Q34 72 20 78 Q6 72 6 58Z" fill="#F04A36" stroke="#B32E1F" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M20 46 V68" stroke="#B32E1F" stroke-width="3" stroke-linecap="round"/>
+  <path d="M11 48 Q11 58 14 64" fill="none" stroke="#FF8A6E" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

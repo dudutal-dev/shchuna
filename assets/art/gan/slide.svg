@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="260" viewBox="0 0 320 260">
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <!-- Support post under the platform -->
+    <path d="M212 76 V250" stroke="#3B8DBF" stroke-width="14"/>
+    <path d="M212 76 V250" stroke="#58B8EA" stroke-width="7"/>
+    <!-- Ladder on the right -->
+    <path d="M240 70 V250 M292 70 V250" stroke="#3B8DBF" stroke-width="14"/>
+    <path d="M240 70 V250 M292 70 V250" stroke="#58B8EA" stroke-width="7"/>
+    <path d="M244 104 H288 M244 140 H288 M244 176 H288 M244 212 H288" stroke="#C78F1E" stroke-width="12"/>
+    <path d="M244 104 H288 M244 140 H288 M244 176 H288 M244 212 H288" stroke="#FFC23C" stroke-width="6"/>
+    <!-- Hoop rail over the top of the ladder -->
+    <path d="M240 64 V34 Q240 18 256 18 H276 Q292 18 292 34 V64" fill="none" stroke="#3B8DBF" stroke-width="12"/>
+    <path d="M240 64 V34 Q240 18 256 18 H276 Q292 18 292 34 V64" fill="none" stroke="#58B8EA" stroke-width="5"/>
+    <!-- Platform (top at y 62-70) -->
+    <rect x="200" y="62" width="104" height="16" rx="8" fill="#FFC23C" stroke="#C78F1E" stroke-width="4"/>
+    <path d="M212 68 H260" stroke="#FFE08A" stroke-width="4"/>
+    <!-- Slide chute going down to the left -->
+    <path d="M206 60 Q158 62 124 136 Q96 206 36 220 Q16 224 10 232 L12 244 Q44 246 64 240 Q126 226 146 152 Q170 90 206 84Z" fill="#F04A36" stroke="#B32E1F" stroke-width="4"/>
+    <path d="M196 68 Q160 74 132 140 Q106 204 48 226" fill="none" stroke="#FF8A6E" stroke-width="5"/>
+    <!-- Little foot at the end of the slide -->
+    <rect x="18" y="244" width="40" height="14" rx="6" fill="#3B8DBF" stroke="#2C6F98" stroke-width="4"/>
+    <!-- Feet of posts -->
+    <g fill="#3B8DBF" stroke="#2C6F98" stroke-width="4">
+      <rect x="200" y="246" width="24" height="12" rx="5"/>
+      <rect x="228" y="246" width="24" height="12" rx="5"/>
+      <rect x="280" y="246" width="24" height="12" rx="5"/>
+    </g>
+  </g>
+</svg>

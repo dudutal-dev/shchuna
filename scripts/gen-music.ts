@@ -36,6 +36,8 @@ const TRACKS: Track[] = [
   { name: 'home', bpm: 76, root: 60, progression: [0, 5, 3, 4], cycles: 3, density: 0.38, tick: false, seed: 7 },
   // The makolet: a little busier, a bounce in its step.
   { name: 'makolet', bpm: 100, root: 62, progression: [0, 3, 4, 0, 5, 3, 4, 4], cycles: 2, density: 0.5, tick: true, seed: 21 },
+  // The gan: playful, a skip in the yard.
+  { name: 'gan', bpm: 108, root: 67, progression: [0, 4, 0, 3, 5, 3, 4, 4], cycles: 2, density: 0.55, tick: true, seed: 42 },
   // The map: light, like a walk outside.
   { name: 'map', bpm: 88, root: 65, progression: [0, 4, 5, 3], cycles: 3, density: 0.42, tick: false, seed: 3 },
 ];
