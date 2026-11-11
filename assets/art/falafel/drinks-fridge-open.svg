@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="310" viewBox="0 0 170 310">
+  <!-- Feet -->
+  <g fill="#8FA3AD" stroke="#6F838D" stroke-width="4" stroke-linejoin="round">
+    <rect x="22" y="290" width="26" height="18" rx="6"/>
+    <rect x="122" y="290" width="26" height="18" rx="6"/>
+  </g>
+  <!-- Cabinet -->
+  <rect x="6" y="4" width="158" height="292" rx="18" fill="#58B8EA" stroke="#3B8DBF" stroke-width="4"/>
+  <!-- Header panel with a picture of a bottle -->
+  <rect x="22" y="14" width="126" height="30" rx="10" fill="#FFF7E6" stroke="#3B8DBF" stroke-width="3"/>
+  <path d="M80 18 H90 V23 Q95 26 95 32 V38 Q95 41 92 41 H78 Q75 41 75 38 V32 Q75 26 80 23Z" fill="#FFE98A" stroke="#C99A1E" stroke-width="2.5" stroke-linejoin="round"/>
+  <g fill="#E5508A"><circle cx="50" cy="29" r="5"/><circle cx="120" cy="29" r="5"/></g>
+  <!-- Lit, empty interior -->
+  <rect x="34" y="52" width="122" height="236" rx="10" fill="#DDF3FF" stroke="#3B8DBF" stroke-width="4"/>
+  <ellipse cx="96" cy="60" rx="34" ry="4" fill="#FFF7D6"/>
+  <!-- Shelves: top surfaces at y 120 and y 200, floor at y 280 -->
+  <g stroke-linecap="round">
+    <path d="M40 123H150M40 203H150" stroke="#8FBBD6" stroke-width="7"/>
+    <path d="M40 120H150M40 200H150" stroke="#C7E6F7" stroke-width="3"/>
+  </g>
+  <path d="M40 282H150" stroke="#9CC3DB" stroke-width="5" stroke-linecap="round"/>
+  <!-- Open glass door seen edge-on on the left -->
+  <rect x="2" y="48" width="34" height="244" rx="10" fill="#4FA8DB" stroke="#3B8DBF" stroke-width="4"/>
+  <rect x="10" y="60" width="18" height="220" rx="5" fill="#E6F6FB"/>
+  <path d="M15 72 V140" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  <rect x="10" y="60" width="18" height="220" rx="5" fill="none" stroke="#3B8DBF" stroke-width="3"/>
+</svg>

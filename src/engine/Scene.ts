@@ -450,20 +450,25 @@ export class Scene {
       Object.values(effect.state ?? {}).some((value) => value !== undefined),
     );
     this.ctx.audio.sfx(started ? 'success' : 'drop');
-    entity.moveTo(landing.x, landing.y, true);
+    // A bowl that has just filled a pita goes back to its place, off the pita.
+    const back = started && others.length > 0 && entity.def.returnsAfterUse;
+    const at = back
+      ? { x: instance.x, y: instance.y, surfaceId: instance.on ?? null }
+      : { x: landing.x, y: landing.y, surfaceId: landing.surfaceId };
+    entity.moveTo(at.x, at.y, true);
     const state = Object.assign({}, ...own.map((effect) => effect.state));
     this.ctx.actions.commit(id, [
       {
         id: entity.entityId,
-        x: landing.x,
-        y: landing.y,
-        on: landing.surfaceId,
+        x: at.x,
+        y: at.y,
+        on: at.surfaceId,
         ...(own.length > 0 ? { state } : {}),
       },
       ...others,
       ...release,
     ]);
-    if (started) this.celebrate(entity.entityId);
+    if (started) this.celebrate(others[0]?.id ?? entity.entityId);
   }
 
   /** The character under a screen point, if any, other than `except`. */
@@ -486,13 +491,17 @@ export class Scene {
   ): void {
     const person = this.characters.get(receiver.id);
     if (entity.def.food) {
-      // Eaten, and it goes back where it came from, so there is always more.
+      // Eaten, and it goes back where it came from as it was, so there is always more:
+      // a stuffed pita returns empty.
       const origin = this.data.props.find((p) => p.id === instance.id) ?? instance;
+      const state = Object.fromEntries(
+        Object.keys(instance.state ?? {}).map((key) => [key, origin.state?.[key]]),
+      );
       person?.munch();
       this.ctx.audio.sfx('yum');
       this.celebrate(receiver.id);
       this.ctx.actions.commit(this.data.id, [
-        { id: instance.id, x: origin.x, y: origin.y, on: origin.on ?? null },
+        { id: instance.id, x: origin.x, y: origin.y, on: origin.on ?? null, state },
         ...release,
       ]);
       return;

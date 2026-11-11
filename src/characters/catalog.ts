@@ -46,6 +46,8 @@ export const OUTFITS: Readonly<Record<string, Outfit>> = {
   sand: { top: 'tshirt', bottom: 'skirt', topColor: 0xf7f1e3, bottomColor: 0xe4573d, shoesColor: 0x3e8e7e },
   lilac: { top: 'dress', bottom: 'pants', topColor: 0xa98bd6, bottomColor: 0xa98bd6, shoesColor: 0xf3f3f3 },
   stripes: { top: 'sweater', bottom: 'shorts', topColor: 0xe4573d, bottomColor: 0x3b4a6b, shoesColor: 0x58b8ea },
+  // The cook's white shirt and dark trousers.
+  cook: { top: 'tshirt', bottom: 'pants', topColor: 0xf7f1e3, bottomColor: 0x3b4a6b, shoesColor: 0x6b4c35 },
   // The doctor's white coat over teal trousers.
   whitecoat: { top: 'sweater', bottom: 'pants', topColor: 0xffffff, bottomColor: 0x3e8e7e, shoesColor: 0xf3f3f3 },
 };
@@ -167,6 +169,30 @@ export function clinicPeople(): Character[] {
       ...person('clinic-2', 1490, { body: 'kid', skinTone: 0, hair: 'curly', hairColor: 'red', outfit: 'stripes' }),
       y: 450,
       on: 'bench',
+      pose: 'sit',
+    },
+  ];
+}
+
+/** The falafel stand's people: the cook by the fryer, and a customer at a terrace table. */
+export function falafelPeople(): Character[] {
+  return [
+    {
+      id: 'falafel-1',
+      appearance: { body: 'adult', skinTone: 3, hair: 'short', hairColor: 'black', outfit: 'cook', accessory: 'cap' },
+      location: 'falafel',
+      x: 1940,
+      y: 545,
+      pose: 'stand',
+    },
+    // Sitting on CUSTOMER_SEAT in falafel.data.ts.
+    {
+      id: 'falafel-2',
+      appearance: { body: 'elder', skinTone: 1, hair: 'bald', hairColor: 'grey', outfit: 'olive', accessory: 'kippa' },
+      location: 'falafel',
+      x: 470,
+      y: 450,
+      on: 'stool-2',
       pose: 'sit',
     },
   ];

@@ -172,5 +172,16 @@
   {"id": "letter.name.resh", "text": "רֵישׁ", "voice": "narrator", "proofread": false},
   {"id": "letter.word.vav", "text": "וֶרֶד", "voice": "narrator", "proofread": false},
   {"id": "letter.word.zayin", "text": "זַיִת", "voice": "narrator", "proofread": false},
-  {"id": "letter.word.nun", "text": "נֵר", "voice": "narrator", "proofread": false}
+  {"id": "letter.word.nun", "text": "נֵר", "voice": "narrator", "proofread": false},
+  {"id": "prop.falafel-counter", "text": "דֶּלְפֵּק", "voice": "narrator", "proofread": false},
+  {"id": "prop.fryer", "text": "סִיר טִגּוּן", "voice": "narrator", "proofread": false},
+  {"id": "prop.falafel-pita", "text": "פִּיתָּה", "voice": "narrator", "proofread": false},
+  {"id": "prop.falafel-bowl", "text": "פָלָאפֶל", "voice": "narrator", "proofread": false},
+  {"id": "prop.salad-bowl", "text": "סָלָט", "voice": "narrator", "proofread": false},
+  {"id": "prop.tahini", "text": "טְחִינָה", "voice": "narrator", "proofread": false},
+  {"id": "prop.drinks-fridge", "text": "מְקָרֵר שְׁתִיָּה", "voice": "narrator", "proofread": false},
+  {"id": "prop.lemonade", "text": "לִימוֹנָדָה", "voice": "narrator", "proofread": false},
+  {"id": "prop.juice", "text": "מִיץ", "voice": "narrator", "proofread": false},
+  {"id": "prop.umbrella-table", "text": "שֻׁלְחָן עִם שִׁמְשִׁיָּה", "voice": "narrator", "proofread": false},
+  {"id": "prop.stool", "text": "שְׁרַפְרַף", "voice": "narrator", "proofread": false}
 ]

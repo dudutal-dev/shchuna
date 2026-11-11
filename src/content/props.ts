@@ -13,6 +13,7 @@ interface Spec {
   letter?: PropDef['letter'];
   food?: boolean;
   changesOutfit?: PropDef['changesOutfit'];
+  returnsAfterUse?: boolean;
   price?: number;
 }
 
@@ -32,6 +33,7 @@ function prop(id: string, name: Name, spec: Spec): PropDef {
     ...(spec.letter ? { letter: spec.letter } : {}),
     ...(spec.food ? { food: true } : {}),
     ...(spec.changesOutfit ? { changesOutfit: spec.changesOutfit } : {}),
+    ...(spec.returnsAfterUse ? { returnsAfterUse: true } : {}),
     ...(spec.price ? { price: spec.price } : {}),
   };
 }
@@ -241,6 +243,52 @@ const definitions: PropDef[] = [
   prop('thermometer', 'thermometer', { art: 'clinic/thermometer.svg' }),
   prop('doctor-bag', 'doctorBag', { art: 'clinic/doctor-bag.svg' }),
   prop('medicine', 'medicine', { art: 'clinic/medicine.svg' }),
+
+  // Falafel stand: inside.
+  prop('falafel-counter', 'counter', { art: 'falafel/counter.svg', layer: 'furniture' }),
+  prop('fryer', 'fryer', {
+    art: 'falafel/fryer.svg',
+    artStates: when({ frying: true }, 'falafel/fryer-on-1.svg', [
+      'falafel/fryer-on-1.svg',
+      'falafel/fryer-on-2.svg',
+    ]),
+    layer: 'furniture',
+    interactions: toggle('frying'),
+  }),
+  // Put falafel or salad on it and it fills up; eaten, it comes back empty.
+  prop('falafel-pita', 'pita', {
+    art: 'falafel/pita.svg',
+    artStates: when({ stuffed: true }, 'falafel/pita-full.svg'),
+    food: true,
+    useOnPoint: { x: 0, y: -20 },
+  }),
+  prop('falafel-bowl', 'falafelBowl', {
+    art: 'falafel/falafel-bowl.svg',
+    interactions: [{ type: 'useOn', target: 'falafel-pita', setTarget: { stuffed: true } }],
+    returnsAfterUse: true,
+  }),
+  prop('salad-bowl', 'salad', {
+    art: 'falafel/salad-bowl.svg',
+    interactions: [{ type: 'useOn', target: 'falafel-pita', setTarget: { stuffed: true } }],
+    returnsAfterUse: true,
+  }),
+  prop('tahini', 'tahini', {
+    art: 'falafel/tahini.svg',
+    interactions: [{ type: 'useOn', target: 'falafel-pita', setTarget: { stuffed: true } }],
+    returnsAfterUse: true,
+  }),
+  prop('drinks-fridge', 'drinksFridge', {
+    art: 'falafel/drinks-fridge.svg',
+    artStates: when({ open: true }, 'falafel/drinks-fridge-open.svg'),
+    layer: 'furniture',
+    interactions: toggle('open'),
+  }),
+  prop('lemonade', 'lemonade', { art: 'falafel/lemonade.svg', food: true }),
+  prop('juice', 'juice', { art: 'falafel/juice.svg', food: true }),
+
+  // Falafel stand: the terrace.
+  prop('umbrella-table', 'umbrellaTable', { art: 'falafel/umbrella-table.svg', layer: 'furniture' }),
+  prop('stool', 'stool', { art: 'falafel/stool.svg', layer: 'furniture' }),
 ];
 
 export const propDefs: Readonly<Record<string, PropDef>> = Object.fromEntries(

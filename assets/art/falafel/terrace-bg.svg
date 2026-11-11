@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#BFE6FF"/>
+  <!-- Sun and clouds -->
+  <circle cx="150" cy="84" r="42" fill="#FFD866" stroke="#F0B93A" stroke-width="4"/>
+  <path d="M128 70 Q136 56 152 54" fill="none" stroke="#FFEFB0" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#FFFFFF">
+    <circle cx="380" cy="80" r="20"/><circle cx="406" cy="68" r="28"/><circle cx="436" cy="82" r="18"/>
+    <circle cx="610" cy="140" r="14"/><circle cx="628" cy="130" r="20"/><circle cx="650" cy="142" r="14"/>
+  </g>
+  <!-- Neighbourhood houses beyond the wall -->
+  <g stroke-linejoin="round">
+    <rect x="250" y="200" width="170" height="140" rx="8" fill="#F3E3C3" stroke="#D9C39A" stroke-width="4"/>
+    <rect x="240" y="190" width="190" height="16" rx="6" fill="#E8D4AE" stroke="#D9C39A" stroke-width="4"/>
+    <path d="M286 280 V252 Q286 236 302 236 Q318 236 318 252 V280Z" fill="#BFE6FF" stroke="#D9C39A" stroke-width="4"/>
+    <path d="M352 280 V252 Q352 236 368 236 Q384 236 384 252 V280Z" fill="#BFE6FF" stroke="#D9C39A" stroke-width="4"/>
+    <g fill="#3E8E7E"><rect x="272" y="236" width="12" height="44" rx="4"/><rect x="320" y="236" width="12" height="44" rx="4"/><rect x="338" y="236" width="12" height="44" rx="4"/><rect x="386" y="236" width="12" height="44" rx="4"/></g>
+    <rect x="460" y="150" width="200" height="190" rx="8" fill="#F6DCC6" stroke="#D9B08C" stroke-width="4"/>
+    <path d="M450 156 L560 98 L670 156Z" fill="#E07B54" stroke="#B8593A" stroke-width="4"/>
+    <g fill="#BFE6FF" stroke="#D9B08C" stroke-width="4"><rect x="490" y="190" width="40" height="44" rx="6"/><rect x="590" y="190" width="40" height="44" rx="6"/><rect x="490" y="262" width="40" height="44" rx="6"/><rect x="590" y="262" width="40" height="44" rx="6"/></g>
+    <path d="M510 192V232M610 192V232M510 264V304M610 264V304" stroke="#D9B08C" stroke-width="3"/>
+    <path d="M492 238 H528 V246 H492Z M592 238 H628 V246 H592Z" fill="#E5508A"/>
+  </g>
+  <!-- A cypress and a round tree -->
+  <path d="M720 330 Q700 240 730 160 Q760 240 740 330Z" fill="#5E9457" stroke="#4A7A44" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M726 260 Q724 220 732 190" fill="none" stroke="#7FB06F" stroke-width="5" stroke-linecap="round"/>
+  <rect x="790" y="260" width="12" height="70" rx="5" fill="#8A6A4F"/>
+  <circle cx="796" cy="236" r="40" fill="#6FA263" stroke="#55864A" stroke-width="4"/>
+  <circle cx="770" cy="262" r="22" fill="#6FA263" stroke="#55864A" stroke-width="4"/>
+  <circle cx="824" cy="262" r="22" fill="#6FA263" stroke="#55864A" stroke-width="4"/>
+
+  <!-- Low stone wall across the back of the terrace -->
+  <rect x="-4" y="320" width="1108" height="112" fill="#EBD6AE" stroke="#CDB68B" stroke-width="4"/>
+  <g fill="none" stroke="#D6BE91" stroke-width="3.5" stroke-linecap="round">
+    <path d="M0 360H1100M0 398H1100"/>
+    <path d="M70 326V360M190 326V360M330 326V360M470 326V360M610 326V360M760 326V360M900 326V360M1040 326V360"/>
+    <path d="M20 360V398M130 360V398M260 360V398M400 360V398M540 360V398M690 360V398M830 360V398M970 360V398"/>
+    <path d="M80 398V430M210 398V430M340 398V430M480 398V430M620 398V430M770 398V430M910 398V430M1050 398V430"/>
+  </g>
+  <rect x="-6" y="310" width="1112" height="16" rx="7" fill="#F3E3C3" stroke="#CDB68B" stroke-width="4"/>
+
+  <!-- Bougainvillea tumbling over the wall (left) -->
+  <path d="M120 432 Q110 380 150 330 Q180 290 230 270" fill="none" stroke="#6B4C35" stroke-width="10" stroke-linecap="round"/>
+  <path d="M120 432 Q110 380 150 330 Q180 290 230 270" fill="none" stroke="#8A6A4F" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#7FAF6B" stroke="#5E8F4D" stroke-width="3">
+    <circle cx="40" cy="300" r="26"/><circle cx="90" cy="280" r="30"/><circle cx="150" cy="262" r="28"/><circle cx="210" cy="256" r="26"/><circle cx="262" cy="280" r="22"/>
+    <circle cx="20" cy="340" r="22"/><circle cx="70" cy="330" r="24"/><circle cx="200" cy="310" r="20"/><circle cx="240" cy="336" r="16"/><circle cx="30" cy="384" r="18"/>
+  </g>
+  <g fill="#E5508A" stroke="#B8396A" stroke-width="3">
+    <circle cx="30" cy="290" r="13"/><circle cx="62" cy="300" r="11"/><circle cx="86" cy="266" r="14"/><circle cx="118" cy="286" r="10"/>
+    <circle cx="146" cy="252" r="13"/><circle cx="176" cy="270" r="10"/><circle cx="206" cy="246" r="12"/><circle cx="236" cy="268" r="11"/>
+    <circle cx="268" cy="290" r="10"/><circle cx="16" cy="336" r="11"/><circle cx="52" cy="348" r="10"/><circle cx="84" cy="326" r="9"/>
+    <circle cx="210" cy="318" r="10"/><circle cx="246" cy="342" r="8"/><circle cx="28" cy="380" r="9"/><circle cx="38" cy="410" r="7"/>
+  </g>
+  <g fill="#F7A8C4"><circle cx="86" cy="262" r="5"/><circle cx="146" cy="248" r="5"/><circle cx="206" cy="242" r="4"/><circle cx="30" cy="286" r="4"/></g>
+
+  <!-- Shop facade on the right with the striped awning edge -->
+  <rect x="930" y="-4" width="176" height="436" fill="#F6DCC6" stroke="#D9B08C" stroke-width="4"/>
+  <path d="M960 432 V230 Q960 196 994 196 H1100 V432Z" fill="#3E8E7E" stroke="#2F7264" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M978 432 V236 Q978 214 1000 214 H1100 V432Z" fill="#BFE6FF"/>
+  <path d="M1000 400 L1060 240" stroke="#E8F6FF" stroke-width="7" stroke-linecap="round"/>
+  <rect x="980" y="330" width="22" height="10" rx="5" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+  <!-- awning -->
+  <path d="M640 -10 H1110 V92 H640Z" fill="#FFF7E6" stroke="#B8611A" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="#F28C28"><rect x="660" y="-8" width="30" height="100"/><rect x="720" y="-8" width="30" height="100"/><rect x="780" y="-8" width="30" height="100"/><rect x="840" y="-8" width="30" height="100"/><rect x="900" y="-8" width="30" height="100"/><rect x="960" y="-8" width="30" height="100"/><rect x="1020" y="-8" width="30" height="100"/><rect x="1080" y="-8" width="30" height="100"/></g>
+  <path d="M642 86 H1104" stroke="#B8611A" stroke-width="4"/>
+  <path d="M642 88 Q657 106 672 88 Q687 106 702 88 Q717 106 732 88 Q747 106 762 88 Q777 106 792 88 Q807 106 822 88 Q837 106 852 88 Q867 106 882 88 Q897 106 912 88 Q927 106 942 88 Q957 106 972 88 Q987 106 1002 88 Q1017 106 1032 88 Q1047 106 1062 88 Q1077 106 1092 88 Q1100 98 1108 88 V86 H642Z" fill="#F28C28" stroke="#B8611A" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M664 30 H700" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+  <!-- awning support pole -->
+  <path d="M652 100 V432" stroke="#6B4C35" stroke-width="8" stroke-linecap="round"/>
+  <!-- hanging blank sign with a pita picture -->
+  <path d="M790 98 V124 M850 98 V124" stroke="#6B4C35" stroke-width="3"/>
+  <rect x="772" y="120" width="96" height="62" rx="12" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <rect x="782" y="130" width="76" height="42" rx="7" fill="#FFF7E6"/>
+  <g stroke-linejoin="round" stroke-width="2.5">
+    <g fill="#A8732F" stroke="#6B4520"><circle cx="812" cy="146" r="5"/><circle cx="822" cy="143" r="5"/><circle cx="831" cy="147" r="4.5"/></g>
+    <path d="M804 148 Q804 168 820 168 Q836 168 836 148 Q828 153 820 153 Q812 153 804 148Z" fill="#EFCF98" stroke="#B98A4E"/>
+  </g>
+  <!-- potted plant by the door -->
+  <g stroke-linejoin="round" stroke-width="4">
+    <path d="M892 432 L886 392 H930 L924 432Z" fill="#D97A4E" stroke="#A9573A"/>
+    <g fill="#7FAF6B" stroke="#5E8F4D" stroke-width="3"><circle cx="896" cy="380" r="14"/><circle cx="920" cy="378" r="14"/><circle cx="908" cy="364" r="14"/></g>
+  </g>
+
+  <!-- Lamp post -->
+  <g stroke-linejoin="round">
+    <rect x="534" y="414" width="32" height="24" rx="8" fill="#2F7264" stroke="#21524A" stroke-width="4"/>
+    <rect x="543" y="160" width="14" height="260" rx="7" fill="#3E8E7E" stroke="#21524A" stroke-width="4"/>
+    <rect x="538" y="300" width="24" height="10" rx="5" fill="#2F7264" stroke="#21524A" stroke-width="3"/>
+    <path d="M550 160 V146" stroke="#21524A" stroke-width="6"/>
+    <path d="M530 140 L536 100 H564 L570 140Z" fill="#FFF2B8" stroke="#21524A" stroke-width="4"/>
+    <path d="M550 102 V138" stroke="#21524A" stroke-width="3"/>
+    <path d="M524 104 Q524 84 550 80 Q576 84 576 104Z" fill="#3E8E7E" stroke="#21524A" stroke-width="4"/>
+    <rect x="526" y="138" width="48" height="10" rx="5" fill="#3E8E7E" stroke="#21524A" stroke-width="3"/>
+    <circle cx="550" cy="76" r="6" fill="#3E8E7E" stroke="#21524A" stroke-width="3"/>
+    <path d="M540 112 V130" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Floor: paving stones -->
+  <rect y="430" width="1100" height="170" fill="#D9C7A2"/>
+  <rect y="430" width="1100" height="10" fill="#C2AB80"/>
+  <g stroke="#C2AB80" stroke-width="4" stroke-linejoin="round">
+    <g fill="#EADFC6">
+      <rect x="4" y="444" width="118" height="42" rx="12"/><rect x="250" y="444" width="128" height="42" rx="12"/><rect x="514" y="444" width="120" height="42" rx="12"/><rect x="770" y="444" width="126" height="42" rx="12"/><rect x="1030" y="444" width="96" height="42" rx="12"/>
+      <rect x="64" y="492" width="132" height="46" rx="12"/><rect x="340" y="492" width="120" height="46" rx="12"/><rect x="600" y="492" width="132" height="46" rx="12"/><rect x="880" y="492" width="120" height="46" rx="12"/>
+      <rect x="-20" y="544" width="122" height="52" rx="12"/><rect x="240" y="544" width="130" height="52" rx="12"/><rect x="510" y="544" width="122" height="52" rx="12"/><rect x="772" y="544" width="130" height="52" rx="12"/><rect x="1040" y="544" width="90" height="52" rx="12"/>
+    </g>
+    <g fill="#E3D3B1">
+      <rect x="128" y="444" width="116" height="42" rx="12"/><rect x="384" y="444" width="124" height="42" rx="12"/><rect x="640" y="444" width="124" height="42" rx="12"/><rect x="902" y="444" width="122" height="42" rx="12"/>
+      <rect x="-30" y="492" width="88" height="46" rx="12"/><rect x="202" y="492" width="132" height="46" rx="12"/><rect x="466" y="492" width="128" height="46" rx="12"/><rect x="738" y="492" width="136" height="46" rx="12"/><rect x="1006" y="492" width="120" height="46" rx="12"/>
+      <rect x="108" y="544" width="126" height="52" rx="12"/><rect x="376" y="544" width="128" height="52" rx="12"/><rect x="638" y="544" width="128" height="52" rx="12"/><rect x="908" y="544" width="126" height="52" rx="12"/>
+    </g>
+  </g>
+  <g stroke="#F4ECDA" stroke-width="4" stroke-linecap="round"><path d="M20 452H60M266 452H300M530 452H566M786 452H820M80 500H116M616 500H650"/></g>
+</svg>

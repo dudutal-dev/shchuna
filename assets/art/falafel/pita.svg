@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="55" viewBox="0 0 100 55">
+  <!-- Pita pocket: back lip, open mouth, front face -->
+  <ellipse cx="50" cy="14" rx="40" ry="9" fill="#EFCF98" stroke="#B98A4E" stroke-width="3.5"/>
+  <ellipse cx="50" cy="15" rx="33" ry="5" fill="#D29A55"/>
+  <path d="M10 14 Q10 52 50 52 Q90 52 90 14 Q72 24 50 24 Q28 24 10 14Z" fill="#EFCF98" stroke="#B98A4E" stroke-width="3.5" stroke-linejoin="round"/>
+  <g fill="#D9A563"><ellipse cx="30" cy="32" rx="4" ry="2"/><ellipse cx="66" cy="30" rx="5" ry="2.2"/></g>
+  <path d="M20 26 Q30 30 40 31" fill="none" stroke="#FBE6C2" stroke-width="3" stroke-linecap="round"/>
+  <!-- Paper wrapper -->
+  <path d="M18 32 L24 28 L30 32 L36 28 L42 32 L48 28 L54 32 L60 28 L66 32 L72 28 L78 32 L82 30 L76 50 Q75 53 71 53 H29 Q25 53 24 50 L18 32Z" fill="#FFFFFF" stroke="#CDB68B" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M24 42 H76" stroke="#E5508A" stroke-width="3" stroke-linecap="round"/>
+</svg>

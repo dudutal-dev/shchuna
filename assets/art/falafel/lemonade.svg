@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="95" viewBox="0 0 40 95">
+  <!-- Cap -->
+  <rect x="12.5" y="3" width="15" height="10" rx="3.5" fill="#7FAF6B" stroke="#55864A" stroke-width="3"/>
+  <!-- Glass bottle -->
+  <path d="M15 12 H25 V26 Q25 31 30 36 Q36 42 36 52 V86 Q36 93 29 93 H11 Q4 93 4 86 V52 Q4 42 10 36 Q15 31 15 26Z" fill="#EAF6FB" stroke="#8FBBD6" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- Lemonade -->
+  <path d="M8 46 Q20 42 32 46 V85 Q32 89 28 89 H12 Q8 89 8 85Z" fill="#FFE98A"/>
+  <!-- Mint leaves and a lemon slice floating inside -->
+  <g fill="#7FBF5B" stroke="#4F8A33" stroke-width="2">
+    <ellipse cx="14" cy="58" rx="6" ry="3.2" transform="rotate(-30 14 58)"/>
+    <ellipse cx="26" cy="76" rx="6" ry="3.2" transform="rotate(25 26 76)"/>
+    <ellipse cx="15" cy="80" rx="5" ry="2.8" transform="rotate(-15 15 80)"/>
+  </g>
+  <circle cx="25" cy="62" r="6.5" fill="#FFF3B0" stroke="#E2B92B" stroke-width="2.5"/>
+  <path d="M25 56.5V67.5M19.5 62H30.5" stroke="#E2B92B" stroke-width="1.5"/>
+  <path d="M8 46 Q20 42 32 46" fill="none" stroke="#E2C84A" stroke-width="2" stroke-linecap="round"/>
+  <path d="M9 52 V82" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity=".85"/>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="380" height="170" viewBox="0 0 380 170">
+  <!-- Plinth -->
+  <rect x="14" y="150" width="352" height="18" rx="6" fill="#A97C55" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Body -->
+  <rect x="16" y="20" width="348" height="134" rx="10" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <!-- Glass display with salad trays -->
+  <rect x="30" y="32" width="320" height="72" rx="8" fill="#E6F6FB" stroke="#2F7264" stroke-width="4"/>
+  <g stroke-width="2.5" stroke-linejoin="round">
+    <!-- tomato -->
+    <path d="M46 78 Q48 62 76 60 Q104 62 106 78Z" fill="#E04A3A" stroke="#A93225"/>
+    <g fill="#F07060" stroke="#A93225" stroke-width="2"><rect x="56" y="64" width="9" height="9" rx="2"/><rect x="70" y="62" width="9" height="9" rx="2"/><rect x="84" y="66" width="9" height="9" rx="2"/></g>
+    <!-- cucumber -->
+    <path d="M122 78 Q124 62 152 60 Q180 62 182 78Z" fill="#7FBF5B" stroke="#4F8A33"/>
+    <g fill="#CDEBA6" stroke="#4F8A33" stroke-width="2"><rect x="132" y="64" width="9" height="9" rx="2"/><rect x="146" y="62" width="9" height="9" rx="2"/><rect x="160" y="66" width="9" height="9" rx="2"/></g>
+    <!-- red cabbage -->
+    <path d="M198 78 Q200 60 228 58 Q256 60 258 78Z" fill="#9A5BB0" stroke="#6E3E82"/>
+    <path d="M208 70 Q218 64 226 70 M226 66 Q236 60 246 68 M214 76 Q226 70 240 76" fill="none" stroke="#D7B6E2" stroke-width="3" stroke-linecap="round"/>
+    <!-- pickles -->
+    <path d="M274 78 Q276 62 304 60 Q332 62 334 78Z" fill="#8DAA3A" stroke="#5E7A22"/>
+    <g fill="#C7D97A" stroke="#5E7A22" stroke-width="2"><ellipse cx="290" cy="70" rx="7" ry="5"/><ellipse cx="306" cy="66" rx="7" ry="5"/><ellipse cx="320" cy="71" rx="7" ry="5"/></g>
+    <!-- metal trays -->
+    <g fill="#E9EEF1" stroke="#8E99A1" stroke-width="3">
+      <rect x="40" y="76" width="72" height="18" rx="5"/>
+      <rect x="116" y="76" width="72" height="18" rx="5"/>
+      <rect x="192" y="76" width="72" height="18" rx="5"/>
+      <rect x="268" y="76" width="72" height="18" rx="5"/>
+    </g>
+  </g>
+  <path d="M60 98 L84 40 M240 98 L262 44" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+  <!-- Painted tile band -->
+  <rect x="30" y="114" width="320" height="28" rx="6" fill="#FFF7E6" stroke="#CDB68B" stroke-width="3"/>
+  <path fill="#E5508A" d="M54 120l8 8-8 8-8-8zM118 120l8 8-8 8-8-8zM182 120l8 8-8 8-8-8zM246 120l8 8-8 8-8-8zM310 120l8 8-8 8-8-8z"/>
+  <path fill="#FFC23C" d="M86 120l8 8-8 8-8-8zM150 120l8 8-8 8-8-8zM214 120l8 8-8 8-8-8zM278 120l8 8-8 8-8-8zM342 120l6 8-6 8-6-8z"/>
+  <!-- Wooden counter top: top face at y=10 -->
+  <rect x="6" y="10" width="368" height="16" rx="8" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <path d="M30 17H180" stroke="#DDB48A" stroke-width="4" stroke-linecap="round"/>
+</svg>

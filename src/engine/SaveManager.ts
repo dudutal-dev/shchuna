@@ -1,7 +1,7 @@
 import { get, set } from 'idb-keyval';
 import type { HebrewLetter, SaveGame } from '../types';
 
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 export const SAVE_DEBOUNCE_MS = 2000;
 const SAVE_KEY = 'shchuna.save';
 const BACKUP_KEY = 'shchuna.save.unreadable';
@@ -28,7 +28,7 @@ export function createNewSave(now: number = Date.now()): SaveGame {
     letters: LETTERS.map((letter) => ({ letter, found: false, timesHeard: 0 })),
     wallet: 20,
     settings: { music: 0.5, voice: 1, sfx: 0.8, showNiqqud: true, addressGender: 'm' },
-    unlocked: ['home', 'makolet', 'gan', 'clinic'],
+    unlocked: ['home', 'makolet', 'gan', 'clinic', 'falafel'],
   };
 }
 
@@ -47,6 +47,8 @@ const MIGRATIONS: Migrations = {
   1: (save) => unlock(save, 'gan'),
   // 2 → 3: the clinic opens.
   2: (save) => unlock(save, 'clinic'),
+  // 3 → 4: the falafel stand opens.
+  3: (save) => unlock(save, 'falafel'),
 };
 
 function isSaveShape(value: RawSave): boolean {

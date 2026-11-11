@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="85" viewBox="0 0 100 85">
+  <!-- Same pita and wrapper as pita.svg, shifted down 30 -->
+  <g transform="translate(0 30)">
+    <ellipse cx="50" cy="14" rx="40" ry="9" fill="#EFCF98" stroke="#B98A4E" stroke-width="3.5"/>
+    <ellipse cx="50" cy="15" rx="33" ry="5" fill="#D29A55"/>
+    <!-- Filling -->
+    <g stroke-linejoin="round">
+      <path d="M14 14 Q18 2 30 6 Q36 -4 48 2 Q58 -6 68 2 Q80 -2 86 14Z" fill="#7FBF5B" stroke="#4F8A33" stroke-width="3"/>
+      <path d="M20 8 Q26 2 32 8 M62 4 Q70 0 76 6" fill="none" stroke="#9A5BB0" stroke-width="4" stroke-linecap="round"/>
+      <g fill="#B07A35" stroke="#6B4520" stroke-width="3">
+        <circle cx="34" cy="0" r="10"/>
+        <circle cx="54" cy="-6" r="10.5"/>
+        <circle cx="72" cy="2" r="9.5"/>
+      </g>
+      <g fill="none" stroke="#D9A25A" stroke-width="3" stroke-linecap="round"><path d="M29 -4 Q32 -7 36 -7"/><path d="M49 -10 Q52 -13 56 -13"/><path d="M67 -2 Q70 -5 74 -5"/></g>
+      <g fill="#E04A3A" stroke="#A93225" stroke-width="2.5"><rect x="20" y="4" width="10" height="10" rx="2.5"/><rect x="60" y="6" width="9" height="9" rx="2.5"/><rect x="42" y="4" width="9" height="9" rx="2.5"/></g>
+      <g fill="#CDEBA6" stroke="#4F8A33" stroke-width="2.5"><rect x="76" y="6" width="9" height="9" rx="2.5"/><rect x="30" y="8" width="8" height="8" rx="2.5"/></g>
+    </g>
+    <!-- Front face -->
+    <path d="M10 14 Q10 52 50 52 Q90 52 90 14 Q72 24 50 24 Q28 24 10 14Z" fill="#EFCF98" stroke="#B98A4E" stroke-width="3.5" stroke-linejoin="round"/>
+    <g fill="#D9A563"><ellipse cx="30" cy="32" rx="4" ry="2"/><ellipse cx="66" cy="30" rx="5" ry="2.2"/></g>
+    <path d="M20 26 Q30 30 40 31" fill="none" stroke="#FBE6C2" stroke-width="3" stroke-linecap="round"/>
+    <!-- Tahini drizzle -->
+    <path d="M24 2 Q32 -8 40 0 Q48 8 56 -4 Q64 -12 70 -2 Q74 6 80 2 M40 0 Q42 14 38 22" fill="none" stroke="#C9B48E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M24 2 Q32 -8 40 0 Q48 8 56 -4 Q64 -12 70 -2 Q74 6 80 2 M40 0 Q42 14 38 22" fill="none" stroke="#F4E6C8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Paper wrapper -->
+    <path d="M18 32 L24 28 L30 32 L36 28 L42 32 L48 28 L54 32 L60 28 L66 32 L72 28 L78 32 L82 30 L76 50 Q75 53 71 53 H29 Q25 53 24 50 L18 32Z" fill="#FFFFFF" stroke="#CDB68B" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M24 42 H76" stroke="#E5508A" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

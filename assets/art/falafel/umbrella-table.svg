@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="330" viewBox="0 0 260 330">
+  <defs>
+    <clipPath id="ut-canopy"><path d="M10 94 C28 50 80 18 130 14 C180 18 232 50 250 94Z"/></clipPath>
+  </defs>
+  <!-- Umbrella pole -->
+  <rect x="125" y="14" width="10" height="230" rx="5" fill="#E9EEF1" stroke="#8E99A1" stroke-width="3"/>
+  <!-- Canopy with stripes -->
+  <path d="M10 94 C28 50 80 18 130 14 C180 18 232 50 250 94Z" fill="#FFF7E6"/>
+  <g clip-path="url(#ut-canopy)" fill="#F28C28">
+    <path d="M130 8 L110 100 H150Z"/>
+    <path d="M130 8 L30 100 H70Z"/>
+    <path d="M130 8 L190 100 H230Z"/>
+  </g>
+  <path d="M10 94 C28 50 80 18 130 14 C180 18 232 50 250 94Z" fill="none" stroke="#B8611A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M10 94 Q20 108 30 94 Q40 108 50 94 Q60 108 70 94 Q80 108 90 94 Q100 108 110 94 Q120 108 130 94 Q140 108 150 94 Q160 108 170 94 Q180 108 190 94 Q200 108 210 94 Q220 108 230 94 Q240 108 250 94Z" fill="#F28C28" stroke="#B8611A" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M60 52 Q80 36 102 28" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity=".6"/>
+  <circle cx="130" cy="10" r="7" fill="#F28C28" stroke="#B8611A" stroke-width="3"/>
+  <!-- Table pedestal and base -->
+  <rect x="122" y="250" width="16" height="66" rx="6" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <path d="M84 326 Q86 312 104 312 H156 Q174 312 176 326Z" fill="#3E8E7E" stroke="#2F7264" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Round table top: top face at y=240 -->
+  <rect x="40" y="240" width="180" height="16" rx="8" fill="#FFF7E6" stroke="#2F7264" stroke-width="4"/>
+  <path d="M42 252 H218" stroke="#3E8E7E" stroke-width="5"/>
+  <path d="M60 246 H120" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+</svg>

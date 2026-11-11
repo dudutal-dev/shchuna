@@ -40,6 +40,8 @@ const TRACKS: Track[] = [
   { name: 'gan', bpm: 108, root: 67, progression: [0, 4, 0, 3, 5, 3, 4, 4], cycles: 2, density: 0.55, tick: true, seed: 42 },
   // The clinic: calm and gentle, nothing to worry about.
   { name: 'clinic', bpm: 70, root: 64, progression: [0, 3, 5, 4], cycles: 3, density: 0.3, tick: false, seed: 11 },
+  // The falafel stand: lively, a little street-market swing.
+  { name: 'falafel', bpm: 112, root: 62, progression: [0, 3, 4, 0, 5, 4, 3, 4], cycles: 2, density: 0.55, tick: true, seed: 77 },
   // The map: light, like a walk outside.
   { name: 'map', bpm: 88, root: 65, progression: [0, 4, 5, 3], cycles: 3, density: 0.42, tick: false, seed: 3 },
 ];

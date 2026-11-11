@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="110" viewBox="0 0 90 110">
+  <g stroke="#6B4C35" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Back legs -->
+    <path d="M38 26 L34 106" stroke-width="9"/>
+    <path d="M52 26 L56 106" stroke-width="9"/>
+    <path d="M38 26 L34 106 M52 26 L56 106" stroke="#A87B54" stroke-width="3"/>
+    <!-- Foot ring -->
+    <rect x="15" y="70" width="60" height="8" rx="4" fill="#A87B54"/>
+    <!-- Front legs -->
+    <path d="M24 26 L13 106" stroke-width="11"/>
+    <path d="M66 26 L77 106" stroke-width="11"/>
+    <path d="M24 26 L13 106 M66 26 L77 106" stroke="#C4966B" stroke-width="4"/>
+  </g>
+  <!-- Seat: top face at y=15 -->
+  <rect x="8" y="15" width="74" height="16" rx="8" fill="#3E8E7E" stroke="#2F7264" stroke-width="4"/>
+  <path d="M20 21 H50" stroke="#6FB5A8" stroke-width="4" stroke-linecap="round"/>
+</svg>

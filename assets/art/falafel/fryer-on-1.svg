@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="180" viewBox="0 0 170 180">
+  <!-- Stand -->
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <path d="M40 132 L30 172 M130 132 L140 172" fill="none" stroke="#3A3B42" stroke-width="10"/>
+    <path d="M40 132 L30 172 M130 132 L140 172" fill="none" stroke="#6C6E78" stroke-width="5"/>
+    <path d="M36 152 H134" stroke="#3A3B42" stroke-width="8"/>
+    <path d="M36 152 H134" stroke="#6C6E78" stroke-width="3.5"/>
+    <rect x="20" y="168" width="22" height="10" rx="5" fill="#6C6E78" stroke="#3A3B42" stroke-width="3"/>
+    <rect x="128" y="168" width="22" height="10" rx="5" fill="#6C6E78" stroke="#3A3B42" stroke-width="3"/>
+    <!-- burner with little flames -->
+    <g fill="#58B8EA" stroke="#3B8DBF" stroke-width="2"><path d="M70 136 Q66 130 72 124 Q76 130 74 136Z"/><path d="M83 136 Q79 128 85 121 Q90 128 87 136Z"/><path d="M96 136 Q92 130 98 124 Q102 130 100 136Z"/></g>
+    <rect x="62" y="134" width="46" height="10" rx="5" fill="#8E99A1" stroke="#55565E" stroke-width="3"/>
+  </g>
+  <rect x="28" y="124" width="114" height="12" rx="6" fill="#6C6E78" stroke="#3A3B42" stroke-width="4"/>
+  <!-- Side handles -->
+  <g fill="none" stroke="#55565E" stroke-width="6" stroke-linecap="round"><path d="M22 64 Q8 64 8 76 Q8 86 22 86"/><path d="M148 64 Q162 64 162 76 Q162 86 148 86"/></g>
+  <!-- Pot body -->
+  <path d="M20 52 V108 Q20 126 38 126 H132 Q150 126 150 108 V52Z" fill="#C9D2D6" stroke="#8E99A1" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M34 66 V108" stroke="#EEF2F4" stroke-width="7" stroke-linecap="round"/>
+  <path d="M24 98 H146" stroke="#AEB9BF" stroke-width="3"/>
+  <!-- Oil, bubbling -->
+  <ellipse cx="85" cy="52" rx="67" ry="11" fill="#E9EEF1" stroke="#8E99A1" stroke-width="4"/>
+  <ellipse cx="85" cy="53" rx="58" ry="7" fill="#F2C24F" stroke="#C78F1E" stroke-width="2.5"/>
+  <!-- Falafel balls bobbing (frame 1: left and right up, middle down) -->
+  <g fill="#B07A35" stroke="#6B4520" stroke-width="3">
+    <circle cx="50" cy="45" r="9.5"/>
+    <circle cx="74" cy="50" r="9.5"/>
+    <circle cx="98" cy="46" r="9.5"/>
+    <circle cx="121" cy="50" r="9"/>
+  </g>
+  <g fill="none" stroke="#D9A25A" stroke-width="3" stroke-linecap="round"><path d="M45 41 Q48 38 52 38"/><path d="M69 46 Q72 43 76 43"/><path d="M93 42 Q96 39 100 39"/><path d="M116 46 Q119 43 123 43"/></g>
+  <g fill="#7A5222"><circle cx="54" cy="48" r="1.6"/><circle cx="78" cy="53" r="1.6"/><circle cx="101" cy="50" r="1.6"/><circle cx="124" cy="53" r="1.6"/></g>
+  <!-- Bubbles -->
+  <g fill="#FFF3C4" stroke="#D9A23A" stroke-width="2"><circle cx="38" cy="54" r="3.5"/><circle cx="62" cy="57" r="3"/><circle cx="110" cy="56" r="4"/><circle cx="134" cy="52" r="3"/><circle cx="86" cy="58" r="2.5"/></g>
+  <!-- Steam -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M60 30 Q52 22 58 14 Q64 6 58 0" stroke="#FFFFFF" stroke-width="6" opacity=".9"/>
+    <path d="M112 32 Q104 24 110 16 Q116 8 112 2" stroke="#FFFFFF" stroke-width="6" opacity=".9"/>
+    <path d="M60 30 Q52 22 58 14 Q64 6 58 0" stroke="#C9DCE6" stroke-width="2.5"/>
+    <path d="M112 32 Q104 24 110 16 Q116 8 112 2" stroke="#C9DCE6" stroke-width="2.5"/>
+  </g>
+</svg>

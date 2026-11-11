@@ -1043,6 +1043,72 @@
       "text": "נֵר",
       "durationMs": 800,
       "hash": "54eefabbf8f82bf357752659b49053a6ef1edb43687d8cb385073fcca4a0d658"
+    },
+    "prop.falafel-counter": {
+      "file": "public/audio/lines/prop.falafel-counter.mp3",
+      "text": "דֶּלְפֵּק",
+      "durationMs": 1040,
+      "hash": "ac8aa2b7faebe584080741e88ebbe9a7e490a3dd377b8b46ff2b51054702016f"
+    },
+    "prop.fryer": {
+      "file": "public/audio/lines/prop.fryer.mp3",
+      "text": "סִיר טִגּוּן",
+      "durationMs": 1200,
+      "hash": "197144d8ea246539fa236dfb7385de9cc0cc79a85c8be6e951c0ccd14a34332d"
+    },
+    "prop.falafel-pita": {
+      "file": "public/audio/lines/prop.falafel-pita.mp3",
+      "text": "פִּיתָּה",
+      "durationMs": 880,
+      "hash": "75cb4784152d7069c3bc1cb82d5b69971ab639e213943ee553219c36f115b932"
+    },
+    "prop.falafel-bowl": {
+      "file": "public/audio/lines/prop.falafel-bowl.mp3",
+      "text": "פָלָאפֶל",
+      "durationMs": 960,
+      "hash": "30cd0af99ce846e796f840a809ea0f7beb2c60e1a9ccffc08aa0cf707189b26f"
+    },
+    "prop.salad-bowl": {
+      "file": "public/audio/lines/prop.salad-bowl.mp3",
+      "text": "סָלָט",
+      "durationMs": 1120,
+      "hash": "36006fe29d56f05b334a9d69d57069781adab099b06d75b1d9332a325c4e9cdb"
+    },
+    "prop.tahini": {
+      "file": "public/audio/lines/prop.tahini.mp3",
+      "text": "טְחִינָה",
+      "durationMs": 1040,
+      "hash": "000d81632b74eb276fcd0bf9d10bcdcb26b8205c429ae1633ae9c0e726a52231"
+    },
+    "prop.drinks-fridge": {
+      "file": "public/audio/lines/prop.drinks-fridge.mp3",
+      "text": "מְקָרֵר שְׁתִיָּה",
+      "durationMs": 1360,
+      "hash": "6a7c241c0759fa90a8a61596d4d90ac6420fc2c8d50729876d7f5d084274baae"
+    },
+    "prop.lemonade": {
+      "file": "public/audio/lines/prop.lemonade.mp3",
+      "text": "לִימוֹנָדָה",
+      "durationMs": 1200,
+      "hash": "505a4bfd003a5929434f3265c53c1f030f327858c12917709ab70420615f12df"
+    },
+    "prop.juice": {
+      "file": "public/audio/lines/prop.juice.mp3",
+      "text": "מִיץ",
+      "durationMs": 880,
+      "hash": "ae3a8ea776b1cfa9d46d1a9f00e7face98569a6eefb63a978c3e377790b680b6"
+    },
+    "prop.umbrella-table": {
+      "file": "public/audio/lines/prop.umbrella-table.mp3",
+      "text": "שֻׁלְחָן עִם שִׁמְשִׁיָּה",
+      "durationMs": 2080,
+      "hash": "45c866d913c46d8874604654bf723f4326a14dcf240ff07608ede0a9846828a0"
+    },
+    "prop.stool": {
+      "file": "public/audio/lines/prop.stool.mp3",
+      "text": "שְׁרַפְרַף",
+      "durationMs": 1200,
+      "hash": "432f8a22a8d2cb4445221f8f95e58bc1f28cf4533d21cb0fdf42fef46870b829"
     }
   }
 }

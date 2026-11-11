@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="180" viewBox="0 0 170 180">
+  <!-- Stand -->
+  <g stroke="#55565E" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M40 132 L30 172 M130 132 L140 172" fill="none" stroke="#3A3B42" stroke-width="10"/>
+    <path d="M40 132 L30 172 M130 132 L140 172" fill="none" stroke="#6C6E78" stroke-width="5"/>
+    <path d="M36 152 H134" stroke="#3A3B42" stroke-width="8"/>
+    <path d="M36 152 H134" stroke="#6C6E78" stroke-width="3.5"/>
+    <rect x="20" y="168" width="22" height="10" rx="5" fill="#6C6E78" stroke="#3A3B42" stroke-width="3"/>
+    <rect x="128" y="168" width="22" height="10" rx="5" fill="#6C6E78" stroke="#3A3B42" stroke-width="3"/>
+    <!-- burner -->
+    <rect x="62" y="134" width="46" height="10" rx="5" fill="#8E99A1" stroke="#55565E" stroke-width="3"/>
+  </g>
+  <rect x="28" y="124" width="114" height="12" rx="6" fill="#6C6E78" stroke="#3A3B42" stroke-width="4"/>
+  <!-- Side handles -->
+  <g fill="none" stroke="#55565E" stroke-width="6" stroke-linecap="round"><path d="M22 64 Q8 64 8 76 Q8 86 22 86"/><path d="M148 64 Q162 64 162 76 Q162 86 148 86"/></g>
+  <!-- Pot body -->
+  <path d="M20 52 V108 Q20 126 38 126 H132 Q150 126 150 108 V52Z" fill="#C9D2D6" stroke="#8E99A1" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M34 66 V108" stroke="#EEF2F4" stroke-width="7" stroke-linecap="round"/>
+  <path d="M24 98 H146" stroke="#AEB9BF" stroke-width="3"/>
+  <!-- Oil, calm -->
+  <ellipse cx="85" cy="52" rx="67" ry="11" fill="#E9EEF1" stroke="#8E99A1" stroke-width="4"/>
+  <ellipse cx="85" cy="53" rx="58" ry="7" fill="#E8B64A" stroke="#C78F1E" stroke-width="2.5"/>
+  <path d="M52 51 Q66 48 80 49" fill="none" stroke="#FBE3A2" stroke-width="3" stroke-linecap="round"/>
+</svg>

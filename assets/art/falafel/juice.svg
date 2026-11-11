@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="80" viewBox="0 0 45 80">
+  <!-- Straw -->
+  <path d="M30 20 V7 L37 2" fill="none" stroke="#B8396A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M30 20 V7 L37 2" fill="none" stroke="#E5508A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Gable top -->
+  <rect x="11" y="12" width="23" height="7" rx="2.5" fill="#F7A55A" stroke="#B8611A" stroke-width="3"/>
+  <path d="M6 32 L12 18 H33 L39 32Z" fill="#F7A55A" stroke="#B8611A" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- Carton body -->
+  <rect x="6" y="30" width="33" height="48" rx="5" fill="#F28C28" stroke="#B8611A" stroke-width="3.5"/>
+  <rect x="11" y="38" width="23" height="32" rx="6" fill="#FFF7E6"/>
+  <!-- Picture of an orange -->
+  <circle cx="22.5" cy="56" r="8.5" fill="#FFB341" stroke="#D9822B" stroke-width="2.5"/>
+  <path d="M22.5 47.5 Q24 43 29 43 Q28 48 22.5 47.5Z" fill="#7FBF5B" stroke="#4F8A33" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M18 53 Q19 50 22 50" fill="none" stroke="#FFE0A8" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M9 36 V72" stroke="#F9B26E" stroke-width="3" stroke-linecap="round"/>
+</svg>

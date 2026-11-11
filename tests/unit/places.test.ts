@@ -4,7 +4,8 @@ import { GameStore } from '../../src/app/store';
 import { isOpen, isPremium, MAP_HEIGHT, MAP_WIDTH, PLACES } from '../../src/content/places';
 import voiceLines from '../../src/content/voice-lines.json';
 import { createNewSave, migrate, SaveManager, type SaveStorage } from '../../src/engine/SaveManager';
-import { clinicPeople, defaultFamily, ganPeople } from '../../src/characters/catalog';
+import { clinicPeople, defaultFamily, falafelPeople, ganPeople } from '../../src/characters/catalog';
+import { CUSTOMER_SEAT, falafel } from '../../src/locations/falafel/falafel.data';
 import { BENCH_SEAT, clinic } from '../../src/locations/clinic/clinic.data';
 import { propDefs } from '../../src/content/props';
 import { gan } from '../../src/locations/gan/gan.data';
@@ -31,13 +32,14 @@ describe('neighbourhood map', () => {
     expect(ids.has('map.where')).toBe(true);
   });
 
-  it('opens home, the makolet, the gan and the clinic, and nothing is paid yet', () => {
+  it('opens home, the makolet, the gan, the clinic and the falafel stand; nothing is paid yet', () => {
     const { unlocked } = createNewSave();
     expect(PLACES.filter((p) => isOpen(p.id, unlocked)).map((p) => p.id)).toEqual([
       'home',
       'makolet',
       'gan',
       'clinic',
+      'falafel',
     ]);
     for (const p of PLACES) expect(isPremium(p.id)).toBe(false);
     // A place not unlocked in the save stays shut even once built.
@@ -83,7 +85,7 @@ describe('parents settings', () => {
 describe('the gan', () => {
   it('opens in a save from before it was built', () => {
     const old = { ...createNewSave(0), version: 1, unlocked: ['home', 'makolet'] };
-    expect(migrate(old)?.unlocked).toEqual(['home', 'makolet', 'gan', 'clinic']);
+    expect(migrate(old)?.unlocked).toEqual(['home', 'makolet', 'gan', 'clinic', 'falafel']);
   });
 
   it('brings its people into a game that already has a family', () => {
@@ -94,12 +96,15 @@ describe('the gan', () => {
     expect(store.state.characters).toHaveLength(7);
     actions.seedCharacters([...defaultFamily(), ...ganPeople(), ...clinicPeople()]);
     expect(store.state.characters).toHaveLength(9);
+    actions.seedCharacters([...defaultFamily(), ...ganPeople(), ...clinicPeople(), ...falafelPeople()]);
+    expect(store.state.characters).toHaveLength(11);
     expect(store.state.characters.filter((c) => c.location === 'gan')).toHaveLength(3);
   });
 
   it.each([
     ['gan', gan],
     ['clinic', clinic],
+    ['falafel', falafel],
   ])('%s: a voice line for every prop, ids apart from the home', (_name, place) => {
     const ids = new Set(voiceLines.map((line) => line.id));
     const homeIds = new Set(home.props.map((p) => p.id));
@@ -126,5 +131,24 @@ describe('the clinic', () => {
     expect(propDefs.cup!.interactions).toContainEqual(
       expect.objectContaining({ type: 'useOn', target: 'water-cooler' }),
     );
+  });
+});
+
+describe('the falafel stand', () => {
+  it('fills a pita with falafel, salad or tahini, and the pita is food', () => {
+    expect(propDefs['falafel-pita']).toMatchObject({ food: true });
+    for (const filling of ['falafel-bowl', 'salad-bowl', 'tahini']) {
+      expect(propDefs[filling]!.interactions).toContainEqual({
+        type: 'useOn',
+        target: 'falafel-pita',
+        setTarget: { stuffed: true },
+      });
+    }
+  });
+
+  it('seats the customer at a terrace table, and dresses the cook in white', () => {
+    const [cook, customer] = falafelPeople();
+    expect(cook!.appearance.outfit).toBe('cook');
+    expect(customer).toMatchObject({ x: CUSTOMER_SEAT.x, y: CUSTOMER_SEAT.y, on: CUSTOMER_SEAT.on, pose: 'sit' });
   });
 });

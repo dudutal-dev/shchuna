@@ -86,5 +86,15 @@ export const strings = {
     thermometer: 'מַדְחֹם',
     doctorBag: 'תִּיק רוֹפֵא',
     medicine: 'תְּרוּפָה',
+    // Falafel stand.
+    fryer: 'סִיר טִגּוּן',
+    falafelBowl: 'פָלָאפֶל',
+    salad: 'סָלָט',
+    tahini: 'טְחִינָה',
+    drinksFridge: 'מְקָרֵר שְׁתִיָּה',
+    lemonade: 'לִימוֹנָדָה',
+    juice: 'מִיץ',
+    umbrellaTable: 'שֻׁלְחָן עִם שִׁמְשִׁיָּה',
+    stool: 'שְׁרַפְרַף',
   },
 } as const;

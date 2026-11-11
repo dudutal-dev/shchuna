@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="60" viewBox="0 0 100 60">
+  <!-- Mound of chopped salad -->
+  <path d="M12 34 Q16 14 36 12 Q50 2 64 12 Q84 14 88 34Z" fill="#9ACB6E" stroke="#6E9E48" stroke-width="3" stroke-linejoin="round"/>
+  <g stroke-width="2.5" stroke-linejoin="round">
+    <g fill="#E04A3A" stroke="#A93225">
+      <rect x="24" y="22" width="9" height="9" rx="2" transform="rotate(-12 28 26)"/>
+      <rect x="46" y="12" width="9" height="9" rx="2" transform="rotate(10 50 16)"/>
+      <rect x="62" y="22" width="9" height="9" rx="2" transform="rotate(-8 66 26)"/>
+      <rect x="38" y="25" width="8" height="8" rx="2"/>
+      <rect x="74" y="27" width="8" height="8" rx="2" transform="rotate(14 78 31)"/>
+    </g>
+    <g fill="#CDEBA6" stroke="#4F8A33">
+      <rect x="34" y="14" width="9" height="9" rx="2" transform="rotate(8 38 18)"/>
+      <rect x="56" y="24" width="8" height="8" rx="2"/>
+      <rect x="16" y="28" width="8" height="8" rx="2" transform="rotate(-10 20 32)"/>
+      <rect x="62" y="12" width="8" height="8" rx="2" transform="rotate(-14 66 16)"/>
+    </g>
+    <g fill="#FFFFFF" stroke="#C9C2D6"><rect x="48" y="26" width="6" height="6" rx="2"/><rect x="28" y="16" width="6" height="6" rx="2"/><rect x="70" y="18" width="6" height="6" rx="2"/></g>
+  </g>
+  <g fill="#4F8A33"><circle cx="44" cy="10" r="2"/><circle cx="58" cy="9" r="2"/><circle cx="22" cy="24" r="2"/><circle cx="82" cy="26" r="2"/><circle cx="50" cy="22" r="2"/></g>
+  <!-- Wooden bowl -->
+  <rect x="38" y="50" width="24" height="8" rx="4" fill="#A87B54" stroke="#6B4C35" stroke-width="3"/>
+  <path d="M7 34 H93 Q91 54 64 54 H36 Q9 54 7 34Z" fill="#C4966B" stroke="#6B4C35" stroke-width="3.5" stroke-linejoin="round"/>
+  <rect x="4" y="31" width="92" height="8" rx="4" fill="#D4A97E" stroke="#6B4C35" stroke-width="3"/>
+  <path d="M24 44 Q50 50 76 44" fill="none" stroke="#A87B54" stroke-width="3" stroke-linecap="round"/>
+  <path d="M16 42 Q20 48 26 50" fill="none" stroke="#DDB78F" stroke-width="3" stroke-linecap="round"/>
+</svg>

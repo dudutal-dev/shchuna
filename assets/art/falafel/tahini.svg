@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="95" viewBox="0 0 45 95">
+  <!-- Nozzle and cap -->
+  <path d="M20 4 H25 L28 20 H17Z" fill="#E04A3A" stroke="#A93225" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="11" y="18" width="23" height="13" rx="5" fill="#E04A3A" stroke="#A93225" stroke-width="3.5"/>
+  <!-- Bottle -->
+  <rect x="6" y="28" width="33" height="64" rx="12" fill="#EAD9B8" stroke="#B9A27A" stroke-width="3.5"/>
+  <!-- Picture label: a drop and sesame seeds -->
+  <rect x="11" y="46" width="23" height="30" rx="7" fill="#FFF7E6" stroke="#CDB68B" stroke-width="2.5"/>
+  <path d="M22.5 51 Q29 60 29 64 Q29 70 22.5 70 Q16 70 16 64 Q16 60 22.5 51Z" fill="#D9C49A" stroke="#A88C5E" stroke-width="2" stroke-linejoin="round"/>
+  <g fill="#FFFFFF" stroke="#CDB68B" stroke-width="1"><ellipse cx="15" cy="51" rx="1.6" ry="2.6"/><ellipse cx="30" cy="51" rx="1.6" ry="2.6" transform="rotate(20 30 51)"/></g>
+  <path d="M12 36 V60" stroke="#F8EEDB" stroke-width="4" stroke-linecap="round"/>
+</svg>

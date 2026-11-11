@@ -87,6 +87,11 @@ export interface PropDef {
   useOnPoint?: { x: number; y: number };
   /** Given to a character, it gets eaten (and goes back where it came from). */
   food?: boolean;
+  /**
+   * Having done something to another prop (filled a pita), it goes back where it was picked
+   * up, so it doesn't sit on top of what it just changed.
+   */
+  returnsAfterUse?: boolean;
   /** A character brought here while it is open changes clothes (the wardrobe). */
   changesOutfit?: { key: string };
   letter?: HebrewLetter;
