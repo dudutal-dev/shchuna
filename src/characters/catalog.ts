@@ -46,6 +46,8 @@ export const OUTFITS: Readonly<Record<string, Outfit>> = {
   sand: { top: 'tshirt', bottom: 'skirt', topColor: 0xf7f1e3, bottomColor: 0xe4573d, shoesColor: 0x3e8e7e },
   lilac: { top: 'dress', bottom: 'pants', topColor: 0xa98bd6, bottomColor: 0xa98bd6, shoesColor: 0xf3f3f3 },
   stripes: { top: 'sweater', bottom: 'shorts', topColor: 0xe4573d, bottomColor: 0x3b4a6b, shoesColor: 0x58b8ea },
+  // The doctor's white coat over teal trousers.
+  whitecoat: { top: 'sweater', bottom: 'pants', topColor: 0xffffff, bottomColor: 0x3e8e7e, shoesColor: 0xf3f3f3 },
 };
 
 /** Optional extras. The headscarf replaces the hair. */
@@ -144,5 +146,28 @@ export function ganPeople(): Character[] {
     person('gan-1', 2120, { body: 'adult', skinTone: 4, hair: 'curly', hairColor: 'black', outfit: 'lilac' }),
     person('gan-2', 720, { body: 'kid', skinTone: 1, hair: 'short', hairColor: 'blonde', outfit: 'sea', accessory: 'cap' }),
     person('gan-3', 1240, { body: 'kid', skinTone: 5, hair: 'long', hairColor: 'black', outfit: 'sunny', accessory: 'bow' }),
+  ];
+}
+
+/** The clinic's people: the doctor and a child waiting with a teddy. */
+export function clinicPeople(): Character[] {
+  const person = (id: string, x: number, appearance: CharacterAppearance): Character => ({
+    id,
+    appearance,
+    location: 'clinic',
+    x,
+    y: 545,
+    pose: 'stand',
+  });
+  return [
+    // The doctor by the examination couch.
+    person('clinic-1', 1010, { body: 'adult', skinTone: 3, hair: 'bun', hairColor: 'grey', outfit: 'whitecoat', accessory: 'glasses' }),
+    // Waiting on the bench (BENCH_SEAT in clinic.data.ts).
+    {
+      ...person('clinic-2', 1490, { body: 'kid', skinTone: 0, hair: 'curly', hairColor: 'red', outfit: 'stripes' }),
+      y: 450,
+      on: 'bench',
+      pose: 'sit',
+    },
   ];
 }

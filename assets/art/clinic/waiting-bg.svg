@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#E6F5F0"/>
+  <!-- Soft plaster courses -->
+  <g fill="none" stroke="#D2EAE2" stroke-width="3" stroke-linecap="round">
+    <path d="M0 115H1100M0 230H1100M0 345H1100"/>
+    <path d="M130 0V115M600 0V115M1000 0V115M420 115V230M940 115V230M80 230V345M560 230V345M1020 230V345M300 345V430M700 345V430"/>
+  </g>
+  <!-- Painted dado band with little waves -->
+  <rect y="370" width="1100" height="60" fill="#BFE6DC"/>
+  <path d="M0 370H1100" stroke="#8CC4B8" stroke-width="5"/>
+  <path d="M0 402 Q27.5 388 55 402 T110 402 T165 402 T220 402 T275 402 T330 402 T385 402 T440 402 T495 402 T550 402 T605 402 T660 402 T715 402 T770 402 T825 402 T880 402 T935 402 T990 402 T1045 402 T1100 402" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+  <!-- Framed picture: fish in the sea -->
+  <path d="M230 82 L270 54 L310 82" fill="none" stroke="#6B4C35" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="270" cy="52" r="5" fill="#6B4C35"/>
+  <rect x="150" y="80" width="240" height="170" rx="16" fill="#FFC23C" stroke="#C78F1E" stroke-width="4"/>
+  <rect x="166" y="96" width="208" height="138" rx="8" fill="#BFE6FF"/>
+  <path d="M166 200 Q220 186 270 198 T374 194 V226 Q374 234 366 234 H174 Q166 234 166 226Z" fill="#F3E3C3"/>
+  <path d="M196 226 Q190 206 198 192 M206 226 Q214 210 208 198" fill="none" stroke="#7FAF6B" stroke-width="5" stroke-linecap="round"/>
+  <g stroke-width="3" stroke-linejoin="round">
+    <path d="M220 140 Q244 116 272 140 Q244 164 220 140Z" fill="#F7934C" stroke="#C96A2C"/>
+    <path d="M220 140 L204 128 V152Z" fill="#F7934C" stroke="#C96A2C"/>
+    <path d="M300 182 Q318 166 338 182 Q318 198 300 182Z" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M338 182 L352 172 V192Z" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M310 118 Q324 106 340 118 Q324 130 310 118Z" fill="#7FAF6B" stroke="#55864A"/>
+    <path d="M340 118 L352 110 V126Z" fill="#7FAF6B" stroke="#55864A"/>
+  </g>
+  <g fill="#3B2F2F"><circle cx="260" cy="137" r="3"/><circle cx="308" cy="180" r="2.5"/><circle cx="318" cy="116" r="2.5"/></g>
+  <g fill="none" stroke="#FFFFFF" stroke-width="3"><circle cx="284" cy="124" r="5"/><circle cx="292" cy="108" r="4"/><circle cx="288" cy="166" r="4"/></g>
+  <!-- Teal plus on the wall -->
+  <circle cx="500" cy="170" r="52" fill="#FFFFFF" stroke="#B9C6CC" stroke-width="5"/>
+  <path d="M486 136 H514 V156 H534 V184 H514 V204 H486 V184 H466 V156 H486Z" fill="#3EB59B" stroke="#2A8A74" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M470 140 Q478 130 490 128" fill="none" stroke="#E6F5F0" stroke-width="5" stroke-linecap="round"/>
+  <!-- Big window with sky, hills and a cypress -->
+  <g transform="translate(640 70)">
+    <rect x="-12" y="-12" width="344" height="264" rx="26" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="5"/>
+    <rect width="320" height="240" rx="16" fill="#BFE6FF"/>
+    <g fill="#FFFFFF"><circle cx="54" cy="46" r="13"/><circle cx="72" cy="38" r="17"/><circle cx="92" cy="47" r="12"/><circle cx="236" cy="62" r="11"/><circle cx="252" cy="55" r="14"/></g>
+    <g transform="translate(270 34)">
+      <g stroke="#FFC23C" stroke-width="5" stroke-linecap="round"><path d="M0-30V-24M0 24V30M-30 0H-24M24 0H30M-21-21L-17-17M17 17L21 21M-21 21L-17 17M17-17L21-21"/></g>
+      <circle r="16" fill="#FFC23C"/>
+    </g>
+    <path d="M0 170 Q90 136 170 160 T320 150 V224 Q320 240 304 240 H16 Q0 240 0 224Z" fill="#9FCB80"/>
+    <path d="M0 200 Q80 186 160 200 T320 196 V224 Q320 240 304 240 H16 Q0 240 0 224Z" fill="#7FAF6B"/>
+    <path d="M62 196 Q50 150 62 106 Q74 150 62 196Z" fill="#5E9457"/>
+    <g fill="#E5508A"><circle cx="120" cy="214" r="5"/><circle cx="210" cy="206" r="5"/><circle cx="258" cy="218" r="5"/></g>
+    <path d="M160 0V240M0 120H320" stroke="#FAFBF8" stroke-width="9"/>
+  </g>
+  <rect x="616" y="324" width="368" height="18" rx="9" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4"/>
+  <!-- Little potted plant on the sill -->
+  <g stroke-linejoin="round">
+    <g fill="#7FAF6B" stroke="#55864A" stroke-width="3"><circle cx="660" cy="290" r="13"/><circle cx="676" cy="282" r="14"/><circle cx="690" cy="292" r="12"/></g>
+    <path d="M654 300 H696 L690 326 H660Z" fill="#C8673E" stroke="#8F4426" stroke-width="3.5"/>
+  </g>
+  <!-- Hanging shelf with toy blocks -->
+  <rect x="90" y="300" width="160" height="14" rx="7" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <g stroke-width="3" stroke-linejoin="round">
+    <rect x="108" y="268" width="30" height="30" rx="6" fill="#58B8EA" stroke="#3B8DBF"/>
+    <rect x="144" y="268" width="30" height="30" rx="6" fill="#FFC23C" stroke="#C78F1E"/>
+    <rect x="126" y="236" width="30" height="30" rx="6" fill="#E5508A" stroke="#B8396A"/>
+    <circle cx="210" cy="282" r="16" fill="#9B7FD1" stroke="#6E55A6"/>
+  </g>
+  <!-- Light floor -->
+  <rect y="430" width="1100" height="170" fill="#F1E6D2"/>
+  <rect y="430" width="1100" height="10" fill="#E0CFB1"/>
+  <g stroke="#E5D6BA" stroke-width="4" stroke-linecap="round">
+    <path d="M0 490H1100M0 548H1100"/>
+    <path d="M110 440V490M330 440V490M550 440V490M770 440V490M990 440V490M220 490V548M440 490V548M660 490V548M880 490V548M110 548V600M330 548V600M550 548V600M770 548V600M990 548V600"/>
+  </g>
+  <!-- Little play rug -->
+  <rect x="680" y="478" width="320" height="86" rx="30" fill="#BFE6DC" stroke="#8CC4B8" stroke-width="4"/>
+  <rect x="700" y="492" width="280" height="58" rx="22" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="10 10" stroke-linecap="round"/>
+  <g stroke-width="3" stroke-linejoin="round">
+    <circle cx="760" cy="521" r="12" fill="#FFC23C" stroke="#C78F1E"/>
+    <circle cx="840" cy="521" r="12" fill="#E5508A" stroke="#B8396A"/>
+    <circle cx="920" cy="521" r="12" fill="#58B8EA" stroke="#3B8DBF"/>
+  </g>
+</svg>

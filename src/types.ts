@@ -60,8 +60,8 @@ export type Interaction =
       setTarget?: PropState;
       whileNear?: boolean;
     }
-  /** Tapping gets a reaction but changes nothing, like stroking the cat. */
-  | { type: 'pet'; sfx: 'purr' }
+  /** Tapping gets a reaction but changes nothing, like stroking the cat or ringing a bell. */
+  | { type: 'pet'; sfx: 'purr' | 'ding' }
   /** Tapping puts play coins in the purse (the piggy bank). */
   | { type: 'coins'; amount: number }
   | { type: 'holdIn' }

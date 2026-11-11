@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <rect width="1100" height="600" fill="#FFF6CF"/>
+  <!-- Soft plaster courses -->
+  <g fill="none" stroke="#F3E6AE" stroke-width="3" stroke-linecap="round">
+    <path d="M0 115H1100M0 230H1100M0 345H1100"/>
+    <path d="M200 0V115M640 0V115M1060 0V115M90 115V230M480 115V230M780 115V230M320 230V345M720 230V345M140 345V430M540 345V430"/>
+  </g>
+  <!-- Painted dado band -->
+  <rect y="370" width="1100" height="60" fill="#CFEDE7"/>
+  <path d="M0 370H1100" stroke="#8CC4B8" stroke-width="5"/>
+  <g fill="#FFFFFF" opacity=".7">
+    <circle cx="50" cy="400" r="6"/><circle cx="150" cy="400" r="6"/><circle cx="250" cy="400" r="6"/><circle cx="350" cy="400" r="6"/><circle cx="450" cy="400" r="6"/><circle cx="550" cy="400" r="6"/><circle cx="650" cy="400" r="6"/><circle cx="750" cy="400" r="6"/>
+  </g>
+  <!-- Window -->
+  <g transform="translate(120 80)">
+    <rect x="-12" y="-12" width="284" height="234" rx="24" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="5"/>
+    <rect width="260" height="210" rx="16" fill="#BFE6FF"/>
+    <g fill="#FFFFFF"><circle cx="46" cy="40" r="12"/><circle cx="62" cy="33" r="15"/><circle cx="78" cy="41" r="10"/><circle cx="196" cy="54" r="10"/><circle cx="210" cy="48" r="13"/></g>
+    <path d="M0 150 Q80 122 150 142 T260 134 V194 Q260 210 244 210 H16 Q0 210 0 194Z" fill="#9FCB80"/>
+    <rect x="182" y="96" width="14" height="64" rx="6" fill="#8A6A4F"/>
+    <circle cx="189" cy="80" r="34" fill="#5E9457"/>
+    <circle cx="164" cy="98" r="22" fill="#6FA263"/>
+    <circle cx="216" cy="96" r="22" fill="#6FA263"/>
+    <g fill="#F7934C"><circle cx="176" cy="84" r="5"/><circle cx="204" cy="100" r="5"/><circle cx="196" cy="66" r="5"/></g>
+    <path d="M130 0V210M0 105H260" stroke="#FAFBF8" stroke-width="8"/>
+  </g>
+  <rect x="96" y="302" width="308" height="16" rx="8" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4"/>
+  <!-- Wall hooks with a coat -->
+  <rect x="470" y="96" width="120" height="14" rx="7" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <g fill="#FFC23C" stroke="#C78F1E" stroke-width="3"><circle cx="500" cy="103" r="6"/><circle cx="560" cy="103" r="6"/></g>
+  <path d="M560 108 L534 130 L530 230 Q530 238 538 238 H582 Q590 238 590 230 L586 130Z" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M560 112 L548 150 M560 112 L572 150 M560 150 V232" fill="none" stroke="#B9C6CC" stroke-width="3" stroke-linecap="round"/>
+  <rect x="566" y="176" width="16" height="14" rx="4" fill="#CFEDE7" stroke="#8CC4B8" stroke-width="3"/>
+  <!-- Height chart: coloured bands under a friendly giraffe -->
+  <g stroke-linejoin="round">
+    <rect x="910" y="160" width="80" height="270" rx="10" fill="#FFFFFF" stroke="#E2CDA3" stroke-width="4"/>
+    <g>
+      <rect x="914" y="376" width="72" height="50" fill="#E5508A"/>
+      <rect x="914" y="326" width="72" height="50" fill="#F7934C"/>
+      <rect x="914" y="276" width="72" height="50" fill="#FFC23C"/>
+      <rect x="914" y="226" width="72" height="50" fill="#7FAF6B"/>
+      <rect x="914" y="176" width="72" height="50" fill="#58B8EA"/>
+    </g>
+    <g stroke="#FFFFFF" stroke-width="4" stroke-linecap="round">
+      <path d="M914 376H944M914 326H944M914 276H944M914 226H944M914 176H944"/>
+      <path d="M914 351H930M914 301H930M914 251H930M914 201H930"/>
+    </g>
+    <!-- giraffe peeking over the top -->
+    <g stroke="#C78F1E" stroke-width="3.5">
+      <path d="M960 168 V100 Q960 88 972 88 Q984 88 984 100 V168Z" fill="#FFD46A"/>
+      <ellipse cx="986" cy="78" rx="26" ry="18" fill="#FFD46A"/>
+      <path d="M968 64 V50 M982 62 V48" fill="none" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="968" cy="48" r="5" fill="#C4966B" stroke="#8F5A30"/>
+      <circle cx="982" cy="46" r="5" fill="#C4966B" stroke="#8F5A30"/>
+      <ellipse cx="1004" cy="84" rx="12" ry="9" fill="#F6E1B0"/>
+      <ellipse cx="958" cy="66" rx="8" ry="5" fill="#FFD46A" transform="rotate(-25 958 66)"/>
+    </g>
+    <g fill="#E0A53A"><circle cx="970" cy="116" r="5"/><circle cx="976" cy="140" r="4.5"/><circle cx="968" cy="158" r="4"/><circle cx="990" cy="72" r="4"/></g>
+    <circle cx="980" cy="74" r="3.5" fill="#3B2F2F"/>
+    <path d="M1000 90 Q1006 94 1012 90" fill="none" stroke="#8F5A30" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <!-- Light floor -->
+  <rect y="430" width="1100" height="170" fill="#F1E6D2"/>
+  <rect y="430" width="1100" height="10" fill="#E0CFB1"/>
+  <g stroke="#E5D6BA" stroke-width="4" stroke-linecap="round">
+    <path d="M0 490H1100M0 548H1100"/>
+    <path d="M110 440V490M330 440V490M550 440V490M770 440V490M990 440V490M220 490V548M440 490V548M660 490V548M880 490V548M110 548V600M330 548V600M550 548V600M770 548V600M990 548V600"/>
+  </g>
+  <!-- Footprints in front of the height chart -->
+  <g fill="#CFEDE7" stroke="#8CC4B8" stroke-width="3">
+    <ellipse cx="932" cy="470" rx="14" ry="20"/>
+    <ellipse cx="970" cy="470" rx="14" ry="20"/>
+  </g>
+</svg>

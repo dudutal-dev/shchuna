@@ -109,7 +109,7 @@ export function allArtOf(def: PropDef): string[] {
 }
 
 /** The reaction to a tap that changes nothing, if this prop has one. */
-export function petSound(def: PropDef): 'purr' | null {
+export function petSound(def: PropDef): 'purr' | 'ding' | null {
   const pet = def.interactions.find((interaction) => interaction.type === 'pet');
   return pet?.type === 'pet' ? pet.sfx : null;
 }

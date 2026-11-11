@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="70" viewBox="0 0 45 70">
+  <!-- Cap -->
+  <rect x="13" y="3" width="19" height="13" rx="4" fill="#3EB59B" stroke="#2A8A74" stroke-width="3"/>
+  <!-- Bottle -->
+  <path d="M15 15 H30 V20 Q41 24 41 34 V60 Q41 68 33 68 H12 Q4 68 4 60 V34 Q4 24 15 20Z" fill="#F7B267" fill-opacity=".9" stroke="#C47E36" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Pink label with a little heart -->
+  <rect x="8" y="34" width="29" height="24" rx="6" fill="#F4A6C3" stroke="#D07798" stroke-width="2.5"/>
+  <path transform="translate(22.5 46)" d="M0 6 C-10 -1 -6 -9 0 -3.5 C6 -9 10 -1 0 6Z" fill="#FFFFFF"/>
+  <path d="M9 28 Q10 25 13 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+</svg>

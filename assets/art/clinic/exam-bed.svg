@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="150" viewBox="0 0 340 150">
+  <!-- Legs with round feet -->
+  <g fill="#B9C6CC" stroke="#8C9BA4" stroke-width="4" stroke-linejoin="round">
+    <rect x="40" y="100" width="16" height="40" rx="5"/>
+    <rect x="284" y="100" width="16" height="40" rx="5"/>
+  </g>
+  <g fill="#3EB59B" stroke="#2A8A74" stroke-width="4">
+    <rect x="30" y="134" width="36" height="14" rx="7"/>
+    <rect x="274" y="134" width="36" height="14" rx="7"/>
+  </g>
+  <!-- Base cabinet with a little drawer -->
+  <rect x="24" y="84" width="292" height="26" rx="12" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4"/>
+  <rect x="136" y="90" width="68" height="14" rx="6" fill="#CFEDE7" stroke="#8CC4B8" stroke-width="3"/>
+  <rect x="160" y="95" width="20" height="5" rx="2.5" fill="#8CC4B8"/>
+  <!-- Padded mattress, lying surface at y 60 -->
+  <rect x="14" y="58" width="312" height="32" rx="14" fill="#58C2A9" stroke="#2A8A74" stroke-width="4"/>
+  <path d="M28 66 H140" stroke="#9BE0CF" stroke-width="4" stroke-linecap="round"/>
+  <!-- Paper sheet running along the bed -->
+  <path d="M28 59 H248 V68 Q248 72 244 72 H28Z" fill="#FFFDF5" stroke="#DCD3BE" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M86 60 V71 M146 60 V71 M206 60 V71" stroke="#ECE4D0" stroke-width="2.5" stroke-dasharray="3 3"/>
+  <!-- Paper roll at the foot end -->
+  <rect x="4" y="54" width="30" height="24" rx="12" fill="#FFFDF5" stroke="#DCD3BE" stroke-width="3.5"/>
+  <circle cx="19" cy="66" r="5" fill="#E8DFC8" stroke="#DCD3BE" stroke-width="2.5"/>
+  <!-- Raised head end with pillow -->
+  <path d="M250 60 L302 34 Q316 28 322 40 L326 58 Q326 62 322 62 H250Z" fill="#58C2A9" stroke="#2A8A74" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="262" y="22" width="56" height="28" rx="13" fill="#FFFFFF" stroke="#B9C6CC" stroke-width="4" transform="rotate(-18 290 36)"/>
+  <circle cx="290" cy="36" r="4" fill="#F4A6C3"/>
+</svg>

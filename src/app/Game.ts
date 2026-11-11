@@ -1,5 +1,5 @@
 import { Application } from 'pixi.js';
-import { defaultFamily, ganPeople } from '../characters/catalog';
+import { clinicPeople, defaultFamily, ganPeople } from '../characters/catalog';
 import { CharacterCreator } from '../characters/CharacterCreator';
 import { letterInfo } from '../content/letters';
 import { isOpen, type PlaceInfo } from '../content/places';
@@ -10,6 +10,7 @@ import { SaveManager } from '../engine/SaveManager';
 import { Scene, type LocationData } from '../engine/Scene';
 import { setNiqqudShown } from '../engine/text';
 import { find, hear, letterLines, letterOn } from '../learning/LetterHunt';
+import { clinic } from '../locations/clinic/clinic.data';
 import { gan } from '../locations/gan/gan.data';
 import { home } from '../locations/home/home.data';
 import { Checkout } from '../locations/makolet/Checkout';
@@ -31,13 +32,14 @@ const SKY = 0xbfe6ff;
 /** Coins in the purse at most; the piggy bank stops topping up beyond this. */
 const PURSE_MAX = 50;
 
-const LOCATIONS: Partial<Record<LocationId, LocationData>> = { home, makolet, gan, playground };
+const LOCATIONS: Partial<Record<LocationId, LocationData>> = { home, makolet, gan, clinic, playground };
 
 /** Background loops from scripts/gen-music.ts. The engine test scene has none. */
 const MUSIC: Partial<Record<LocationId | 'map', string>> = {
   home: 'audio/music/home.mp3',
   makolet: 'audio/music/makolet.mp3',
   gan: 'audio/music/gan.mp3',
+  clinic: 'audio/music/clinic.mp3',
   map: 'audio/music/map.mp3',
 };
 
@@ -106,7 +108,7 @@ export class Game {
 
     this.actions = new Actions(this.store, this.saves);
     this.audio = await createAudio(this.store);
-    this.actions.seedCharacters([...defaultFamily(), ...ganPeople()]);
+    this.actions.seedCharacters([...defaultFamily(), ...ganPeople(), ...clinicPeople()]);
 
     // Closing the tab can't wait for the debounce.
     document.addEventListener('visibilitychange', () => {
@@ -331,7 +333,7 @@ export class Game {
       this.store,
       this.audio,
       propDefs,
-      [...home.props, ...makolet.props, ...gan.props],
+      [...home.props, ...makolet.props, ...gan.props, ...clinic.props],
       (letter) => this.actions.setLetters(hear(this.store.state.letters, letter)),
       () => {
         this.book = null;

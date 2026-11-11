@@ -1,7 +1,17 @@
 import { Howl } from 'howler';
 import type { AddressGender, Settings } from '../types';
 
-export type SfxId = 'tap' | 'lift' | 'drop' | 'toggle' | 'success' | 'undo' | 'purr' | 'yum' | 'tada';
+export type SfxId =
+  | 'tap'
+  | 'lift'
+  | 'drop'
+  | 'toggle'
+  | 'success'
+  | 'undo'
+  | 'purr'
+  | 'yum'
+  | 'tada'
+  | 'ding';
 
 /** What the rest of the game needs from audio. */
 export interface SoundPlayer {
@@ -168,6 +178,8 @@ const SFX_NOTES: Record<SfxId, ReadonlyArray<readonly [hz: number, startS: numbe
   purr: [[110, 0, 0.12], [100, 0.13, 0.12], [115, 0.26, 0.12], [104, 0.39, 0.14]],
   yum: [[440, 0, 0.08], [554, 0.1, 0.08], [440, 0.22, 0.08], [554, 0.32, 0.12]],
   tada: [[523, 0, 0.1], [659, 0.08, 0.1], [784, 0.16, 0.1], [1047, 0.26, 0.22]],
+  // The reception bell: two bright partials ringing out together.
+  ding: [[1568, 0, 0.6], [2349, 0, 0.35]],
 };
 
 /** The real thing: Howler for files, Web Audio for tones. */

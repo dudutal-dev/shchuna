@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="220" viewBox="0 0 180 220">
+  <!-- Cabinet body -->
+  <rect x="6" y="6" width="168" height="208" rx="18" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4"/>
+  <!-- Top cap -->
+  <rect x="2" y="2" width="176" height="20" rx="10" fill="#CFEDE7" stroke="#8CC4B8" stroke-width="4"/>
+  <!-- Open interior -->
+  <rect x="42" y="30" width="122" height="172" rx="10" fill="#E6F5F0" stroke="#B9C6CC" stroke-width="4"/>
+  <!-- Two empty shelves at y 80 and y 150 -->
+  <g stroke="#8CC4B8" stroke-width="6" stroke-linecap="round">
+    <path d="M48 80 H158M48 150 H158"/>
+  </g>
+  <path d="M48 198 H158" stroke="#B9C6CC" stroke-width="4" stroke-linecap="round"/>
+  <!-- Door swung to the side, seen edge-on -->
+  <rect x="2" y="28" width="36" height="176" rx="10" fill="#FFFFFF" stroke="#B9C6CC" stroke-width="4"/>
+  <rect x="9" y="40" width="22" height="152" rx="6" fill="#F2F6F7"/>
+  <path d="M14 104 H26 M20 98 V110" stroke="#3EB59B" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="20" cy="140" r="5" fill="#FFC23C" stroke="#C78F1E" stroke-width="2.5"/>
+</svg>

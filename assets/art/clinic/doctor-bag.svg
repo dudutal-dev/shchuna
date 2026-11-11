@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="90" viewBox="0 0 120 90">
+  <!-- Handle -->
+  <path d="M42 26 V16 Q42 8 50 8 H70 Q78 8 78 16 V26" fill="none" stroke="#6B4C35" stroke-width="10" stroke-linecap="round"/>
+  <path d="M42 26 V16 Q42 8 50 8 H70 Q78 8 78 16 V26" fill="none" stroke="#C4966B" stroke-width="5" stroke-linecap="round"/>
+  <!-- Bag body -->
+  <path d="M10 40 Q10 24 26 24 H94 Q110 24 110 40 V76 Q110 88 98 88 H22 Q10 88 10 76Z" fill="#E5508A" stroke="#B8396A" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Clasp band -->
+  <path d="M12 40 H108" stroke="#B8396A" stroke-width="4" stroke-linecap="round"/>
+  <rect x="52" y="34" width="16" height="12" rx="4" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+  <!-- Teal plus badge -->
+  <circle cx="60" cy="66" r="15" fill="#FFFFFF" stroke="#B8396A" stroke-width="3"/>
+  <path d="M56 56 H64 V62 H70 V70 H64 V76 H56 V70 H50 V62 H56Z" fill="#3EB59B" stroke="#2A8A74" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M20 50 V74" stroke="#F4A6C3" stroke-width="5" stroke-linecap="round"/>
+</svg>

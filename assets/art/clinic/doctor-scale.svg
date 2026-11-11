@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="210" viewBox="0 0 120 210">
+  <!-- Base platform -->
+  <rect x="6" y="180" width="108" height="28" rx="12" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4"/>
+  <rect x="18" y="182" width="84" height="10" rx="5" fill="#7FD4C1" stroke="#3EB59B" stroke-width="3"/>
+  <!-- Footprint pads -->
+  <g fill="#CFEDE7"><ellipse cx="46" cy="198" rx="9" ry="4"/><ellipse cx="74" cy="198" rx="9" ry="4"/></g>
+  <!-- Column -->
+  <rect x="80" y="40" width="18" height="144" rx="8" fill="#3EB59B" stroke="#2A8A74" stroke-width="4"/>
+  <path d="M85 60 V160" stroke="#7FD4C1" stroke-width="4" stroke-linecap="round"/>
+  <!-- Head with a round dial (colour wedges, no digits) -->
+  <rect x="46" y="10" width="68" height="44" rx="14" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4"/>
+  <circle cx="80" cy="32" r="16" fill="#FFFFFF" stroke="#8CC4B8" stroke-width="3"/>
+  <path d="M80 32 L66 26 A16 16 0 0 1 74 18Z" fill="#7FAF6B"/>
+  <path d="M80 32 L74 18 A16 16 0 0 1 86 18Z" fill="#FFC23C"/>
+  <path d="M80 32 L86 18 A16 16 0 0 1 94 26Z" fill="#F7934C"/>
+  <path d="M80 32 L88 22" stroke="#E5508A" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="80" cy="32" r="3" fill="#E5508A"/>
+  <!-- Sliding balance arm -->
+  <rect x="8" y="62" width="82" height="10" rx="5" fill="#B9C6CC" stroke="#8C9BA4" stroke-width="3"/>
+  <rect x="30" y="58" width="14" height="18" rx="5" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+  <path d="M54 18 H70" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+</svg>

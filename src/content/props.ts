@@ -48,7 +48,10 @@ const definitions: PropDef[] = [
   prop('cup', 'cup', {
     art: 'playground/cup.svg',
     artStates: when({ filled: true }, 'playground/cup-full.svg'),
-    interactions: [{ type: 'useOn', target: 'sink', setSource: { filled: true } }],
+    interactions: [
+      { type: 'useOn', target: 'sink', setSource: { filled: true } },
+      { type: 'useOn', target: 'water-cooler', setSource: { filled: true } },
+    ],
   }),
   prop('lamp', 'lamp', {
     art: 'playground/lamp-off.svg',
@@ -200,6 +203,44 @@ const definitions: PropDef[] = [
   }),
   prop('spade', 'spade', { art: 'gan/spade.svg' }),
   prop('tricycle', 'tricycle', { art: 'gan/tricycle.svg' }),
+
+  // Clinic: the waiting room.
+  prop('reception-desk', 'receptionDesk', { art: 'clinic/reception-desk.svg', layer: 'furniture' }),
+  prop('bell', 'bell', { art: 'clinic/bell.svg', interactions: [{ type: 'pet', sfx: 'ding' }] }),
+  prop('bench', 'bench', { art: 'clinic/bench.svg', layer: 'furniture' }),
+  prop('water-cooler', 'waterCooler', {
+    art: 'clinic/water-cooler.svg',
+    layer: 'furniture',
+    // The little tap.
+    useOnPoint: { x: 0, y: -100 },
+  }),
+  prop('toy-box', 'toyBox', { art: 'clinic/toy-box.svg', layer: 'furniture' }),
+
+  // Clinic: the doctor's room.
+  prop('exam-bed', 'examBed', { art: 'clinic/exam-bed.svg', layer: 'furniture' }),
+  prop('light-box', 'lightBox', {
+    art: 'clinic/light-box.svg',
+    artStates: when({ on: true }, 'clinic/light-box-on.svg'),
+    layer: 'furniture',
+    interactions: toggle('on'),
+  }),
+  prop('cabinet', 'cabinet', {
+    art: 'clinic/cabinet.svg',
+    artStates: when({ open: true }, 'clinic/cabinet-open.svg'),
+    layer: 'furniture',
+    interactions: toggle('open'),
+  }),
+  prop('computer', 'computer', {
+    art: 'clinic/computer.svg',
+    artStates: when({ on: true }, 'clinic/computer-on.svg'),
+    interactions: toggle('on'),
+  }),
+  prop('doctor-scale', 'doctorScale', { art: 'clinic/doctor-scale.svg', layer: 'furniture' }),
+  prop('stethoscope', 'stethoscope', { art: 'clinic/stethoscope.svg' }),
+  prop('bandage', 'bandage', { art: 'clinic/bandage.svg' }),
+  prop('thermometer', 'thermometer', { art: 'clinic/thermometer.svg' }),
+  prop('doctor-bag', 'doctorBag', { art: 'clinic/doctor-bag.svg' }),
+  prop('medicine', 'medicine', { art: 'clinic/medicine.svg' }),
 ];
 
 export const propDefs: Readonly<Record<string, PropDef>> = Object.fromEntries(

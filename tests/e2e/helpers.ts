@@ -6,7 +6,7 @@ export interface Point {
 }
 
 /** A place to open straight into, or 'map' for the real way in: start screen, then map. */
-export type SceneName = 'home' | 'makolet' | 'gan' | 'playground' | 'map';
+export type SceneName = 'home' | 'makolet' | 'gan' | 'clinic' | 'playground' | 'map';
 
 /** Waits for the start screen, with the test hook on. */
 export async function openStartScreen(page: Page, scene: SceneName = 'playground'): Promise<void> {

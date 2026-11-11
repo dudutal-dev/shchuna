@@ -133,5 +133,20 @@
   {"id": "letter.found.qof.m", "text": "מָצָאתָ אֶת הָאוֹת קוֹף! קוֹף.", "voice": "narrator", "proofread": false},
   {"id": "letter.found.qof.f", "text": "מָצָאת אֶת הָאוֹת קוֹף! קוֹף.", "voice": "narrator", "proofread": false},
   {"id": "letter.name.qof", "text": "קוֹף", "voice": "narrator", "proofread": false},
-  {"id": "letter.hint.gan", "text": "אוּלַי בַּגַּן?", "voice": "narrator", "proofread": false}
+  {"id": "letter.hint.gan", "text": "אוּלַי בַּגַּן?", "voice": "narrator", "proofread": false},
+  {"id": "prop.reception-desk", "text": "דֶּלְפֵּק קַבָּלָה", "voice": "narrator", "proofread": false},
+  {"id": "prop.bell", "text": "פַּעֲמוֹן", "voice": "narrator", "proofread": false},
+  {"id": "prop.bench", "text": "סַפְסָל", "voice": "narrator", "proofread": false},
+  {"id": "prop.water-cooler", "text": "מִתְקַן מַיִם", "voice": "narrator", "proofread": false},
+  {"id": "prop.toy-box", "text": "אַרְגַּז צַעֲצוּעִים", "voice": "narrator", "proofread": false},
+  {"id": "prop.exam-bed", "text": "מִטַּת בְּדִיקָה", "voice": "narrator", "proofread": false},
+  {"id": "prop.light-box", "text": "צִלּוּם רֶנְטְגֶן", "voice": "narrator", "proofread": false},
+  {"id": "prop.cabinet", "text": "אֲרוֹן תְּרוּפוֹת", "voice": "narrator", "proofread": false},
+  {"id": "prop.computer", "text": "מַחְשֵׁב", "voice": "narrator", "proofread": false},
+  {"id": "prop.doctor-scale", "text": "מִשְׁקָל", "voice": "narrator", "proofread": false},
+  {"id": "prop.stethoscope", "text": "סְטֵטוֹסְקוֹפּ", "voice": "narrator", "proofread": false},
+  {"id": "prop.bandage", "text": "פְּלַסְטֶר", "voice": "narrator", "proofread": false},
+  {"id": "prop.thermometer", "text": "מַדְחֹם", "voice": "narrator", "proofread": false},
+  {"id": "prop.doctor-bag", "text": "תִּיק רוֹפֵא", "voice": "narrator", "proofread": false},
+  {"id": "prop.medicine", "text": "תְּרוּפָה", "voice": "narrator", "proofread": false}
 ]

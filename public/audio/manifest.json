@@ -809,6 +809,96 @@
       "text": "אוּלַי בַּגַּן?",
       "durationMs": 1840,
       "hash": "4fb6b4fc82d105fafd81febe6b2162b8b53a8bb12ba8132b06a4ee9312cb8e89"
+    },
+    "prop.reception-desk": {
+      "file": "public/audio/lines/prop.reception-desk.mp3",
+      "text": "דֶּלְפֵּק קַבָּלָה",
+      "durationMs": 1280,
+      "hash": "d39e17c72979a9fc3f52822f4679b752c52b668718645bcdcf1632330daaad56"
+    },
+    "prop.bell": {
+      "file": "public/audio/lines/prop.bell.mp3",
+      "text": "פַּעֲמוֹן",
+      "durationMs": 1120,
+      "hash": "53fcc891006fffb8b0410590b45ab212831a10b075e69f540bb084ba729cb291"
+    },
+    "prop.bench": {
+      "file": "public/audio/lines/prop.bench.mp3",
+      "text": "סַפְסָל",
+      "durationMs": 1600,
+      "hash": "6658334b7d109636cc642233b73554db4d5211b93cb0f1518c0f97a009890254"
+    },
+    "prop.water-cooler": {
+      "file": "public/audio/lines/prop.water-cooler.mp3",
+      "text": "מִתְקַן מַיִם",
+      "durationMs": 1360,
+      "hash": "8c8333169af456d35f66711698fd9acb78b418de9e53225997c862dc66aea8d9"
+    },
+    "prop.toy-box": {
+      "file": "public/audio/lines/prop.toy-box.mp3",
+      "text": "אַרְגַּז צַעֲצוּעִים",
+      "durationMs": 1760,
+      "hash": "f01613d990eaafadf090c92c941fff0d05cbe9bb2b363fcdc9a2d84105d5fbce"
+    },
+    "prop.exam-bed": {
+      "file": "public/audio/lines/prop.exam-bed.mp3",
+      "text": "מִטַּת בְּדִיקָה",
+      "durationMs": 1120,
+      "hash": "63e04893bf0011bb3bbb9bde03754c219027106b872c03a9b01b4b7dde8ad12d"
+    },
+    "prop.light-box": {
+      "file": "public/audio/lines/prop.light-box.mp3",
+      "text": "צִלּוּם רֶנְטְגֶן",
+      "durationMs": 1040,
+      "hash": "600507ce4caf03665c2f26003100846608aa7c3de047c3bac51828729ca3e775"
+    },
+    "prop.cabinet": {
+      "file": "public/audio/lines/prop.cabinet.mp3",
+      "text": "אֲרוֹן תְּרוּפוֹת",
+      "durationMs": 1280,
+      "hash": "a59e578772b900cb424ada8f94d9be0ba6cb5f0720c12c7477639187bce6e5a0"
+    },
+    "prop.computer": {
+      "file": "public/audio/lines/prop.computer.mp3",
+      "text": "מַחְשֵׁב",
+      "durationMs": 1600,
+      "hash": "145044f00b028f6a6d83970a0dbc6159b0c2bc7d856dde0e2a9f683fc8916ea3"
+    },
+    "prop.doctor-scale": {
+      "file": "public/audio/lines/prop.doctor-scale.mp3",
+      "text": "מִשְׁקָל",
+      "durationMs": 1440,
+      "hash": "5378094b01204106d8459983db9f183f60ba9aa90ade2c23eea45879029cc725"
+    },
+    "prop.stethoscope": {
+      "file": "public/audio/lines/prop.stethoscope.mp3",
+      "text": "סְטֵטוֹסְקוֹפּ",
+      "durationMs": 1200,
+      "hash": "88bfc71c7d0ea718eba1aed93068adc5d307999ec7ea580373bcae1cc0be8f2a"
+    },
+    "prop.bandage": {
+      "file": "public/audio/lines/prop.bandage.mp3",
+      "text": "פְּלַסְטֶר",
+      "durationMs": 1760,
+      "hash": "c733e27eff314e88e7c669e3499a7bdcab58028e4c64033578a8027891a5a00c"
+    },
+    "prop.thermometer": {
+      "file": "public/audio/lines/prop.thermometer.mp3",
+      "text": "מַדְחֹם",
+      "durationMs": 1760,
+      "hash": "b3a6b93c571bb01f8604bd6795c5f1cb57204b70bfdf3db5b94801ceb224bd37"
+    },
+    "prop.doctor-bag": {
+      "file": "public/audio/lines/prop.doctor-bag.mp3",
+      "text": "תִּיק רוֹפֵא",
+      "durationMs": 960,
+      "hash": "b0ab95eacca93e84cfd7433dea1710781e815f62f268a57757c01aecd95b240d"
+    },
+    "prop.medicine": {
+      "file": "public/audio/lines/prop.medicine.mp3",
+      "text": "תְּרוּפָה",
+      "durationMs": 1360,
+      "hash": "a55603656adbbdc63747ef3cb63694e5b758ade2b936cfcf446d8c457bc8e60a"
     }
   }
 }

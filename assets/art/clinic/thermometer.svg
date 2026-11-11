@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="80" viewBox="0 0 30 80">
+  <!-- Body -->
+  <path d="M5 14 Q5 3 15 3 Q25 3 25 14 V56 Q25 62 19 64 H11 Q5 62 5 56Z" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Little window with a coloured stripe instead of digits -->
+  <rect x="9" y="14" width="12" height="20" rx="4" fill="#DDF3FF" stroke="#8FBBD6" stroke-width="2"/>
+  <rect x="12" y="17" width="6" height="14" rx="3" fill="#7FAF6B"/>
+  <!-- Button -->
+  <circle cx="15" cy="44" r="4.5" fill="#3EB59B" stroke="#2A8A74" stroke-width="2"/>
+  <!-- Tip -->
+  <path d="M11 63 V72 Q11 78 15 78 Q19 78 19 72 V63Z" fill="#D6DEE3" stroke="#8C9BA4" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M8 18 V40" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

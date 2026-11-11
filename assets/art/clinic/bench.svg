@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="120" viewBox="0 0 340 120">
+  <!-- Legs -->
+  <g fill="#C4966B" stroke="#6B4C35" stroke-width="4" stroke-linejoin="round">
+    <rect x="34" y="84" width="18" height="34" rx="6"/>
+    <rect x="161" y="84" width="18" height="34" rx="6"/>
+    <rect x="288" y="84" width="18" height="34" rx="6"/>
+  </g>
+  <!-- Frame -->
+  <rect x="12" y="70" width="316" height="22" rx="10" fill="#C4966B" stroke="#6B4C35" stroke-width="4"/>
+  <!-- Three padded seats, sitting surface at y 50 -->
+  <g stroke-width="4" stroke-linejoin="round">
+    <rect x="16" y="48" width="100" height="28" rx="14" fill="#F7934C" stroke="#C96A2C"/>
+    <rect x="120" y="48" width="100" height="28" rx="14" fill="#58B8EA" stroke="#3B8DBF"/>
+    <rect x="224" y="48" width="100" height="28" rx="14" fill="#FFC23C" stroke="#C78F1E"/>
+  </g>
+  <g fill="none" stroke-width="4" stroke-linecap="round">
+    <path d="M30 56 H62" stroke="#FFB98A"/>
+    <path d="M134 56 H166" stroke="#9AD3F2"/>
+    <path d="M238 56 H270" stroke="#FFE08A"/>
+  </g>
+  <!-- Buttons on cushions -->
+  <g fill="#FFFFFF" opacity=".75"><circle cx="66" cy="62" r="3.5"/><circle cx="170" cy="62" r="3.5"/><circle cx="274" cy="62" r="3.5"/></g>
+  <path d="M28 82 H120" stroke="#DDB78F" stroke-width="4" stroke-linecap="round"/>
+</svg>

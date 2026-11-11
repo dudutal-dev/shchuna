@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="100" viewBox="0 0 160 100">
+  <!-- Toys peeking out -->
+  <g stroke-width="3" stroke-linejoin="round">
+    <circle cx="44" cy="24" r="16" fill="#E5508A" stroke="#B8396A"/>
+    <path d="M30 18 Q44 26 58 18" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <rect x="70" y="14" width="26" height="26" rx="6" fill="#FFC23C" stroke="#C78F1E" transform="rotate(-12 83 27)"/>
+    <!-- little duck -->
+    <ellipse cx="118" cy="30" rx="18" ry="11" fill="#FFE08A" stroke="#C78F1E"/>
+    <circle cx="126" cy="16" r="9" fill="#FFE08A" stroke="#C78F1E"/>
+    <path d="M134 16 L142 18 L134 21Z" fill="#F7934C" stroke="#C96A2C"/>
+  </g>
+  <circle cx="128" cy="14" r="2" fill="#3B2F2F"/>
+  <!-- Chest body -->
+  <rect x="8" y="30" width="144" height="68" rx="14" fill="#9B7FD1" stroke="#6E55A6" stroke-width="4"/>
+  <!-- Rim (flat top) -->
+  <rect x="4" y="26" width="152" height="16" rx="8" fill="#7FAF6B" stroke="#55864A" stroke-width="4"/>
+  <!-- Decorations -->
+  <g stroke-width="3" stroke-linejoin="round">
+    <circle cx="40" cy="70" r="11" fill="#FFC23C" stroke="#C78F1E"/>
+    <path transform="translate(80 70)" d="M0-13L3.4-4.7 12.4-4 5.6 1.9 7.6 10.5 0 5.9-7.6 10.5-5.6 1.9-12.4-4-3.4-4.7Z" fill="#FFFFFF" stroke="#C9B9EA"/>
+    <circle cx="120" cy="70" r="11" fill="#58B8EA" stroke="#3B8DBF"/>
+  </g>
+  <path d="M20 50 V84" stroke="#B9A6E3" stroke-width="5" stroke-linecap="round"/>
+</svg>

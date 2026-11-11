@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="220" viewBox="0 0 180 220">
+  <!-- Cabinet body -->
+  <rect x="6" y="6" width="168" height="208" rx="18" fill="#FAFBF8" stroke="#B9C6CC" stroke-width="4"/>
+  <!-- Top cap -->
+  <rect x="2" y="2" width="176" height="20" rx="10" fill="#CFEDE7" stroke="#8CC4B8" stroke-width="4"/>
+  <!-- Door -->
+  <rect x="18" y="30" width="144" height="172" rx="12" fill="#FFFFFF" stroke="#B9C6CC" stroke-width="4"/>
+  <!-- Teal plus -->
+  <path d="M80 82 H100 V102 H120 V122 H100 V142 H80 V122 H60 V102 H80Z" fill="#3EB59B" stroke="#2A8A74" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Knob -->
+  <circle cx="146" cy="116" r="8" fill="#FFC23C" stroke="#C78F1E" stroke-width="3"/>
+  <!-- Hinges -->
+  <g fill="#B9C6CC"><rect x="13" y="50" width="8" height="18" rx="3"/><rect x="13" y="164" width="8" height="18" rx="3"/></g>
+  <path d="M34 46 V96" stroke="#E6F5F0" stroke-width="6" stroke-linecap="round"/>
+</svg>
