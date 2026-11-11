@@ -36,6 +36,8 @@ export const parentStrings = {
     voice: 'קול',
     sfx: 'צלילים',
     niqqud: 'הצגת ניקוד',
+    invitations: 'הזמנות בקול',
+    invitationsHint: 'כשהילד לא נוגע זמן מה, המשחק מציע משהו לעשות ויד שקופה מראה איך.',
     gender: 'פנייה לילד',
     male: 'זכר',
     female: 'נקבה',

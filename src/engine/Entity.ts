@@ -67,6 +67,11 @@ export class PropEntity extends Entity {
   private frameElapsed = 0;
   private frameIndex = 0;
 
+  /** Which animation frame shows now (a swing's seat forward or back). */
+  get frame(): number {
+    return this.frameIndex;
+  }
+
   constructor(
     readonly def: PropDef,
     instance: PropInstance,

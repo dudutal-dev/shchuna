@@ -18,7 +18,28 @@ export interface Surface {
   container?: { prop: string; key: string };
   /** A character placed here sits (chair, sofa) or lies down (bed). */
   pose?: 'sit' | 'lie';
+  /** What a character does here, beyond sitting or lying. */
+  activity?: Activity;
 }
+
+/** Things a place does with a character put on one of its surfaces. */
+export type Activity =
+  /** Slides down to `to` and lands standing (a slide). */
+  | { kind: 'slide'; to: Point }
+  /** Sets the swing prop going and sways with it. */
+  | { kind: 'swing'; prop: string }
+  /** Falls asleep; a tap wakes them up. */
+  | { kind: 'sleep' }
+  /** Laughs now and then while the prop's state key is on (the TV). */
+  | { kind: 'watch'; prop: string; key: string }
+  /** Eats food standing on that surface (a chair by a table). */
+  | { kind: 'eat'; table: string }
+  /** Splashes about in the sea with a swim ring. */
+  | { kind: 'swim' }
+  /** Sunbathes in sunglasses. */
+  | { kind: 'sunbathe' }
+  /** Rides inside the vehicle: when its doors close, it drives off and comes back. */
+  | { kind: 'ride'; prop: string };
 
 interface StatefulProp {
   id: string;

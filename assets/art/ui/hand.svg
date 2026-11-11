@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="110" viewBox="0 0 96 110">
+  <!-- A friendly pointing hand for the invitations. The fingertip is at (34, 6). -->
+  <g fill="#FFFFFF" stroke="#3B2F2F" stroke-opacity=".55" stroke-width="4" stroke-linejoin="round">
+    <!-- Index finger, pointing up. -->
+    <rect x="24" y="4" width="20" height="56" rx="10"/>
+    <!-- Palm with the folded fingers. -->
+    <path d="M24 48 C24 42 30 40 34 42 L44 44 C48 38 58 38 60 44 C64 40 72 42 72 50 C76 46 84 50 84 58 L84 78 C84 94 72 104 56 104 L46 104 C34 104 26 96 22 86 L14 66 C11 59 16 54 22 57 L24 60 Z"/>
+  </g>
+  <!-- Knuckle lines. -->
+  <g fill="none" stroke="#3B2F2F" stroke-opacity=".35" stroke-width="3" stroke-linecap="round">
+    <path d="M44 46 L45 60"/>
+    <path d="M60 46 L60 62"/>
+    <path d="M72 52 L72 64"/>
+  </g>
+  <!-- A soft fingernail. -->
+  <path d="M29 12 Q34 8 39 12" fill="none" stroke="#3B2F2F" stroke-opacity=".3" stroke-width="3" stroke-linecap="round"/>
+</svg>

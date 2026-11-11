@@ -1313,6 +1313,156 @@
       "text": "אוּלַי בַּתַּחֲנָה?",
       "durationMs": 1360,
       "hash": "29791f4b1a5c66ead1baf5e31085f74b3922e8aaaab7436dda5404c1415a3c73"
+    },
+    "react.wee": {
+      "file": "public/audio/lines/react.wee.mp3",
+      "text": "וִוי!",
+      "durationMs": 1040,
+      "hash": "2deec1c9c490c79b0e14a1d9059bddb959a72f06390b43ed3fb708c6f4c9af49"
+    },
+    "react.morning": {
+      "file": "public/audio/lines/react.morning.mp3",
+      "text": "בֹּקֶר טוֹב!",
+      "durationMs": 1120,
+      "hash": "fc9362695d1b551d37012e3741e6ddb646c4dc178a871095f56e3729d369caba"
+    },
+    "react.yum": {
+      "file": "public/audio/lines/react.yum.mp3",
+      "text": "טָעִים!",
+      "durationMs": 880,
+      "hash": "1d0428a325ac03abd1ae5393671c0b5099a473fe8b826f332dd49b2307e693ca"
+    },
+    "react.laugh": {
+      "file": "public/audio/lines/react.laugh.mp3",
+      "text": "חַה חַה חַה!",
+      "durationMs": 1600,
+      "hash": "806664c3807a51e82dd9e1a2e5b60705e0a562d289ef6227815c8ee3e9a60240"
+    },
+    "react.splash": {
+      "file": "public/audio/lines/react.splash.mp3",
+      "text": "אֵיזֶה כֵּיף בַּמַּיִם!",
+      "durationMs": 1840,
+      "hash": "95ac0705d2ac9624415cd50f29e35303157b0bb3a68b8051283184404b101a58"
+    },
+    "react.sun": {
+      "file": "public/audio/lines/react.sun.mp3",
+      "text": "אֵיזֶה כֵּיף בַּשֶּׁמֶשׁ!",
+      "durationMs": 2000,
+      "hash": "372cfa0fa29f6e668ba8f7f2959e1ea7d1143a46dc4fa3ddfcc22ac8bbdef9dd"
+    },
+    "react.byebye": {
+      "file": "public/audio/lines/react.byebye.mp3",
+      "text": "בַּיי בַּיי!",
+      "durationMs": 1120,
+      "hash": "9d5c769bed682b9afcfb1f013c96d5c329c41d411738018172035aeac6a5c4c4"
+    },
+    "invite.fridge": {
+      "file": "public/audio/lines/invite.fridge.mp3",
+      "text": "מָה יֵשׁ בַּמְּקָרֵר?",
+      "durationMs": 1440,
+      "hash": "bc6b6c6ceb79c194692d8d6845f967c02c202fb63805fd710b086dd761c346ac"
+    },
+    "invite.tv": {
+      "file": "public/audio/lines/invite.tv.mp3",
+      "text": "אוּלַי נַדְלִיק אֶת הַטֵּלֶוִיזְיָה?",
+      "durationMs": 1840,
+      "hash": "9bb3a636d3b336f739074fad9bb9c45a44ff2bc035702c024f24985bffb37af9"
+    },
+    "invite.sofa": {
+      "file": "public/audio/lines/invite.sofa.mp3",
+      "text": "מִי רוֹצֶה לָשֶׁבֶת עַל הַסַּפָּה?",
+      "durationMs": 1920,
+      "hash": "14af54ed895dca5676ae42cab809f8cb6134df696beff8fb51065cae54de78e1"
+    },
+    "invite.cat": {
+      "file": "public/audio/lines/invite.cat.mp3",
+      "text": "הֶחָתוּל רוֹצֶה לִטּוּף.",
+      "durationMs": 2000,
+      "hash": "e7725933d1539d461d2ccccfeeab13f6a1d83bb3954fab7d1e4f5031637ae298"
+    },
+    "invite.eat": {
+      "file": "public/audio/lines/invite.eat.mp3",
+      "text": "מִישֶׁהוּ רָעֵב? אוּלַי נוֹשִׁיב אוֹתוֹ לֶאֱכֹל?",
+      "durationMs": 3120,
+      "hash": "3a41c5405f440adbdd5e02f6f7f5c22ec3d405ce30067bcfec1db71e7511d907"
+    },
+    "invite.sleep": {
+      "file": "public/audio/lines/invite.sleep.mp3",
+      "text": "מִישֶׁהוּ עָיֵף? אוּלַי נַשְׁכִּיב אוֹתוֹ לִישׁוֹן?",
+      "durationMs": 3040,
+      "hash": "567263f29875b5f75668a394d483fa6d450bdbc4c165f7bfdc3a0b4af1e93ae9"
+    },
+    "invite.shop": {
+      "file": "public/audio/lines/invite.shop.mp3",
+      "text": "מָה קוֹנִים הַיּוֹם?",
+      "durationMs": 1280,
+      "hash": "536a37f06cbff181ecd96436cdc70223a8472f9ce3713e364d2927da9caa4be0"
+    },
+    "invite.slide": {
+      "file": "public/audio/lines/invite.slide.mp3",
+      "text": "מִי רוֹצֶה לְהִתְגַּלֵּשׁ?",
+      "durationMs": 1520,
+      "hash": "77c202d51d72fe927720c9fa55e8c3795f0fc51f756838381199b8650d85c8ef"
+    },
+    "invite.swing": {
+      "file": "public/audio/lines/invite.swing.mp3",
+      "text": "מִי רוֹצֶה לְהִתְנַדְנֵד?",
+      "durationMs": 1440,
+      "hash": "2b34292fc2d50dc811a6a69afbb4bb72d7a575c40af9ae79c24b5f8a0d8d8ff4"
+    },
+    "invite.theater": {
+      "file": "public/audio/lines/invite.theater.mp3",
+      "text": "מָה מִסְתַּתֵּר בַּתֵּאַטְרוֹן?",
+      "durationMs": 1760,
+      "hash": "dce78d6ca84d3083aa1f0dbf150d6866226adb3cf9f54630cb0074f874e0f7eb"
+    },
+    "invite.easel": {
+      "file": "public/audio/lines/invite.easel.mp3",
+      "text": "בּוֹאוּ נְצַיֵּר!",
+      "durationMs": 1280,
+      "hash": "4f90e9502b894c83c02ef1f8efaf15762743fe02f078087a6603695de159c70b"
+    },
+    "invite.xray": {
+      "file": "public/audio/lines/invite.xray.mp3",
+      "text": "בּוֹאוּ נִרְאֶה צִלּוּם רֶנְטְגֶן!",
+      "durationMs": 2080,
+      "hash": "f12d9cd5d833e908e8bee25ba4c64f746c5c3cf26c549ef6740a4b16dd292902"
+    },
+    "invite.exam": {
+      "file": "public/audio/lines/invite.exam.mp3",
+      "text": "מִי צָרִיךְ בְּדִיקָה אֵצֶל הָרוֹפְאָה?",
+      "durationMs": 2160,
+      "hash": "5ba819dc9efd7a4b14279beee019e9d1b03cfcb1d9dd51d24335ada4a8c7d9e5"
+    },
+    "invite.pita": {
+      "file": "public/audio/lines/invite.pita.mp3",
+      "text": "בּוֹאוּ נָכִין פִּיתָּה עִם פָלָאפֶל!",
+      "durationMs": 2080,
+      "hash": "89236853cb398c815aafbf0af7bdf6a17f00f0382492a996d8d77274c052d7d7"
+    },
+    "invite.swim": {
+      "file": "public/audio/lines/invite.swim.mp3",
+      "text": "מִי רוֹצֶה לִשְׂחוֹת בַּיָּם?",
+      "durationMs": 1600,
+      "hash": "eaf23c24b70de67b35e3624934013779db2e04767ce6e2ff805ded4200cdd3ba"
+    },
+    "invite.castle": {
+      "file": "public/audio/lines/invite.castle.mp3",
+      "text": "בּוֹאוּ נִבְנֶה אַרְמוֹן חוֹל!",
+      "durationMs": 1920,
+      "hash": "6216a6fdbe79ac8da9773b09e55601032605da8236fee1f9623faace20411921"
+    },
+    "invite.bus": {
+      "file": "public/audio/lines/invite.bus.mp3",
+      "text": "הָאוֹטוֹבּוּס הִגִּיעַ! נִפְתַּח אֶת הַדְּלָתוֹת?",
+      "durationMs": 2720,
+      "hash": "682cb12238de6b8168fd0a2c44cdc45ac595ca864a62c0bde35f579ed15d42ec"
+    },
+    "invite.ride": {
+      "file": "public/audio/lines/invite.ride.mp3",
+      "text": "מִי נוֹסֵעַ בָּאוֹטוֹבּוּס?",
+      "durationMs": 1600,
+      "hash": "9f6b88fed7aedcf69cfa6ddf494dbec491b3844943bf613d6258185c06f69ed5"
     }
   }
 }

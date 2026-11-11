@@ -69,10 +69,13 @@ const surfaces: Surface[] = [
   across('stove', STOVE_X, WALL_FEET, { width: 220, height: 250 }, 40, 20, 200),
   across('counter', SINK_X, WALL_FEET, { width: 300, height: 220 }, 82, 10, 290),
   across('table', TABLE_X, TABLE_FEET, { width: 320, height: 160 }, 12, 15, 305),
-  across('chair', CHAIR_X, 550, { width: 110, height: 190 }, 100, 10, 100, undefined, 'sit'),
+  { ...across('chair', CHAIR_X, 550, { width: 110, height: 190 }, 100, 10, 100, undefined, 'sit'), activity: { kind: 'eat', table: 'table' } },
 
   across('tv-cabinet', CABINET_X, WALL_FEET, { width: 260, height: 110 }, 8, 10, 250),
-  across('sofa', SOFA_X, WALL_FEET, { width: 380, height: 190 }, 95, 40, 340, undefined, 'sit'),
+  {
+    ...across('sofa', SOFA_X, WALL_FEET, { width: 380, height: 190 }, 95, 40, 340, undefined, 'sit'),
+    activity: { kind: 'watch', prop: 'tv', key: 'on' },
+  },
   across('living-shelf', WALL_SHELF_X, WALL_SHELF_FEET, { width: 260, height: 44 }, 4, 10, 250),
 
   across('wardrobe', WARDROBE_X, WALL_FEET, WARDROBE, 250, 30, 190, {
@@ -80,7 +83,7 @@ const surfaces: Surface[] = [
     key: 'open',
   }),
   across('kids-shelf', KIDS_SHELF_X, WALL_SHELF_FEET, { width: 260, height: 44 }, 4, 10, 250),
-  across('bed', BED_X, 490, { width: 360, height: 170 }, 60, 20, 300, undefined, 'lie'),
+  { ...across('bed', BED_X, 490, { width: 360, height: 170 }, 60, 20, 300, undefined, 'lie'), activity: { kind: 'sleep' } },
 ];
 
 function surfaceY(id: string): number {

@@ -50,7 +50,12 @@ const coolerOpen = { prop: 'beach-cooler', key: 'open' };
 
 const surfaces: Surface[] = [
   across('beach-chair', CHAIR_X, CHAIR_FEET, { width: 170, height: 120 }, 45, 20, 150, { pose: 'sit' }),
-  across('towel', TOWEL_X, TOWEL_FEET, { width: 230, height: 30 }, 6, 10, 220, { pose: 'lie' }),
+  {
+    ...across('towel', TOWEL_X, TOWEL_FEET, { width: 230, height: 30 }, 6, 10, 220, { pose: 'lie' }),
+    activity: { kind: 'sunbathe' },
+  },
+  // The water at the shore, right of the lifeguard tower: a character put here swims.
+  { id: 'sea', x: SHORE + 420, y: 418, width: 620, pose: 'sit', activity: { kind: 'swim' } },
   // Measured on the open cool box, the only time anything goes in.
   across('cooler-inside', COOLER_X, COOLER_FEET, { width: 150, height: 130 }, 70, 20, 130, {
     container: coolerOpen,
@@ -88,7 +93,8 @@ export const beach: LocationData = {
     on('ice-pop', COOLER_X - 25, 'cooler-inside', 'beach-ice-pop-1'),
     on('ice-pop', COOLER_X + 25, 'cooler-inside', 'beach-ice-pop-2'),
     prop('bucket', SAND + 920, 562),
-    prop('matkot', SAND + 690, 566),
+    // Left of the towel, clear of whoever lies on it.
+    prop('matkot', SAND + 360, 566),
 
     // The water's edge.
     prop('lifeguard-tower', TOWER_X, TOWER_FEET),

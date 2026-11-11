@@ -3,6 +3,8 @@ import { Ticker } from 'pixi.js';
 export type Ease = (t: number) => number;
 
 export const easeOutQuad: Ease = (t) => 1 - (1 - t) * (1 - t);
+/** Starts slow and speeds up: a slide downhill. */
+export const easeInQuad: Ease = (t) => t * t;
 export const easeOutBack: Ease = (t) => {
   const c = 1.70158;
   return 1 + (c + 1) * (t - 1) ** 3 + c * (t - 1) ** 2;

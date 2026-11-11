@@ -41,6 +41,14 @@ const LIGHT_X = ROAD + 1050;
 
 const surfaces: Surface[] = [
   across('shelter-bench', SHELTER_X, SHELTER_FEET, SHELTER, 200, 60, 320, { pose: 'sit' }),
+  // Passengers sit in the bus's windows; when the doors close, off it goes with them.
+  {
+    ...across('bus-seats', BUS_X, BUS_FEET, { width: 540, height: 300 }, 175, 70, 470, {
+      pose: 'sit',
+      container: { prop: 'station-bus', key: 'open' },
+    }),
+    activity: { kind: 'ride', prop: 'station-bus' },
+  },
 ];
 
 function surfaceY(id: string): number {

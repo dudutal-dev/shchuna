@@ -46,6 +46,16 @@ export class SettingsScreen {
       niqqud.addEventListener('change', () => handlers.change({ showNiqqud: niqqud.checked }));
       niqqudRow.append(el('span', '', text.niqqud), niqqud);
 
+      const invitesRow = el('label', 'parent-row');
+      const invites = el('input', 'parent-check');
+      invites.type = 'checkbox';
+      invites.name = 'invitations';
+      invites.checked = settings.invitations !== false;
+      invites.addEventListener('change', () => handlers.change({ invitations: invites.checked }));
+      invitesRow.append(el('span', '', text.invitations), invites);
+      const invitesGroup = el('div', 'parent-group');
+      invitesGroup.append(invitesRow, el('p', 'parent-hint', text.invitationsHint));
+
       const gender = el('fieldset', 'parent-group');
       gender.append(el('legend', '', text.gender));
       const options = el('div', 'parent-options');
@@ -103,7 +113,7 @@ export class SettingsScreen {
         resolve();
       });
 
-      card.append(title, guide, volumes, niqqudRow, gender, reset, privacy, close);
+      card.append(title, guide, volumes, niqqudRow, invitesGroup, gender, reset, privacy, close);
     });
   }
 

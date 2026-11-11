@@ -122,6 +122,8 @@ export interface Settings {
   sfx: number;
   showNiqqud: boolean;
   addressGender: AddressGender;
+  /** Spoken invitations with a demonstrating hand when the child is idle. Missing means on. */
+  invitations?: boolean;
 }
 
 export interface SaveGame {

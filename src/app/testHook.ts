@@ -26,6 +26,11 @@ export interface TestHook {
   here(): string;
   /** What the last idle hint pointed at: a prop, or a place on the map. */
   lastHint(): string | null;
+  /** Puts a character on a surface as a drop would. For checking what places do with them. */
+  put(characterId: string, surfaceId: string): boolean;
+  characterVisible(id: string): boolean;
+  /** Whether the see-through hand of an invitation is showing. */
+  ghostShowing(): boolean;
   /** A side arrow that slides the room, or null while it is hidden. */
   arrowCenter(side: 'left' | 'right'): Point | null;
   /** The background loop playing now. */
@@ -88,6 +93,9 @@ export function installTestHook(parts: {
     here: parts.here,
     lastHint: parts.lastHint,
     arrowCenter: (side) => parts.scene()?.arrowCenter(side) ?? null,
+    put: (characterId, surfaceId) => parts.scene()?.testPut(characterId, surfaceId) ?? false,
+    characterVisible: (id) => parts.scene()?.isCharacterVisible(id) ?? false,
+    ghostShowing: () => parts.scene()?.ghostShowing ?? false,
     music: parts.music,
     fps: parts.fps,
     frameCost: parts.frameCost,

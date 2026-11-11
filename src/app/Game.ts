@@ -9,6 +9,7 @@ import {
 } from '../characters/catalog';
 import { CharacterCreator } from '../characters/CharacterCreator';
 import { letterInfo } from '../content/letters';
+import { INVITE_GAP_MS } from '../content/invitations';
 import { isOpen, type PlaceInfo } from '../content/places';
 import { propDefs } from '../content/props';
 import { strings } from '../content/strings.he';
@@ -108,6 +109,8 @@ export class Game {
   private parents = false;
   private moving = false;
   private playing: string | null = null;
+  /** When the last spoken invitation was, so they stay half a minute apart across places. */
+  private lastInviteAt = 0;
   /** True until the child taps in: the only time an update may reload the page. */
   onStartScreen = true;
 
@@ -307,6 +310,11 @@ export class Game {
         defs: propDefs,
         audio: this.audio,
         onCoins: (amount) => this.addToPurse(amount),
+        invites: {
+          enabled: () => this.store.state.settings.invitations !== false,
+          canSpeak: () => performance.now() - this.lastInviteAt > INVITE_GAP_MS || this.lastInviteAt === 0,
+          spoke: () => (this.lastInviteAt = performance.now()),
+        },
         letters: {
           on: (instanceId) => letterOn(this.store.state.letters, instanceId),
           found: (letter, at) => void this.foundLetter(letter, at),

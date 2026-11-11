@@ -52,9 +52,11 @@ const surfaces: Surface[] = [
   across('drinks-1', FRIDGE_X, WALL_FEET, FRIDGE, 120, 20, 150, { container: fridgeOpen }),
   across('drinks-2', FRIDGE_X, WALL_FEET, FRIDGE, 200, 20, 150, { container: fridgeOpen }),
   ...TABLES.map((x, i) => across(`terrace-table-${i + 1}`, x, TABLE_FEET, TABLE, 240, 70, 190)),
-  ...STOOLS.map((x, i) =>
-    across(`stool-${i + 1}`, x, STOOL_FEET, STOOL, 15, 5, 85, { pose: 'sit' }),
-  ),
+  ...STOOLS.map((x, i) => ({
+    ...across(`stool-${i + 1}`, x, STOOL_FEET, STOOL, 15, 5, 85, { pose: 'sit' }),
+    // Two stools to a table.
+    activity: { kind: 'eat' as const, table: `terrace-table-${Math.floor(i / 2) + 1}` },
+  })),
 ];
 
 function surfaceY(id: string): number {

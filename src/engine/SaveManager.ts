@@ -27,7 +27,7 @@ export function createNewSave(now: number = Date.now()): SaveGame {
     props: [],
     letters: LETTERS.map((letter) => ({ letter, found: false, timesHeard: 0 })),
     wallet: 20,
-    settings: { music: 0.5, voice: 1, sfx: 0.8, showNiqqud: true, addressGender: 'm' },
+    settings: { music: 0.5, voice: 1, sfx: 0.8, showNiqqud: true, addressGender: 'm', invitations: true },
     unlocked: ['home', 'makolet', 'gan', 'clinic', 'falafel', 'beach', 'station'],
   };
 }

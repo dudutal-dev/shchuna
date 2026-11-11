@@ -56,11 +56,21 @@ const surfaces: Surface[] = [
   }),
   across('cubby', CUBBY_X, WALL_FEET, CUBBY, 6, 10, 290),
   across('gan-table', TABLE_X, TABLE_FEET, { width: 320, height: 160 }, 12, 15, 305),
-  across('gan-chair', CHAIR_X, 570, { width: 110, height: 190 }, 100, 10, 100, { pose: 'sit' }),
+  {
+    ...across('gan-chair', CHAIR_X, 570, { width: 110, height: 190 }, 100, 10, 100, { pose: 'sit' }),
+    activity: { kind: 'eat', table: 'gan-table' },
+  },
 
   across('sandbox', SANDBOX_X, SANDBOX_FEET, SANDBOX, 40, 30, 290),
-  across('slide-top', SLIDE_X, YARD_FEET, SLIDE, 70, 190, 290, { pose: 'sit' }),
-  across('swing-seat', SWING_X, YARD_FEET, SWING, 220, 80, 160, { pose: 'sit' }),
+  // Put at the top of the slide, a character slides down to its foot, on the left.
+  {
+    ...across('slide-top', SLIDE_X, YARD_FEET, SLIDE, 70, 190, 290, { pose: 'sit' }),
+    activity: { kind: 'slide', to: { x: SLIDE_X - 140, y: 548 } },
+  },
+  {
+    ...across('swing-seat', SWING_X, YARD_FEET, SWING, 220, 80, 160, { pose: 'sit' }),
+    activity: { kind: 'swing', prop: 'gan-swing' },
+  },
 ];
 
 function surfaceY(id: string): number {

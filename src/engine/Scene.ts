@@ -14,16 +14,25 @@ import { CharacterEntity, characterArt } from '../characters/CharacterEntity';
 import type { Character, HebrewLetter, LocationId, PropDef, PropInstance } from '../types';
 import { starBurst } from './effects';
 import { HintSystem, hintIdleMs } from './HintSystem';
+import { INVITATIONS, pickInvitation, type Invitation, type InviteTarget } from '../content/invitations';
+import { GhostFinger, HAND_ART } from '../ui/GhostFinger';
 import { LetterSparkle } from './LetterSparkle';
 import { buttonSize, safeArea } from './safeArea';
 import { getArt, loadArt } from './art';
 import type { SoundPlayer } from './AudioManager';
 import { rtl } from './text';
-import { isHidden, openSurfaces, resolveDrop, type FloorBand, type Surface } from './DragSystem';
+import {
+  isHidden,
+  openSurfaces,
+  resolveDrop,
+  type Activity,
+  type FloorBand,
+  type Surface,
+} from './DragSystem';
 import { Entity, PropEntity } from './Entity';
 import { allArtOf, GestureTracker, petSound, resolveTap, resolveUseOn } from './InteractionSystem';
 import { BUTTON_SIZE, makeButton } from '../ui/Hud';
-import { easeOutBack, easeOutQuad, killTweens, tween } from './tween';
+import { easeInQuad, easeOutBack, easeOutQuad, killTweens, tween } from './tween';
 
 /** Scene height in world units; the scale is derived from the screen height. */
 export const WORLD_HEIGHT = 600;
@@ -71,6 +80,12 @@ export interface SceneContext {
   audio: SoundPlayer;
   /** The piggy bank was tapped. */
   onCoins?: (amount: number) => void;
+  /** Spoken invitations: whether the parents allow them, and keeping them apart. */
+  invites?: {
+    enabled(): boolean;
+    canSpeak(): boolean;
+    spoke(): void;
+  };
   /** The letter hunt: which prop hides a letter, and what happens when one is tapped. */
   letters?: {
     on(instanceId: string): HebrewLetter | null;
@@ -120,6 +135,15 @@ export class Scene {
   }
   /** The prop the last hint pointed at, for tests. */
   lastHint: string | null = null;
+  /** The see-through hand that shows what an invitation means. */
+  private readonly ghost = new GhostFinger();
+  /** Invitations the child has already taken up in this visit. */
+  private readonly invitesDone = new Set<string>();
+  private readonly invitesShown = new Map<string, number>();
+  /** When each TV watcher laughs next (clock time). */
+  private readonly laughAt = new Map<string, number>();
+  /** When a laugh was last heard; never, at first, so the first one is. */
+  private lastLaugh = -Infinity;
   /** Pixels per millisecond the room is still sliding after a flick. */
   private fling = 0;
   /** Big arrows at the screen's sides that slide the room: easier than a swipe for small hands. */
@@ -142,7 +166,7 @@ export class Scene {
     const instances = this.instances();
     const art = instances.flatMap((instance) => allArtOf(this.defOf(instance)));
     if (this.people().length > 0) art.push(...characterArt());
-    await Promise.all([loadArt([...art, ARROW_ART]), loadArt(this.data.background, true)]);
+    await Promise.all([loadArt([...art, ARROW_ART, HAND_ART]), loadArt(this.data.background, true)]);
 
     // Tiles keep each texture inside the 4096px limit of older iPads.
     let tileX = 0;
@@ -162,6 +186,8 @@ export class Scene {
       this.view.addChild(arrow);
     }
     for (const instance of instances) this.addEntity(instance);
+    // Above everything in the place, under the HUD.
+    this.view.addChild(this.ghost.view);
     for (const character of this.people()) this.addCharacter(character);
     if (this.data.dim) {
       const { x, width } = this.data.dim;
@@ -319,6 +345,8 @@ export class Scene {
       const entity = this.characters.get(character.id);
       if (!entity) continue;
       entity.apply(character);
+      // A passenger inside a vehicle with its doors shut cannot be seen.
+      if (!this.isDragging(entity)) entity.visible = !isHidden(character, this.data.surfaces, instances);
       const moved = entity.targetX !== character.x || entity.targetY !== character.y;
       if (moved && !this.isDragging(entity)) entity.moveTo(character.x, character.y, true);
       if (character.pose === 'lie' && character.on === this.data.dim?.surface) dark = true;
@@ -474,7 +502,7 @@ export class Scene {
     const { entity } = session;
     if (entity instanceof CharacterEntity) {
       if (session.dragging) this.dropCharacter(entity);
-      else if (session.gesture.up()) entity.hop();
+      else if (session.gesture.up() && !this.wakeUp(entity) && !this.setOff(entity)) entity.hop();
       return;
     }
     if (session.dragging) this.drop(entity);
@@ -490,6 +518,7 @@ export class Scene {
       this.ctx.letters.found(sparkle.letter, sparkle.getGlobalPosition());
       return;
     }
+    this.noteDone({ tap: entity.entityId });
     const coins = entity.def.interactions.find((i) => i.type === 'coins');
     if (coins?.type === 'coins') {
       entity.wiggle();
@@ -508,6 +537,7 @@ export class Scene {
     this.ctx.audio.sfx('toggle');
     this.ctx.actions.commit(this.data.id, [change]);
     this.celebrate(entity.entityId);
+    if (change.state && Object.values(change.state).includes(false)) this.drive(entity);
   }
 
   private drop(entity: PropEntity): void {
@@ -527,6 +557,7 @@ export class Scene {
     const usable = openSurfaces(surfaces, instances);
     const landing = resolveDrop({ x: entity.x, y: entity.y }, usable, floor, width);
     entity.setLifted(false);
+    if (landing.surfaceId) this.noteDone({ surface: landing.surfaceId });
     const effects = resolveUseOn(instance, landing, this.ctx.defs, instances);
     const own = effects.filter((effect) => effect.id === entity.entityId);
     const others = effects.filter((effect) => effect.id !== entity.entityId);
@@ -567,27 +598,34 @@ export class Scene {
   }
 
   /** A prop handed to a character: food gets eaten, anything else is held. */
+  /**
+   * Eaten, and it goes back where it came from as it was, so there is always more: a stuffed
+   * pita returns empty.
+   */
+  private eat(receiver: Character, instance: PropInstance, release: EntityChange[]): void {
+    const person = this.characters.get(receiver.id);
+    const origin = this.data.props.find((p) => p.id === instance.id) ?? instance;
+    const state = Object.fromEntries(
+      Object.keys(instance.state ?? {}).map((key) => [key, origin.state?.[key]]),
+    );
+    person?.munch();
+    this.ctx.audio.sfx('yum');
+    this.ctx.audio.say('react.yum');
+    this.celebrate(receiver.id);
+    this.ctx.actions.commit(this.data.id, [
+      { id: instance.id, x: origin.x, y: origin.y, on: origin.on ?? null, state },
+      ...release,
+    ]);
+  }
+
   private give(
     entity: PropEntity,
     instance: PropInstance,
     receiver: Character,
     release: EntityChange[],
   ): void {
-    const person = this.characters.get(receiver.id);
     if (entity.def.food) {
-      // Eaten, and it goes back where it came from as it was, so there is always more:
-      // a stuffed pita returns empty.
-      const origin = this.data.props.find((p) => p.id === instance.id) ?? instance;
-      const state = Object.fromEntries(
-        Object.keys(instance.state ?? {}).map((key) => [key, origin.state?.[key]]),
-      );
-      person?.munch();
-      this.ctx.audio.sfx('yum');
-      this.celebrate(receiver.id);
-      this.ctx.actions.commit(this.data.id, [
-        { id: instance.id, x: origin.x, y: origin.y, on: origin.on ?? null, state },
-        ...release,
-      ]);
+      this.eat(receiver, instance, release);
       return;
     }
     this.ctx.audio.sfx('success');
@@ -624,8 +662,170 @@ export class Scene {
     const wardrobe = this.outfitChangerNear(landing);
     if (wardrobe) change.appearance = cycle(character.appearance, 'clothes');
     this.ctx.audio.sfx(wardrobe ? 'success' : 'drop');
-    this.ctx.actions.commit(id, [change]);
+    const activity = surface?.activity;
+    if (landing.surfaceId) this.noteDone({ surface: landing.surfaceId });
+    const changes: EntityChange[] = [change];
+    // Sitting on the swing sets it going, in the same step (one undo stops both).
+    if (activity?.kind === 'swing') changes.push({ id: activity.prop, state: { swinging: true } });
+    this.ctx.actions.commit(id, changes);
     if (wardrobe) entity.taDa();
+    if (activity) this.startActivity(entity, activity);
+  }
+
+  /** What happens the moment a character is put somewhere that does something. */
+  private startActivity(entity: CharacterEntity, activity: Activity): void {
+    this.noteDone({ activity: activity.kind });
+    const say = (line: string) => this.ctx.audio.say(line);
+    switch (activity.kind) {
+      case 'slide': {
+        // Let the drop settle on the top, then whoosh down and land standing.
+        setTimeout(() => {
+          if (entity.destroyed || this.isDragging(entity)) return;
+          say('react.wee');
+          this.ctx.audio.sfx('success');
+          const { to } = activity;
+          tween(entity, { x: to.x, y: to.y }, 900, easeInQuad, () => {
+            if (entity.destroyed) return;
+            this.ctx.actions.commit(this.data.id, [
+              { id: entity.entityId, x: to.x, y: to.y, on: null, pose: 'stand' },
+            ]);
+            entity.hop();
+            this.celebrate(entity.entityId);
+          });
+        }, 350);
+        return;
+      }
+      case 'eat':
+        setTimeout(() => this.eatFromTable(entity, activity.table), 600);
+        return;
+      case 'swim':
+        say('react.splash');
+        return;
+      case 'sunbathe':
+        say('react.sun');
+        return;
+      default:
+    }
+  }
+
+  /** A character sat at a table eats what is on it, nearest first. */
+  private eatFromTable(entity: CharacterEntity, table: string): void {
+    if (entity.destroyed) return;
+    const food = this.instances()
+      .filter((p) => p.on === table && this.defOf(p).food)
+      .sort((a, b) => Math.abs(a.x - entity.x) - Math.abs(b.x - entity.x))[0];
+    const person = this.people().find((c) => c.id === entity.entityId);
+    if (!food || !person) return;
+    this.eat(person, food, []);
+  }
+
+  /** Every frame: what each character is doing where they are. */
+  private updateActivities(): void {
+    const instances = this.instances();
+    for (const character of this.people()) {
+      const entity = this.characters.get(character.id);
+      if (!entity || this.isDragging(entity)) continue;
+      const surface = character.on ? this.data.surfaces.find((s) => s.id === character.on) : undefined;
+      const activity = surface?.activity;
+      entity.setAsleep(activity?.kind === 'sleep' && character.pose === 'lie');
+      entity.setSunglasses(activity?.kind === 'sunbathe');
+      entity.setSwimming(activity?.kind === 'swim');
+      let sway = 0;
+      if (activity?.kind === 'swing') {
+        const swing = instances.find((p) => p.id === activity.prop);
+        const seat = this.entities.get(activity.prop);
+        // The seat swings 30 units forward and back with the swing's two frames.
+        if (swing?.state?.swinging && seat) sway = seat.frame === 0 ? -30 : 30;
+      }
+      entity.setSway(sway);
+      if (activity?.kind === 'watch') {
+        const shows = instances.find((p) => p.id === activity.prop)?.state?.[activity.key];
+        // Clock time, not frames: a slow device laughs as often as a fast one.
+        const now = performance.now();
+        const due = this.laughAt.get(character.id) ?? now + 2500 + Math.random() * 3000;
+        if (shows && now >= due) {
+          entity.giggle();
+          // Heard now and then, not from everyone at once.
+          if (now - this.lastLaugh > 15_000) {
+            this.lastLaugh = now;
+            this.ctx.audio.say('react.laugh');
+          }
+          this.laughAt.set(character.id, now + 4000 + Math.random() * 4000);
+        } else {
+          this.laughAt.set(character.id, due);
+        }
+      }
+    }
+  }
+
+  /**
+   * For tests: puts a character on a surface the way a drop would, so an activity can be
+   * checked without carrying the character across the rooms by touch.
+   */
+  testPut(characterId: string, surfaceId: string): boolean {
+    const entity = this.characters.get(characterId);
+    const surface = this.data.surfaces.find((s) => s.id === surfaceId);
+    if (!entity || !surface) return false;
+    const x = surface.x + surface.width / 2;
+    const changes: EntityChange[] = [
+      { id: characterId, x, y: surface.y, on: surface.id, pose: surface.pose ?? 'stand' },
+    ];
+    if (surface.activity?.kind === 'swing') {
+      changes.push({ id: surface.activity.prop, state: { swinging: true } });
+    }
+    this.ctx.actions.commit(this.data.id, changes);
+    this.noteDone({ surface: surface.id });
+    if (surface.activity) this.startActivity(entity, surface.activity);
+    return true;
+  }
+
+  /** Whether a character can be seen (a passenger inside a closed bus cannot). */
+  isCharacterVisible(id: string): boolean {
+    return this.characters.get(id)?.visible ?? false;
+  }
+
+  /** A passenger in the bus was tapped: the doors close and off it goes, as a tap on the bus would. */
+  private setOff(entity: CharacterEntity): boolean {
+    const character = this.people().find((c) => c.id === entity.entityId);
+    const surface = character?.on ? this.data.surfaces.find((s) => s.id === character.on) : undefined;
+    if (surface?.activity?.kind !== 'ride') return false;
+    const vehicle = this.entities.get(surface.activity.prop);
+    if (!vehicle) return false;
+    this.tap(vehicle);
+    return true;
+  }
+
+  /** A sleeper was tapped: they wake up and get out of bed. */
+  private wakeUp(entity: CharacterEntity): boolean {
+    const character = this.people().find((c) => c.id === entity.entityId);
+    const surface = character?.on ? this.data.surfaces.find((s) => s.id === character.on) : undefined;
+    if (!character || surface?.activity?.kind !== 'sleep' || character.pose !== 'lie') return false;
+    this.ctx.audio.say('react.morning');
+    this.ctx.actions.commit(this.data.id, [
+      { id: character.id, x: character.x, y: this.data.floor.top + 100, on: null, pose: 'stand' },
+    ]);
+    setTimeout(() => entity.destroyed || entity.hop(), 250);
+    return true;
+  }
+
+  /**
+   * The doors of a vehicle with passengers just closed: it drives off the screen and back.
+   * Only the picture moves; where it stands in the game does not change.
+   */
+  private drive(vehicle: PropEntity): void {
+    const passengers = this.people().some((c) => {
+      const surface = this.data.surfaces.find((s) => s.id === c.on);
+      return surface?.activity?.kind === 'ride' && surface.activity.prop === vehicle.entityId;
+    });
+    if (!passengers) return;
+    this.ctx.audio.say('react.byebye');
+    tween(vehicle.pivot, { x: 1500 }, 1400, easeInQuad, () => {
+      setTimeout(() => {
+        if (vehicle.destroyed) return;
+        vehicle.pivot.x = -1500;
+        tween(vehicle.pivot, { x: 0 }, 1500, easeOutQuad);
+      }, 900);
+    });
   }
 
   /** An open wardrobe close to this point, if there is one. */
@@ -640,7 +840,10 @@ export class Scene {
     });
   }
 
-  private readonly onAnyTouch = (): void => this.hints.touched(performance.now());
+  private readonly onAnyTouch = (): void => {
+    this.hints.touched(performance.now());
+    this.ghost.stop();
+  };
 
   /**
    * Skips drawing what is off screen. A house is three rooms wide and shows about one,
@@ -657,6 +860,101 @@ export class Scene {
     }
   }
 
+  /**
+   * Suggests something to do, aloud, with the see-through hand showing how. False when the
+   * parents turned invitations off, one was said a moment ago, or none fits what is on screen.
+   */
+  private offerInvitation(): boolean {
+    const invites = this.ctx.invites;
+    const list = INVITATIONS[this.data.id];
+    if (!invites?.enabled() || !invites.canSpeak() || !list) return false;
+    const instances = this.instances();
+    const pick = pickInvitation(list, {
+      done: (invitation) => this.invitationDone(invitation, instances),
+      timesShown: (id) => this.invitesShown.get(id) ?? 0,
+      isOn: (prop, key) => instances.find((p) => p.id === prop)?.state?.[key] === true,
+      points: (invitation) => this.invitationPoints(invitation),
+    });
+    if (!pick) return false;
+    this.invitesShown.set(pick.invitation.id, (this.invitesShown.get(pick.invitation.id) ?? 0) + 1);
+    invites.spoke();
+    this.ctx.audio.say(pick.invitation.line);
+    this.ghost.play(pick.from, pick.to);
+    this.lastHint = `invite:${pick.invitation.id}`;
+    return true;
+  }
+
+  private invitationDone(invitation: Invitation, instances: readonly PropInstance[]): boolean {
+    if (this.invitesDone.has(invitation.id)) return true;
+    const done = invitation.doneWhen;
+    return 'state' in done && instances.find((p) => p.id === done.state.prop)?.state?.[done.state.key] === true;
+  }
+
+  /** Something happened that an invitation asked for: it won't be offered again this visit. */
+  private noteDone(happened: { activity: Activity['kind'] } | { tap: string } | { surface: string }): void {
+    for (const invitation of INVITATIONS[this.data.id] ?? []) {
+      const done = invitation.doneWhen;
+      const match =
+        ('activity' in done && 'activity' in happened && done.activity === happened.activity) ||
+        ('tap' in done && 'tap' in happened && done.tap === happened.tap) ||
+        ('surface' in done && 'surface' in happened && done.surface === happened.surface);
+      if (match) this.invitesDone.add(invitation.id);
+    }
+  }
+
+  /** Where the hand starts and ends, on screen; null when any of it is off screen. */
+  private invitationPoints(
+    invitation: Invitation,
+  ): { from: { x: number; y: number }; to?: { x: number; y: number } } | null {
+    const { width, height } = this.ctx.app.screen;
+    const onScreen = (p: { x: number; y: number } | null) =>
+      p && p.x > 50 && p.x < width - 50 && p.y > 50 && p.y < height - 50 ? p : null;
+    const surfacePoint = (id: string) => {
+      const top = this.surfaceCenter(id);
+      return top ? { x: top.x, y: top.y - 20 * this.scale } : null;
+    };
+    const propPoint = (ids: readonly string[]) => {
+      for (const id of ids) {
+        const entity = this.entities.get(id);
+        if (!entity?.visible) continue;
+        const at = onScreen(this.entityCenter(id));
+        if (at) return at;
+      }
+      return null;
+    };
+    const resolve = (target: InviteTarget, towards?: { x: number; y: number } | null) => {
+      if ('surface' in target) return onScreen(surfacePoint(target.surface));
+      if ('prop' in target) return propPoint(target.prop);
+      // A person: someone standing on screen, the nearest to where they would go.
+      const goal = 'drag' in invitation.show && 'surface' in invitation.show.to ? invitation.show.to.surface : null;
+      let best: { x: number; y: number } | null = null;
+      let bestDistance = Infinity;
+      for (const character of this.people()) {
+        if (character.on === goal || character.pose === 'lie') continue;
+        const at = onScreen(this.entityCenter(character.id));
+        if (!at) continue;
+        const distance = towards ? Math.hypot(at.x - towards.x, at.y - towards.y) : 0;
+        if (distance < bestDistance) {
+          best = at;
+          bestDistance = distance;
+        }
+      }
+      return best;
+    };
+    if ('tap' in invitation.show) {
+      const at = resolve(invitation.show.tap);
+      return at ? { from: at } : null;
+    }
+    const to = resolve(invitation.show.to);
+    const from = to ? resolve(invitation.show.drag, to) : null;
+    return from && to ? { from, to } : null;
+  }
+
+  /** Whether the see-through hand is showing now. For tests. */
+  get ghostShowing(): boolean {
+    return this.ghost.showing;
+  }
+
   /** A small "ta-da!" over an entity: something just happened to it. */
   celebrate(id: string): void {
     const at = this.entityCenter(id);
@@ -668,6 +966,7 @@ export class Scene {
    * tapped wiggles, with a few soft twinkles. A hidden letter is the first choice.
    */
   private showHint(): void {
+    if (this.offerInvitation()) return;
     const width = this.ctx.app.screen.width;
     const candidates = [...this.entities.values()].filter((entity) => {
       if (!entity.visible || this.isDragging(entity)) return false;
@@ -706,6 +1005,7 @@ export class Scene {
     }
     this.updateArrows();
     this.cull();
+    this.updateActivities();
     for (const entity of this.entities.values()) entity.animate(ticker.deltaMS);
     for (const sparkle of this.sparkles.values()) sparkle.animate(ticker.deltaMS);
     for (const entity of this.characters.values()) entity.animate(ticker.deltaMS);
