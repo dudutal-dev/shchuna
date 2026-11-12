@@ -115,6 +115,31 @@ export class Actions {
     this.save();
   }
 
+  /**
+   * Characters travel to another place and arrive standing at `positions`, letting go of
+   * whatever they held. Not undoable, and the undo of every place involved starts afresh:
+   * an old step there could move someone who has since left.
+   */
+  travel(ids: readonly string[], to: LocationId, positions: ReadonlyArray<{ x: number; y: number }>): void {
+    const places = new Set<LocationId>([to]);
+    this.store.update((state) => {
+      ids.forEach((id, index) => {
+        const character = state.characters.find((c) => c.id === id);
+        const at = positions[index] ?? positions[0];
+        if (!character || !at) return;
+        places.add(character.location);
+        character.location = to;
+        character.x = at.x;
+        character.y = at.y;
+        character.pose = 'stand';
+        delete character.on;
+        delete character.holding;
+      });
+    });
+    for (const place of places) this.stacks.delete(place);
+    this.save();
+  }
+
   setWallet(amount: number): void {
     this.store.update((state) => {
       state.wallet = amount;

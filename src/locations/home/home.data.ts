@@ -109,6 +109,8 @@ export const home: LocationData = {
   floor: { top: 440, bottom: 570 },
   // Someone in bed turns the kids' room down for the night.
   dim: { surface: 'bed', x: KIDS, width: ROOM },
+  // Night on the balcony darkens the whole house.
+  night: { prop: 'balcony', key: 'night' },
   surfaces,
   props: [
     // Kitchen.
@@ -126,7 +128,8 @@ export const home: LocationData = {
     on('plate', 'plate', TABLE_X, 'table'),
     on('bread', 'bread', TABLE_X + 100, 'table'),
 
-    // Living room.
+    // Living room. The balcony door's night sky lies exactly over the painted glass.
+    prop('balcony', LIVING + 760, 426),
     prop('tv-cabinet', CABINET_X, WALL_FEET),
     { ...prop('tv', CABINET_X, surfaceY('tv-cabinet')), on: 'tv-cabinet' },
     prop('aquarium', AQUARIUM_X, WALL_FEET),

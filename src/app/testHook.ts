@@ -29,6 +29,11 @@ export interface TestHook {
   /** Puts a character on a surface as a drop would. For checking what places do with them. */
   put(characterId: string, surfaceId: string): boolean;
   characterVisible(id: string): boolean;
+  /** The last surprise a prop showed: "fish:aquarium". */
+  lastEffect(): string | null;
+  /** Set while the map shows: the weather there, and a point in its sky. */
+  weather: (() => string) | null;
+  skyPoint: (() => Point) | null;
   /** The wish showing over someone's head, if any. */
   wish(): { characterId: string; kind: string } | null;
   /** Whether the see-through hand of an invitation is showing. */
@@ -99,6 +104,9 @@ export function installTestHook(parts: {
     characterVisible: (id) => parts.scene()?.isCharacterVisible(id) ?? false,
     ghostShowing: () => parts.scene()?.ghostShowing ?? false,
     wish: () => parts.scene()?.currentWish ?? null,
+    lastEffect: () => parts.scene()?.lastEffect ?? null,
+    weather: null,
+    skyPoint: null,
     music: parts.music,
     fps: parts.fps,
     frameCost: parts.frameCost,

@@ -110,6 +110,7 @@ export const strings = {
     lifeguardTower: 'מִגְדַּל מַצִּיל',
     moon: 'יָרֵחַ',
     fruitBowl: 'קְעָרָה',
+    balcony: 'מִרְפֶּסֶת',
     // Station.
     busShelter: 'תַּחֲנַת אוֹטוֹבּוּס',
     bus: 'אוֹטוֹבּוּס',

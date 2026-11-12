@@ -255,5 +255,11 @@
   {"id": "number.7", "text": "שֶׁבַע", "voice": "narrator", "proofread": false},
   {"id": "number.8", "text": "שְׁמוֹנֶה", "voice": "narrator", "proofread": false},
   {"id": "number.9", "text": "תֵּשַׁע", "voice": "narrator", "proofread": false},
-  {"id": "number.10", "text": "עֶשֶׂר", "voice": "narrator", "proofread": false}
+  {"id": "number.10", "text": "עֶשֶׂר", "voice": "narrator", "proofread": false},
+  {"id": "journey.where", "text": "לְאָן נוֹסְעִים?", "voice": "narrator", "proofread": false},
+  {"id": "react.arrived", "text": "הִגַּעְנוּ!", "voice": "narrator", "proofread": false},
+  {"id": "react.night", "text": "לַיְלָה טוֹב!", "voice": "narrator", "proofread": false},
+  {"id": "weather.rain", "text": "יוֹרֵד גֶּשֶׁם!", "voice": "narrator", "proofread": false},
+  {"id": "weather.rainbow", "text": "אֵיזוֹ קֶשֶׁת יָפָה!", "voice": "narrator", "proofread": false},
+  {"id": "prop.balcony", "text": "מִרְפֶּסֶת", "voice": "narrator", "proofread": false}
 ]

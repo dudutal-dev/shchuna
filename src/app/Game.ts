@@ -115,6 +115,8 @@ export class Game {
   private parents = false;
   private moving = false;
   private playing: string | null = null;
+  /** Characters on their way somewhere: chosen on the map. */
+  private journey: string[] | null = null;
   /** When the last spoken invitation was, so they stay half a minute apart across places. */
   private lastInviteAt = 0;
   /** True until the child taps in: the only time an update may reload the page. */
@@ -231,9 +233,16 @@ export class Game {
     void this.saves.flush();
     this.leaveScene();
     await this.openMap();
-    this.audio.say('map.where');
+    this.audio.say(this.journey ? 'journey.where' : 'map.where');
     this.showMapView();
     this.moving = false;
+  }
+
+  /** Someone set off: the map opens, and the place tapped next is where they arrive. */
+  private async startJourney(ids: string[]): Promise<void> {
+    if (this.moving || this.map) return;
+    this.journey = ids;
+    await this.showMap();
   }
 
   private async openMap(): Promise<void> {
@@ -242,6 +251,7 @@ export class Game {
       (id) => isOpen(id, this.store.state.unlocked),
       (id) => letterOn(this.store.state.letters, `map-${id}`),
       (place, open) => void this.onPlace(place, open),
+      (weather) => this.audio.say(weather === 'rain' ? 'weather.rain' : 'weather.rainbow'),
     );
     await map.open();
     this.map = map;
@@ -250,6 +260,7 @@ export class Game {
   private showMapView(): void {
     if (!this.map) return;
     this.app.stage.addChildAt(this.map.view, 0);
+    this.map.setTravellers(this.journey !== null);
     this.hud.setMode('map');
     this.playMusic('map');
     this.map.wake();
@@ -257,6 +268,8 @@ export class Game {
       const map = this.map;
       this.hook.mapCenter = (id) =>
         id === 'letter' ? map.sparkleCenter() : map.center(id as LocationId);
+      this.hook.weather = () => map.weather;
+      this.hook.skyPoint = () => map.skyPoint();
     }
     this.setStage('map');
   }
@@ -281,7 +294,18 @@ export class Game {
     }
     this.audio.say(place.line);
     this.moving = false;
+    // Travellers arrive at the entrance, on the right where a place opens, side by side.
+    const travellers = this.journey;
+    this.journey = null;
+    if (travellers) {
+      const positions = travellers.map((_, index) => ({
+        x: data.width - 260 - index * 110,
+        y: data.floor.top + 105,
+      }));
+      this.actions.travel(travellers, data.id, positions);
+    }
     await this.goTo(data);
+    if (travellers) this.audio.say('react.arrived');
   }
 
   /** Opens a place, saving on the way. */
@@ -316,6 +340,11 @@ export class Game {
         defs: propDefs,
         audio: this.audio,
         onCoins: (amount) => this.addToPurse(amount),
+        onJourney: (ids) => void this.startJourney(ids),
+        journeyZone: () => {
+          const at = this.hud.visibleCenter('map');
+          return at ? { ...at, radius: 70 } : null;
+        },
         invites: {
           enabled: () => this.store.state.settings.invitations !== false && invitationsAllowed(),
           canSpeak: () => performance.now() - this.lastInviteAt > INVITE_GAP_MS || this.lastInviteAt === 0,

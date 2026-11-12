@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="368" viewBox="0 0 224 368">
+  <!-- By day the balcony door is just the one painted in living-bg.svg: this layer is empty,
+       there only so the door can be tapped to make it night. -->
+  <rect width="224" height="368" fill="#FFFFFF" fill-opacity="0"/>
+</svg>

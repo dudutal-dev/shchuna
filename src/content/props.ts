@@ -14,6 +14,7 @@ interface Spec {
   food?: boolean;
   changesOutfit?: PropDef['changesOutfit'];
   returnsAfterUse?: boolean;
+  toggleLines?: PropDef['toggleLines'];
   price?: number;
 }
 
@@ -34,6 +35,7 @@ function prop(id: string, name: Name, spec: Spec): PropDef {
     ...(spec.food ? { food: true } : {}),
     ...(spec.changesOutfit ? { changesOutfit: spec.changesOutfit } : {}),
     ...(spec.returnsAfterUse ? { returnsAfterUse: true } : {}),
+    ...(spec.toggleLines ? { toggleLines: spec.toggleLines } : {}),
     ...(spec.price ? { price: spec.price } : {}),
   };
 }
@@ -99,6 +101,14 @@ const definitions: PropDef[] = [
   prop('cake', 'cake', { art: 'home/cake.svg', food: true }),
 
   // Living room.
+  // The balcony door: tapped, day turns to night and back.
+  prop('balcony', 'balcony', {
+    art: 'home/balcony-day.svg',
+    artStates: when({ night: true }, 'home/balcony-night.svg'),
+    layer: 'furniture',
+    interactions: toggle('night'),
+    toggleLines: { on: 'react.night', off: 'react.morning' },
+  }),
   prop('sofa', 'sofa', { art: 'home/sofa.svg', layer: 'furniture' }),
   prop('tv-cabinet', 'tvCabinet', { art: 'home/tv-cabinet.svg', layer: 'furniture' }),
   prop('tv', 'tv', {
@@ -107,9 +117,9 @@ const definitions: PropDef[] = [
     layer: 'furniture',
     interactions: toggle('on'),
   }),
-  prop('plant', 'plant', { art: 'home/plant.svg' }),
-  prop('cat', 'cat', { art: 'home/cat.svg', interactions: [{ type: 'pet', sfx: 'purr' }] }),
-  prop('aquarium', 'aquarium', { art: 'home/aquarium.svg', layer: 'furniture' }),
+  prop('plant', 'plant', { art: 'home/plant.svg', interactions: [{ type: 'surprise', kind: 'butterfly' }] }),
+  prop('cat', 'cat', { art: 'home/cat.svg', interactions: [{ type: 'pet', sfx: 'purr' }, { type: 'surprise', kind: 'hearts' }] }),
+  prop('aquarium', 'aquarium', { art: 'home/aquarium.svg', layer: 'furniture', interactions: [{ type: 'surprise', kind: 'fish' }] }),
   prop('candles', 'candles', {
     art: 'home/candles-off.svg',
     artStates: when({ lit: true }, 'home/candles-on.svg'),

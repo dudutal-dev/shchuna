@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="368" viewBox="0 0 224 368">
+  <!-- The living room's balcony door at night, laid exactly over its glass in living-bg.svg
+       (x 648-872, y 58-426 there). The laundry has been taken in. -->
+  <rect width="224" height="368" rx="6" fill="#26345F"/>
+  <!-- Stars. -->
+  <g fill="#FFE9A8">
+    <circle cx="30" cy="40" r="2.5"/><circle cx="70" cy="22" r="2"/><circle cx="58" cy="78" r="2"/>
+    <circle cx="150" cy="30" r="2.5"/><circle cx="196" cy="70" r="2"/><circle cx="128" cy="96" r="2"/>
+    <circle cx="24" cy="120" r="2"/><circle cx="96" cy="140" r="2.5"/><circle cx="200" cy="130" r="2"/>
+    <path transform="translate(44 104) scale(.4)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+    <path transform="translate(176 104) scale(.35)" d="M0-20L5.3-7.3 19-6.2 8.6 2.8 11.8 16.2 0 9-11.8 16.2-8.6 2.8-19-6.2-5.3-7.3Z"/>
+  </g>
+  <!-- A crescent moon. -->
+  <circle cx="168" cy="58" r="22" fill="#FFE9A8"/>
+  <circle cx="178" cy="50" r="19" fill="#26345F"/>
+  <!-- Hills in the dark, with a lit window far away. -->
+  <path d="M0 214 Q72 178 142 204 T224 192 V368 H0Z" fill="#33496B"/>
+  <path d="M0 242 Q52 226 102 242 T224 238 V368 H0Z" fill="#2B3F5E"/>
+  <rect x="58" y="214" width="9" height="9" rx="2" fill="#FFC23C"/>
+  <!-- The empty laundry line. -->
+  <path d="M0 88 Q112 120 224 88" fill="none" stroke="#5A6A8A" stroke-width="3"/>
+  <!-- Railing. -->
+  <g stroke="#2C5F59" stroke-width="6" stroke-linecap="round">
+    <path d="M2 260H222M2 360H222"/>
+    <path d="M24 260V360M50 260V360M76 260V360M148 260V360M174 260V360M200 260V360"/>
+  </g>
+  <!-- The door frame, dimmed to match. -->
+  <rect x="104" y="0" width="16" height="368" fill="#D8CDB6"/>
+  <g fill="none" stroke="#A9977A" stroke-width="4">
+    <rect x="0" y="0" width="104" height="368" rx="6"/>
+    <rect x="120" y="0" width="104" height="368" rx="6"/>
+  </g>
+  <rect x="90" y="168" width="10" height="34" rx="5" fill="#7C8C95" stroke="#5F6E76" stroke-width="3"/>
+</svg>

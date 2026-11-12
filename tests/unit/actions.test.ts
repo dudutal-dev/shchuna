@@ -89,7 +89,7 @@ describe('Actions', () => {
       actions.commit('home', [{ id: 'family-3', x: 820, y: 380, on: 'bed', pose: 'lie' }]);
       expect(kid()).toMatchObject({ pose: 'lie', on: 'bed' });
       actions.undo('home');
-      expect(kid()).toMatchObject({ pose: 'stand', x: 1720 });
+      expect(kid()).toMatchObject({ pose: 'stand', x: 1800 });
       expect(kid()?.on).toBeUndefined();
     });
 

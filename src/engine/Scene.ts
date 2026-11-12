@@ -12,7 +12,7 @@ import { cycle } from '../characters/catalog';
 import type { GameStore } from '../app/store';
 import { CharacterEntity, characterArt } from '../characters/CharacterEntity';
 import type { Character, HebrewLetter, LocationId, PropDef, PropInstance } from '../types';
-import { starBurst } from './effects';
+import { butterfly, fishJump, hearts, starBurst } from './effects';
 import { HintSystem, hintIdleMs } from './HintSystem';
 import { INVITATIONS, pickInvitation, type Invitation, type InviteTarget } from '../content/invitations';
 import { GhostFinger, HAND_ART } from '../ui/GhostFinger';
@@ -72,6 +72,8 @@ export interface LocationData {
   props: PropInstance[];
   /** Part of the place that goes dark while someone lies on this surface (a bedroom). */
   dim?: { surface: string; x: number; width: number };
+  /** While this prop's state key is on, the whole place is night. */
+  night?: { prop: string; key: string };
 }
 
 export interface SceneContext {
@@ -82,6 +84,10 @@ export interface SceneContext {
   audio: SoundPlayer;
   /** The piggy bank was tapped. */
   onCoins?: (amount: number) => void;
+  /** Characters set off to another place: the game opens the map to choose where. */
+  onJourney?(characterIds: string[]): void;
+  /** Where on screen a character can be dropped to set off (the map button). */
+  journeyZone?(): { x: number; y: number; radius: number } | null;
   /** Spoken invitations: whether the parents allow them, and keeping them apart. */
   invites?: {
     enabled(): boolean;
@@ -121,6 +127,11 @@ export class Scene {
   private readonly sparkles = new Map<string, LetterSparkle>();
   private readonly darkness = new Graphics();
   private darknessTarget = 0;
+  /** The whole place at night. */
+  private readonly nightShade = new Graphics();
+  private nightTarget = 0;
+  /** The last surprise shown, for tests. */
+  lastEffect: string | null = null;
   private readonly pointers = new Map<number, PointerSession>();
   private unsubscribe: (() => void) | undefined;
   private scale = 1;
@@ -161,7 +172,9 @@ export class Scene {
     this.itemLayer.sortableChildren = true;
     this.darkness.alpha = 0;
     this.darkness.eventMode = 'none';
-    this.world.addChild(this.backgroundLayer, this.furnitureLayer, this.itemLayer, this.darkness);
+    this.nightShade.alpha = 0;
+    this.nightShade.eventMode = 'none';
+    this.world.addChild(this.backgroundLayer, this.furnitureLayer, this.itemLayer, this.darkness, this.nightShade);
     this.view.addChild(this.world, this.overlay);
   }
 
@@ -201,6 +214,7 @@ export class Scene {
       const { x, width } = this.data.dim;
       this.darkness.rect(x, 0, width, WORLD_HEIGHT).fill(0x1d2550);
     }
+    if (this.data.night) this.nightShade.rect(0, 0, this.data.width, WORLD_HEIGHT).fill(0x1d2550);
     this.sync();
 
     this.unsubscribe = store.subscribe(() => this.sync());
@@ -364,6 +378,13 @@ export class Scene {
       this.darknessTarget = target;
       tween(this.darkness, { alpha: target }, 900);
     }
+    const night = this.data.night;
+    const isNight = night ? instances.find((p) => p.id === night.prop)?.state?.[night.key] === true : false;
+    const shade = isNight ? 0.4 : 0;
+    if (this.nightTarget !== shade) {
+      this.nightTarget = shade;
+      tween(this.nightShade, { alpha: shade }, 1100);
+    }
   }
 
   private isDragging(entity: Entity): boolean {
@@ -509,6 +530,7 @@ export class Scene {
     }
     const { entity } = session;
     if (entity instanceof CharacterEntity) {
+      if (session.dragging && this.setOffFrom(entity, session.screenX, session.screenY)) return;
       if (session.dragging) this.dropCharacter(entity);
       else if (session.gesture.up() && !this.wakeUp(entity) && !this.setOff(entity)) entity.hop();
       return;
@@ -540,11 +562,15 @@ export class Scene {
         this.ctx.audio.sfx(sound);
         entity.wiggle();
       }
+      const surprise = entity.def.interactions.find((i) => i.type === 'surprise');
+      if (surprise?.type === 'surprise') this.surprise(entity, surprise.kind);
       return;
     }
     this.ctx.audio.sfx('toggle');
     this.ctx.actions.commit(this.data.id, [change]);
     this.celebrate(entity.entityId);
+    const lines = entity.def.toggleLines;
+    if (lines && change.state) this.ctx.audio.say(Object.values(change.state).includes(true) ? lines.on : lines.off);
     if (change.state && Object.values(change.state).includes(false)) this.drive(entity);
   }
 
@@ -817,6 +843,16 @@ export class Scene {
     return this.characters.get(id)?.visible ?? false;
   }
 
+  /** A character carried onto the map button sets off on a journey. */
+  private setOffFrom(entity: CharacterEntity, x: number, y: number): boolean {
+    const zone = this.ctx.journeyZone?.();
+    if (!zone || !this.ctx.onJourney || Math.hypot(x - zone.x, y - zone.y) > zone.radius) return false;
+    entity.setLifted(false);
+    this.ctx.audio.sfx('success');
+    this.ctx.onJourney([entity.entityId]);
+    return true;
+  }
+
   /** A passenger in the bus was tapped: the doors close and off it goes, as a tap on the bus would. */
   private setOff(entity: CharacterEntity): boolean {
     const character = this.people().find((c) => c.id === entity.entityId);
@@ -923,13 +959,20 @@ export class Scene {
    * Only the picture moves; where it stands in the game does not change.
    */
   private drive(vehicle: PropEntity): void {
-    const passengers = this.people().some((c) => {
-      const surface = this.data.surfaces.find((s) => s.id === c.on);
-      return surface?.activity?.kind === 'ride' && surface.activity.prop === vehicle.entityId;
-    });
-    if (!passengers) return;
+    const passengers = this.people()
+      .filter((c) => {
+        const surface = this.data.surfaces.find((s) => s.id === c.on);
+        return surface?.activity?.kind === 'ride' && surface.activity.prop === vehicle.entityId;
+      })
+      .map((c) => c.id);
+    if (passengers.length === 0) return;
     this.ctx.audio.say('react.byebye');
     tween(vehicle.pivot, { x: 1500 }, 1400, easeInQuad, () => {
+      // Off it went: where to? The map opens to choose.
+      if (this.ctx.onJourney) {
+        this.ctx.onJourney(passengers);
+        return;
+      }
       setTimeout(() => {
         if (vehicle.destroyed) return;
         vehicle.pivot.x = -1500;
@@ -1063,6 +1106,24 @@ export class Scene {
   /** Whether the see-through hand is showing now. For tests. */
   get ghostShowing(): boolean {
     return this.ghost.showing;
+  }
+
+  /** A small surprise from a tapped prop: a fish leaps, hearts rise, a butterfly flies away. */
+  private surprise(entity: PropEntity, kind: 'fish' | 'hearts' | 'butterfly'): void {
+    const bounds = entity.getBounds();
+    const x = bounds.x + bounds.width / 2;
+    const top = bounds.y;
+    const size = this.scale;
+    if (kind === 'fish') {
+      fishJump(this.overlay, x, top + bounds.height * 0.35, size);
+      this.ctx.audio.sfx('drop');
+    } else if (kind === 'hearts') {
+      hearts(this.overlay, x, top, size);
+    } else {
+      butterfly(this.overlay, x, top + bounds.height * 0.2, size, this.ctx.app.screen.width);
+      this.ctx.audio.sfx('success');
+    }
+    this.lastEffect = `${kind}:${entity.entityId}`;
   }
 
   /** A small "ta-da!" over an entity: something just happened to it. */

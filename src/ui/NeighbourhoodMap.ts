@@ -11,6 +11,7 @@ import type { HebrewLetter, LocationId } from '../types';
 const BACKGROUND_ART = 'map/background.svg';
 const CLOUD_ART = 'map/cloud.svg';
 const LOCK_ART = 'map/lock.svg';
+const BUS_ART = 'station/bus.svg';
 /** Screen pixels kept clear above the map for the HUD buttons. */
 const TOP_INSET = 40;
 const ROAD = 0xead9b5;
@@ -42,6 +43,16 @@ export class NeighbourhoodMap {
   private readonly world = new Container();
   private readonly places = new Map<LocationId, Container>();
   private sparkle: LetterSparkle | null = null;
+  /** The sky above the places: tapping it changes the weather. */
+  private readonly skyLayer = new Container();
+  private readonly gloom = new Graphics();
+  private readonly rain = new Container();
+  private readonly rainbow = new Graphics();
+  private drops: Array<{ g: Graphics; speed: number }> = [];
+  private weatherNow: 'clear' | 'rain' | 'rainbow' = 'clear';
+  private weatherTimer: ReturnType<typeof setTimeout> | undefined;
+  private bus: Sprite | null = null;
+  private busTime = 0;
   private readonly hints = new HintSystem(performance.now(), hintIdleMs());
   /** Hints wait until the child can see this, not while it loads behind the start screen. */
   private shown = false;
@@ -61,17 +72,27 @@ export class NeighbourhoodMap {
     /** A letter hiding on a place, such as bet on the house. */
     private readonly letterOn: (id: LocationId) => HebrewLetter | null,
     private readonly onTap: (place: PlaceInfo, open: boolean) => void,
+    /** The sky was tapped: it rains, then a rainbow comes out. */
+    private readonly onSky?: (weather: 'rain' | 'rainbow') => void,
   ) {}
 
   async open(): Promise<void> {
     // The background is 2400 wide: at 1.6x it stays inside the 4096px limit of older iPads.
     await Promise.all([
       loadArt([BACKGROUND_ART], 1.6),
-      loadArt([CLOUD_ART, LOCK_ART, ...PLACES.map((p) => p.art)]),
+      loadArt([CLOUD_ART, LOCK_ART, BUS_ART, ...PLACES.map((p) => p.art)]),
     ]);
     this.background.texture = getArt(BACKGROUND_ART);
     this.background.anchor.set(0.5, 1);
-    this.view.addChild(this.background, this.world);
+    this.skyLayer.eventMode = 'static';
+    this.skyLayer.cursor = 'pointer';
+    this.skyLayer.on('pointerdown', () => this.touchSky());
+    this.gloom.eventMode = 'none';
+    this.gloom.alpha = 0;
+    this.rain.eventMode = 'none';
+    this.rainbow.eventMode = 'none';
+    this.rainbow.alpha = 0;
+    this.view.addChild(this.background, this.gloom, this.skyLayer, this.rainbow, this.world, this.rain);
 
     const road = new Graphics().poly(ROAD_PATH.flat(), false);
     road.stroke({ color: ROAD_EDGE, width: 54, join: 'round', cap: 'round' });
@@ -91,6 +112,7 @@ export class NeighbourhoodMap {
   }
 
   destroy(): void {
+    clearTimeout(this.weatherTimer);
     this.app.renderer.off('resize', this.layout);
     this.app.ticker.remove(this.animate);
     document.removeEventListener('pointerdown', this.onAnyTouch, true);
@@ -113,6 +135,87 @@ export class NeighbourhoodMap {
   clearLetter(): void {
     this.sparkle?.destroy({ children: true });
     this.sparkle = null;
+  }
+
+  get weather(): 'clear' | 'rain' | 'rainbow' {
+    return this.weatherNow;
+  }
+
+  /** A point in the sky above the places, for tests. */
+  skyPoint(): { x: number; y: number } {
+    const area = this.skyLayer.hitArea as Rectangle | null;
+    return { x: this.app.screen.width / 2, y: area ? area.height / 2 : 20 };
+  }
+
+  /** Sun, then rain, then a rainbow; tapping the rainbow brings the sun back. */
+  private touchSky(): void {
+    if (this.weatherNow === 'rain') return;
+    clearTimeout(this.weatherTimer);
+    if (this.weatherNow === 'rainbow') {
+      this.clearSky();
+      return;
+    }
+    this.weatherNow = 'rain';
+    this.onSky?.('rain');
+    const { width, height } = this.app.screen;
+    this.gloom.clear().rect(0, 0, width, height).fill(0x2c3e5e);
+    tween(this.gloom, { alpha: 0.28 }, 600);
+    this.rain.alpha = 1;
+    this.drops = [];
+    for (let i = 0; i < 90; i++) {
+      const g = new Graphics()
+        .moveTo(0, 0)
+        .lineTo(-3, 16)
+        .stroke({ color: 0xbfe6ff, width: 3, cap: 'round', alpha: 0.85 });
+      g.position.set(Math.random() * width, Math.random() * height);
+      this.rain.addChild(g);
+      this.drops.push({ g, speed: 0.5 + Math.random() * 0.4 });
+    }
+    this.weatherTimer = setTimeout(() => this.showRainbow(), 5000);
+  }
+
+  private showRainbow(): void {
+    if (this.view.destroyed) return;
+    this.weatherNow = 'rainbow';
+    this.onSky?.('rainbow');
+    tween(this.rain, { alpha: 0 }, 700, undefined, () => {
+      this.rain.removeChildren().forEach((g) => g.destroy());
+      this.drops = [];
+    });
+    tween(this.gloom, { alpha: 0 }, 900);
+    const { width, height } = this.app.screen;
+    const colours = [0xe4573d, 0xf28a3a, 0xffc23c, 0x7faf6b, 0x58b8ea, 0x3e7cb1, 0xa98bd6];
+    const band = Math.max(8, Math.min(width, height) * 0.025);
+    const radius = Math.min(width * 0.46, height * 0.95);
+    this.rainbow.clear();
+    colours.forEach((colour, i) => {
+      this.rainbow
+        .arc(width / 2, height * 0.95, radius - i * band, Math.PI, 0)
+        .stroke({ color: colour, width: band + 1 });
+    });
+    tween(this.rainbow, { alpha: 0.8 }, 900);
+    this.weatherTimer = setTimeout(() => this.clearSky(), 12_000);
+  }
+
+  private clearSky(): void {
+    this.weatherNow = 'clear';
+    tween(this.rainbow, { alpha: 0 }, 900);
+    tween(this.gloom, { alpha: 0 }, 600);
+  }
+
+  /** Travellers are choosing where to go: a little bus bobs by the station, ready. */
+  setTravellers(on: boolean): void {
+    this.bus?.destroy();
+    this.bus = null;
+    if (!on) return;
+    const station = PLACES.find((p) => p.id === 'station');
+    if (!station) return;
+    this.bus = new Sprite(getArt(BUS_ART));
+    this.bus.anchor.set(0.5, 1);
+    this.bus.scale.set(0.32);
+    this.bus.position.set(station.x + 170, station.y + 20);
+    this.bus.eventMode = 'none';
+    this.world.addChild(this.bus);
   }
 
   /** A locked place shakes its head, gently. */
@@ -170,6 +273,15 @@ export class NeighbourhoodMap {
 
   private readonly animate = (ticker: Ticker): void => {
     if (this.sparkle && !this.sparkle.destroyed) this.sparkle.animate(ticker.deltaMS);
+    const bottom = this.app.screen.height;
+    for (const drop of this.drops) {
+      drop.g.y += drop.speed * ticker.deltaMS;
+      if (drop.g.y > bottom) drop.g.y = -20;
+    }
+    if (this.bus && !this.bus.destroyed) {
+      this.busTime += ticker.deltaMS;
+      this.bus.rotation = Math.sin(this.busTime / 180) * 0.03;
+    }
     if (this.shown && this.hints.due(performance.now())) this.showHint();
   };
 
@@ -209,5 +321,7 @@ export class NeighbourhoodMap {
     const scale = Math.min(across / MAP_WIDTH, down / MAP_HEIGHT);
     this.world.scale.set(scale);
     this.world.position.set(safe.left + (across - MAP_WIDTH * scale) / 2, top + (down - MAP_HEIGHT * scale) / 2);
+    // The sky: everything above the tops of the places (about 40 map units down).
+    this.skyLayer.hitArea = new Rectangle(0, 0, width, this.world.y + 40 * scale);
   };
 }

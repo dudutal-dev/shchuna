@@ -62,6 +62,8 @@ export type Interaction =
     }
   /** Tapping gets a reaction but changes nothing, like stroking the cat or ringing a bell. */
   | { type: 'pet'; sfx: 'purr' | 'ding' }
+  /** Tapping brings out a small surprise: a fish jumps, hearts rise, a butterfly flies off. */
+  | { type: 'surprise'; kind: 'fish' | 'hearts' | 'butterfly' }
   /** Tapping puts play coins in the purse (the piggy bank). */
   | { type: 'coins'; amount: number }
   | { type: 'holdIn' }
@@ -92,6 +94,8 @@ export interface PropDef {
    * up, so it doesn't sit on top of what it just changed.
    */
   returnsAfterUse?: boolean;
+  /** Said when a toggle turns on, and when it turns off ("good night", "good morning"). */
+  toggleLines?: { on: string; off: string };
   /** A character brought here while it is open changes clothes (the wardrobe). */
   changesOutfit?: { key: string };
   letter?: HebrewLetter;

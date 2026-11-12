@@ -1541,6 +1541,42 @@
       "text": "עֶשֶׂר",
       "durationMs": 800,
       "hash": "6ebd3f810868a95fe68ef485ddcd7a7816baa0adfc7ade1e33bbfd6cfee009fd"
+    },
+    "journey.where": {
+      "file": "public/audio/lines/journey.where.mp3",
+      "text": "לְאָן נוֹסְעִים?",
+      "durationMs": 1120,
+      "hash": "7c5edbb49e249e681c1d69d08cbbe281926fc56f900bdce0fa3a97cbb263d11f"
+    },
+    "react.arrived": {
+      "file": "public/audio/lines/react.arrived.mp3",
+      "text": "הִגַּעְנוּ!",
+      "durationMs": 960,
+      "hash": "d31091d8a86f97f4e0feab7b004e00928fcbea1336a15049ec7a168407b9a474"
+    },
+    "react.night": {
+      "file": "public/audio/lines/react.night.mp3",
+      "text": "לַיְלָה טוֹב!",
+      "durationMs": 1120,
+      "hash": "63d0a298f09af8c4ca5c94b61a9cc4dc79e4b00d52c21d287e6dfd706ca577c8"
+    },
+    "weather.rain": {
+      "file": "public/audio/lines/weather.rain.mp3",
+      "text": "יוֹרֵד גֶּשֶׁם!",
+      "durationMs": 1360,
+      "hash": "b886289432e25167ee9b13294ddf09f8ad67d7c76aff08027e059ffa2af66361"
+    },
+    "weather.rainbow": {
+      "file": "public/audio/lines/weather.rainbow.mp3",
+      "text": "אֵיזוֹ קֶשֶׁת יָפָה!",
+      "durationMs": 1920,
+      "hash": "d0faf3f172080fe616392131f6b7b7d03149471b101b2af367ac3127a160edf2"
+    },
+    "prop.balcony": {
+      "file": "public/audio/lines/prop.balcony.mp3",
+      "text": "מִרְפֶּסֶת",
+      "durationMs": 1200,
+      "hash": "7dcd254108ee40b05a1ff1f14b94ab601558b1e94fe8a188ec1c9cc9c6eed97a"
     }
   }
 }

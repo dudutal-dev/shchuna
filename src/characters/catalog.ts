@@ -128,11 +128,13 @@ export function defaultFamily(): Character[] {
     y: 540,
     pose: 'stand',
   });
+  // Two by the aquarium and two by the kitchen door, so the aquarium and the cat on the sofa
+  // stay in reach (their letter and their surprises are under a child's finger).
   return [
-    member('family-1', 1960, { body: 'adult', skinTone: 2, hair: 'long', hairColor: 'brown', outfit: 'shutters' }),
-    member('family-2', 1840, { body: 'adult', skinTone: 2, hair: 'short', hairColor: 'black', outfit: 'olive', accessory: 'glasses' }),
-    member('family-3', 1720, { body: 'kid', skinTone: 2, hair: 'ponytail', hairColor: 'brown', outfit: 'sunny' }),
-    member('family-4', 1620, { body: 'small', skinTone: 2, hair: 'curly', hairColor: 'chestnut', outfit: 'sea' }),
+    member('family-1', 2160, { body: 'adult', skinTone: 2, hair: 'long', hairColor: 'brown', outfit: 'shutters' }),
+    member('family-2', 2080, { body: 'adult', skinTone: 2, hair: 'short', hairColor: 'black', outfit: 'olive', accessory: 'glasses' }),
+    member('family-3', 1800, { body: 'kid', skinTone: 2, hair: 'ponytail', hairColor: 'brown', outfit: 'sunny' }),
+    member('family-4', 1705, { body: 'small', skinTone: 2, hair: 'curly', hairColor: 'chestnut', outfit: 'sea' }),
   ];
 }
 
