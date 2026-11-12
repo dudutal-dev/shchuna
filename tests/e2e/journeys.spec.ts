@@ -69,9 +69,13 @@ test.describe('journeys, night, weather and surprises', () => {
     expect(await spoken(page)).toContain('weather.rain');
     await page.waitForTimeout(1200);
     await page.screenshot({ path: `docs/screens/rain-${testInfo.project.name}.png` });
-    await expect.poll(() => page.evaluate(() => window.__shchuna!.weather?.()), { timeout: 15_000 }).toBe('rainbow');
-    await page.waitForTimeout(1200);
-    await page.screenshot({ path: `docs/screens/rainbow-${testInfo.project.name}.png` });
+    // The rainbow stays for 12s only, and a screenshot on a slow CI machine can take most of
+    // that: check the line it says, which is kept, and take its picture only if it is still out.
+    await expect.poll(() => spoken(page), { timeout: 20_000 }).toContain('weather.rainbow');
+    if ((await page.evaluate(() => window.__shchuna!.weather?.())) === 'rainbow') {
+      await page.waitForTimeout(1200);
+      await page.screenshot({ path: `docs/screens/rainbow-${testInfo.project.name}.png` });
+    }
   });
 
   test('surprises: a fish leaps in the aquarium, hearts rise from the cat', async ({ page }) => {
