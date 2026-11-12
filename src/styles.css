@@ -364,3 +364,41 @@ canvas {
   color: #fff;
   font: 600 16px 'Rubik', sans-serif;
 }
+
+/* The parents' progress section: the 22 letters, found ones bright. */
+.progress-count {
+  margin: 4px 0 10px;
+  font-weight: 600;
+}
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+
+.progress-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px;
+  border-radius: 12px;
+  background: #f3e7cf;
+  color: #b9a988;
+  font-size: 12px;
+  text-align: center;
+}
+
+.progress-cell.found {
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 3px #3e8e7e;
+}
+
+.progress-letter {
+  font: 800 28px/1.1 'Rubik', sans-serif;
+}
+
+.progress-cell.found .progress-letter {
+  color: #3e8e7e;
+}

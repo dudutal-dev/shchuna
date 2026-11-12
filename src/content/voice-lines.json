@@ -261,5 +261,6 @@
   {"id": "react.night", "text": "לַיְלָה טוֹב!", "voice": "narrator", "proofread": false},
   {"id": "weather.rain", "text": "יוֹרֵד גֶּשֶׁם!", "voice": "narrator", "proofread": false},
   {"id": "weather.rainbow", "text": "אֵיזוֹ קֶשֶׁת יָפָה!", "voice": "narrator", "proofread": false},
-  {"id": "prop.balcony", "text": "מִרְפֶּסֶת", "voice": "narrator", "proofread": false}
+  {"id": "prop.balcony", "text": "מִרְפֶּסֶת", "voice": "narrator", "proofread": false},
+  {"id": "react.wellDone", "text": "כָּל הַכָּבוֹד!", "voice": "narrator", "proofread": false}
 ]

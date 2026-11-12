@@ -90,3 +90,20 @@ test.describe('places do things with characters', () => {
     expect(await spoken(page)).toContain('react.byebye');
   });
 });
+
+test('a child put on the tricycle rides round the yard and gets off beside it', async ({ page }, testInfo) => {
+  test.slow();
+  await openGame(page, 'gan');
+  const scale = page.viewportSize()!.height / 600;
+  await scrollTo(page, 'gan-tricycle');
+  const bike = await propCenter(page, 'gan-tricycle');
+  await touchDrag(page, await propCenter(page, 'gan-2'), { x: bike.x, y: bike.y - 20 * scale });
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: `docs/screens/play-tricycle-${testInfo.project.name}.png` });
+  const tricycle = await propState(page, 'gan-tricycle');
+  await expect
+    .poll(async () => (await person(page, 'gan-2'))?.x, { timeout: 15_000 })
+    .toBe(tricycle.x + 110);
+  expect(await person(page, 'gan-2')).toMatchObject({ pose: 'stand' });
+  expect(await spoken(page)).toContain('react.wee');
+});

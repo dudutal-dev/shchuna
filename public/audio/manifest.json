@@ -1577,6 +1577,12 @@
       "text": "מִרְפֶּסֶת",
       "durationMs": 1200,
       "hash": "7dcd254108ee40b05a1ff1f14b94ab601558b1e94fe8a188ec1c9cc9c6eed97a"
+    },
+    "react.wellDone": {
+      "file": "public/audio/lines/react.wellDone.mp3",
+      "text": "כָּל הַכָּבוֹד!",
+      "durationMs": 1520,
+      "hash": "34e843a11e6bd1a30d55fd0fd8246fddbc8de72e22d2c5f7062f8d07e5f42000"
     }
   }
 }

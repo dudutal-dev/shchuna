@@ -94,6 +94,11 @@ export interface PropDef {
    * up, so it doesn't sit on top of what it just changed.
    */
   returnsAfterUse?: boolean;
+  /**
+   * A character put on it goes for a ride: round the yard and back (a tricycle), or off the
+   * screen and back again inside it (a car).
+   */
+  ride?: 'lap' | 'drive';
   /** Said when a toggle turns on, and when it turns off ("good night", "good morning"). */
   toggleLines?: { on: string; off: string };
   /** A character brought here while it is open changes clothes (the wardrobe). */

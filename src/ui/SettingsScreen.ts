@@ -1,10 +1,13 @@
 import { parentStrings } from '../content/parent.he';
-import type { AddressGender, Settings } from '../types';
+import type { AddressGender, LetterProgress, Settings } from '../types';
+import { progressPanel } from './ProgressPanel';
 import { el, overlay } from './ParentGate';
 
 const text = parentStrings.settings;
 
 export interface SettingsHandlers {
+  /** The letter hunt so far, for the progress section. */
+  letters?: readonly LetterProgress[];
   change(patch: Partial<Settings>): void;
   reset(): void;
   /** Settings close, and the parents' guided tour starts. */
@@ -113,7 +116,8 @@ export class SettingsScreen {
         resolve();
       });
 
-      card.append(title, guide, volumes, niqqudRow, invitesGroup, gender, reset, privacy, close);
+      const progress = progressPanel(handlers.letters ?? []);
+      card.append(title, guide, progress, volumes, niqqudRow, invitesGroup, gender, reset, privacy, close);
     });
   }
 

@@ -107,3 +107,50 @@ test('yod hides on the moon in the kids-room window', async ({ page }) => {
     )
     .toEqual(['י']);
 });
+
+test('a found letter can be painted with a finger, and painting most of it gets a "well done"', async ({
+  page,
+}, testInfo) => {
+  test.slow();
+  await openGame(page, 'home');
+  await scrollTo(page, 'kitchen-table');
+  await tap(page, (await page.evaluate(() => window.__shchuna!.letterCenter('bread')))!);
+  // Let lamed fly into the book, then open the book and tap it.
+  await page.waitForTimeout(3600);
+  await tap(page, await page.evaluate(() => window.__shchuna!.hudCenter('book')));
+  await page.waitForFunction(() => window.__shchuna?.stage === 'book');
+  await tap(page, (await page.evaluate(() => window.__shchuna!.bookCenter?.('ל')))!);
+  await expect.poll(() => page.evaluate(() => window.__shchuna!.painter?.() ?? null)).not.toBeNull();
+
+  // A finger runs over the whole letter, sent from inside the page so it is quick.
+  await page.evaluate(() => {
+    const info = window.__shchuna!.painter!()!;
+    const canvas = document.querySelector('canvas')!;
+    const send = (type: string, p: { x: number; y: number }) =>
+      canvas.dispatchEvent(
+        new PointerEvent(type, {
+          pointerId: 9,
+          pointerType: 'touch',
+          isPrimary: true,
+          clientX: p.x,
+          clientY: p.y,
+          bubbles: true,
+          buttons: type === 'pointerup' ? 0 : 1,
+        }),
+      );
+    send('pointerdown', info.points[0]!);
+    for (const p of info.points) send('pointermove', p);
+    send('pointerup', info.points[info.points.length - 1]!);
+  });
+  await expect
+    .poll(() => page.evaluate(() => window.__shchuna!.painter?.()?.progress ?? 0))
+    .toBeGreaterThan(0.6);
+  await expect.poll(() => page.evaluate(() => window.__shchuna!.spoken())).toContain('react.wellDone');
+  await page.waitForTimeout(600);
+  await page.screenshot({ path: `docs/screens/paint-letter-${testInfo.project.name}.png` });
+
+  const done = await page.evaluate(() => window.__shchuna!.painter!()!.done);
+  await tap(page, done);
+  await expect.poll(() => page.evaluate(() => window.__shchuna!.painter?.() ?? null)).toBeNull();
+  expect(await page.evaluate(() => window.__shchuna!.stage)).toBe('book');
+});

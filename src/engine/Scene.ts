@@ -704,6 +704,11 @@ export class Scene {
   private dropCharacter(entity: CharacterEntity): void {
     const character = this.people().find((c) => c.id === entity.entityId);
     if (!character) return;
+    const vehicle = this.rideNear(entity.x, entity.y);
+    if (vehicle) {
+      this.goForRide(entity, character, vehicle);
+      return;
+    }
     const { floor, surfaces, width, id } = this.data;
     const seats = openSurfaces(surfaces, this.instances()).filter((s) => s.pose);
     const landing = resolveDrop({ x: entity.x, y: entity.y }, seats, floor, width, SEAT_SNAP_RADIUS);
@@ -851,6 +856,65 @@ export class Scene {
     this.ctx.audio.sfx('success');
     this.ctx.onJourney([entity.entityId]);
     return true;
+  }
+
+  /** A tricycle or car close to where a character was put down, if any. */
+  private rideNear(x: number, y: number): PropEntity | null {
+    for (const instance of this.instances()) {
+      const entity = this.entities.get(instance.id);
+      if (!entity?.def.ride || !entity.visible) continue;
+      if (Math.hypot(instance.x - x, instance.y - y) < 140) return entity;
+    }
+    return null;
+  }
+
+  /**
+   * Off for a ride. On a tricycle the child sits and pedals across the yard and back; in a car
+   * they climb in and it drives off the screen and back. Afterwards they stand beside it.
+   */
+  private goForRide(entity: CharacterEntity, character: Character, vehicle: PropEntity): void {
+    entity.setLifted(false);
+    const home = { x: vehicle.x, y: vehicle.y };
+    const beside = { x: Math.min(home.x + 110, this.data.width - 60), y: home.y };
+    const finish = () => {
+      if (entity.destroyed) return;
+      entity.visible = true;
+      this.ctx.actions.commit(this.data.id, [
+        { id: character.id, x: beside.x, y: beside.y, on: null, pose: 'stand' },
+      ]);
+      entity.moveTo(beside.x, beside.y, true);
+      entity.hop();
+      this.celebrate(character.id);
+    };
+    this.ctx.audio.sfx('success');
+    if (vehicle.def.ride === 'lap') {
+      this.ctx.audio.say('react.wee');
+      entity.apply({ ...character, pose: 'sit' });
+      entity.position.set(home.x, home.y - 30);
+      const span = Math.min(260, this.data.width - home.x - 80);
+      const out = home.x + (span > 120 ? span : -260);
+      tween(vehicle, { x: out }, 1300, easeOutQuad, () => tween(vehicle, { x: home.x }, 1300, easeOutQuad));
+      tween(entity, { x: out }, 1300, easeOutQuad, () =>
+        tween(entity, { x: home.x }, 1300, easeOutQuad, () => {
+          entity.apply({ ...character, pose: 'stand' });
+          finish();
+        }),
+      );
+      return;
+    }
+    // In the car: in they get, and off it drives.
+    this.ctx.audio.say('react.byebye');
+    entity.visible = false;
+    tween(vehicle.pivot, { x: 1500 }, 1300, easeInQuad, () => {
+      setTimeout(() => {
+        if (vehicle.destroyed) return;
+        vehicle.pivot.x = -1500;
+        tween(vehicle.pivot, { x: 0 }, 1400, easeOutQuad, () => {
+          this.ctx.audio.say('react.arrived');
+          finish();
+        });
+      }, 700);
+    });
   }
 
   /** A passenger in the bus was tapped: the doors close and off it goes, as a tap on the bus would. */

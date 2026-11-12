@@ -53,6 +53,9 @@ test.describe('parents gate', () => {
     await answer(page, true);
     await page.waitForFunction(() => window.__shchuna?.stage === 'settings');
     await expect(page.getByRole('heading', { name: 'הגדרות' })).toBeVisible();
+    // What the child found so far: nothing yet in a new game, all 22 letters listed.
+    await expect(page.getByText('נמצאו 0 מתוך 22 אותיות.')).toBeVisible();
+    await expect(page.locator('.progress-cell')).toHaveCount(22);
     await page.screenshot({ path: `docs/screens/m7-settings-${testInfo.project.name}.png` });
 
     // Address the child as a girl, and hide niqqud.

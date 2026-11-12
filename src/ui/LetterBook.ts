@@ -8,6 +8,7 @@ import { easeOutBack, tween } from '../engine/tween';
 import { bookLines, isFound } from '../learning/LetterHunt';
 import type { HebrewLetter, PropDef, PropInstance } from '../types';
 import { makeButton } from './Hud';
+import { LetterPainter } from './LetterPainter';
 
 const COLUMNS = 8;
 const ROWS = 3;
@@ -65,6 +66,22 @@ export class LetterBook {
     return target ? target.getGlobalPosition() : null;
   }
 
+  private painter: LetterPainter | null = null;
+
+  private openPainter(letter: HebrewLetter): void {
+    if (this.painter) return;
+    const painter = new LetterPainter(this.app, this.audio, letter, () => (this.painter = null));
+    this.painter = painter;
+    painter.open();
+    this.view.addChild(painter.view);
+  }
+
+  /** While a letter is being painted: how far along, where its points are, its done button. */
+  painterInfo(): { progress: number; points: Array<{ x: number; y: number }>; done: { x: number; y: number } } | null {
+    const painter = this.painter;
+    return painter ? { progress: painter.progress, points: painter.points, done: painter.doneCenter } : null;
+  }
+
   /** The art of the prop a letter hides on, shown under it once found. */
   private pictureOf(info: LetterInfo): string | null {
     if (info.picture) return info.picture;
@@ -111,7 +128,11 @@ export class LetterBook {
       tween(slot.scale, { x: rest, y: rest }, 220, easeOutBack);
       this.audio.sfx('tap');
       this.audio.sayAll(bookLines(this.store.state.letters, info.letter));
-      if (found) this.onHeard(info.letter);
+      if (found) {
+        this.onHeard(info.letter);
+        // A found letter can be painted with a finger.
+        this.openPainter(info.letter);
+      }
     });
     return slot;
   }

@@ -408,14 +408,20 @@ export class Game {
       (letter) => this.actions.setLetters(hear(this.store.state.letters, letter)),
       () => {
         this.book = null;
-        if (this.hook) this.hook.bookCenter = null;
+        if (this.hook) {
+          this.hook.bookCenter = null;
+          this.hook.painter = null;
+        }
         this.setStage(this.map ? 'map' : 'playing');
       },
     );
     this.book = book;
     await book.open();
     this.app.stage.addChild(book.view);
-    if (this.hook) this.hook.bookCenter = (id) => book.center(id as HebrewLetter | 'done');
+    if (this.hook) {
+      this.hook.bookCenter = (id) => book.center(id as HebrewLetter | 'done');
+      this.hook.painter = () => book.painterInfo();
+    }
     this.setStage('book');
   }
 
@@ -457,6 +463,7 @@ export class Game {
       this.setStage('settings');
       let guide = false;
       await new SettingsScreen().open(this.store.state.settings, {
+        letters: this.store.state.letters,
         change: (patch) => this.changeSettings(patch),
         reset: () => void this.resetGame(),
         guide: () => (guide = true),

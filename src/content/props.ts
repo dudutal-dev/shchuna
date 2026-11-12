@@ -15,6 +15,7 @@ interface Spec {
   changesOutfit?: PropDef['changesOutfit'];
   returnsAfterUse?: boolean;
   toggleLines?: PropDef['toggleLines'];
+  ride?: PropDef['ride'];
   price?: number;
 }
 
@@ -36,6 +37,7 @@ function prop(id: string, name: Name, spec: Spec): PropDef {
     ...(spec.changesOutfit ? { changesOutfit: spec.changesOutfit } : {}),
     ...(spec.returnsAfterUse ? { returnsAfterUse: true } : {}),
     ...(spec.toggleLines ? { toggleLines: spec.toggleLines } : {}),
+    ...(spec.ride ? { ride: spec.ride } : {}),
     ...(spec.price ? { price: spec.price } : {}),
   };
 }
@@ -222,7 +224,7 @@ const definitions: PropDef[] = [
     returnsAfterUse: true,
   }),
   prop('spade', 'spade', { art: 'gan/spade.svg' }),
-  prop('tricycle', 'tricycle', { art: 'gan/tricycle.svg' }),
+  prop('tricycle', 'tricycle', { art: 'gan/tricycle.svg', ride: 'lap' }),
 
   // Clinic: the waiting room.
   prop('reception-desk', 'receptionDesk', { art: 'clinic/reception-desk.svg', layer: 'furniture' }),
@@ -370,6 +372,7 @@ const definitions: PropDef[] = [
     art: 'station/car.svg',
     artStates: when({ lights: true }, 'station/car-lights.svg'),
     interactions: toggle('lights'),
+    ride: 'drive',
   }),
 ];
 
