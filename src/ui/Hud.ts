@@ -1,7 +1,7 @@
 import { Application, Container, Graphics, Rectangle, Sprite } from 'pixi.js';
 import { getArt, loadArt } from '../engine/art';
 import { buttonSize, safeArea } from '../engine/safeArea';
-import { easeOutBack, tween } from '../engine/tween';
+import { easeOutBack, killTweens, tween } from '../engine/tween';
 
 /** Screen pixels, so buttons stay the same physical size on every device. */
 export const BUTTON_SIZE = 72;
@@ -110,6 +110,7 @@ export class Hud {
   private mode: HudMode = 'scene';
   /** Buttons a place has nothing for, such as the family button in the shop. */
   private readonly hidden = new Set<HudButtonId>();
+  private readonly pulsing = new Set<HudButtonId>();
 
   constructor(
     private readonly app: Application,
@@ -169,6 +170,27 @@ export class Hud {
   visibleCenter(id: HudButtonId): { x: number; y: number } | null {
     const button = this.buttons.get(id);
     return button?.visible ? { x: button.x, y: button.y } : null;
+  }
+
+  /** Makes a button breathe, to say "this way": the map, when a story's next step is elsewhere. */
+  setPulse(id: HudButtonId, on: boolean): void {
+    const inner = this.buttons.get(id)?.children[0];
+    if (!inner || on === this.pulsing.has(id)) return;
+    if (on) this.pulsing.add(id);
+    else this.pulsing.delete(id);
+    killTweens(inner.scale);
+    inner.scale.set(1);
+    const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const breathe = (out: boolean): void => {
+      if (!this.pulsing.has(id) || reduced) return;
+      const to = out ? 1.12 : 1;
+      tween(inner.scale, { x: to, y: to }, 700, undefined, () => breathe(!out));
+    };
+    breathe(true);
+  }
+
+  isPulsing(id: HudButtonId): boolean {
+    return this.pulsing.has(id);
   }
 
   /** Kept for existing tests. */

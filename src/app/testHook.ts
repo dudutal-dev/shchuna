@@ -5,6 +5,7 @@ import type { Coin } from '../learning/CoinCounter';
 import type { Checkout } from '../locations/makolet/Checkout';
 import type { SaveGame } from '../types';
 import type { Hud, HudButtonId } from '../ui/Hud';
+import type { StoryStrip } from '../ui/StoryStrip';
 import type { GameStore } from './store';
 
 type Point = { x: number; y: number };
@@ -38,6 +39,13 @@ export interface TestHook {
   skyPoint: (() => Point) | null;
   /** The guide's story in progress: its current step, and the step ids at this level. */
   story(): { id: string; step: number; steps: string[] } | null;
+  /** A step's place in the story strip, or the guide's; null while the strip is hidden. */
+  storyStepCenter(index: number): Point | null;
+  storyGuideCenter(): Point | null;
+  /** Each step's written word, or null where the strip shows a picture. */
+  storyWords(): (string | null)[];
+  /** Whether a HUD button is breathing to draw the eye (the map, when the story goes on elsewhere). */
+  hudPulsing(id: HudButtonId): boolean;
   /** The wish showing over someone's head, if any. */
   wish(): { characterId: string; kind: string; thing?: string } | null;
   /** Whether the see-through hand of an invitation is showing. */
@@ -90,6 +98,7 @@ export function installTestHook(parts: {
   scene: () => Scene | null;
   checkout: () => Checkout | null;
   hud: Hud;
+  strip: StoryStrip;
   here: () => string;
   lastHint: () => string | null;
   story: () => { id: string; step: number; steps: string[] } | null;
@@ -109,6 +118,10 @@ export function installTestHook(parts: {
     characterVisible: (id) => parts.scene()?.isCharacterVisible(id) ?? false,
     ghostShowing: () => parts.scene()?.ghostShowing ?? false,
     story: parts.story,
+    storyStepCenter: (index) => parts.strip.stepCenter(index),
+    storyGuideCenter: () => parts.strip.guideCenter(),
+    storyWords: () => parts.strip.words(),
+    hudPulsing: (id) => parts.hud.isPulsing(id),
     wish: () => parts.scene()?.currentWish ?? null,
     lastEffect: () => parts.scene()?.lastEffect ?? null,
     painter: null,

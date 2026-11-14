@@ -65,6 +65,11 @@ export async function travel(page: Page, place: string): Promise<void> {
   );
 }
 
+/** Waits until the story strip is drawn (its pictures load a moment after the story starts). */
+export async function stripReady(page: Page): Promise<void> {
+  await page.waitForFunction(() => window.__shchuna?.storyGuideCenter() != null, undefined, { timeout: 2000 });
+}
+
 /** Opens the game and goes straight into play. */
 export async function openGame(
   page: Page,

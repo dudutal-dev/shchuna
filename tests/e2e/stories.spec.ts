@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { openGame, propCenter, scrollTo, tapToStart, touchDrag, type Point } from './helpers';
+import { openGame, propCenter, scrollTo, tap, stripReady, tapToStart, touchDrag, travel, type Point } from './helpers';
 
 const PITA = 'falafel-falafel-pita';
 const GRANDPA = 'falafel-2';
@@ -114,6 +114,89 @@ test.describe('stories', () => {
     await page.reload();
     await tapToStart(page);
     expect(await story(page)).toMatchObject({ id: 'pita', step: 1 });
+  });
+
+  test('the strip shows the guide and the steps from right to left', async ({ page }, testInfo) => {
+    await openGame(page, 'falafel', { stories: true, level: 2 });
+    await stripReady(page);
+    const xs = await page.evaluate(() => [0, 1, 2].map((i) => window.__shchuna!.storyStepCenter(i)?.x ?? null));
+    const guide = await page.evaluate(() => window.__shchuna!.storyGuideCenter());
+    expect(xs.every((x) => x !== null)).toBe(true);
+    expect(guide!.x).toBeGreaterThan(xs[0]!);
+    expect(xs[0]!).toBeGreaterThan(xs[1]!);
+    expect(xs[1]!).toBeGreaterThan(xs[2]!);
+    await into(page, 'falafel-falafel-bowl');
+    await expect.poll(async () => (await story(page))?.step).toBe(1);
+    await page.waitForTimeout(600);
+    await page.screenshot({ path: `docs/screens/story-strip-${testInfo.project.name}.png` });
+  });
+
+  test('tapping the current step says it again and shows the hand', async ({ page }) => {
+    await openGame(page, 'falafel', { stories: true, level: 2 });
+    await stripReady(page);
+    await scrollTo(page, PITA);
+    await expect.poll(async () => (await spoken(page)).includes('story.pita.fill'), { timeout: 15_000 }).toBe(true);
+    // A touch elsewhere first: any touch sends the hand away.
+    await tap(page, { x: page.viewportSize()!.width / 2, y: page.viewportSize()!.height - 20 });
+    await expect.poll(() => page.evaluate(() => window.__shchuna!.ghostShowing())).toBe(false);
+    const before = (await spoken(page)).filter((line) => line === 'story.pita.fill').length;
+    await tap(page, (await page.evaluate(() => window.__shchuna!.storyStepCenter(0)))!);
+    await expect
+      .poll(async () => (await spoken(page)).filter((line) => line === 'story.pita.fill').length)
+      .toBe(before + 1);
+    expect(await page.evaluate(() => window.__shchuna!.ghostShowing())).toBe(true);
+  });
+
+  test('tapping the guide puts the story away for this session', async ({ page }) => {
+    await openGame(page, 'falafel', { stories: true, level: 2 });
+    await stripReady(page);
+    await tap(page, (await page.evaluate(() => window.__shchuna!.storyGuideCenter()))!);
+    await expect.poll(() => story(page)).toBeNull();
+    expect(await lastLine(page)).toBe('story.later');
+    expect(await page.evaluate(() => window.__shchuna!.storyStepCenter(0))).toBeNull();
+    await travel(page, 'home');
+    await travel(page, 'falafel');
+    expect(await story(page)).toBeNull();
+  });
+
+  test('leaving in the middle keeps the strip, and coming back carries on', async ({ page }) => {
+    test.slow();
+    await openGame(page, 'falafel', { stories: true, level: 2 });
+    await into(page, 'falafel-falafel-bowl');
+    await expect.poll(async () => (await story(page))?.step).toBe(1);
+    const strip = () => page.evaluate(() => window.__shchuna!.storyStepCenter(1));
+    await tap(page, await page.evaluate(() => window.__shchuna!.hudCenter('map')));
+    await page.waitForFunction(() => window.__shchuna?.stage === 'map');
+    expect(await strip()).not.toBeNull();
+    const home = await page.evaluate(() => window.__shchuna!.mapCenter?.('home'));
+    await tap(page, home!);
+    await page.waitForFunction(() => window.__shchuna?.stage === 'playing' && window.__shchuna.here() === 'home', undefined, { timeout: 30_000 });
+    expect(await strip()).not.toBeNull();
+    expect(await page.evaluate(() => window.__shchuna!.hudPulsing('map'))).toBe(true);
+    await travel(page, 'falafel');
+    expect(await story(page)).toMatchObject({ id: 'pita', step: 1 });
+    expect(await page.evaluate(() => window.__shchuna!.hudPulsing('map'))).toBe(false);
+  });
+
+  test('at level 1 the hand shows the step as it starts', async ({ page }) => {
+    await page.goto('./?e2e&scene=falafel&stories&level=1');
+    await tapToStart(page);
+    // The counter is in view when the stand opens, so the hand has somewhere to point.
+    await expect.poll(() => page.evaluate(() => window.__shchuna!.ghostShowing()), { timeout: 8000 }).toBe(true);
+  });
+
+  test('at level 3 the serve step is a written word', async ({ page }, testInfo) => {
+    await openGame(page, 'falafel', { stories: true, level: 3 });
+    await stripReady(page);
+    expect(await page.evaluate(() => window.__shchuna!.storyWords())).toEqual([null, 'פִּיתָּה', null, 'לִימוֹנָדָה']);
+    await into(page, 'falafel-falafel-bowl');
+    await expect.poll(async () => (await story(page))?.step).toBe(1);
+    await page.waitForTimeout(600);
+    await page.screenshot({ path: `docs/screens/story-word-${testInfo.project.name}.png` });
+    // Tapping the word reads it aloud, then says the step.
+    await tap(page, { x: page.viewportSize()!.width / 2, y: page.viewportSize()!.height - 20 });
+    await tap(page, (await page.evaluate(() => window.__shchuna!.storyStepCenter(1)))!);
+    await expect.poll(async () => (await spoken(page)).slice(-2)).toEqual(['prop.falafel-pita', 'story.pita.serve']);
   });
 
   test('nothing starts unless stories are on', async ({ page }) => {

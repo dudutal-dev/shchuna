@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { tap, tapToStart } from './helpers';
+import { stripReady, tap, tapToStart } from './helpers';
 
 type Point = { x: number; y: number };
 
@@ -62,5 +62,26 @@ for (const phone of PHONES) {
     expect(controls.every(Boolean)).toBe(true);
     checkButtons(controls as Point[], size, phone.notch);
     await page.screenshot({ path: `docs/screens/layout-${phone.name}-creator.png` });
+  });
+}
+
+for (const phone of PHONES) {
+  test(`the story strip fits a ${phone.name} (${phone.width}×${phone.height})`, async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'iphone', 'phones only');
+    await page.setViewportSize({ width: phone.width, height: phone.height });
+    // Level 3 is the longest strip: the guide and four steps.
+    await page.goto(`./?e2e&scene=falafel&stories&level=3&notch=${phone.notch}`);
+    await tapToStart(page);
+    await stripReady(page);
+    const hud = await page.evaluate(() =>
+      (['undo', 'family', 'map', 'book', 'lock'] as const).map((id) => window.__shchuna!.hudCenter(id)),
+    );
+    const strip = await page.evaluate(() => [
+      window.__shchuna!.storyGuideCenter(),
+      ...[0, 1, 2, 3].map((i) => window.__shchuna!.storyStepCenter(i)),
+    ]);
+    expect(strip.every(Boolean)).toBe(true);
+    checkButtons([...hud, ...(strip as Point[])], { width: phone.width, height: phone.height }, phone.notch);
+    await page.screenshot({ path: `docs/screens/layout-${phone.name}-story.png` });
   });
 }

@@ -1155,7 +1155,7 @@ export class Scene {
       done: (invitation) => this.invitationDone(invitation, instances),
       timesShown: (id) => this.invitesShown.get(id) ?? 0,
       isOn: (prop, key) => instances.find((p) => p.id === prop)?.state?.[key] === true,
-      points: (invitation) => this.invitationPoints(invitation),
+      points: (invitation) => this.pointsFor(invitation.show),
     });
     if (!pick) return false;
     this.invitesShown.set(pick.invitation.id, (this.invitesShown.get(pick.invitation.id) ?? 0) + 1);
@@ -1187,9 +1187,20 @@ export class Scene {
     }
   }
 
+  /**
+   * The see-through hand shows a tap or a drag, if everything it points at is on screen.
+   * False when it isn't: the room never slides by itself to show it.
+   */
+  showHand(show: Invitation['show']): boolean {
+    const points = this.pointsFor(show);
+    if (!points) return false;
+    this.ghost.play(points.from, points.to);
+    return true;
+  }
+
   /** Where the hand starts and ends, on screen; null when any of it is off screen. */
-  private invitationPoints(
-    invitation: Invitation,
+  private pointsFor(
+    show: Invitation['show'],
   ): { from: { x: number; y: number }; to?: { x: number; y: number } } | null {
     const { width, height } = this.ctx.app.screen;
     const onScreen = (p: { x: number; y: number } | null) =>
@@ -1211,7 +1222,7 @@ export class Scene {
       if ('surface' in target) return onScreen(surfacePoint(target.surface));
       if ('prop' in target) return propPoint(target.prop);
       // A person: someone standing on screen, the nearest to where they would go.
-      const goal = 'drag' in invitation.show && 'surface' in invitation.show.to ? invitation.show.to.surface : null;
+      const goal = 'drag' in show && 'surface' in show.to ? show.to.surface : null;
       let best: { x: number; y: number } | null = null;
       let bestDistance = Infinity;
       for (const character of this.people()) {
@@ -1226,12 +1237,12 @@ export class Scene {
       }
       return best;
     };
-    if ('tap' in invitation.show) {
-      const at = resolve(invitation.show.tap);
+    if ('tap' in show) {
+      const at = resolve(show.tap);
       return at ? { from: at } : null;
     }
-    const to = resolve(invitation.show.to);
-    const from = to ? resolve(invitation.show.drag, to) : null;
+    const to = resolve(show.to);
+    const from = to ? resolve(show.drag, to) : null;
     return from && to ? { from, to } : null;
   }
 

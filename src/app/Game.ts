@@ -17,6 +17,8 @@ import { strings } from '../content/strings.he';
 import { AudioManager, BrowserAudioBackend } from '../engine/AudioManager';
 import { SaveManager } from '../engine/SaveManager';
 import { Scene, type LocationData } from '../engine/Scene';
+import { loadArt } from '../engine/art';
+import { safeArea } from '../engine/safeArea';
 import { setNiqqudShown } from '../engine/text';
 import { find, hear, letterLines, letterOn } from '../learning/LetterHunt';
 import { advance, DEFAULT_LEVEL, nextStory, sanitize, stepsOf } from '../learning/StoryEngine';
@@ -38,6 +40,7 @@ import { ParentGate } from '../ui/ParentGate';
 import { ParentGuide } from '../ui/ParentGuide';
 import { SettingsScreen } from '../ui/SettingsScreen';
 import { StartScreen } from '../ui/StartScreen';
+import { GUIDE_ART, StoryStrip } from '../ui/StoryStrip';
 import { Actions } from './actions';
 import { hideInstallHint, showInstallHint } from './installHint';
 import { GameStore } from './store';
@@ -118,6 +121,9 @@ export class Game {
   private actions!: Actions;
   private audio!: AudioManager;
   private hud!: Hud;
+  private strip!: StoryStrip;
+  /** What the strip is showing (story and level), so it is rebuilt only when that changes. */
+  private stripShows: string | null = null;
   private hook: TestHook | null = null;
   private scene: Scene | null = null;
   private checkout: Checkout | null = null;
@@ -184,8 +190,14 @@ export class Game {
       lockPress: () => this.audio.sfx('tap'),
       lockHeld: () => void this.openParents(),
     });
+    this.strip = new StoryStrip({
+      onStep: (index) => this.onStripStep(index),
+      onGuide: () => this.putStoryAway(),
+    });
+    this.app.renderer.on('resize', () => this.layoutStrip());
     this.hook = installTestHook({
       store: this.store,
+      strip: this.strip,
       scene: () => this.scene,
       checkout: () => this.checkout,
       hud: this.hud,
@@ -214,7 +226,8 @@ export class Game {
     });
     const first = firstStop();
     // Everything loads behind the start screen, so the first tap goes straight in.
-    await Promise.all([first === 'map' ? this.openMap() : this.enter(first), this.hud.init()]);
+    // The guide's picture too, so a story's strip is there the moment the story begins.
+    await Promise.all([first === 'map' ? this.openMap() : this.enter(first), this.hud.init(), loadArt([GUIDE_ART])]);
     this.audio.preload([
       'ui.tap_to_start',
       'ui.welcome',
@@ -231,7 +244,8 @@ export class Game {
     hideInstallHint();
     this.audio.sfx('success');
     startScreen.destroy();
-    this.app.stage.addChild(this.hud.view);
+    this.app.stage.addChild(this.hud.view, this.strip.view);
+    this.layoutStrip();
     if (this.map) {
       this.audio.sayAll(['ui.welcome', 'map.where']);
       this.showMapView();
@@ -296,6 +310,7 @@ export class Game {
       this.hook.skyPoint = () => map.skyPoint();
     }
     this.setStage('map');
+    this.refreshStrip();
   }
 
   /** A place on the map was tapped. */
@@ -402,6 +417,7 @@ export class Game {
     this.scene.wake();
     if (this.checkout) this.app.stage.addChildAt(this.checkout.strip, 1);
     this.setStage('playing');
+    this.refreshStrip();
     this.offerStory();
   }
 
@@ -439,6 +455,70 @@ export class Game {
       offered: progress.offered.includes(story.id) ? progress.offered : [...progress.offered, story.id],
     });
     this.audio.sayAll([story.openLine, first.line]);
+    this.refreshStrip();
+    this.showStepToTheYoungest(first);
+  }
+
+  /** The youngest are shown each step by the hand as it starts; older children only when they ask. */
+  private showStepToTheYoungest(step: StoryStep): void {
+    if (this.level() === 1 && !this.map && step.place === this.location.id) this.scene?.showHand(step.show);
+  }
+
+  private layoutStrip(): void {
+    this.strip.layout(this.app.screen, safeArea());
+  }
+
+  /**
+   * Shows the story's steps across the top, or hides them when no story is being told or a
+   * full screen (the letter book, the character creator) is open. The map button breathes
+   * when the next step is somewhere else.
+   */
+  private refreshStrip(): void {
+    const told = this.storyNow();
+    const covered = this.book !== null || this.creator !== null;
+    this.hud.setPulse('map', told !== null && !this.map && told.step.place !== this.location.id);
+    if (!told || covered) {
+      this.strip.hide();
+      this.stripShows = null;
+      return;
+    }
+    const shows = `${told.story.id}:${this.level()}`;
+    if (shows === this.stripShows) {
+      this.strip.setCurrent(told.index);
+      return;
+    }
+    this.stripShows = shows;
+    void this.strip.show(
+      told.steps.map((step) => ({
+        art: step.art,
+        ...(step.word ? { word: propDefs[step.word]?.nameHe } : {}),
+      })),
+      told.index,
+    );
+  }
+
+  /** A step in the strip was tapped: it is said again, and the one in progress is shown by the hand. */
+  private onStripStep(index: number): void {
+    const told = this.storyNow();
+    const step = told?.steps[index];
+    if (!told || !step || this.busy()) return;
+    this.audio.sfx('tap');
+    const word = step.word ? propDefs[step.word]?.voiceLine : undefined;
+    if (word) this.audio.sayAll([word, step.line]);
+    else this.audio.say(step.line);
+    if (index === told.index && !this.map && step.place === this.location.id) this.scene?.showHand(step.show);
+  }
+
+  /** The guide was tapped: "maybe later". The story comes back the next time the game is opened. */
+  private putStoryAway(): void {
+    const told = this.storyNow();
+    if (!told || this.busy()) return;
+    this.audio.sfx('tap');
+    this.audio.say('story.later');
+    this.storiesSkipped.add(told.story.id);
+    const { done, offered } = this.store.state.stories;
+    this.actions.setStories({ done, offered });
+    this.refreshStrip();
   }
 
   /** The child did something: if it is what the story was waiting for, the story moves on. */
@@ -448,9 +528,12 @@ export class Game {
     const { progress, outcome } = advance(STORIES, this.store.state.stories, this.level(), event, Date.now());
     if (outcome === 'none') return;
     this.actions.setStories(progress);
+    this.refreshStrip();
     if (outcome === 'step') {
       const next = told.steps[told.index + 1];
-      if (next) this.audio.say(next.line);
+      if (!next) return;
+      this.audio.say(next.line);
+      this.showStepToTheYoungest(next);
       return;
     }
     this.audio.sfx('tada');
@@ -487,6 +570,7 @@ export class Game {
       (letter) => this.actions.setLetters(hear(this.store.state.letters, letter)),
       () => {
         this.book = null;
+        this.refreshStrip();
         if (this.hook) {
           this.hook.bookCenter = null;
           this.hook.painter = null;
@@ -495,6 +579,7 @@ export class Game {
       },
     );
     this.book = book;
+    this.refreshStrip();
     await book.open();
     this.app.stage.addChild(book.view);
     if (this.hook) {
@@ -516,11 +601,13 @@ export class Game {
       this.location.id,
       () => {
         this.creator = null;
+        this.refreshStrip();
         if (this.hook) this.hook.creatorCenter = null;
         this.setStage('playing');
       },
     );
     this.creator = creator;
+    this.refreshStrip();
     await creator.open();
     this.app.stage.addChild(creator.view);
     if (this.hook) {
