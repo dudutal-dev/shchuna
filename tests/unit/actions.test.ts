@@ -115,3 +115,17 @@ describe('Actions', () => {
     expect(prop('a')?.x).toBe(999);
   });
 });
+
+describe('story progress', () => {
+  it('is replaced as a whole, saved, and announced', () => {
+    const schedule = vi.fn();
+    const store = new GameStore(createNewSave());
+    const actions = new Actions(store, { schedule });
+    const listener = vi.fn();
+    store.subscribe(listener);
+    actions.setStories({ active: { id: 'pita', step: 1 }, done: [], offered: ['pita'] });
+    expect(store.state.stories).toEqual({ active: { id: 'pita', step: 1 }, done: [], offered: ['pita'] });
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(schedule).toHaveBeenCalledTimes(1);
+  });
+});

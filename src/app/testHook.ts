@@ -36,6 +36,8 @@ export interface TestHook {
   /** Set while the map shows: the weather there, and a point in its sky. */
   weather: (() => string) | null;
   skyPoint: (() => Point) | null;
+  /** The guide's story in progress: its current step, and the step ids at this level. */
+  story(): { id: string; step: number; steps: string[] } | null;
   /** The wish showing over someone's head, if any. */
   wish(): { characterId: string; kind: string; thing?: string } | null;
   /** Whether the see-through hand of an invitation is showing. */
@@ -90,6 +92,7 @@ export function installTestHook(parts: {
   hud: Hud;
   here: () => string;
   lastHint: () => string | null;
+  story: () => { id: string; step: number; steps: string[] } | null;
   music: () => string | null;
   fps: () => number;
   frameCost: (frames: number) => number;
@@ -105,6 +108,7 @@ export function installTestHook(parts: {
     put: (characterId, surfaceId) => parts.scene()?.testPut(characterId, surfaceId) ?? false,
     characterVisible: (id) => parts.scene()?.isCharacterVisible(id) ?? false,
     ghostShowing: () => parts.scene()?.ghostShowing ?? false,
+    story: parts.story,
     wish: () => parts.scene()?.currentWish ?? null,
     lastEffect: () => parts.scene()?.lastEffect ?? null,
     painter: null,

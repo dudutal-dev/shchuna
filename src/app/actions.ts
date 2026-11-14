@@ -8,6 +8,7 @@ import type {
   PropState,
   SaveGame,
   Settings,
+  StoryProgress,
 } from '../types';
 import type { GameStore } from './store';
 
@@ -137,6 +138,14 @@ export class Actions {
       });
     });
     for (const place of places) this.stacks.delete(place);
+    this.save();
+  }
+
+  /** Where the child is in the guide's stories. Not undoable: a step done stays done. */
+  setStories(stories: StoryProgress): void {
+    this.store.update((state) => {
+      state.stories = stories;
+    });
     this.save();
   }
 

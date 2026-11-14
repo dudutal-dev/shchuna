@@ -14,6 +14,7 @@ import { CharacterEntity, characterArt } from '../characters/CharacterEntity';
 import type { Character, HebrewLetter, LocationId, PropDef, PropInstance } from '../types';
 import { butterfly, fishJump, hearts, starBurst } from './effects';
 import { HintSystem, hintIdleMs } from './HintSystem';
+import type { StoryEvent } from '../content/stories';
 import { INVITATIONS, pickInvitation, type Invitation, type InviteTarget } from '../content/invitations';
 import { GhostFinger, HAND_ART } from '../ui/GhostFinger';
 import { WISH_ART, WishBubble, type WishKind } from '../ui/WishBubble';
@@ -94,6 +95,8 @@ export interface SceneContext {
     canSpeak(): boolean;
     spoke(): void;
   };
+  /** What the child just did, for the guide's stories. */
+  onStoryEvent?: (event: StoryEvent) => void;
   /** The letter hunt: which prop hides a letter, and what happens when one is tapped. */
   letters?: {
     on(instanceId: string): HebrewLetter | null;
@@ -570,6 +573,9 @@ export class Scene {
     this.ctx.audio.sfx('toggle');
     this.ctx.actions.commit(this.data.id, [change]);
     this.celebrate(entity.entityId);
+    for (const [key, value] of Object.entries(change.state ?? {})) {
+      this.ctx.onStoryEvent?.({ kind: 'state', prop: entity.entityId, key, value });
+    }
     const lines = entity.def.toggleLines;
     if (lines && change.state) this.ctx.audio.say(Object.values(change.state).includes(true) ? lines.on : lines.off);
     if (change.state && Object.values(change.state).includes(false)) this.drive(entity);
@@ -619,6 +625,7 @@ export class Scene {
       ...release,
     ]);
     if (started) this.celebrate(others[0]?.id ?? entity.entityId);
+    for (const other of others) this.ctx.onStoryEvent?.({ kind: 'used', source: entity.entityId, target: other.id });
     if (!back && landing.surfaceId) this.afterPutOn(entity, landing.surfaceId);
   }
 
@@ -660,6 +667,7 @@ export class Scene {
    */
   private eat(receiver: Character, instance: PropInstance, release: EntityChange[]): void {
     const person = this.characters.get(receiver.id);
+    const handed = { ...instance.state };
     const origin = this.data.props.find((p) => p.id === instance.id) ?? instance;
     const state = Object.fromEntries(
       Object.keys(instance.state ?? {}).map((key) => [key, origin.state?.[key]]),
@@ -674,6 +682,26 @@ export class Scene {
       { id: instance.id, x: origin.x, y: origin.y, on: origin.on ?? null, state },
       ...release,
     ]);
+    this.ctx.onStoryEvent?.({ kind: 'fed', who: receiver.id, food: instance.id, state: handed });
+  }
+
+  /**
+   * Puts props back as the place first had them (an empty pita on the counter, a closed
+   * fridge), so a story that starts has something to do. Not an undo step.
+   */
+  resetProps(ids: readonly string[]): void {
+    const instances = this.instances();
+    const changes: EntityChange[] = [];
+    for (const id of ids) {
+      const origin = this.data.props.find((p) => p.id === id);
+      const now = instances.find((p) => p.id === id);
+      if (!origin || !now) continue;
+      const state = Object.fromEntries(Object.keys(now.state ?? {}).map((key) => [key, origin.state?.[key]]));
+      changes.push({ id, x: origin.x, y: origin.y, on: origin.on ?? null, state });
+      const holder = this.people().find((c) => c.holding === id);
+      if (holder) changes.push({ id: holder.id, holding: null });
+    }
+    if (changes.length > 0) this.ctx.actions.applyFinal(changes);
   }
 
   private give(
@@ -1146,6 +1174,9 @@ export class Scene {
 
   /** Something happened that an invitation asked for: it won't be offered again this visit. */
   private noteDone(happened: { activity: Activity['kind'] } | { tap: string } | { surface: string }): void {
+    if ('tap' in happened) this.ctx.onStoryEvent?.({ kind: 'tap', prop: happened.tap });
+    else if ('surface' in happened) this.ctx.onStoryEvent?.({ kind: 'surface', id: happened.surface });
+    else this.ctx.onStoryEvent?.({ kind: 'activity', activity: happened.activity });
     for (const invitation of INVITATIONS[this.data.id] ?? []) {
       const done = invitation.doneWhen;
       const match =

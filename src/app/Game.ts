@@ -12,12 +12,14 @@ import { letterInfo } from '../content/letters';
 import { INVITE_GAP_MS } from '../content/invitations';
 import { isOpen, type PlaceInfo } from '../content/places';
 import { propDefs } from '../content/props';
+import { STORIES, type Story, type StoryEvent, type StoryStep } from '../content/stories';
 import { strings } from '../content/strings.he';
 import { AudioManager, BrowserAudioBackend } from '../engine/AudioManager';
 import { SaveManager } from '../engine/SaveManager';
 import { Scene, type LocationData } from '../engine/Scene';
 import { setNiqqudShown } from '../engine/text';
 import { find, hear, letterLines, letterOn } from '../learning/LetterHunt';
+import { advance, DEFAULT_LEVEL, nextStory, sanitize, stepsOf } from '../learning/StoryEngine';
 import { beach } from '../locations/beach/beach.data';
 import { clinic } from '../locations/clinic/clinic.data';
 import { falafel } from '../locations/falafel/falafel.data';
@@ -27,7 +29,7 @@ import { Checkout } from '../locations/makolet/Checkout';
 import { makolet } from '../locations/makolet/makolet.data';
 import { playground } from '../locations/playground/playground.data';
 import { station } from '../locations/station/station.data';
-import type { HebrewLetter, LocationId, Settings } from '../types';
+import type { HebrewLetter, LocationId, Settings, StoryLevel } from '../types';
 import { Hud } from '../ui/Hud';
 import { LetterBook } from '../ui/LetterBook';
 import { revealLetter } from '../ui/LetterReveal';
@@ -95,6 +97,19 @@ function invitationsAllowed(): boolean {
   return !params.has('e2e') || params.has('invites');
 }
 
+/** In tests, the guide tells stories only in the tests that ask for them (`?e2e&stories`). */
+function storiesAllowedHere(): boolean {
+  const params = new URLSearchParams(location.search);
+  return !params.has('e2e') || params.has('stories');
+}
+
+/** In tests, `?e2e&level=1` tells the stories for that age whatever the save says. */
+function testLevel(): StoryLevel | null {
+  const params = new URLSearchParams(location.search);
+  const asked = params.has('e2e') ? Number(params.get('level')) : 0;
+  return asked === 1 || asked === 2 || asked === 3 ? asked : null;
+}
+
 /** Boots the Pixi application, wires the game together and moves between places. */
 export class Game {
   readonly app = new Application();
@@ -119,6 +134,8 @@ export class Game {
   private journey: string[] | null = null;
   /** When the last spoken invitation was, so they stay half a minute apart across places. */
   private lastInviteAt = 0;
+  /** Stories the child put away: not offered again until the game is opened afresh. */
+  private readonly storiesSkipped = new Set<string>();
   /** True until the child taps in: the only time an update may reload the page. */
   onStartScreen = true;
 
@@ -147,6 +164,9 @@ export class Game {
     this.actions.seedCharacters([...defaultFamily(), ...ganPeople(), ...clinicPeople(), ...falafelPeople(), ...beachPeople(), ...stationPeople()]);
 
     this.catchBackButton();
+    // A story saved under another level, or one that no longer exists, mustn't strand the child.
+    const stories = sanitize(STORIES, this.store.state.stories, this.level());
+    if (stories !== this.store.state.stories) this.actions.setStories(stories);
 
     // Closing the tab can't wait for the debounce.
     document.addEventListener('visibilitychange', () => {
@@ -173,6 +193,10 @@ export class Game {
       saves: this.saves,
       here: () => (this.map ? 'map' : this.location.id),
       lastHint: () => (this.map ? this.map.lastHint : (this.scene?.lastHint ?? null)),
+      story: () => {
+        const told = this.storyNow();
+        return told ? { id: told.story.id, step: told.index, steps: told.steps.map((step) => step.id) } : null;
+      },
       music: () => this.playing,
       fps: () => this.app.ticker.FPS,
       frameCost: (frames) => {
@@ -341,6 +365,7 @@ export class Game {
         audio: this.audio,
         onCoins: (amount) => this.addToPurse(amount),
         onJourney: (ids) => void this.startJourney(ids),
+        onStoryEvent: (event) => this.onStoryEvent(event),
         journeyZone: () => {
           const at = this.hud.visibleCenter('map');
           return at ? { ...at, radius: 70 } : null;
@@ -377,6 +402,60 @@ export class Game {
     this.scene.wake();
     if (this.checkout) this.app.stage.addChildAt(this.checkout.strip, 1);
     this.setStage('playing');
+    this.offerStory();
+  }
+
+  /** The age the stories are told for. */
+  private level(): StoryLevel {
+    return testLevel() ?? this.store.state.settings.level ?? DEFAULT_LEVEL;
+  }
+
+  private storiesAllowed(): boolean {
+    return this.store.state.settings.stories !== false && storiesAllowedHere();
+  }
+
+  /** The story in progress, with its steps at this level and the one the child is on. */
+  private storyNow(): { story: Story; steps: readonly StoryStep[]; index: number; step: StoryStep } | null {
+    const active = this.store.state.stories.active;
+    const story = active && STORIES.find((candidate) => candidate.id === active.id);
+    if (!active || !story || !this.storiesAllowed()) return null;
+    const steps = stepsOf(story, this.level());
+    const step = steps[active.step];
+    return step ? { story, steps, index: active.step, step } : null;
+  }
+
+  /** On arriving somewhere with no story in progress: the guide may begin one that starts here. */
+  private offerStory(): void {
+    const progress = this.store.state.stories;
+    if (!this.scene || !this.storiesAllowed() || progress.active) return;
+    const whereIs = (id: string) => this.store.state.characters.find((c) => c.id === id)?.location;
+    const story = nextStory(STORIES, progress, this.location.id, whereIs, this.storiesSkipped);
+    const first = story && stepsOf(story, this.level())[0];
+    if (!story || !first) return;
+    this.scene.resetProps(story.resets);
+    this.actions.setStories({
+      ...progress,
+      active: { id: story.id, step: 0 },
+      offered: progress.offered.includes(story.id) ? progress.offered : [...progress.offered, story.id],
+    });
+    this.audio.sayAll([story.openLine, first.line]);
+  }
+
+  /** The child did something: if it is what the story was waiting for, the story moves on. */
+  private onStoryEvent(event: StoryEvent): void {
+    const told = this.storyNow();
+    if (!told) return;
+    const { progress, outcome } = advance(STORIES, this.store.state.stories, this.level(), event, Date.now());
+    if (outcome === 'none') return;
+    this.actions.setStories(progress);
+    if (outcome === 'step') {
+      const next = told.steps[told.index + 1];
+      if (next) this.audio.say(next.line);
+      return;
+    }
+    this.audio.sfx('tada');
+    if (event.kind === 'fed') this.scene?.celebrate(event.who);
+    this.audio.say(told.story.doneLine);
   }
 
   private addToPurse(amount: number): void {

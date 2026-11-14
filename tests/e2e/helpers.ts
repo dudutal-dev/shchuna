@@ -17,9 +17,27 @@ export type SceneName =
   | 'playground'
   | 'map';
 
+export interface GameOptions {
+  /** Stories run in tests only when asked for. */
+  stories?: boolean;
+  /** The age level the stories are told for, instead of the saved one. */
+  level?: 1 | 2 | 3;
+  /** More of the query string, such as `invites&hintMs=3000`. */
+  query?: string;
+}
+
 /** Waits for the start screen, with the test hook on. */
-export async function openStartScreen(page: Page, scene: SceneName = 'playground'): Promise<void> {
-  await page.goto(scene === 'map' ? './?e2e' : `./?e2e&scene=${scene}`);
+export async function openStartScreen(
+  page: Page,
+  scene: SceneName = 'playground',
+  options: GameOptions = {},
+): Promise<void> {
+  const extra = [
+    options.stories ? '&stories' : '',
+    options.level ? `&level=${options.level}` : '',
+    options.query ? `&${options.query}` : '',
+  ].join('');
+  await page.goto((scene === 'map' ? './?e2e' : `./?e2e&scene=${scene}`) + extra);
   await page.waitForFunction(() => window.__shchuna?.stage === 'start');
 }
 
@@ -48,8 +66,12 @@ export async function travel(page: Page, place: string): Promise<void> {
 }
 
 /** Opens the game and goes straight into play. */
-export async function openGame(page: Page, scene: SceneName = 'playground'): Promise<void> {
-  await openStartScreen(page, scene);
+export async function openGame(
+  page: Page,
+  scene: SceneName = 'playground',
+  options: GameOptions = {},
+): Promise<void> {
+  await openStartScreen(page, scene, options);
   await tapToStart(page);
 }
 
