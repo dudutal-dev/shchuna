@@ -133,6 +133,20 @@ export interface Settings {
   addressGender: AddressGender;
   /** Spoken invitations with a demonstrating hand when the child is idle. Missing means on. */
   invitations?: boolean;
+  /** Which age the stories are told for. Missing means the middle level. */
+  level?: StoryLevel;
+  /** Small stories with the guide. Missing means on. */
+  stories?: boolean;
+}
+
+/** 1: ages 3–4, 2: ages 5–6, 3: ages 7–8. */
+export type StoryLevel = 1 | 2 | 3;
+
+export interface StoryProgress {
+  /** The story in progress and the index of its current step. */
+  active?: { id: string; step: number };
+  done: { id: string; at: number }[];
+  offered: string[];
 }
 
 export interface SaveGame {
@@ -145,4 +159,5 @@ export interface SaveGame {
   wallet: number;
   settings: Settings;
   unlocked: LocationId[];
+  stories: StoryProgress;
 }

@@ -1,7 +1,7 @@
 import { get, set } from 'idb-keyval';
 import type { HebrewLetter, SaveGame } from '../types';
 
-export const SAVE_VERSION = 6;
+export const SAVE_VERSION = 7;
 export const SAVE_DEBOUNCE_MS = 2000;
 const SAVE_KEY = 'shchuna.save';
 const BACKUP_KEY = 'shchuna.save.unreadable';
@@ -29,6 +29,7 @@ export function createNewSave(now: number = Date.now()): SaveGame {
     wallet: 20,
     settings: { music: 0.5, voice: 1, sfx: 0.8, showNiqqud: true, addressGender: 'm', invitations: true },
     unlocked: ['home', 'makolet', 'gan', 'clinic', 'falafel', 'beach', 'station'],
+    stories: { done: [], offered: [] },
   };
 }
 
@@ -53,7 +54,17 @@ const MIGRATIONS: Migrations = {
   4: (save) => unlock(save, 'beach'),
   // 5 → 6: the station opens, and with it the whole neighbourhood.
   5: (save) => unlock(save, 'station'),
+  // 6 → 7: small stories with the guide.
+  6: (save) => ({ ...save, stories: { done: [], offered: [] } }),
 };
+
+/** A story record that can't be read is started again, rather than losing the whole game. */
+function withStories(save: RawSave): RawSave {
+  const stories = save.stories as { done?: unknown; offered?: unknown } | null | undefined;
+  const readable =
+    typeof stories === 'object' && stories !== null && Array.isArray(stories.done) && Array.isArray(stories.offered);
+  return readable ? save : { ...save, stories: { done: [], offered: [] } };
+}
 
 function isSaveShape(value: RawSave): boolean {
   return (
@@ -88,7 +99,7 @@ export function migrate(
   } catch {
     return null;
   }
-  return isSaveShape(save) ? (save as unknown as SaveGame) : null;
+  return isSaveShape(save) ? (withStories(save) as unknown as SaveGame) : null;
 }
 
 export class SaveManager {

@@ -121,3 +121,26 @@ describe('migrate', () => {
     ).toBeNull();
   });
 });
+
+describe('stories in the save', () => {
+  it('a new game has no stories yet, at version 7', () => {
+    const save = createNewSave();
+    expect(save.version).toBe(7);
+    expect(save.stories).toEqual({ done: [], offered: [] });
+  });
+
+  it('a version 6 save gains an empty story record and keeps its settings', () => {
+    const { stories: _stories, ...old } = createNewSave();
+    const settings = { ...old.settings };
+    const save = migrate({ ...old, version: 6 });
+    expect(save?.version).toBe(7);
+    expect(save?.stories).toEqual({ done: [], offered: [] });
+    expect(save?.settings).toEqual(settings);
+  });
+
+  it('repairs a current save whose story record is missing or broken', () => {
+    const { stories: _stories, ...without } = createNewSave();
+    expect(migrate(without)?.stories).toEqual({ done: [], offered: [] });
+    expect(migrate({ ...without, stories: 'oops' })?.stories).toEqual({ done: [], offered: [] });
+  });
+});
