@@ -1607,6 +1607,54 @@
       "text": "מִישֶׁהוּ מְחַכֶּה לְפִתָּה עִם פָלָאפֶל!",
       "durationMs": 2640,
       "hash": "4311bfe45a98fc17a7ce2db9bd90aa673156a51a52a478db4bc0c1e6d8c4b017"
+    },
+    "story.pita.open": {
+      "file": "public/audio/lines/story.pita.open.mp3",
+      "text": "סַבָּא רָעֵב! בּוֹאוּ נָכִין לוֹ פִּיתָּה.",
+      "durationMs": 2960,
+      "hash": "851055292dd3f85b282fe8077b3fc4e822e8958ec2fd94c550db78bb94d225a4"
+    },
+    "story.pita.fill": {
+      "file": "public/audio/lines/story.pita.fill.mp3",
+      "text": "שָׂמִים פָלָאפֶל בַּפִּיתָּה.",
+      "durationMs": 1840,
+      "hash": "54dc3b12aee0646f8f4965729a71b3bc07a0ebc178bff099ee1bc1d4610032b5"
+    },
+    "story.pita.salad": {
+      "file": "public/audio/lines/story.pita.salad.mp3",
+      "text": "וְעַכְשָׁו סָלָט.",
+      "durationMs": 1680,
+      "hash": "75fe77fb11d0a00b2124c09ad70c87458202508c74f09b14dfef64f6dafad40e"
+    },
+    "story.pita.serve": {
+      "file": "public/audio/lines/story.pita.serve.mp3",
+      "text": "מַגִּישִׁים לְסַבָּא אֶת הַפִּיתָּה.",
+      "durationMs": 2160,
+      "hash": "dfa5883573a032737a57e7e2b46c6d0f0eb539f8b4aeb87606841db5f3edf4c9"
+    },
+    "story.pita.fridge": {
+      "file": "public/audio/lines/story.pita.fridge.mp3",
+      "text": "פּוֹתְחִים אֶת הַמְּקָרֵר.",
+      "durationMs": 1600,
+      "hash": "af69980bf5f75ec786c1652bb5a121b19cf4f83f68c80a1150cf49175c8f9f04"
+    },
+    "story.pita.drink": {
+      "file": "public/audio/lines/story.pita.drink.mp3",
+      "text": "סַבָּא רוֹצֶה גַּם לִימוֹנָדָה.",
+      "durationMs": 1840,
+      "hash": "8de567a7bbea1bf3b353669e1c7d89f693924e4cc6fc038d8040e2142509179a"
+    },
+    "story.pita.done": {
+      "file": "public/audio/lines/story.pita.done.mp3",
+      "text": "סַבָּא שָׂבֵעַ וּמְרֻצֶּה!",
+      "durationMs": 2000,
+      "hash": "63c4d3eaf568b054ccb068df2f4afd53835278dda33a53aed040990e3e19e4e3"
+    },
+    "story.later": {
+      "file": "public/audio/lines/story.later.mp3",
+      "text": "אוּלַי אַחַר כָּךְ.",
+      "durationMs": 1760,
+      "hash": "bbab717320ca331c60d63894ac15c01b2b58b7a22e35138f31a01aa443e2307e"
     }
   }
 }
