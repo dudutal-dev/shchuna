@@ -262,5 +262,9 @@
   {"id": "weather.rain", "text": "יוֹרֵד גֶּשֶׁם!", "voice": "narrator", "proofread": false},
   {"id": "weather.rainbow", "text": "אֵיזוֹ קֶשֶׁת יָפָה!", "voice": "narrator", "proofread": false},
   {"id": "prop.balcony", "text": "מִרְפֶּסֶת", "voice": "narrator", "proofread": false},
-  {"id": "react.wellDone", "text": "כָּל הַכָּבוֹד!", "voice": "narrator", "proofread": false}
+  {"id": "react.wellDone", "text": "כָּל הַכָּבוֹד!", "voice": "narrator", "proofread": false},
+  {"id": "wish.eat", "text": "מִישֶׁהוּ רָעֵב! אוּלַי נִתֵּן לוֹ...", "voice": "narrator", "proofread": false},
+  {"id": "wish.play", "text": "מִישֶׁהוּ רוֹצֶה לְשַׂחֵק! אוּלַי נִתֵּן לוֹ...", "voice": "narrator", "proofread": false},
+  {"id": "wish.sleep", "text": "מִישֶׁהוּ עָיֵף! אוּלַי נַשְׁכִּיב אוֹתוֹ בַּמִּטָּה?", "voice": "narrator", "proofread": false},
+  {"id": "wish.order", "text": "מִישֶׁהוּ מְחַכֶּה לְפִתָּה עִם פָלָאפֶל!", "voice": "narrator", "proofread": false}
 ]

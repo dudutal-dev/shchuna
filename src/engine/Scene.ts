@@ -149,7 +149,8 @@ export class Scene {
   /** The prop the last hint pointed at, for tests. */
   lastHint: string | null = null;
   /** The wish showing now, if any: one at a time in a place. */
-  private wish: { characterId: string; kind: WishKind; bubble: WishBubble; until: number } | null = null;
+  private wish: { characterId: string; kind: WishKind; bubble: WishBubble; until: number; thing?: string } | null =
+    null;
   private nextWishAt = performance.now() + wishTiming().first;
   /** The see-through hand that shows what an invitation means. */
   private readonly ghost = new GhostFinger();
@@ -945,13 +946,22 @@ export class Scene {
       return;
     }
     if (now < this.nextWishAt) return;
-    const instances = this.instances();
-    const defs = instances.map((p) => this.defOf(p));
-    const hasFood = instances.some((p, i) => defs[i]!.food && !isHidden(p, this.data.surfaces, instances));
-    const hasBed = this.data.surfaces.some((s) => s.activity?.kind === 'sleep');
-    const hasToy = defs.some((d) => d.draggable && !d.food && d.layer === 'item');
-    const options: Array<{ characterId: string; kind: WishKind }> = [];
     const { width } = this.ctx.app.screen;
+    // Only what the child can see now and reach: a food or a toy on screen, a bed on screen.
+    const onScreen = (at: { x: number; y: number } | null) => !!at && at.x > 60 && at.x < width - 60;
+    const instances = this.instances();
+    const visible = instances.filter(
+      (p) => this.entities.get(p.id)?.visible && !isHidden(p, this.data.surfaces, instances) && onScreen(this.entityCenter(p.id)),
+    );
+    const foods = visible.filter((p) => this.defOf(p).food);
+    // Shop goods are for buying, not for playing with: a toy is a loose item with no price.
+    const toys = visible.filter((p) => {
+      const def = this.defOf(p);
+      return def.draggable && !def.food && def.layer === 'item' && def.price === undefined && !def.ride;
+    });
+    const bed = this.data.surfaces.find((s) => s.activity?.kind === 'sleep' && onScreen(this.surfaceCenter(s.id)));
+    const pita = instances.find((p) => p.defId === 'falafel-pita');
+    const options: Array<{ characterId: string; kind: WishKind; thing?: string }> = [];
     for (const character of this.people()) {
       const entity = this.characters.get(character.id);
       const at = this.entityCenter(character.id);
@@ -959,13 +969,15 @@ export class Scene {
       const seat = character.on ? this.data.surfaces.find((s) => s.id === character.on) : undefined;
       // Someone sitting at a table waits to be served.
       if (seat?.activity?.kind === 'eat' && this.data.id === 'falafel') {
-        options.push({ characterId: character.id, kind: 'order' });
+        options.push({ characterId: character.id, kind: 'order', ...(pita ? { thing: pita.id } : {}) });
         continue;
       }
       if (character.pose !== 'stand' || character.on) continue;
-      if (hasFood) options.push({ characterId: character.id, kind: 'eat' });
-      if (hasBed) options.push({ characterId: character.id, kind: 'sleep' });
-      if (hasToy) options.push({ characterId: character.id, kind: 'play' });
+      const food = pick(foods);
+      const toy = pick(toys);
+      if (food) options.push({ characterId: character.id, kind: 'eat', thing: food.id });
+      if (bed) options.push({ characterId: character.id, kind: 'sleep', thing: bed.id });
+      if (toy) options.push({ characterId: character.id, kind: 'play', thing: toy.id });
     }
     const choice = options[Math.floor(Math.random() * options.length)];
     if (!choice) {
@@ -975,12 +987,35 @@ export class Scene {
     const entity = this.characters.get(choice.characterId)!;
     // Towards the middle of the screen, so it never hangs off an edge.
     const atRight = (this.entityCenter(choice.characterId)?.x ?? 0) > width / 2;
-    const bubble = new WishBubble(choice.kind, atRight ? 'left' : 'right');
+    const thing = choice.thing ? instances.find((p) => p.id === choice.thing) : undefined;
+    const art = thing && choice.kind !== 'sleep' ? this.entities.get(thing.id)?.def.art : undefined;
+    const bubble = new WishBubble(choice.kind, atRight ? 'left' : 'right', art);
     const top = entity.getLocalBounds().y;
     bubble.position.set(atRight ? -45 : 45, top - 90);
     entity.addChild(bubble);
     this.ctx.audio.sfx('toggle');
     this.wish = { ...choice, bubble, until: now + timing.lasts };
+    this.guideWish(choice.characterId, choice.kind, thing);
+  }
+
+  /**
+   * Says what the wish is ("someone is hungry... an apple!") and the see-through hand shows
+   * how: the food or toy to the character, or the character to the bed. Like an invitation,
+   * only when the parents allow them and none was said a moment ago.
+   */
+  private guideWish(characterId: string, kind: WishKind, thing: PropInstance | undefined): void {
+    const invites = this.ctx.invites;
+    if (!invites?.enabled() || !invites.canSpeak()) return;
+    invites.spoke();
+    const name = thing && kind !== 'sleep' ? this.entities.get(thing.id)?.def.voiceLine : undefined;
+    this.ctx.audio.sayAll(name && kind !== 'order' ? [`wish.${kind}`, name] : [`wish.${kind}`]);
+    const person = this.entityCenter(characterId);
+    const target =
+      kind === 'sleep' && thing ? this.surfaceCenter(thing.id) : thing ? this.entityCenter(thing.id) : null;
+    if (!person || !target) return;
+    if (kind === 'sleep') this.ghost.play(person, target);
+    else this.ghost.play(target, person);
+    this.lastHint = `wish:${kind}`;
   }
 
   /** Something happened to a character; if it was what they wished for, they are delighted. */
@@ -1001,8 +1036,10 @@ export class Scene {
   }
 
   /** The wish showing now, for tests. */
-  get currentWish(): { characterId: string; kind: WishKind } | null {
-    return this.wish ? { characterId: this.wish.characterId, kind: this.wish.kind } : null;
+  get currentWish(): { characterId: string; kind: WishKind; thing?: string } | null {
+    if (!this.wish) return null;
+    const { characterId, kind, thing } = this.wish;
+    return { characterId, kind, ...(thing ? { thing } : {}) };
   }
 
   /** A sleeper was tapped: they wake up and get out of bed. */
@@ -1318,4 +1355,9 @@ export class Scene {
     this.bubble?.destroy({ children: true });
     this.bubble = undefined;
   }
+}
+
+/** One of these at random, or undefined when there are none. */
+function pick<T>(items: readonly T[]): T | undefined {
+  return items[Math.floor(Math.random() * items.length)];
 }

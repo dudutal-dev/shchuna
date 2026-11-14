@@ -37,7 +37,7 @@ export interface TestHook {
   weather: (() => string) | null;
   skyPoint: (() => Point) | null;
   /** The wish showing over someone's head, if any. */
-  wish(): { characterId: string; kind: string } | null;
+  wish(): { characterId: string; kind: string; thing?: string } | null;
   /** Whether the see-through hand of an invitation is showing. */
   ghostShowing(): boolean;
   /** A side arrow that slides the room, or null while it is hidden. */

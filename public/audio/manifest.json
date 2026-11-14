@@ -1583,6 +1583,30 @@
       "text": "כָּל הַכָּבוֹד!",
       "durationMs": 1520,
       "hash": "34e843a11e6bd1a30d55fd0fd8246fddbc8de72e22d2c5f7062f8d07e5f42000"
+    },
+    "wish.eat": {
+      "file": "public/audio/lines/wish.eat.mp3",
+      "text": "מִישֶׁהוּ רָעֵב! אוּלַי נִתֵּן לוֹ...",
+      "durationMs": 2880,
+      "hash": "be9ef31341adbdf3cc41693071e07b70e1f54418fe88c4ffb1aa37073a9e9641"
+    },
+    "wish.play": {
+      "file": "public/audio/lines/wish.play.mp3",
+      "text": "מִישֶׁהוּ רוֹצֶה לְשַׂחֵק! אוּלַי נִתֵּן לוֹ...",
+      "durationMs": 3120,
+      "hash": "f5808a906a663101708647c27704c28f729c89a306ab94a1bb42465740325a3c"
+    },
+    "wish.sleep": {
+      "file": "public/audio/lines/wish.sleep.mp3",
+      "text": "מִישֶׁהוּ עָיֵף! אוּלַי נַשְׁכִּיב אוֹתוֹ בַּמִּטָּה?",
+      "durationMs": 3360,
+      "hash": "1ad6447b2ce08ef57aa78326ca49b1f977f040e5b176ae583a51cd66c66ac3e1"
+    },
+    "wish.order": {
+      "file": "public/audio/lines/wish.order.mp3",
+      "text": "מִישֶׁהוּ מְחַכֶּה לְפִתָּה עִם פָלָאפֶל!",
+      "durationMs": 2640,
+      "hash": "4311bfe45a98fc17a7ce2db9bd90aa673156a51a52a478db4bc0c1e6d8c4b017"
     }
   }
 }

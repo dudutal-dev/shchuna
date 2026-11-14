@@ -22,9 +22,11 @@ const OUTLINE = 0xc9b48f;
  */
 export class WishBubble extends Container {
   /** `side` is where the bubble sits beside the head; its little circles lean back towards it. */
+  /** `art` is the picture of the very thing wished for (the apple on the table, the ball here). */
   constructor(
     readonly kind: WishKind,
     side: 'left' | 'right' = 'right',
+    art: string = WISH_ART[kind],
   ) {
     super();
     this.eventMode = 'none';
@@ -40,7 +42,7 @@ export class WishBubble extends Container {
       .circle(0, 0, RADIUS)
       .fill(0xffffff)
       .stroke({ color: OUTLINE, width: 4 });
-    const icon = new Sprite(getArt(WISH_ART[kind]));
+    const icon = new Sprite(getArt(art));
     icon.anchor.set(0.5);
     const fit = Math.min(ICON / icon.texture.width, ICON / icon.texture.height);
     icon.scale.set(fit);
