@@ -1,4 +1,5 @@
 import { parentStrings } from '../content/parent.he';
+import { DEFAULT_LEVEL } from '../learning/StoryEngine';
 import type { AddressGender, LetterProgress, Settings } from '../types';
 import { progressPanel } from './ProgressPanel';
 import { el, overlay } from './ParentGate';
@@ -59,6 +60,35 @@ export class SettingsScreen {
       const invitesGroup = el('div', 'parent-group');
       invitesGroup.append(invitesRow, el('p', 'parent-hint', text.invitationsHint));
 
+      const storiesRow = el('label', 'parent-row');
+      const stories = el('input', 'parent-check');
+      stories.type = 'checkbox';
+      stories.name = 'stories';
+      stories.checked = settings.stories !== false;
+      stories.addEventListener('change', () => handlers.change({ stories: stories.checked }));
+      storiesRow.append(el('span', '', text.stories), stories);
+      const storiesGroup = el('div', 'parent-group');
+      storiesGroup.append(storiesRow, el('p', 'parent-hint', text.storiesHint));
+
+      const level = el('fieldset', 'parent-group');
+      level.append(el('legend', '', text.level));
+      const levels = el('div', 'parent-options');
+      const chosen = settings.level ?? DEFAULT_LEVEL;
+      ([1, 2, 3] as const).forEach((value, index) => {
+        const option = el('label', 'parent-option');
+        const radio = el('input', '');
+        radio.type = 'radio';
+        radio.name = 'level';
+        radio.value = String(value);
+        radio.checked = chosen === value;
+        radio.addEventListener('change', () => {
+          if (radio.checked) handlers.change({ level: value });
+        });
+        option.append(radio, el('span', '', text.levels[index] ?? ''));
+        levels.append(option);
+      });
+      level.append(levels, el('p', 'parent-hint', text.levelHint));
+
       const gender = el('fieldset', 'parent-group');
       gender.append(el('legend', '', text.gender));
       const options = el('div', 'parent-options');
@@ -117,7 +147,7 @@ export class SettingsScreen {
       });
 
       const progress = progressPanel(handlers.letters ?? []);
-      card.append(title, guide, progress, volumes, niqqudRow, invitesGroup, gender, reset, privacy, close);
+      card.append(title, guide, progress, volumes, niqqudRow, storiesGroup, level, invitesGroup, gender, reset, privacy, close);
     });
   }
 

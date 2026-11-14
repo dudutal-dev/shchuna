@@ -661,6 +661,24 @@ export class Game {
     setNiqqudShown(this.store.state.settings.showNiqqud);
     this.audio.settingsChanged();
     if (patch.sfx !== undefined) this.audio.sfx('tap');
+    if (patch.level !== undefined || patch.stories !== undefined) this.storySettingsChanged(patch);
+  }
+
+  /**
+   * The parents changed the age or switched stories off. A story in progress starts again at
+   * the new age (its steps are different ones), or is dropped when stories are off.
+   */
+  private storySettingsChanged(patch: Partial<Settings>): void {
+    const { active, done, offered } = this.store.state.stories;
+    if (active && patch.stories === false) this.actions.setStories({ done, offered });
+    else if (active && patch.level !== undefined) {
+      this.actions.setStories({ done, offered, active: { id: active.id, step: 0 } });
+    }
+    // The strip is drawn for one age: build it again.
+    this.stripShows = null;
+    this.refreshStrip();
+    // Switched back on while in a place: the guide may begin right away.
+    if (patch.stories === true && !this.map) this.offerStory();
   }
 
   /** The parents confirmed twice: a new game, from the start screen. */

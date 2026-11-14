@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { openGame, touchHold } from './helpers';
+import { openGame, propCenter, scrollTo, stripReady, tapToStart, touchDrag, touchHold, travel } from './helpers';
 
 const stage = (page: Page) => page.evaluate(() => window.__shchuna!.stage);
 
@@ -125,5 +125,76 @@ test.describe('parents gate', () => {
     await openGate(page);
     const direction = await page.locator('.parent-card').evaluate((node) => getComputedStyle(node).direction);
     expect(direction).toBe('rtl');
+  });
+});
+
+/** Through the gate into the settings, from wherever the game is. */
+async function openSettings(page: Page): Promise<void> {
+  await openGate(page);
+  await answer(page, true);
+  await page.waitForFunction(() => window.__shchuna?.stage === 'settings');
+}
+
+async function closeSettings(page: Page): Promise<void> {
+  await page.getByRole('button', { name: 'חזרה למשחק' }).tap();
+  await page.waitForFunction(() => window.__shchuna?.stage === 'playing');
+}
+
+const story = (page: Page) => page.evaluate(() => window.__shchuna!.story());
+
+/** Drags a bowl from the falafel counter onto the pita. */
+async function into(page: Page, bowl: string): Promise<void> {
+  await scrollTo(page, 'falafel-falafel-pita');
+  const scale = page.viewportSize()!.height / 600;
+  const pita = await propCenter(page, 'falafel-falafel-pita');
+  await touchDrag(page, await propCenter(page, bowl), { x: pita.x + 20 * scale, y: pita.y });
+}
+
+test.describe('parents and stories', () => {
+  test('the age level and the stories switch are kept', async ({ page }) => {
+    await openGame(page, 'home');
+    await openSettings(page);
+    // Ages 5–6 until the parents choose, and stories on.
+    await expect(page.getByLabel('גיל 5–6')).toBeChecked();
+    await expect(page.getByLabel('סיפורים', { exact: true })).toBeChecked();
+    await page.getByLabel('גיל 3–4').check();
+    await page.getByLabel('סיפורים', { exact: true }).uncheck();
+    await closeSettings(page);
+    const saved = () => page.evaluate(() => window.__shchuna!.state().settings);
+    expect(await saved()).toMatchObject({ level: 1, stories: false });
+    await page.evaluate(() => window.__shchuna!.flushSave());
+    await page.reload();
+    await tapToStart(page);
+    expect(await saved()).toMatchObject({ level: 1, stories: false });
+  });
+
+  test('changing the age in the middle of a story starts it again at that age', async ({ page }) => {
+    test.slow();
+    await openGame(page, 'falafel', { stories: true });
+    await into(page, 'falafel-falafel-bowl');
+    await expect.poll(async () => (await story(page))?.step).toBe(1);
+    await into(page, 'falafel-salad-bowl');
+    await expect.poll(async () => (await story(page))?.step).toBe(2);
+    await openSettings(page);
+    await page.getByLabel('גיל 3–4').check();
+    await closeSettings(page);
+    expect(await story(page)).toEqual({ id: 'pita', step: 0, steps: ['fill', 'serve'] });
+    await stripReady(page);
+    expect(await page.evaluate(() => window.__shchuna!.storyStepCenter(2))).toBeNull();
+  });
+
+  test('switching stories off puts the story away and starts no other', async ({ page }) => {
+    test.slow();
+    await openGame(page, 'falafel', { stories: true });
+    await stripReady(page);
+    await openSettings(page);
+    await page.getByLabel('סיפורים', { exact: true }).uncheck();
+    await closeSettings(page);
+    expect(await story(page)).toBeNull();
+    expect(await page.evaluate(() => window.__shchuna!.storyStepCenter(0))).toBeNull();
+    expect(await page.evaluate(() => window.__shchuna!.state().stories.active)).toBeUndefined();
+    await travel(page, 'home');
+    await travel(page, 'falafel');
+    expect(await story(page)).toBeNull();
   });
 });
