@@ -21,7 +21,7 @@ import { loadArt } from '../engine/art';
 import { safeArea } from '../engine/safeArea';
 import { setNiqqudShown } from '../engine/text';
 import { find, hear, letterLines, letterOn } from '../learning/LetterHunt';
-import { advance, DEFAULT_LEVEL, nextStory, sanitize, stepsOf } from '../learning/StoryEngine';
+import { advance, DEFAULT_LEVEL, guidance, nextStory, sanitize, stepsOf, stranded } from '../learning/StoryEngine';
 import { beach } from '../locations/beach/beach.data';
 import { clinic } from '../locations/clinic/clinic.data';
 import { falafel } from '../locations/falafel/falafel.data';
@@ -310,6 +310,7 @@ export class Game {
       this.hook.skyPoint = () => map.skyPoint();
     }
     this.setStage('map');
+    this.dropStrandedStory();
     this.refreshStrip();
   }
 
@@ -343,12 +344,11 @@ export class Game {
       }));
       this.actions.travel(travellers, data.id, positions);
     }
-    await this.goTo(data);
-    if (travellers) this.audio.say('react.arrived');
+    await this.goTo(data, travellers ? ['react.arrived'] : []);
   }
 
   /** Opens a place, saving on the way. */
-  private async goTo(next: LocationData): Promise<void> {
+  private async goTo(next: LocationData, arrival: string[] = []): Promise<void> {
     if (this.busy()) return;
     this.moving = true;
     this.audio.sfx('success');
@@ -358,7 +358,7 @@ export class Game {
     if (this.hook) this.hook.mapCenter = null;
     this.leaveScene();
     await this.enter(next);
-    this.showScene();
+    this.showScene(arrival);
     this.moving = false;
   }
 
@@ -385,7 +385,8 @@ export class Game {
           current: () => {
             const told = this.storyNow();
             if (!told || told.step.place !== data.id) return null;
-            return { id: told.step.id, line: told.step.line, show: told.step.show };
+            const feeds = 'fed' in told.step.done ? { feeds: told.step.done.fed.who } : {};
+            return { id: told.step.id, ...this.guideFor(told.step), ...feeds };
           },
         },
         journeyZone: () => {
@@ -413,8 +414,11 @@ export class Game {
     }
   }
 
-  /** Puts the scene (and the shop's coin strip) under the HUD. */
-  private showScene(): void {
+  /**
+   * Puts the scene (and the shop's coin strip) under the HUD. `arrival` is said on the way in
+   * ("we're here!"), ahead of a story's opening if one begins.
+   */
+  private showScene(arrival: string[] = []): void {
     if (!this.scene) return;
     const people = this.store.state.characters.some((c) => c.location === this.location.id);
     this.hud.setVisible('family', people);
@@ -424,8 +428,25 @@ export class Game {
     this.scene.wake();
     if (this.checkout) this.app.stage.addChildAt(this.checkout.strip, 1);
     this.setStage('playing');
+    this.dropStrandedStory();
     this.refreshStrip();
-    this.offerStory();
+    if (!this.offerStory(arrival) && arrival.length > 0) this.audio.sayAll(arrival);
+  }
+
+  /** What to say and show for a step right now: the step, or what it needs first. */
+  private guideFor(step: StoryStep): { line: string; show: StoryStep['show'] } {
+    return guidance(step, (prop, key) => this.store.state.props.find((p) => p.id === prop)?.state?.[key]);
+  }
+
+  /**
+   * Someone the story needs has left its place (grandpa went home): the story is set aside
+   * quietly, and is offered again once they are back.
+   */
+  private dropStrandedStory(): void {
+    const { active, done, offered } = this.store.state.stories;
+    const story = active && STORIES.find((candidate) => candidate.id === active.id);
+    const whereIs = (id: string) => this.store.state.characters.find((c) => c.id === id)?.location;
+    if (story && stranded(story, whereIs)) this.actions.setStories({ done, offered });
   }
 
   /** The age the stories are told for. */
@@ -447,28 +468,34 @@ export class Game {
     return step ? { story, steps, index: active.step, step } : null;
   }
 
-  /** On arriving somewhere with no story in progress: the guide may begin one that starts here. */
-  private offerStory(): void {
+  /**
+   * On arriving somewhere with no story in progress: the guide may begin one that starts here.
+   * True if one began; `before` is said ahead of its opening.
+   */
+  private offerStory(before: string[] = []): boolean {
     const progress = this.store.state.stories;
-    if (!this.scene || !this.storiesAllowed() || progress.active) return;
+    if (!this.scene || !this.storiesAllowed() || progress.active) return false;
     const whereIs = (id: string) => this.store.state.characters.find((c) => c.id === id)?.location;
     const story = nextStory(STORIES, progress, this.location.id, whereIs, this.storiesSkipped);
     const first = story && stepsOf(story, this.level())[0];
-    if (!story || !first) return;
+    if (!story || !first) return false;
     this.scene.resetProps(story.resets);
     this.actions.setStories({
       ...progress,
       active: { id: story.id, step: 0 },
       offered: progress.offered.includes(story.id) ? progress.offered : [...progress.offered, story.id],
     });
-    this.audio.sayAll([story.openLine, first.line]);
+    this.audio.sayAll([...before, story.openLine, first.line]);
     this.refreshStrip();
     this.showStepToTheYoungest(first);
+    return true;
   }
 
   /** The youngest are shown each step by the hand as it starts; older children only when they ask. */
   private showStepToTheYoungest(step: StoryStep): void {
-    if (this.level() === 1 && !this.map && step.place === this.location.id) this.scene?.showHand(step.show);
+    if (this.level() === 1 && !this.map && step.place === this.location.id) {
+      this.scene?.showHand(this.guideFor(step).show);
+    }
   }
 
   private layoutStrip(): void {
@@ -510,10 +537,12 @@ export class Game {
     const step = told?.steps[index];
     if (!told || !step || this.busy()) return;
     this.audio.sfx('tap');
-    const word = step.word ? propDefs[step.word]?.voiceLine : undefined;
-    if (word) this.audio.sayAll([word, step.line]);
-    else this.audio.say(step.line);
-    if (index === told.index && !this.map && step.place === this.location.id) this.scene?.showHand(step.show);
+    // The step in progress is said as it stands now: what it needs first, if something is missing.
+    const now = index === told.index ? this.guideFor(step) : { line: step.line, show: step.show };
+    const word = step.word && now.line === step.line ? propDefs[step.word]?.voiceLine : undefined;
+    if (word) this.audio.sayAll([word, now.line]);
+    else this.audio.say(now.line);
+    if (index === told.index && !this.map && step.place === this.location.id) this.scene?.showHand(now.show);
   }
 
   /** The guide was tapped: "maybe later". The story comes back the next time the game is opened. */
@@ -533,13 +562,21 @@ export class Game {
     const told = this.storyNow();
     if (!told) return;
     const { progress, outcome } = advance(STORIES, this.store.state.stories, this.level(), event, Date.now());
-    if (outcome === 'none') return;
+    if (outcome === 'none') {
+      // The right food, but not as the step needs it (an empty pita): say what is missing.
+      const done = told.step.done;
+      if (event.kind === 'fed' && 'fed' in done && event.food === done.fed.food) {
+        const now = this.guideFor(told.step);
+        if (now.line !== told.step.line) this.audio.say(now.line);
+      }
+      return;
+    }
     this.actions.setStories(progress);
     this.refreshStrip();
     if (outcome === 'step') {
       const next = told.steps[told.index + 1];
       if (!next) return;
-      this.audio.say(next.line);
+      this.audio.say(this.guideFor(next).line);
       this.showStepToTheYoungest(next);
       return;
     }

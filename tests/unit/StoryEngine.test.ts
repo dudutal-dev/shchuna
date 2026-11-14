@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { propDefs } from '../../src/content/props';
 import { STORIES, type StoryEvent } from '../../src/content/stories';
 import voiceLines from '../../src/content/voice-lines.json';
-import { advance, matches, nextStory, sanitize, stepsOf } from '../../src/learning/StoryEngine';
+import { advance, guidance, matches, nextStory, sanitize, stepsOf, stranded } from '../../src/learning/StoryEngine';
 import type { LocationId, StoryProgress } from '../../src/types';
 
 const PITA = 'falafel-falafel-pita';
@@ -50,9 +50,7 @@ describe('nextStory', () => {
     expect(nextStory(STORIES, fresh(), 'falafel', () => undefined, new Set())).toBeNull();
   });
 
-  it('is not offered once done, or after being put away', () => {
-    const done: StoryProgress = { done: [{ id: 'pita', at: 1 }], offered: ['pita'] };
-    expect(nextStory(STORIES, done, 'falafel', everyoneAt('falafel'), new Set())).toBeNull();
+  it('is not offered after being put away', () => {
     expect(nextStory(STORIES, fresh(), 'falafel', everyoneAt('falafel'), new Set(['pita']))).toBeNull();
   });
 });
@@ -90,6 +88,59 @@ describe('advance', () => {
     const salad: StoryEvent = { kind: 'used', source: 'falafel-salad-bowl', target: PITA };
     expect(advance(STORIES, active(0), 2, salad, 5).outcome).toBe('none');
     expect(advance(STORIES, active(1), 2, salad, 5).progress.active?.step).toBe(2);
+  });
+});
+
+describe('a story told before', () => {
+  const told: StoryProgress = { done: [{ id: 'pita', at: 1 }], offered: ['pita'] };
+
+  it('comes back once every story has been told', () => {
+    expect(nextStory(STORIES, told, 'falafel', everyoneAt('falafel'), new Set())?.id).toBe('pita');
+    // But not one the child put away today.
+    expect(nextStory(STORIES, told, 'falafel', everyoneAt('falafel'), new Set(['pita']))).toBeNull();
+  });
+
+  it('is recorded once, with the latest time, however often it is finished', () => {
+    const again: StoryProgress = { ...told, active: { id: 'pita', step: 1 } };
+    const { progress, outcome } = advance(STORIES, again, 1, servedFull, 7);
+    expect(outcome).toBe('finished');
+    expect(progress.done).toEqual([{ id: 'pita', at: 7 }]);
+  });
+});
+
+describe('guidance', () => {
+  const pita = STORIES.find((story) => story.id === 'pita')!;
+  const serve = stepsOf(pita, 1)[1]!;
+  const drink = stepsOf(pita, 3)[3]!;
+
+  it('is the step itself when the step can be done', () => {
+    expect(guidance(serve, () => true)).toEqual({ line: serve.line, show: serve.show });
+  });
+
+  it('goes back to filling the pita when the pita to serve is empty', () => {
+    const empty = guidance(serve, () => undefined);
+    expect(empty.line).toBe('story.pita.fill');
+    expect(empty.show).toEqual(stepsOf(pita, 1)[0]!.show);
+  });
+
+  it('goes back to opening the fridge when the lemonade is shut inside', () => {
+    expect(guidance(drink, () => false).line).toBe('story.pita.fridge');
+    expect(guidance(drink, (prop, key) => prop === 'falafel-drinks-fridge' && key === 'open').line).toBe('story.pita.drink');
+  });
+
+  it('shows the food going to grandpa himself, wherever he sits', () => {
+    expect(serve.show).toMatchObject({ to: { prop: ['falafel-2'] } });
+    expect(drink.show).toMatchObject({ to: { prop: ['falafel-2'] } });
+  });
+});
+
+describe('stranded', () => {
+  const pita = STORIES.find((story) => story.id === 'pita')!;
+
+  it('is a story whose people have left the place it is told in', () => {
+    expect(stranded(pita, everyoneAt('falafel'))).toBe(false);
+    expect(stranded(pita, everyoneAt('home'))).toBe(true);
+    expect(stranded(pita, () => undefined)).toBe(true);
   });
 });
 

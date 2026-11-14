@@ -1,3 +1,4 @@
+import type { Invitation } from '../content/invitations';
 import type { StepDone, Story, StoryEvent, StoryStep } from '../content/stories';
 import type { LocationId, StoryLevel, StoryProgress } from '../types';
 
@@ -34,9 +35,25 @@ export function matches(done: StepDone, event: StoryEvent): boolean {
   return event.kind === 'activity' && event.activity === done.activity;
 }
 
+/** What to say and show for a step now: the step itself, or what it needs first. */
+export function guidance(
+  step: StoryStep,
+  stateOf: (prop: string, key: string) => unknown,
+): { line: string; show: Invitation['show'] } {
+  const ready = step.ready;
+  if (ready && stateOf(ready.prop, ready.key) !== ready.value) return { line: ready.line, show: ready.show };
+  return { line: step.line, show: step.show };
+}
+
+/** A story that can't go on: someone it needs has left the place it is told in. */
+export function stranded(story: Story, whereIs: (characterId: string) => LocationId | undefined): boolean {
+  return story.needs.some((id) => whereIs(id) !== story.start);
+}
+
 /**
- * The story to offer on arriving somewhere: it starts here, hasn't been told to the end or
- * put away, and everyone it needs is here.
+ * The story to offer on arriving somewhere: it starts here, wasn't put away, and everyone it
+ * needs is here. New stories come first; once every story has been told, the one told
+ * longest ago comes back.
  */
 export function nextStory(
   stories: readonly Story[],
@@ -45,16 +62,14 @@ export function nextStory(
   whereIs: (characterId: string) => LocationId | undefined,
   skipped: ReadonlySet<string>,
 ): Story | null {
-  const done = new Set(progress.done.map((entry) => entry.id));
-  return (
-    stories.find(
-      (story) =>
-        story.start === place &&
-        !done.has(story.id) &&
-        !skipped.has(story.id) &&
-        story.needs.every((id) => whereIs(id) === place),
-    ) ?? null
+  const doneAt = new Map(progress.done.map((entry) => [entry.id, entry.at]));
+  const here = stories.filter(
+    (story) => story.start === place && !skipped.has(story.id) && !stranded(story, whereIs),
   );
+  const fresh = here.find((story) => !doneAt.has(story.id));
+  if (fresh) return fresh;
+  if (!stories.every((story) => doneAt.has(story.id))) return null;
+  return [...here].sort((a, b) => (doneAt.get(a.id) ?? 0) - (doneAt.get(b.id) ?? 0))[0] ?? null;
 }
 
 /**
@@ -88,7 +103,11 @@ export function advance(
     return { progress: { ...progress, active: { id: story.id, step: active.step + 1 } }, outcome: 'step' };
   }
   return {
-    progress: { done: [...progress.done, { id: story.id, at: now }], offered: progress.offered },
+    // Told again, it is still one story: only the time moves on.
+    progress: {
+      done: [...progress.done.filter((entry) => entry.id !== story.id), { id: story.id, at: now }],
+      offered: progress.offered,
+    },
     outcome: 'finished',
   };
 }

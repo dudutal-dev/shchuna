@@ -96,7 +96,9 @@ export interface SceneContext {
     spoke(): void;
   };
   /** The step of the guide's story that waits to be done in this place, if any. */
-  story?: { current(): { id: string; line: string; show: Invitation['show'] } | null };
+  story?: {
+    current(): { id: string; line: string; show: Invitation['show']; feeds?: string } | null;
+  };
   /** What the child just did, for the guide's stories. */
   onStoryEvent?: (event: StoryEvent) => void;
   /** The letter hunt: which prop hides a letter, and what happens when one is tapped. */
@@ -645,7 +647,10 @@ export class Scene {
     const seats = new Set(
       this.data.surfaces.filter((s) => s.activity?.kind === 'eat' && s.activity.table === surfaceId).map((s) => s.id),
     );
-    const diner = this.people().find((c) => c.on !== undefined && seats.has(c.on));
+    const diners = this.people().filter((c) => c.on !== undefined && seats.has(c.on));
+    // With two at the table, the one a story is feeding gets it.
+    const feeds = this.ctx.story?.current()?.feeds;
+    const diner = diners.find((c) => c.id === feeds) ?? diners[0];
     const food = this.instances().find((p) => p.id === entity.entityId);
     if (!diner || !food) return;
     setTimeout(() => {
@@ -1218,7 +1223,8 @@ export class Scene {
     };
     const propPoint = (ids: readonly string[]) => {
       for (const id of ids) {
-        const entity = this.entities.get(id);
+        // A prop, or a character by id (a story's hand takes food to someone in particular).
+        const entity = this.entities.get(id) ?? this.characters.get(id);
         if (!entity?.visible) continue;
         const at = onScreen(this.entityCenter(id));
         if (at) return at;

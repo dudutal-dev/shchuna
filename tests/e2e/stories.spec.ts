@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { openGame, propCenter, scrollTo, tap, stripReady, tapToStart, touchDrag, travel, type Point } from './helpers';
+import { openGame, propCenter, propState, scrollTo, tap, stripReady, tapToStart, touchDrag, travel, type Point } from './helpers';
 
 const PITA = 'falafel-falafel-pita';
 const GRANDPA = 'falafel-2';
@@ -219,6 +219,80 @@ test.describe('stories', () => {
     // Put away, and wishes come back.
     await tap(page, (await page.evaluate(() => window.__shchuna!.storyGuideCenter()))!);
     await expect.poll(() => page.evaluate(() => window.__shchuna!.wish()), { timeout: 30_000 }).not.toBeNull();
+  });
+
+  test('someone who arrives with the child hears "we are here", then the story', async ({ page }) => {
+    test.slow();
+    await openGame(page, 'home', { stories: true, level: 2 });
+    const kid = await scrollTo(page, 'family-3');
+    await touchDrag(page, kid, await page.evaluate(() => window.__shchuna!.hudCenter('map')));
+    await page.waitForFunction(() => window.__shchuna?.stage === 'map', undefined, { timeout: 30_000 });
+    await tap(page, (await page.evaluate(() => window.__shchuna!.mapCenter?.('falafel')))!);
+    await page.waitForFunction(() => window.__shchuna?.stage === 'playing' && window.__shchuna.here() === 'falafel', undefined, { timeout: 30_000 });
+    await expect.poll(async () => (await spoken(page)).includes('story.pita.fill'), { timeout: 20_000 }).toBe(true);
+    const lines = await spoken(page);
+    const order = ['react.arrived', 'story.pita.open', 'story.pita.fill'].map((line) => lines.lastIndexOf(line));
+    expect(order[0]).toBeGreaterThanOrEqual(0);
+    expect(order[1]).toBeGreaterThan(order[0]!);
+    expect(order[2]).toBeGreaterThan(order[1]!);
+  });
+
+  test('a pita emptied again is asked to be filled again, not served empty', async ({ page }) => {
+    await openGame(page, 'falafel', { stories: true, level: 2, query: 'invites&hintMs=3000' });
+    await stripReady(page);
+    await into(page, 'falafel-falafel-bowl');
+    await into(page, 'falafel-salad-bowl');
+    await expect.poll(async () => (await story(page))?.step).toBe(2);
+    // Undo takes the filling out; the step stays done, but the guide knows what is missing.
+    await tap(page, await page.evaluate(() => window.__shchuna!.undoCenter()));
+    await tap(page, await page.evaluate(() => window.__shchuna!.undoCenter()));
+    await expect.poll(async () => (await propState(page, PITA)).state?.stuffed).toBeUndefined();
+    expect((await story(page))?.step).toBe(2);
+    await tap(page, (await page.evaluate(() => window.__shchuna!.storyStepCenter(2)))!);
+    await expect.poll(() => lastLine(page)).toBe('story.pita.fill');
+    expect(await page.evaluate(() => window.__shchuna!.ghostShowing())).toBe(true);
+  });
+
+  test('grandpa gets the pita from his table even with someone on the other stool', async ({ page }) => {
+    test.slow();
+    await openGame(page, 'falafel', { stories: true, level: 1 });
+    expect(await page.evaluate(() => window.__shchuna!.put('falafel-1', 'stool-1'))).toBe(true);
+    await into(page, 'falafel-falafel-bowl');
+    await expect.poll(async () => (await story(page))?.step).toBe(1);
+    await carryToGrandpa(page, PITA);
+    await expect.poll(() => story(page)).toBeNull();
+  });
+
+  test('when grandpa goes away the story is set aside, and waits for him', async ({ page }) => {
+    test.slow();
+    await openGame(page, 'falafel', { stories: true, level: 2 });
+    await stripReady(page);
+    // Grandpa is carried onto the map button and goes home.
+    const scale = page.viewportSize()!.height / 600;
+    const grandpa = await scrollTo(page, GRANDPA);
+    await touchDrag(page, { x: grandpa.x, y: grandpa.y - 10 * scale }, await page.evaluate(() => window.__shchuna!.hudCenter('map')));
+    await page.waitForFunction(() => window.__shchuna?.stage === 'map', undefined, { timeout: 30_000 });
+    await tap(page, (await page.evaluate(() => window.__shchuna!.mapCenter?.('home')))!);
+    await page.waitForFunction(() => window.__shchuna?.stage === 'playing' && window.__shchuna.here() === 'home', undefined, { timeout: 30_000 });
+    expect(await story(page)).toBeNull();
+    expect(await page.evaluate(() => window.__shchuna!.storyStepCenter(0))).toBeNull();
+    expect(await page.evaluate(() => window.__shchuna!.hudPulsing('map'))).toBe(false);
+    // Without him the stand has no story to tell.
+    await travel(page, 'falafel');
+    expect(await story(page)).toBeNull();
+  });
+
+  test('a finished story is told again on the next visit', async ({ page }) => {
+    test.slow();
+    await openGame(page, 'falafel', { stories: true, level: 1 });
+    await into(page, 'falafel-falafel-bowl');
+    await expect.poll(async () => (await story(page))?.step).toBe(1);
+    await carryToGrandpa(page, PITA);
+    await expect.poll(() => story(page)).toBeNull();
+    await travel(page, 'home');
+    await travel(page, 'falafel');
+    expect(await story(page)).toMatchObject({ id: 'pita', step: 0 });
+    expect((await page.evaluate(() => window.__shchuna!.state())).stories.done).toHaveLength(1);
   });
 
   test('nothing starts unless stories are on', async ({ page }) => {

@@ -34,6 +34,12 @@ export interface StoryStep {
   /** What the see-through hand shows. */
   show: Invitation['show'];
   done: StepDone;
+  /**
+   * What the step needs before it can be done (a full pita to serve, an open fridge to take
+   * a drink from). While that isn't so, the guide says and shows this instead, so the child
+   * is never asked for something that can't work.
+   */
+  ready?: { prop: string; key: string; value: unknown; line: string; show: Invitation['show'] };
 }
 
 /**
@@ -55,8 +61,8 @@ export interface Story {
 const PITA = 'falafel-falafel-pita';
 const GRANDPA = 'falafel-2';
 const pita = { prop: [PITA] } as const;
-/** Grandpa's table on the terrace: food put there is eaten by whoever sits at it. */
-const table = { surface: 'terrace-table-1' } as const;
+/** The hand takes the food to grandpa himself, wherever he sits. His table works as well. */
+const grandpa = { prop: [GRANDPA] } as const;
 
 const fill: StoryStep = {
   id: 'fill',
@@ -85,8 +91,10 @@ const serve: StoryStep = {
   place: 'falafel',
   art: 'falafel/pita-full.svg',
   line: 'story.pita.serve',
-  show: { drag: pita, to: table },
+  show: { drag: pita, to: grandpa },
   done: { fed: { who: GRANDPA, food: PITA, state: { stuffed: true } } },
+  // Eaten by someone else, or emptied by the undo button: it is filled again first.
+  ready: { prop: PITA, key: 'stuffed', value: true, line: fill.line, show: fill.show },
 };
 const fridge: StoryStep = {
   id: 'fridge',
@@ -102,8 +110,10 @@ const drink: StoryStep = {
   art: 'falafel/lemonade.svg',
   word: 'lemonade',
   line: 'story.pita.drink',
-  show: { drag: { prop: ['falafel-lemonade'] }, to: table },
+  show: { drag: { prop: ['falafel-lemonade'] }, to: grandpa },
   done: { fed: { who: GRANDPA, food: 'falafel-lemonade' } },
+  // The lemonade is out of sight while the fridge is shut.
+  ready: { prop: 'falafel-drinks-fridge', key: 'open', value: true, line: fridge.line, show: fridge.show },
 };
 
 export const STORIES: readonly Story[] = [
