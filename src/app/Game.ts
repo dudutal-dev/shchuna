@@ -381,6 +381,13 @@ export class Game {
         onCoins: (amount) => this.addToPurse(amount),
         onJourney: (ids) => void this.startJourney(ids),
         onStoryEvent: (event) => this.onStoryEvent(event),
+        story: {
+          current: () => {
+            const told = this.storyNow();
+            if (!told || told.step.place !== data.id) return null;
+            return { id: told.step.id, line: told.step.line, show: told.step.show };
+          },
+        },
         journeyZone: () => {
           const at = this.hud.visibleCenter('map');
           return at ? { ...at, radius: 70 } : null;

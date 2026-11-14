@@ -50,8 +50,9 @@ async function carryToGrandpa(page: Page, id: string): Promise<void> {
       { timeout: 20_000, intervals: [300] },
     )
     .toBe(true);
-  const grandpa = await propCenter(page, GRANDPA);
-  const to = { x: grandpa.x, y: grandpa.y - 20 * scale };
+  // Onto his table, as the hand shows: wide enough for a small finger, and he eats from it.
+  const table = await page.evaluate(() => window.__shchuna!.surfaceCenter('terrace-table-1'));
+  const to = { x: table!.x, y: table!.y - 12 * scale };
   await glide(edge, to);
   await touch('touchEnd');
   await cdp.detach();
@@ -197,6 +198,27 @@ test.describe('stories', () => {
     await tap(page, { x: page.viewportSize()!.width / 2, y: page.viewportSize()!.height - 20 });
     await tap(page, (await page.evaluate(() => window.__shchuna!.storyStepCenter(1)))!);
     await expect.poll(async () => (await spoken(page)).slice(-2)).toEqual(['prop.falafel-pita', 'story.pita.serve']);
+  });
+
+  test('an idle child is reminded of the current step, not given a general idea', async ({ page }) => {
+    await page.goto('./?e2e&scene=falafel&stories&level=2&invites&hintMs=3000');
+    await tapToStart(page);
+    await expect.poll(() => page.evaluate(() => window.__shchuna!.lastHint()), { timeout: 20_000 }).toBe('story:falafel');
+    const lines = await spoken(page);
+    expect(lines.at(-1)).toBe('story.pita.fill');
+    expect(lines).not.toContain('invite.pita');
+  });
+
+  test('nobody wishes for anything while a story is being told', async ({ page }) => {
+    test.slow();
+    await page.goto('./?e2e&scene=falafel&stories&level=2&wishMs=1500');
+    await tapToStart(page);
+    await stripReady(page);
+    await page.waitForTimeout(6000);
+    expect(await page.evaluate(() => window.__shchuna!.wish())).toBeNull();
+    // Put away, and wishes come back.
+    await tap(page, (await page.evaluate(() => window.__shchuna!.storyGuideCenter()))!);
+    await expect.poll(() => page.evaluate(() => window.__shchuna!.wish()), { timeout: 30_000 }).not.toBeNull();
   });
 
   test('nothing starts unless stories are on', async ({ page }) => {

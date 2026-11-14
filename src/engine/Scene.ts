@@ -15,7 +15,7 @@ import type { Character, HebrewLetter, LocationId, PropDef, PropInstance } from 
 import { butterfly, fishJump, hearts, starBurst } from './effects';
 import { HintSystem, hintIdleMs } from './HintSystem';
 import type { StoryEvent } from '../content/stories';
-import { INVITATIONS, pickInvitation, type Invitation, type InviteTarget } from '../content/invitations';
+import { INVITATIONS, INVITE_MAX_TIMES, pickInvitation, type Invitation, type InviteTarget } from '../content/invitations';
 import { GhostFinger, HAND_ART } from '../ui/GhostFinger';
 import { WISH_ART, WishBubble, type WishKind } from '../ui/WishBubble';
 import { wishTiming } from './wishTiming';
@@ -95,6 +95,8 @@ export interface SceneContext {
     canSpeak(): boolean;
     spoke(): void;
   };
+  /** The step of the guide's story that waits to be done in this place, if any. */
+  story?: { current(): { id: string; line: string; show: Invitation['show'] } | null };
   /** What the child just did, for the guide's stories. */
   onStoryEvent?: (event: StoryEvent) => void;
   /** The letter hunt: which prop hides a letter, and what happens when one is tapped. */
@@ -639,8 +641,11 @@ export class Scene {
       return;
     }
     if (!entity.def.food) return;
-    const seat = this.data.surfaces.find((s) => s.activity?.kind === 'eat' && s.activity.table === surfaceId);
-    const diner = seat && this.people().find((c) => c.on === seat.id);
+    // Whoever sits at this table, on any of its seats.
+    const seats = new Set(
+      this.data.surfaces.filter((s) => s.activity?.kind === 'eat' && s.activity.table === surfaceId).map((s) => s.id),
+    );
+    const diner = this.people().find((c) => c.on !== undefined && seats.has(c.on));
     const food = this.instances().find((p) => p.id === entity.entityId);
     if (!diner || !food) return;
     setTimeout(() => {
@@ -973,6 +978,8 @@ export class Scene {
       }
       return;
     }
+    // While a story asks for something here, nobody else does.
+    if (this.ctx.story?.current()) return;
     if (now < this.nextWishAt) return;
     const { width } = this.ctx.app.screen;
     // Only what the child can see now and reach: a food or a toy on screen, a bed on screen.
@@ -1276,11 +1283,30 @@ export class Scene {
   }
 
   /**
+   * Says the story's current step again and shows it with the hand, under the same limits as
+   * invitations: the parents' switch, half a minute apart, twice at most in a visit.
+   */
+  private remindOfStep(step: { id: string; line: string; show: Invitation['show'] }): boolean {
+    const invites = this.ctx.invites;
+    const key = `story:${step.id}`;
+    const times = this.invitesShown.get(key) ?? 0;
+    if (!invites?.enabled() || !invites.canSpeak() || times >= INVITE_MAX_TIMES) return false;
+    this.invitesShown.set(key, times + 1);
+    invites.spoke();
+    this.ctx.audio.say(step.line);
+    this.showHand(step.show);
+    this.lastHint = key;
+    return true;
+  }
+
+  /**
    * Nudges a quiet child (SPEC §5.2): something on screen that does something when
    * tapped wiggles, with a few soft twinkles. A hidden letter is the first choice.
    */
   private showHint(): void {
-    if (this.offerInvitation()) return;
+    // One voice at a time: while a story waits here, its step is the idea, not a general one.
+    const step = this.ctx.story?.current();
+    if (step ? this.remindOfStep(step) : this.offerInvitation()) return;
     const width = this.ctx.app.screen.width;
     const candidates = [...this.entities.values()].filter((entity) => {
       if (!entity.visible || this.isDragging(entity)) return false;
