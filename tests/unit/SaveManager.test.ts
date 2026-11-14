@@ -122,6 +122,13 @@ describe('migrate', () => {
   });
 });
 
+/** A save as it was before stories existed. */
+function withoutStories(): Record<string, unknown> {
+  const save: Record<string, unknown> = { ...createNewSave() };
+  delete save.stories;
+  return save;
+}
+
 describe('stories in the save', () => {
   it('a new game has no stories yet, at version 7', () => {
     const save = createNewSave();
@@ -130,8 +137,8 @@ describe('stories in the save', () => {
   });
 
   it('a version 6 save gains an empty story record and keeps its settings', () => {
-    const { stories: _stories, ...old } = createNewSave();
-    const settings = { ...old.settings };
+    const old = withoutStories();
+    const settings = { ...createNewSave().settings };
     const save = migrate({ ...old, version: 6 });
     expect(save?.version).toBe(7);
     expect(save?.stories).toEqual({ done: [], offered: [] });
@@ -139,7 +146,7 @@ describe('stories in the save', () => {
   });
 
   it('repairs a current save whose story record is missing or broken', () => {
-    const { stories: _stories, ...without } = createNewSave();
+    const without = withoutStories();
     expect(migrate(without)?.stories).toEqual({ done: [], offered: [] });
     expect(migrate({ ...without, stories: 'oops' })?.stories).toEqual({ done: [], offered: [] });
   });
