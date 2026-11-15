@@ -51,25 +51,22 @@ export function stranded(story: Story, whereIs: (characterId: string) => Locatio
 }
 
 /**
- * The story to offer on arriving somewhere: it starts here, wasn't put away, and everyone it
- * needs is here. New stories come first; once every story has been told, the one told
- * longest ago comes back.
+ * The story on offer in the neighbourhood: it wasn't put away, and everyone it needs is where
+ * it starts. New stories come first, in their order; once every story has been told, the one
+ * told longest ago comes back. It begins when the child walks into the place it starts in.
  */
 export function nextStory(
   stories: readonly Story[],
   progress: StoryProgress,
-  place: LocationId,
   whereIs: (characterId: string) => LocationId | undefined,
   skipped: ReadonlySet<string>,
 ): Story | null {
   const doneAt = new Map(progress.done.map((entry) => [entry.id, entry.at]));
-  const here = stories.filter(
-    (story) => story.start === place && !skipped.has(story.id) && !stranded(story, whereIs),
-  );
-  const fresh = here.find((story) => !doneAt.has(story.id));
+  const ready = stories.filter((story) => !skipped.has(story.id) && !stranded(story, whereIs));
+  const fresh = ready.find((story) => !doneAt.has(story.id));
   if (fresh) return fresh;
   if (!stories.every((story) => doneAt.has(story.id))) return null;
-  return [...here].sort((a, b) => (doneAt.get(a.id) ?? 0) - (doneAt.get(b.id) ?? 0))[0] ?? null;
+  return [...ready].sort((a, b) => (doneAt.get(a.id) ?? 0) - (doneAt.get(b.id) ?? 0))[0] ?? null;
 }
 
 /**

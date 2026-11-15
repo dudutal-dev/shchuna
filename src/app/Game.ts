@@ -469,16 +469,16 @@ export class Game {
   }
 
   /**
-   * On arriving somewhere with no story in progress: the guide may begin one that starts here.
+   * On arriving somewhere with no story in progress: the story on offer begins if it starts here.
    * True if one began; `before` is said ahead of its opening.
    */
   private offerStory(before: string[] = []): boolean {
     const progress = this.store.state.stories;
     if (!this.scene || !this.storiesAllowed() || progress.active) return false;
     const whereIs = (id: string) => this.store.state.characters.find((c) => c.id === id)?.location;
-    const story = nextStory(STORIES, progress, this.location.id, whereIs, this.storiesSkipped);
+    const story = nextStory(STORIES, progress, whereIs, this.storiesSkipped);
     const first = story && stepsOf(story, this.level())[0];
-    if (!story || !first) return false;
+    if (!story || !first || story.start !== this.location.id) return false;
     this.scene.resetProps(story.resets);
     this.actions.setStories({
       ...progress,

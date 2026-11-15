@@ -55,6 +55,10 @@ export interface Story {
   resets: readonly string[];
   openLine: string;
   doneLine: string;
+  /** The sticker a finished story leaves in the album: a path under assets/art. */
+  sticker: string;
+  /** The story's name, said when its sticker is tapped. */
+  nameLine: string;
   steps: Record<StoryLevel, readonly StoryStep[]>;
 }
 
@@ -124,6 +128,8 @@ export const STORIES: readonly Story[] = [
     resets: [PITA, 'falafel-drinks-fridge', 'falafel-lemonade'],
     openLine: 'story.pita.open',
     doneLine: 'story.pita.done',
+    sticker: 'stickers/pita.svg',
+    nameLine: 'story.pita.name',
     steps: {
       1: [fill, serve],
       2: [falafel, salad, serve],

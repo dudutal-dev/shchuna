@@ -40,18 +40,46 @@ describe('matches', () => {
 });
 
 describe('nextStory', () => {
-  it('offers the pita story at the falafel stand only', () => {
-    expect(nextStory(STORIES, fresh(), 'falafel', everyoneAt('falafel'), new Set())?.id).toBe('pita');
-    expect(nextStory(STORIES, fresh(), 'home', everyoneAt('falafel'), new Set())).toBeNull();
+  const pita = STORIES.find((story) => story.id === 'pita')!;
+  const atHome = { ...pita, id: 'a', start: 'home' as LocationId, needs: [] };
+  const atStand = { ...pita, id: 'b' };
+
+  it('offers the pita story, which starts at the falafel stand', () => {
+    const story = nextStory(STORIES, fresh(), everyoneAt('falafel'), new Set());
+    expect(story?.id).toBe('pita');
+    expect(story?.start).toBe('falafel');
   });
 
   it('is not offered while grandpa is somewhere else', () => {
-    expect(nextStory(STORIES, fresh(), 'falafel', everyoneAt('home'), new Set())).toBeNull();
-    expect(nextStory(STORIES, fresh(), 'falafel', () => undefined, new Set())).toBeNull();
+    expect(nextStory(STORIES, fresh(), everyoneAt('home'), new Set())).toBeNull();
+    expect(nextStory(STORIES, fresh(), () => undefined, new Set())).toBeNull();
   });
 
   it('is not offered after being put away', () => {
-    expect(nextStory(STORIES, fresh(), 'falafel', everyoneAt('falafel'), new Set(['pita']))).toBeNull();
+    expect(nextStory(STORIES, fresh(), everyoneAt('falafel'), new Set(['pita']))).toBeNull();
+  });
+
+  it('offers a new story before one told already, wherever each starts', () => {
+    const progress: StoryProgress = { done: [{ id: 'b', at: 3 }], offered: [] };
+    expect(nextStory([atStand, atHome], progress, everyoneAt('falafel'), new Set())?.id).toBe('a');
+  });
+
+  it('once all are told, brings back the one told longest ago', () => {
+    const progress: StoryProgress = { done: [{ id: 'a', at: 5 }, { id: 'b', at: 3 }], offered: [] };
+    expect(nextStory([atHome, atStand], progress, everyoneAt('falafel'), new Set())?.id).toBe('b');
+  });
+
+  it('passes over a new story that cannot start for the next new one', () => {
+    // Grandpa is at home: the stand's story waits, and the one at home is offered.
+    expect(nextStory([atStand, atHome], fresh(), everyoneAt('home'), new Set())?.id).toBe('a');
+  });
+
+  it('every story has a sticker and a spoken name', () => {
+    const ids = new Set(voiceLines.map((line) => line.id));
+    for (const story of STORIES) {
+      expect(story.sticker).toMatch(/^stickers\/.+\.svg$/);
+      expect(ids.has(story.nameLine)).toBe(true);
+    }
   });
 });
 
@@ -95,9 +123,9 @@ describe('a story told before', () => {
   const told: StoryProgress = { done: [{ id: 'pita', at: 1 }], offered: ['pita'] };
 
   it('comes back once every story has been told', () => {
-    expect(nextStory(STORIES, told, 'falafel', everyoneAt('falafel'), new Set())?.id).toBe('pita');
+    expect(nextStory(STORIES, told, everyoneAt('falafel'), new Set())?.id).toBe('pita');
     // But not one the child put away today.
-    expect(nextStory(STORIES, told, 'falafel', everyoneAt('falafel'), new Set(['pita']))).toBeNull();
+    expect(nextStory(STORIES, told, everyoneAt('falafel'), new Set(['pita']))).toBeNull();
   });
 
   it('is recorded once, with the latest time, however often it is finished', () => {

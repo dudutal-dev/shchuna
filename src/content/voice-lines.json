@@ -274,5 +274,8 @@
   {"id": "story.pita.fridge", "text": "פּוֹתְחִים אֶת הַמְּקָרֵר.", "voice": "narrator", "proofread": false},
   {"id": "story.pita.drink", "text": "סַבָּא רוֹצֶה גַּם לִימוֹנָדָה.", "voice": "narrator", "proofread": false},
   {"id": "story.pita.done", "text": "סַבָּא שָׂבֵעַ וּמְרֻצֶּה!", "voice": "narrator", "proofread": false},
-  {"id": "story.later", "text": "אוּלַי אַחַר כָּךְ.", "voice": "narrator", "proofread": false}
+  {"id": "story.later", "text": "אוּלַי אַחַר כָּךְ.", "voice": "narrator", "proofread": false},
+  {"id": "story.pita.name", "text": "פִּיתָּה לְסַבָּא.", "voice": "narrator", "proofread": false},
+  {"id": "story.sticker", "text": "מַדְבֵּקָה חֲדָשָׁה!", "voice": "narrator", "proofread": false},
+  {"id": "level.who", "text": "מִי מְשַׂחֵק הַיּוֹם?", "voice": "narrator", "proofread": false}
 ]

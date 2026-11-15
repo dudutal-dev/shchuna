@@ -1655,6 +1655,24 @@
       "text": "אוּלַי אַחַר כָּךְ.",
       "durationMs": 1760,
       "hash": "bbab717320ca331c60d63894ac15c01b2b58b7a22e35138f31a01aa443e2307e"
+    },
+    "story.pita.name": {
+      "file": "public/audio/lines/story.pita.name.mp3",
+      "text": "פִּיתָּה לְסַבָּא.",
+      "durationMs": 1360,
+      "hash": "7cc1bcabb4c3458786cd3a168fe66d7a5155b7c415b1c2ab52941366a98b66fa"
+    },
+    "story.sticker": {
+      "file": "public/audio/lines/story.sticker.mp3",
+      "text": "מַדְבֵּקָה חֲדָשָׁה!",
+      "durationMs": 1600,
+      "hash": "6b4000495c3391aa962f84bccaabbd86a766a71ce829eea4e045800031b1dc06"
+    },
+    "level.who": {
+      "file": "public/audio/lines/level.who.mp3",
+      "text": "מִי מְשַׂחֵק הַיּוֹם?",
+      "durationMs": 1360,
+      "hash": "198a1be84c496c26fcdf28e0582fa91ba246ab7bbc16d2e0a6ec25639153d9e9"
     }
   }
 }
