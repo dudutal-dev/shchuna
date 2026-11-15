@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="44" fill="#FFFFFF" stroke="#3B2F2F" stroke-opacity=".35" stroke-width="3"/>
+  <!-- A round sticker with a star, one corner peeling up -->
+  <path d="M48 22 A26 26 0 1 0 74 48 L74 40 Q74 22 56 22Z" fill="#58B8EA" stroke="#3A8FBF" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M56 22 Q58 36 74 40 Q74 22 56 22Z" fill="#FFFFFF" stroke="#3A8FBF" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M46 36 L50.5 45.5 L61 46.8 L53.3 54 L55.3 64.4 L46 59.3 L36.7 64.4 L38.7 54 L31 46.8 L41.5 45.5Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="3" stroke-linejoin="round"/>
+</svg>

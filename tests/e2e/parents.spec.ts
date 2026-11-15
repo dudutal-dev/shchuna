@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { openGame, propCenter, scrollTo, stripReady, tapToStart, touchDrag, touchHold, travel } from './helpers';
+import { openGame, openStartScreen, propCenter, scrollTo, stripReady, tap, tapToStart, touchDrag, touchHold, travel } from './helpers';
 
 const stage = (page: Page) => page.evaluate(() => window.__shchuna!.stage);
 
@@ -196,5 +196,53 @@ test.describe('parents and stories', () => {
     await travel(page, 'home');
     await travel(page, 'falafel');
     expect(await story(page)).toBeNull();
+  });
+});
+
+test.describe('who is playing', () => {
+  const picture = (page: Page, level: 1 | 2 | 3) =>
+    page.evaluate((which) => window.__shchuna!.pickCenter?.(which) ?? null, level);
+  const startTap = async (page: Page) => {
+    const size = page.viewportSize()!;
+    await page.touchscreen.tap(size.width / 2, size.height / 2);
+  };
+
+  test('the first launch asks who is playing, and the picture tapped sets the age', async ({ page }, testInfo) => {
+    await openStartScreen(page, 'map', { stories: true, pick: true });
+    await startTap(page);
+    await page.waitForFunction(() => window.__shchuna?.stage === 'level');
+    await expect
+      .poll(() => page.evaluate(() => window.__shchuna!.spoken().includes('level.who')), { timeout: 15_000 })
+      .toBe(true);
+    // Right to left: the smallest first.
+    const [small, middle, big] = [await picture(page, 1), await picture(page, 2), await picture(page, 3)];
+    expect(small!.x).toBeGreaterThan(middle!.x);
+    expect(middle!.x).toBeGreaterThan(big!.x);
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: `docs/screens/story-level-${testInfo.project.name}.png` });
+
+    await tap(page, small!);
+    await page.waitForFunction(() => window.__shchuna?.stage === 'map');
+    expect(await page.evaluate(() => window.__shchuna!.state().settings.level)).toBe(1);
+    expect(await page.evaluate(() => window.__shchuna!.pickCenter)).toBeNull();
+
+    // Asked once: the next launch goes straight to the map.
+    await page.evaluate(() => window.__shchuna!.flushSave());
+    await page.reload();
+    await tapToStart(page);
+    expect(await stage(page)).toBe('map');
+    expect(await page.evaluate(() => window.__shchuna!.state().settings.level)).toBe(1);
+  });
+
+  test('nobody is asked when the stories are switched off', async ({ page }) => {
+    await openGame(page, 'home');
+    await openSettings(page);
+    await page.getByLabel('סיפורים', { exact: true }).uncheck();
+    await closeSettings(page);
+    await page.evaluate(() => window.__shchuna!.flushSave());
+    await page.goto('./?e2e&stories&pick');
+    await tapToStart(page);
+    expect(await stage(page)).toBe('map');
+    expect(await page.evaluate(() => window.__shchuna!.state().settings.level)).toBeUndefined();
   });
 });

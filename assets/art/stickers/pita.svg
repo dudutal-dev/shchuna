@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">
+  <!-- Sticker for "a pita for grandpa": a scalloped white edge, a sunny middle, the full pita and a heart -->
+  <g fill="#FFFFFF" stroke="#CDB68B" stroke-width="3">
+    <circle cx="70" cy="70" r="64"/>
+  </g>
+  <circle cx="70" cy="70" r="55" fill="#FFC23C"/>
+  <circle cx="70" cy="70" r="55" fill="none" stroke="#C78F1E" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+  <path d="M30 52 Q44 30 70 26" fill="none" stroke="#FFF1B8" stroke-width="6" stroke-linecap="round"/>
+  <!-- The pita, full -->
+  <g transform="translate(22 58)">
+    <ellipse cx="48" cy="14" rx="38" ry="9" fill="#EFCF98" stroke="#B98A4E" stroke-width="3.5"/>
+    <g stroke-linejoin="round">
+      <path d="M14 14 Q18 2 30 6 Q36 -4 46 2 Q56 -6 66 2 Q76 -2 82 14Z" fill="#7FBF5B" stroke="#4F8A33" stroke-width="3"/>
+      <g fill="#B07A35" stroke="#6B4520" stroke-width="3">
+        <circle cx="33" cy="0" r="10"/>
+        <circle cx="52" cy="-6" r="10.5"/>
+        <circle cx="69" cy="2" r="9.5"/>
+      </g>
+      <g fill="#E04A3A" stroke="#A93225" stroke-width="2.5"><rect x="20" y="4" width="10" height="10" rx="2.5"/><rect x="42" y="4" width="9" height="9" rx="2.5"/></g>
+    </g>
+    <path d="M10 14 Q10 50 48 50 Q86 50 86 14 Q70 24 48 24 Q26 24 10 14Z" fill="#EFCF98" stroke="#B98A4E" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M20 26 Q30 30 40 31" fill="none" stroke="#FBE6C2" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- A heart: made for someone -->
+  <path d="M98 34 Q98 24 106 24 Q112 24 112 31 Q112 24 118 24 Q126 24 126 34 Q126 44 112 54 Q98 44 98 34Z" fill="#E5508A" stroke="#B73A6B" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M103 32 Q104 28 108 28" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+</svg>

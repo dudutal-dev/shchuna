@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240">
+  <!-- The oldest player: tallest, with a school bag and an open book -->
+  <ellipse cx="100" cy="234" rx="58" ry="6" fill="#3B2F2F" opacity=".12"/>
+  <!-- Bag behind the shoulders -->
+  <rect x="62" y="86" width="76" height="70" rx="20" fill="#7FAF6B" stroke="#55834A" stroke-width="3"/>
+  <!-- Legs and shoes -->
+  <g stroke="#4A3324" stroke-width="3" stroke-linejoin="round">
+    <rect x="80" y="152" width="16" height="70" rx="7" fill="#6B4C35"/>
+    <rect x="104" y="152" width="16" height="70" rx="7" fill="#6B4C35"/>
+  </g>
+  <g stroke="#2F7264" stroke-width="3" stroke-linejoin="round">
+    <ellipse cx="86" cy="227" rx="14" ry="7" fill="#3E8E7E"/>
+    <ellipse cx="114" cy="227" rx="14" ry="7" fill="#3E8E7E"/>
+  </g>
+  <!-- Shirt -->
+  <path d="M70 96 Q70 82 100 82 Q130 82 130 96 L132 160 Q100 168 68 160Z" fill="#58B8EA" stroke="#3A8FBF" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Bag straps -->
+  <path d="M82 84 V132M118 84 V132" stroke="#55834A" stroke-width="7" stroke-linecap="round"/>
+  <!-- Arms holding the book -->
+  <g fill="#F2C29B" stroke="#C98A5E" stroke-width="3">
+    <rect x="58" y="96" width="14" height="44" rx="7" transform="rotate(-18 65 96)"/>
+    <rect x="128" y="96" width="14" height="44" rx="7" transform="rotate(18 135 96)"/>
+  </g>
+  <path d="M100 124 Q86 116 70 120 V150 Q86 146 100 154Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M100 124 Q114 116 130 120 V150 Q114 146 100 154Z" fill="#E5508A" stroke="#B73A6B" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M78 130 Q86 128 93 131M107 131 Q114 128 122 130" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <!-- Head -->
+  <circle cx="100" cy="46" r="34" fill="#F2C29B" stroke="#C98A5E" stroke-width="3"/>
+  <path d="M66 48 Q62 10 100 10 Q138 10 134 48 Q126 28 100 28 Q74 28 66 48Z" fill="#C4966B" stroke="#8A6239" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="88" cy="48" r="4.5" fill="#3B2F2F"/>
+  <circle cx="112" cy="48" r="4.5" fill="#3B2F2F"/>
+  <ellipse cx="78" cy="59" rx="7" ry="5" fill="#E5508A" opacity=".35"/>
+  <ellipse cx="122" cy="59" rx="7" ry="5" fill="#E5508A" opacity=".35"/>
+  <path d="M90 61 Q100 71 110 61" fill="none" stroke="#3B2F2F" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

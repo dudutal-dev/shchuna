@@ -9,6 +9,7 @@ import { bookLines, isFound } from '../learning/LetterHunt';
 import type { HebrewLetter, PropDef, PropInstance } from '../types';
 import { makeButton } from './Hud';
 import { LetterPainter } from './LetterPainter';
+import type { StickerAlbum } from './StickerAlbum';
 
 const COLUMNS = 8;
 const ROWS = 3;
@@ -18,12 +19,22 @@ const MISSING = 0xd9ccb2;
 /** Found letters take turns through the palette, so the page looks bright. */
 const COLOURS = [0xe5508a, 0x3e8e7e, 0xe4573d, 0x58b8ea, 0x7faf6b, 0xa98bd6, 0xd99a1e];
 const DONE_ART = 'ui/done.svg';
+const TAB_ART = { letters: 'ui/letter-book.svg', stickers: 'ui/tab-stickers.svg' } as const;
+const TAB_SIZE = 84;
+type Page = keyof typeof TAB_ART;
 
-/** A full-screen book of the 22 letters: found ones bright, the rest waiting in grey. */
+/**
+ * A full-screen book of the 22 letters: found ones bright, the rest waiting in grey. When
+ * stories are told, a second page holds their stickers, and two round tabs turn the pages.
+ */
 export class LetterBook {
   readonly view = new Container();
   private readonly slots = new Map<HebrewLetter, Container>();
   private readonly backdrop = new Graphics();
+  private readonly lettersPage = new Container();
+  private readonly tabs = new Map<Page, Container>();
+  private readonly tabRing = new Graphics();
+  private page: Page = 'letters';
   private doneButton = new Container();
 
   constructor(
@@ -34,17 +45,32 @@ export class LetterBook {
     private readonly seedProps: readonly PropInstance[],
     private readonly onHeard: (letter: HebrewLetter) => void,
     private readonly onClose: () => void,
+    /** The stickers page, when stories are told. */
+    private readonly album: StickerAlbum | null = null,
   ) {}
 
   async open(): Promise<void> {
-    await loadArt([DONE_ART, ...LETTERS.flatMap((info) => this.pictureOf(info) ?? [])]);
+    await Promise.all([
+      loadArt([DONE_ART, ...Object.values(TAB_ART), ...LETTERS.flatMap((info) => this.pictureOf(info) ?? [])]),
+      this.album?.load(),
+    ]);
     this.backdrop.eventMode = 'static';
-    this.view.addChild(this.backdrop);
+    this.view.addChild(this.backdrop, this.lettersPage);
     LETTERS.forEach((info, index) => {
       const slot = this.buildSlot(info, index);
       this.slots.set(info.letter, slot);
-      this.view.addChild(slot);
+      this.lettersPage.addChild(slot);
     });
+    if (this.album) {
+      this.album.view.visible = false;
+      this.tabRing.circle(0, 0, TAB_SIZE / 2 + 5).stroke({ color: 0xffc23c, width: 7 });
+      this.view.addChild(this.album.view, this.tabRing);
+      for (const page of ['letters', 'stickers'] as const) {
+        const tab = makeButton(TAB_ART[page], TAB_SIZE, () => this.turnTo(page));
+        this.tabs.set(page, tab);
+        this.view.addChild(tab);
+      }
+    }
     this.doneButton = makeButton(DONE_ART, 84, () => this.close());
     this.view.addChild(this.doneButton);
     this.app.renderer.on('resize', this.layout);
@@ -60,10 +86,27 @@ export class LetterBook {
     this.onClose();
   }
 
-  /** Screen centre of a letter's slot or the close button, for tests. */
-  center(id: HebrewLetter | 'done'): { x: number; y: number } | null {
-    const target = id === 'done' ? this.doneButton : this.slots.get(id);
-    return target ? target.getGlobalPosition() : null;
+  /**
+   * Screen centre of something in the book, for tests: a letter's slot, 'done', a tab
+   * ('tab-letters', 'tab-stickers') or a story's sticker ('sticker:pita'). Null for what
+   * isn't on the page showing.
+   */
+  center(id: string): { x: number; y: number } | null {
+    if (id === 'done') return this.doneButton.getGlobalPosition();
+    if (id.startsWith('tab-')) return this.tabs.get(id.slice(4) as Page)?.getGlobalPosition() ?? null;
+    if (id.startsWith('sticker:')) return this.album?.center(id.slice(8)) ?? null;
+    const slot = this.page === 'letters' ? this.slots.get(id as HebrewLetter) : undefined;
+    return slot ? slot.getGlobalPosition() : null;
+  }
+
+  /** A tab was touched: the letters, or the stickers. */
+  private turnTo(page: Page): void {
+    this.audio.sfx('tap');
+    if (page === this.page || !this.album) return;
+    this.page = page;
+    this.lettersPage.visible = page === 'letters';
+    this.album.view.visible = page === 'stickers';
+    this.layout();
   }
 
   private painter: LetterPainter | null = null;
@@ -161,5 +204,15 @@ export class LetterBook {
       slot?.position.set(left + gridWidth - cell * (column + 0.5), top + cell * (row + 0.5));
     });
     this.doneButton.position.set(safe.left + margin + 42, safe.top + margin + 42);
+    if (!this.album) return;
+    // The tabs sit at the top right, where a Hebrew book opens: letters first.
+    const tabY = safe.top + margin + TAB_SIZE / 2;
+    const firstX = width - safe.right - margin - TAB_SIZE / 2;
+    this.tabs.get('letters')?.position.set(firstX, tabY);
+    this.tabs.get('stickers')?.position.set(firstX - TAB_SIZE - 14, tabY);
+    for (const [page, tab] of this.tabs) tab.alpha = page === this.page ? 1 : 0.6;
+    const current = this.tabs.get(this.page);
+    if (current) this.tabRing.position.copyFrom(current.position);
+    this.album.layout(new Rectangle(safe.left + margin, top, across - 2 * margin, height - top - margin - safe.bottom));
   };
 }

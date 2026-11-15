@@ -22,6 +22,8 @@ export interface GameOptions {
   stories?: boolean;
   /** The age level the stories are told for, instead of the saved one. */
   level?: 1 | 2 | 3;
+  /** The first-launch "who is playing?" screen shows in tests only when asked for. */
+  pick?: boolean;
   /** More of the query string, such as `invites&hintMs=3000`. */
   query?: string;
 }
@@ -35,6 +37,7 @@ export async function openStartScreen(
   const extra = [
     options.stories ? '&stories' : '',
     options.level ? `&level=${options.level}` : '',
+    options.pick ? '&pick' : '',
     options.query ? `&${options.query}` : '',
   ].join('');
   await page.goto((scene === 'map' ? './?e2e' : `./?e2e&scene=${scene}`) + extra);

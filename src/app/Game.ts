@@ -34,12 +34,14 @@ import { station } from '../locations/station/station.data';
 import type { HebrewLetter, LocationId, Settings, StoryLevel } from '../types';
 import { Hud } from '../ui/Hud';
 import { LetterBook } from '../ui/LetterBook';
+import { LevelPicker } from '../ui/LevelPicker';
 import { revealLetter } from '../ui/LetterReveal';
 import { NeighbourhoodMap } from '../ui/NeighbourhoodMap';
 import { ParentGate } from '../ui/ParentGate';
 import { ParentGuide } from '../ui/ParentGuide';
 import { SettingsScreen } from '../ui/SettingsScreen';
 import { StartScreen } from '../ui/StartScreen';
+import { flySticker, StickerAlbum } from '../ui/StickerAlbum';
 import { GUIDE_ART, StoryStrip } from '../ui/StoryStrip';
 import { Actions } from './actions';
 import { hideInstallHint, showInstallHint } from './installHint';
@@ -111,6 +113,12 @@ function testLevel(): StoryLevel | null {
   const params = new URLSearchParams(location.search);
   const asked = params.has('e2e') ? Number(params.get('level')) : 0;
   return asked === 1 || asked === 2 || asked === 3 ? asked : null;
+}
+
+/** In tests, the first-launch "who is playing?" screen shows only in the tests that ask for it (`?e2e&pick`). */
+function pickerAllowedHere(): boolean {
+  const params = new URLSearchParams(location.search);
+  return !params.has('e2e') || params.has('pick');
 }
 
 /** Boots the Pixi application, wires the game together and moves between places. */
@@ -229,13 +237,21 @@ export class Game {
       },
     });
     const first = firstStop();
+    // Asked once, the first time the game is opened with stories on: who is playing.
+    const picker = this.needsLevel() ? new LevelPicker(this.app) : null;
     // Everything loads behind the start screen, so the first tap goes straight in.
     // The guide's picture too, so a story's strip is there the moment the story begins.
-    await Promise.all([first === 'map' ? this.openMap() : this.enter(first), this.hud.init(), loadArt([GUIDE_ART])]);
+    await Promise.all([
+      first === 'map' ? this.openMap() : this.enter(first),
+      this.hud.init(),
+      loadArt([GUIDE_ART]),
+      picker?.load(),
+    ]);
     this.audio.preload([
       'ui.tap_to_start',
       'ui.welcome',
       'map.where',
+      ...(picker ? ['level.who'] : []),
       ...Object.values(propDefs).map((def) => def.voiceLine),
     ]);
 
@@ -244,19 +260,47 @@ export class Game {
     this.audio.say('ui.tap_to_start');
     this.setStage('start');
     await startScreen.waitForTap();
-    this.onStartScreen = false;
     hideInstallHint();
     this.audio.sfx('success');
     startScreen.destroy();
+    // The welcome is said once: with the question, when there is one.
+    const welcome = picker ? [] : ['ui.welcome'];
+    if (picker) await this.askWhoPlays(picker);
+    this.onStartScreen = false;
     this.app.stage.addChild(this.hud.view, this.strip.view);
     this.layoutStrip();
     if (this.map) {
-      this.audio.sayAll(['ui.welcome', ...this.mapLines()]);
+      this.audio.sayAll([...welcome, ...this.mapLines()]);
       this.showMapView();
     } else {
-      this.audio.say('ui.welcome');
+      if (welcome.length > 0) this.audio.sayAll(welcome);
       this.showScene();
     }
+  }
+
+  /** The age is not chosen yet, and there are stories to tell for it. */
+  private needsLevel(): boolean {
+    return (
+      this.store.state.settings.level === undefined &&
+      testLevel() === null &&
+      this.storiesAllowed() &&
+      pickerAllowedHere()
+    );
+  }
+
+  /** "Who is playing today?": the picture the child touches sets the age the stories are told for. */
+  private async askWhoPlays(picker: LevelPicker): Promise<void> {
+    picker.show();
+    this.audio.sayAll(['ui.welcome', 'level.who']);
+    if (this.hook) this.hook.pickCenter = (level) => picker.center(level);
+    this.setStage('level');
+    const level = await picker.waitForChoice();
+    this.audio.sfx('success');
+    this.changeSettings({ level });
+    if (this.hook) this.hook.pickCenter = null;
+    // The picture bounces under the finger before the screen goes.
+    await new Promise((resolve) => setTimeout(resolve, 260));
+    picker.destroy();
   }
 
   /** Starts a place's loop, leaving it alone if it is already the one playing. */
@@ -618,6 +662,7 @@ export class Game {
   private onStoryEvent(event: StoryEvent): void {
     const told = this.storyNow();
     if (!told) return;
+    const toldBefore = this.store.state.stories.done.some((entry) => entry.id === told.story.id);
     const { progress, outcome } = advance(STORIES, this.store.state.stories, this.level(), event, Date.now());
     if (outcome === 'none') {
       // The right food, but not as the step needs it (an empty pita): say what is missing.
@@ -639,7 +684,13 @@ export class Game {
     }
     this.audio.sfx('tada');
     if (event.kind === 'fed') this.scene?.celebrate(event.who);
-    this.audio.say(told.story.doneLine);
+    if (toldBefore) {
+      this.audio.say(told.story.doneLine);
+      return;
+    }
+    // The first time a story ends, its sticker flies into the book.
+    this.audio.sayAll([told.story.doneLine, 'story.sticker']);
+    void flySticker(this.app, told.story.sticker, () => this.hud.center('book'));
   }
 
   private addToPurse(amount: number): void {
@@ -662,6 +713,13 @@ export class Game {
   private async openBook(): Promise<void> {
     if (this.busy()) return;
     this.audio.sfx('tap');
+    const album = this.storiesAllowed()
+      ? new StickerAlbum(
+          STORIES,
+          (id) => this.store.state.stories.done.some((entry) => entry.id === id),
+          this.audio,
+        )
+      : null;
     const book = new LetterBook(
       this.app,
       this.store,
@@ -678,13 +736,14 @@ export class Game {
         }
         this.setStage(this.map ? 'map' : 'playing');
       },
+      album,
     );
     this.book = book;
     this.refreshStrip();
     await book.open();
     this.app.stage.addChild(book.view);
     if (this.hook) {
-      this.hook.bookCenter = (id) => book.center(id as HebrewLetter | 'done');
+      this.hook.bookCenter = (id) => book.center(id);
       this.hook.painter = () => book.painterInfo();
     }
     this.setStage('book');

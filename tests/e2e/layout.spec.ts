@@ -85,3 +85,27 @@ for (const phone of PHONES) {
     await page.screenshot({ path: `docs/screens/layout-${phone.name}-story.png` });
   });
 }
+
+for (const phone of PHONES) {
+  test(`the sticker album fits a ${phone.name} (${phone.width}×${phone.height})`, async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'iphone', 'phones only');
+    await page.setViewportSize({ width: phone.width, height: phone.height });
+    await page.goto(`./?e2e&scene=home&stories&level=2&notch=${phone.notch}`);
+    await tapToStart(page);
+    await page.touchscreen.tap(
+      ...(await page.evaluate(() => {
+        const at = window.__shchuna!.hudCenter('book');
+        return [at.x, at.y] as [number, number];
+      })),
+    );
+    await page.waitForFunction(() => window.__shchuna?.stage === 'book');
+    const tab = await page.evaluate(() => window.__shchuna!.bookCenter?.('tab-stickers') ?? null);
+    await page.touchscreen.tap(tab!.x, tab!.y);
+    await page.waitForFunction(() => window.__shchuna!.bookCenter?.('sticker:pita') != null);
+    const points = await page.evaluate(() =>
+      ['done', 'tab-letters', 'tab-stickers', 'sticker:pita'].map((id) => window.__shchuna!.bookCenter?.(id) ?? null),
+    );
+    expect(points.every(Boolean)).toBe(true);
+    checkButtons(points as Point[], { width: phone.width, height: phone.height }, phone.notch);
+  });
+}

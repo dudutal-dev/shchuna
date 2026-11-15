@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240">
+  <!-- The youngest player: small, with a teddy held by the hand -->
+  <ellipse cx="100" cy="230" rx="62" ry="8" fill="#3B2F2F" opacity=".12"/>
+  <!-- Teddy -->
+  <g stroke="#8A6239" stroke-width="3" stroke-linejoin="round">
+    <circle cx="140" cy="176" r="8" fill="#C4966B"/>
+    <circle cx="162" cy="176" r="8" fill="#C4966B"/>
+    <ellipse cx="151" cy="210" rx="15" ry="17" fill="#C4966B"/>
+    <circle cx="151" cy="188" r="14" fill="#C4966B"/>
+  </g>
+  <ellipse cx="151" cy="192" rx="6" ry="4.5" fill="#F3E3C3"/>
+  <circle cx="146" cy="185" r="2" fill="#3B2F2F"/>
+  <circle cx="156" cy="185" r="2" fill="#3B2F2F"/>
+  <!-- Legs and shoes -->
+  <g stroke="#2F7264" stroke-width="3" stroke-linejoin="round">
+    <rect x="80" y="192" width="16" height="28" rx="7" fill="#3E8E7E"/>
+    <rect x="104" y="192" width="16" height="28" rx="7" fill="#3E8E7E"/>
+  </g>
+  <g stroke="#B73A6B" stroke-width="3" stroke-linejoin="round">
+    <ellipse cx="86" cy="224" rx="13" ry="7" fill="#E5508A"/>
+    <ellipse cx="114" cy="224" rx="13" ry="7" fill="#E5508A"/>
+  </g>
+  <!-- Arms -->
+  <g stroke="#C98A5E" stroke-width="3" stroke-linejoin="round" fill="#F2C29B">
+    <rect x="60" y="150" width="14" height="36" rx="7" transform="rotate(14 67 150)"/>
+    <rect x="126" y="150" width="14" height="36" rx="7" transform="rotate(-22 133 150)"/>
+  </g>
+  <!-- Shirt -->
+  <path d="M72 150 Q72 138 100 138 Q128 138 128 150 L130 198 Q100 206 70 198Z" fill="#FFC23C" stroke="#C78F1E" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="100" cy="168" r="7" fill="#FFFFFF" opacity=".7"/>
+  <!-- Head -->
+  <circle cx="100" cy="106" r="38" fill="#F2C29B" stroke="#C98A5E" stroke-width="3"/>
+  <path d="M64 100 Q66 64 100 64 Q134 64 136 100 Q120 82 100 84 Q80 82 64 100Z" fill="#6B4C35" stroke="#4A3324" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M100 66 Q104 54 112 58" fill="none" stroke="#4A3324" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="86" cy="108" r="4.5" fill="#3B2F2F"/>
+  <circle cx="114" cy="108" r="4.5" fill="#3B2F2F"/>
+  <ellipse cx="76" cy="120" rx="7" ry="5" fill="#E5508A" opacity=".35"/>
+  <ellipse cx="124" cy="120" rx="7" ry="5" fill="#E5508A" opacity=".35"/>
+  <path d="M90 122 Q100 132 110 122" fill="none" stroke="#3B2F2F" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

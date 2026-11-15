@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240">
+  <!-- The middle player: taller, with a ball under one arm -->
+  <ellipse cx="100" cy="232" rx="60" ry="7" fill="#3B2F2F" opacity=".12"/>
+  <!-- Legs and shoes -->
+  <g stroke="#2E5E86" stroke-width="3" stroke-linejoin="round">
+    <rect x="80" y="170" width="16" height="50" rx="7" fill="#3E7CB1"/>
+    <rect x="104" y="170" width="16" height="50" rx="7" fill="#3E7CB1"/>
+  </g>
+  <g stroke="#C78F1E" stroke-width="3" stroke-linejoin="round">
+    <ellipse cx="86" cy="225" rx="14" ry="7" fill="#FFC23C"/>
+    <ellipse cx="114" cy="225" rx="14" ry="7" fill="#FFC23C"/>
+  </g>
+  <!-- Far arm -->
+  <rect x="58" y="118" width="14" height="46" rx="7" transform="rotate(12 65 118)" fill="#E0A878" stroke="#B57F52" stroke-width="3"/>
+  <!-- Shirt -->
+  <path d="M70 120 Q70 106 100 106 Q130 106 130 120 L132 178 Q100 186 68 178Z" fill="#E5508A" stroke="#B73A6B" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M72 140 H128" stroke="#FFFFFF" stroke-width="6" opacity=".6"/>
+  <!-- Ball, and the arm that holds it -->
+  <circle cx="146" cy="160" r="22" fill="#FFFFFF" stroke="#3E8E7E" stroke-width="3"/>
+  <path d="M126 152 Q146 164 166 150M134 176 Q150 160 150 139" fill="none" stroke="#3E8E7E" stroke-width="3" stroke-linecap="round"/>
+  <rect x="124" y="118" width="14" height="44" rx="7" transform="rotate(-24 131 118)" fill="#E0A878" stroke="#B57F52" stroke-width="3"/>
+  <!-- Head -->
+  <circle cx="100" cy="70" r="36" fill="#E0A878" stroke="#B57F52" stroke-width="3"/>
+  <path d="M64 70 Q62 30 100 30 Q138 30 136 70 Q130 52 112 50 Q92 44 78 54 Q68 58 64 70Z" fill="#3B2F2F" stroke="#241C1C" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="87" cy="72" r="4.5" fill="#3B2F2F"/>
+  <circle cx="113" cy="72" r="4.5" fill="#3B2F2F"/>
+  <ellipse cx="77" cy="84" rx="7" ry="5" fill="#E5508A" opacity=".35"/>
+  <ellipse cx="123" cy="84" rx="7" ry="5" fill="#E5508A" opacity=".35"/>
+  <path d="M89 86 Q100 97 111 86" fill="none" stroke="#3B2F2F" stroke-width="3.5" stroke-linecap="round"/>
+</svg>
