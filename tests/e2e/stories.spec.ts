@@ -340,10 +340,21 @@ test.describe('the guide on the map', () => {
   test('going into the stand from the map starts the story, without the opening twice', async ({ page }) => {
     await openGame(page, 'map', { stories: true, level: 2 });
     await expect.poll(() => openings(page), { timeout: 15_000 }).toBe(1);
+    // Heard to its end: a line cut off in the middle is said again in the place.
+    await page.waitForTimeout(5000);
     await enter(page, 'falafel');
     expect(await story(page)).toMatchObject({ id: 'pita', step: 0 });
     await expect.poll(async () => (await spoken(page)).includes('story.pita.fill'), { timeout: 15_000 }).toBe(true);
     expect(await openings(page)).toBe(1);
+  });
+
+  test('walking in before the guide has finished speaking still hears how the story begins', async ({ page }) => {
+    await openGame(page, 'map', { stories: true, level: 2 });
+    // Straight in, while the welcome is still being said.
+    await enter(page, 'falafel');
+    await expect.poll(async () => (await spoken(page)).includes('story.pita.fill'), { timeout: 15_000 }).toBe(true);
+    const lines = await spoken(page);
+    expect(lines.lastIndexOf('story.pita.open')).toBeGreaterThan(lines.lastIndexOf('place.falafel'));
   });
 
   test('another place starts no story, and the offer is still there afterwards', async ({ page }) => {
@@ -396,6 +407,7 @@ test.describe('the sticker album', () => {
     await tap(page, (await inBook(page, 'tab-stickers'))!);
     await expect.poll(() => inBook(page, 'sticker:pita')).not.toBeNull();
     expect(await inBook(page, 'א')).toBeNull();
+    expect(await page.evaluate(() => window.__shchuna!.bookSticker?.('pita') ?? null)).toBe('waiting');
     await tap(page, (await inBook(page, 'sticker:pita'))!);
     await expect.poll(() => lastLine(page)).toBe('story.pita.name');
     await page.waitForTimeout(400);
@@ -414,6 +426,13 @@ test.describe('the sticker album', () => {
     await carryToGrandpa(page, PITA);
     await expect.poll(() => story(page)).toBeNull();
     await expect.poll(() => stickerLines(page), { timeout: 15_000 }).toBe(1);
+    // And there it is in the album, in colour.
+    await page.waitForTimeout(2500);
+    await openBook(page);
+    await tap(page, (await inBook(page, 'tab-stickers'))!);
+    await expect.poll(() => page.evaluate(() => window.__shchuna!.bookSticker?.('pita') ?? null)).toBe('earned');
+    await tap(page, (await inBook(page, 'done'))!);
+    await page.waitForFunction(() => window.__shchuna?.stage === 'playing');
     // Told again, it ends with the cheer alone.
     await travel(page, 'home');
     await travel(page, 'falafel');

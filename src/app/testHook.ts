@@ -86,6 +86,8 @@ export interface TestHook {
   letterCenter(instanceId: string): Point | null;
   /** Set while the letter book is open: a letter's slot, or 'done'. */
   bookCenter: ((id: string) => Point | null) | null;
+  /** Set while the letter book is open with its stickers page: a story's sticker, in colour or still waiting. */
+  bookSticker: ((storyId: string) => 'earned' | 'waiting' | null) | null;
   /** In the shop only. */
   coinCenter(coin: Coin): Point | null;
   trayCenter(): Point | null;
@@ -153,6 +155,7 @@ export function installTestHook(parts: {
     creatorCenter: null,
     letterCenter: (id) => parts.scene()?.letterCenter(id) ?? null,
     bookCenter: null,
+    bookSticker: null,
     coinCenter: (coin) => parts.checkout()?.coinCenter(coin) ?? null,
     trayCenter: () => parts.checkout()?.trayCenter() ?? null,
   };

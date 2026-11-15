@@ -124,6 +124,26 @@ describe('AudioManager', () => {
     expect(audio.history).toEqual(['a', 'b']);
   });
 
+  it('knows a line is still to be heard until it has played to its end', async () => {
+    const audio = await ready();
+    audio.sayAll(['a', 'b']);
+    expect(audio.isSaying('a')).toBe(true);
+    expect(audio.isSaying('b')).toBe(true);
+    clips['audio/lines/a.mp3']?.finish();
+    expect(audio.isSaying('a')).toBe(false);
+    expect(audio.isSaying('b')).toBe(true);
+    clips['audio/lines/b.mp3']?.finish();
+    expect(audio.isSaying('b')).toBe(false);
+  });
+
+  it('a line cut off by another is no longer being said', async () => {
+    const audio = await ready();
+    audio.sayAll(['a', 'b']);
+    audio.say('hi');
+    expect(audio.isSaying('a')).toBe(false);
+    expect(audio.isSaying('b')).toBe(false);
+  });
+
   it('drops the rest of a sequence when a new line starts', async () => {
     const audio = await ready();
     audio.sayAll(['a', 'b']);

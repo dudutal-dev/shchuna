@@ -367,6 +367,10 @@ export class Game {
   /** A place on the map was tapped. */
   private async onPlace(place: PlaceInfo, open: boolean): Promise<void> {
     if (this.busy()) return;
+    // Tapped before the guide had finished saying how the story begins: it wasn't heard, so
+    // the place says it.
+    const heard = STORIES.find((story) => story.id === this.heardOnMap);
+    if (heard && this.audio.isSaying(heard.openLine)) this.heardOnMap = null;
     this.audio.sfx('tap');
     const data = LOCATIONS[place.id];
     if (!open || !data) {
@@ -732,6 +736,7 @@ export class Game {
         this.refreshStrip();
         if (this.hook) {
           this.hook.bookCenter = null;
+          this.hook.bookSticker = null;
           this.hook.painter = null;
         }
         this.setStage(this.map ? 'map' : 'playing');
@@ -744,6 +749,7 @@ export class Game {
     this.app.stage.addChild(book.view);
     if (this.hook) {
       this.hook.bookCenter = (id) => book.center(id);
+      this.hook.bookSticker = album ? (id) => album.state(id) : null;
       this.hook.painter = () => book.painterInfo();
     }
     this.setStage('book');

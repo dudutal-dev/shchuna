@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { parentStrings } from '../../src/content/parent.he';
+import { STORIES } from '../../src/content/stories';
 import { daysAgo, storyRows } from '../../src/ui/ProgressPanel';
 
 describe('parents progress', () => {
@@ -29,6 +31,10 @@ describe('the stories a child finished, for parents', () => {
 
   it('names each finished story and the day, newest first, with no counting', () => {
     expect(storyRows([{ id: 'pita', at: noon - day }], noon)).toEqual([{ name: 'פיתה לסבא', when: 'אתמול' }]);
+  });
+
+  it('has a name for every story, so none goes missing from the list', () => {
+    for (const story of STORIES) expect(parentStrings.progress.stories.names[story.id]).toBeTruthy();
   });
 
   it('leaves out a story the game no longer has', () => {

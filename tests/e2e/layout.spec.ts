@@ -109,3 +109,17 @@ for (const phone of PHONES) {
     checkButtons(points as Point[], { width: phone.width, height: phone.height }, phone.notch);
   });
 }
+
+for (const phone of PHONES) {
+  test(`the guide on the map is clear of the buttons on a ${phone.name} (${phone.width}×${phone.height})`, async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'iphone', 'phones only');
+    await page.setViewportSize({ width: phone.width, height: phone.height });
+    await page.goto(`./?e2e&stories&level=2&notch=${phone.notch}`);
+    await tapToStart(page);
+    const guide = await page.evaluate(() => window.__shchuna!.mapGuide?.() ?? null);
+    const hud = await page.evaluate(() => (['book', 'lock'] as const).map((id) => window.__shchuna!.hudCenter(id)));
+    expect(guide).not.toBeNull();
+    checkButtons([guide!.center, ...hud], { width: phone.width, height: phone.height }, phone.notch);
+    await page.screenshot({ path: `docs/screens/layout-${phone.name}-map-guide.png` });
+  });
+}

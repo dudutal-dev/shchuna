@@ -16,6 +16,8 @@ const PANEL = 0xfff7e6;
 const CARD_WIDTH = 240;
 const CARD_HEIGHT = 300;
 const GAP = 28;
+/** Touches are ignored this long after the pictures appear: a double tap on "start" lands here. */
+const READY_MS = 700;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
@@ -28,6 +30,7 @@ export class LevelPicker {
   private readonly backdrop = new Graphics();
   private readonly cards = new Map<StoryLevel, Container>();
   private elapsed = 0;
+  private shownAt = 0;
   private chosen: ((level: StoryLevel) => void) | null = null;
 
   constructor(private readonly app: Application) {}
@@ -49,6 +52,7 @@ export class LevelPicker {
     this.app.renderer.on('resize', this.layout);
     this.app.ticker.add(this.sway);
     this.layout();
+    this.shownAt = performance.now();
     this.view.alpha = 0;
     tween(this.view, { alpha: 1 }, 200);
   }
@@ -88,6 +92,10 @@ export class LevelPicker {
     card.hitArea = new Rectangle(-CARD_WIDTH / 2, -CARD_HEIGHT / 2, CARD_WIDTH, CARD_HEIGHT);
     card.on('pointerdown', (event) => {
       event.stopPropagation();
+      // By when the finger came down, not when a busy device got round to it: a queued
+      // second tap on "start" must not count however late it is handled.
+      const touchedAt = (event.nativeEvent as { timeStamp?: number }).timeStamp || performance.now();
+      if (touchedAt - this.shownAt < READY_MS) return;
       inner.scale.set(0.9);
       tween(inner.scale, { x: 1, y: 1 }, 220, easeOutBack);
       const chosen = this.chosen;

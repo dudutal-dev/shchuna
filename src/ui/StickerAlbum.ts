@@ -42,6 +42,14 @@ export class StickerAlbum {
     return slot && this.view.visible ? slot.getGlobalPosition() : null;
   }
 
+  /** How a story's sticker is shown: in colour, or still waiting as a pale shape. */
+  state(storyId: string): 'earned' | 'waiting' | null {
+    const sticker = this.slots.get(storyId)?.children[1];
+    if (!sticker) return null;
+    // As it is drawn: a waiting sticker is see-through.
+    return sticker.alpha === 1 ? 'earned' : 'waiting';
+  }
+
   /** Lays the stickers out in `area`, from the top right. */
   layout(area: Rectangle): void {
     const cell = Math.min(area.width / COLUMNS, area.height / ROWS);

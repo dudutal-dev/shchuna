@@ -97,6 +97,11 @@ export class AudioManager implements SoundPlayer {
     this.sayAll([lineId]);
   }
 
+  /** Whether a line is still to be heard: waiting its turn, or being said right now. */
+  isSaying(lineId: string): boolean {
+    return this.queue.includes(lineId) || (this.current !== null && this.lastLine === lineId);
+  }
+
   /** Plays lines one after another ("bread", "three shekels"), cutting off anything playing now. */
   sayAll(lineIds: readonly string[]): void {
     this.queue = [...lineIds];

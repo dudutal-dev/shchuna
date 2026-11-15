@@ -234,6 +234,19 @@ test.describe('who is playing', () => {
     expect(await page.evaluate(() => window.__shchuna!.state().settings.level)).toBe(1);
   });
 
+  test('a second quick tap on the start screen does not choose for the child', async ({ page }) => {
+    await openStartScreen(page, 'map', { stories: true, pick: true });
+    // The middle picture comes up right where the start button was.
+    await startTap(page);
+    await startTap(page);
+    await page.waitForTimeout(1500);
+    expect(await stage(page)).toBe('level');
+    expect(await page.evaluate(() => window.__shchuna!.state().settings.level)).toBeUndefined();
+    await tap(page, (await picture(page, 3))!);
+    await page.waitForFunction(() => window.__shchuna?.stage === 'map');
+    expect(await page.evaluate(() => window.__shchuna!.state().settings.level)).toBe(3);
+  });
+
   test('nobody is asked when the stories are switched off', async ({ page }) => {
     await openGame(page, 'home');
     await openSettings(page);

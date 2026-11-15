@@ -7,6 +7,8 @@ import { LetterSparkle } from '../engine/LetterSparkle';
 import { easeOutBack, easeOutElastic, tween } from '../engine/tween';
 import { safeArea } from '../engine/safeArea';
 import type { HebrewLetter, LocationId } from '../types';
+import { BUTTON_SIZE } from './Hud';
+import { keepOnScreen } from './onScreen';
 
 const BACKGROUND_ART = 'map/background.svg';
 const CLOUD_ART = 'map/cloud.svg';
@@ -16,6 +18,8 @@ const GUIDE_ART = 'ui/guide.svg';
 /** The guide on the map, in screen points: comfortably above the 64pt touch minimum. */
 const GUIDE_SIZE = 76;
 const GLOW = 0xffe27a;
+/** Where the buttons along the top end, in screen points below the safe area. */
+const BUTTONS_END = BUTTON_SIZE + 20;
 /** Screen pixels kept clear above the map for the HUD buttons. */
 const TOP_INSET = 40;
 const ROAD = 0xead9b5;
@@ -59,6 +63,8 @@ export class NeighbourhoodMap {
   private busTime = 0;
   /** Where a story is waiting: the place glows, and the guide stands by it. */
   private guidePlace: LocationId | null = null;
+  /** Where the guide's feet are, in map units: on the ground by the place's right side. */
+  private guideFoot: { x: number; y: number } | null = null;
   private readonly glow = new Graphics();
   private readonly guide = new Container();
   private readonly guideInner = new Container();
@@ -157,6 +163,7 @@ export class NeighbourhoodMap {
     const art = view?.children[0]?.children[0] as Sprite | undefined;
     if (!info || !art) {
       this.guidePlace = null;
+      this.guideFoot = null;
       this.glow.visible = false;
       this.guide.visible = false;
       return;
@@ -169,8 +176,26 @@ export class NeighbourhoodMap {
       .ellipse(info.x, info.y - height * 0.45, width * 0.54, height * 0.54)
       .fill({ color: 0xfffbe0, alpha: 0.8 });
     this.glow.visible = true;
-    this.guide.position.set(info.x + width * 0.4, info.y - height * 0.95);
+    this.guideFoot = { x: info.x + width * 0.44, y: info.y - 6 };
     this.guide.visible = true;
+    this.placeGuide();
+  }
+
+  /**
+   * Stands the guide by its place, then moves it as little as needed to keep all of it on
+   * screen and clear of the buttons along the top (a top-row place on a phone).
+   */
+  private placeGuide(): void {
+    if (!this.guideFoot) return;
+    const scale = this.world.scale.x;
+    const half = GUIDE_SIZE / 2;
+    const wanted = {
+      x: this.world.x + this.guideFoot.x * scale,
+      y: this.world.y + this.guideFoot.y * scale - half,
+    };
+    const safe = safeArea();
+    const kept = keepOnScreen(wanted, half, this.app.screen, safe, safe.top + BUTTONS_END);
+    this.guide.position.set((kept.x - this.world.x) / scale, (kept.y - this.world.y) / scale);
   }
 
   /** The place the guide stands by, and the guide's middle on screen. */
@@ -399,6 +424,7 @@ export class NeighbourhoodMap {
     this.world.position.set(safe.left + (across - MAP_WIDTH * scale) / 2, top + (down - MAP_HEIGHT * scale) / 2);
     // The guide keeps its size on screen however small the map is drawn.
     this.guide.scale.set(1 / scale);
+    this.placeGuide();
     // The sky: everything above the tops of the places (about 40 map units down).
     this.skyLayer.hitArea = new Rectangle(0, 0, width, this.world.y + 40 * scale);
   };
