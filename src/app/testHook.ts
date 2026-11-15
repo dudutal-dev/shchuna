@@ -60,6 +60,8 @@ export interface TestHook {
   frameCost(frames: number): number;
   /** Set while the map shows: a place's middle, or the letter sparkling on it. */
   mapCenter: ((id: string) => Point | null) | null;
+  /** Set while the map shows: where the story guide stands, if a story is on offer or in progress. */
+  mapGuide: (() => { place: string; center: Point } | null) | null;
   /** Set while the parents' gate is open. */
   gateAnswer: (() => number | null) | null;
   state(): SaveGame;
@@ -131,6 +133,7 @@ export function installTestHook(parts: {
     fps: parts.fps,
     frameCost: parts.frameCost,
     mapCenter: null,
+    mapGuide: null,
     gateAnswer: null,
     guideStep: null,
     state: () => parts.store.state,

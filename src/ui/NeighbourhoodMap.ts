@@ -12,6 +12,10 @@ const BACKGROUND_ART = 'map/background.svg';
 const CLOUD_ART = 'map/cloud.svg';
 const LOCK_ART = 'map/lock.svg';
 const BUS_ART = 'station/bus.svg';
+const GUIDE_ART = 'ui/guide.svg';
+/** The guide on the map, in screen points: comfortably above the 64pt touch minimum. */
+const GUIDE_SIZE = 76;
+const GLOW = 0xffe27a;
 /** Screen pixels kept clear above the map for the HUD buttons. */
 const TOP_INSET = 40;
 const ROAD = 0xead9b5;
@@ -53,6 +57,12 @@ export class NeighbourhoodMap {
   private weatherTimer: ReturnType<typeof setTimeout> | undefined;
   private bus: Sprite | null = null;
   private busTime = 0;
+  /** Where a story is waiting: the place glows, and the guide stands by it. */
+  private guidePlace: LocationId | null = null;
+  private readonly glow = new Graphics();
+  private readonly guide = new Container();
+  private readonly guideInner = new Container();
+  private guideTime = 0;
   private readonly hints = new HintSystem(performance.now(), hintIdleMs());
   /** Hints wait until the child can see this, not while it loads behind the start screen. */
   private shown = false;
@@ -74,13 +84,15 @@ export class NeighbourhoodMap {
     private readonly onTap: (place: PlaceInfo, open: boolean) => void,
     /** The sky was tapped: it rains, then a rainbow comes out. */
     private readonly onSky?: (weather: 'rain' | 'rainbow') => void,
+    /** The story guide was tapped. */
+    private readonly onGuide?: () => void,
   ) {}
 
   async open(): Promise<void> {
     // The background is 2400 wide: at 1.6x it stays inside the 4096px limit of older iPads.
     await Promise.all([
       loadArt([BACKGROUND_ART], 1.6),
-      loadArt([CLOUD_ART, LOCK_ART, BUS_ART, ...PLACES.map((p) => p.art)]),
+      loadArt([CLOUD_ART, LOCK_ART, BUS_ART, GUIDE_ART, ...PLACES.map((p) => p.art)]),
     ]);
     this.background.texture = getArt(BACKGROUND_ART);
     this.background.anchor.set(0.5, 1);
@@ -97,7 +109,9 @@ export class NeighbourhoodMap {
     const road = new Graphics().poly(ROAD_PATH.flat(), false);
     road.stroke({ color: ROAD_EDGE, width: 54, join: 'round', cap: 'round' });
     road.poly(ROAD_PATH.flat(), false).stroke({ color: ROAD, width: 42, join: 'round', cap: 'round' });
-    this.world.addChild(road);
+    this.glow.eventMode = 'none';
+    this.glow.visible = false;
+    this.world.addChild(road, this.glow);
 
     // The bottom row stands in front of the top row.
     for (const place of [...PLACES].sort((a, b) => a.y - b.y)) {
@@ -105,10 +119,65 @@ export class NeighbourhoodMap {
       this.places.set(place.id, view);
       this.world.addChild(view);
     }
+    const bird = new Sprite(getArt(GUIDE_ART));
+    bird.anchor.set(0.5);
+    bird.width = GUIDE_SIZE;
+    bird.height = GUIDE_SIZE;
+    this.guideInner.addChild(bird);
+    this.guide.addChild(this.guideInner);
+    this.guide.visible = false;
+    this.guide.eventMode = 'static';
+    this.guide.cursor = 'pointer';
+    this.guide.hitArea = new Rectangle(-GUIDE_SIZE / 2, -GUIDE_SIZE / 2, GUIDE_SIZE, GUIDE_SIZE);
+    this.guide.on('pointerdown', (event) => {
+      event.stopPropagation();
+      this.guideInner.scale.set(0.85);
+      tween(this.guideInner.scale, { x: 1, y: 1 }, 220, easeOutBack);
+      if (this.guidePlace) this.wiggle(this.guidePlace);
+      this.onGuide?.();
+    });
+    // In front of every place, so it can always be touched.
+    this.world.addChild(this.guide);
+
     this.app.renderer.on('resize', this.layout);
     this.app.ticker.add(this.animate);
     document.addEventListener('pointerdown', this.onAnyTouch, true);
     this.layout();
+  }
+
+  /**
+   * A story waits in a place (or goes on there): the place glows and the guide stands by its
+   * roof. With null, the map is just the map.
+   */
+  setGuide(place: LocationId | null): void {
+    if (place === this.guidePlace) return;
+    this.guidePlace = place;
+    const info = PLACES.find((p) => p.id === place);
+    const view = place ? this.places.get(place) : undefined;
+    const art = view?.children[0]?.children[0] as Sprite | undefined;
+    if (!info || !art) {
+      this.guidePlace = null;
+      this.glow.visible = false;
+      this.guide.visible = false;
+      return;
+    }
+    const { width, height } = art.texture;
+    this.glow
+      .clear()
+      .ellipse(info.x, info.y - height * 0.45, width * 0.66, height * 0.66)
+      .fill({ color: GLOW, alpha: 0.55 })
+      .ellipse(info.x, info.y - height * 0.45, width * 0.54, height * 0.54)
+      .fill({ color: 0xfffbe0, alpha: 0.8 });
+    this.glow.visible = true;
+    this.guide.position.set(info.x + width * 0.4, info.y - height * 0.95);
+    this.guide.visible = true;
+  }
+
+  /** The place the guide stands by, and the guide's middle on screen. */
+  guideAt(): { place: LocationId; center: { x: number; y: number } } | null {
+    if (!this.guidePlace || !this.guide.visible) return null;
+    const at = this.guide.getGlobalPosition();
+    return { place: this.guidePlace, center: { x: at.x, y: at.y } };
   }
 
   destroy(): void {
@@ -282,13 +351,20 @@ export class NeighbourhoodMap {
       this.busTime += ticker.deltaMS;
       this.bus.rotation = Math.sin(this.busTime / 180) * 0.03;
     }
+    if (this.guide.visible) {
+      this.guideTime += ticker.deltaMS;
+      const wave = Math.sin(this.guideTime / 420);
+      this.glow.alpha = 0.75 + wave * 0.25;
+      this.guideInner.y = wave * 5;
+    }
     if (this.shown && this.hints.due(performance.now())) this.showHint();
   };
 
   /** A quiet child is shown somewhere to go: an open place wiggles and twinkles. */
   private showHint(): void {
     const open = PLACES.filter((place) => this.isOpen(place.id));
-    const place = open[Math.floor(Math.random() * open.length)];
+    // Where the story waits, if one does; otherwise anywhere open.
+    const place = open.find((p) => p.id === this.guidePlace) ?? open[Math.floor(Math.random() * open.length)];
     const view = place && this.places.get(place.id);
     if (!place || !view) return;
     const inner = view.children[0];
@@ -321,6 +397,8 @@ export class NeighbourhoodMap {
     const scale = Math.min(across / MAP_WIDTH, down / MAP_HEIGHT);
     this.world.scale.set(scale);
     this.world.position.set(safe.left + (across - MAP_WIDTH * scale) / 2, top + (down - MAP_HEIGHT * scale) / 2);
+    // The guide keeps its size on screen however small the map is drawn.
+    this.guide.scale.set(1 / scale);
     // The sky: everything above the tops of the places (about 40 map units down).
     this.skyLayer.hitArea = new Rectangle(0, 0, width, this.world.y + 40 * scale);
   };

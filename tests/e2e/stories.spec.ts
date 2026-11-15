@@ -295,9 +295,88 @@ test.describe('stories', () => {
     expect((await page.evaluate(() => window.__shchuna!.state())).stories.done).toHaveLength(1);
   });
 
+  test('without stories the map has no guide', async ({ page }) => {
+    await openGame(page, 'map');
+    expect(await page.evaluate(() => window.__shchuna!.mapGuide?.() ?? null)).toBeNull();
+  });
+
   test('nothing starts unless stories are on', async ({ page }) => {
     await openGame(page, 'falafel');
     expect(await story(page)).toBeNull();
     expect(await spoken(page)).not.toContain('story.pita.open');
+  });
+});
+
+test.describe('the guide on the map', () => {
+  const mapGuide = (page: Page) => page.evaluate(() => window.__shchuna!.mapGuide?.() ?? null);
+  const openings = async (page: Page) => (await spoken(page)).filter((line) => line === 'story.pita.open').length;
+  const enter = async (page: Page, place: string) => {
+    await tap(page, (await page.evaluate((id) => window.__shchuna!.mapCenter?.(id), place))!);
+    await page.waitForFunction(
+      (id) => window.__shchuna?.stage === 'playing' && window.__shchuna.here() === id,
+      place,
+      { timeout: 30_000 },
+    );
+  };
+  const toMap = async (page: Page) => {
+    await tap(page, await page.evaluate(() => window.__shchuna!.hudCenter('map')));
+    await page.waitForFunction(() => window.__shchuna?.stage === 'map');
+  };
+
+  test('the guide waits by the falafel stand and says how the story begins', async ({ page }, testInfo) => {
+    await openGame(page, 'map', { stories: true, level: 2 });
+    const guide = await mapGuide(page);
+    expect(guide?.place).toBe('falafel');
+    await expect.poll(() => openings(page), { timeout: 15_000 }).toBe(1);
+    expect(await spoken(page)).not.toContain('map.where');
+    expect(await story(page)).toBeNull();
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `docs/screens/story-map-${testInfo.project.name}.png` });
+    // Tapping the guide says it again.
+    await tap(page, guide!.center);
+    await expect.poll(() => openings(page), { timeout: 15_000 }).toBe(2);
+  });
+
+  test('going into the stand from the map starts the story, without the opening twice', async ({ page }) => {
+    await openGame(page, 'map', { stories: true, level: 2 });
+    await expect.poll(() => openings(page), { timeout: 15_000 }).toBe(1);
+    await enter(page, 'falafel');
+    expect(await story(page)).toMatchObject({ id: 'pita', step: 0 });
+    await expect.poll(async () => (await spoken(page)).includes('story.pita.fill'), { timeout: 15_000 }).toBe(true);
+    expect(await openings(page)).toBe(1);
+  });
+
+  test('another place starts no story, and the offer is still there afterwards', async ({ page }) => {
+    test.slow();
+    await openGame(page, 'map', { stories: true, level: 2 });
+    await enter(page, 'home');
+    expect(await story(page)).toBeNull();
+    await toMap(page);
+    expect((await mapGuide(page))?.place).toBe('falafel');
+    // Said once already today: the map asks where to, as it always did.
+    await expect.poll(() => lastLine(page)).toBe('map.where');
+  });
+
+  test('with a story in progress the guide stands where it goes on, and says nothing new', async ({ page }) => {
+    await openGame(page, 'falafel', { stories: true, level: 2 });
+    await expect.poll(() => openings(page), { timeout: 15_000 }).toBe(1);
+    await toMap(page);
+    expect((await mapGuide(page))?.place).toBe('falafel');
+    await page.waitForTimeout(1500);
+    expect(await openings(page)).toBe(1);
+  });
+
+  test('a story put away leaves the map without a guide', async ({ page }) => {
+    await openGame(page, 'falafel', { stories: true, level: 2 });
+    await stripReady(page);
+    await tap(page, (await page.evaluate(() => window.__shchuna!.storyGuideCenter()))!);
+    await expect.poll(() => story(page)).toBeNull();
+    await toMap(page);
+    expect(await mapGuide(page)).toBeNull();
+  });
+
+  test('an idle child on the map is shown the place the story starts in', async ({ page }) => {
+    await openGame(page, 'map', { stories: true, level: 2, query: 'hintMs=3000' });
+    await expect.poll(() => page.evaluate(() => window.__shchuna!.lastHint()), { timeout: 20_000 }).toBe('falafel');
   });
 });

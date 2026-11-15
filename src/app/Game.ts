@@ -142,6 +142,10 @@ export class Game {
   private lastInviteAt = 0;
   /** Stories the child put away: not offered again until the game is opened afresh. */
   private readonly storiesSkipped = new Set<string>();
+  /** Stories whose opening the guide has said on the map since the game was opened: once is enough. */
+  private readonly storiesAnnounced = new Set<string>();
+  /** The story whose opening was just heard on the map, so walking in doesn't say it again. */
+  private heardOnMap: string | null = null;
   /** True until the child taps in: the only time an update may reload the page. */
   onStartScreen = true;
 
@@ -247,7 +251,7 @@ export class Game {
     this.app.stage.addChild(this.hud.view, this.strip.view);
     this.layoutStrip();
     if (this.map) {
-      this.audio.sayAll(['ui.welcome', 'map.where']);
+      this.audio.sayAll(['ui.welcome', ...this.mapLines()]);
       this.showMapView();
     } else {
       this.audio.say('ui.welcome');
@@ -271,7 +275,7 @@ export class Game {
     void this.saves.flush();
     this.leaveScene();
     await this.openMap();
-    this.audio.say(this.journey ? 'journey.where' : 'map.where');
+    this.audio.sayAll(this.mapLines());
     this.showMapView();
     this.moving = false;
   }
@@ -290,6 +294,7 @@ export class Game {
       (id) => letterOn(this.store.state.letters, `map-${id}`),
       (place, open) => void this.onPlace(place, open),
       (weather) => this.audio.say(weather === 'rain' ? 'weather.rain' : 'weather.rainbow'),
+      () => this.onMapGuide(),
     );
     await map.open();
     this.map = map;
@@ -308,6 +313,7 @@ export class Game {
         id === 'letter' ? map.sparkleCenter() : map.center(id as LocationId);
       this.hook.weather = () => map.weather;
       this.hook.skyPoint = () => map.skyPoint();
+      this.hook.mapGuide = () => map.guideAt();
     }
     this.setStage('map');
     this.dropStrandedStory();
@@ -355,7 +361,10 @@ export class Game {
     void this.saves.flush();
     this.map?.destroy();
     this.map = null;
-    if (this.hook) this.hook.mapCenter = null;
+    if (this.hook) {
+      this.hook.mapCenter = null;
+      this.hook.mapGuide = null;
+    }
     this.leaveScene();
     await this.enter(next);
     this.showScene(arrival);
@@ -449,6 +458,50 @@ export class Game {
     if (story && stranded(story, whereIs)) this.actions.setStories({ done, offered });
   }
 
+  /**
+   * Where the guide stands on the map: by the place a story in progress goes on in, or by the
+   * place the story on offer starts in.
+   */
+  private mapOffer(): { story: Story; place: LocationId; active: boolean } | null {
+    if (!this.storiesAllowed()) return null;
+    const told = this.storyNow();
+    if (told) return { story: told.story, place: told.step.place, active: true };
+    const progress = this.store.state.stories;
+    if (progress.active) return null;
+    const whereIs = (id: string) => this.store.state.characters.find((c) => c.id === id)?.location;
+    const story = nextStory(STORIES, progress, whereIs, this.storiesSkipped);
+    if (!story || !stepsOf(story, this.level())[0] || !isOpen(story.start, this.store.state.unlocked)) return null;
+    return { story, place: story.start, active: false };
+  }
+
+  /**
+   * What is said on reaching the map. The first time a story is on offer the guide says how
+   * it begins; after that the map asks where to, as it always did.
+   */
+  private mapLines(): string[] {
+    this.heardOnMap = null;
+    if (this.journey) return ['journey.where'];
+    const offer = this.mapOffer();
+    if (!offer || offer.active || this.storiesAnnounced.has(offer.story.id)) return ['map.where'];
+    this.storiesAnnounced.add(offer.story.id);
+    this.heardOnMap = offer.story.id;
+    return [offer.story.openLine];
+  }
+
+  /** The guide on the map was tapped: it says again what it is waiting there for. */
+  private onMapGuide(): void {
+    const offer = this.mapOffer();
+    if (!offer || this.busy()) return;
+    this.audio.sfx('tap');
+    if (offer.active) {
+      const told = this.storyNow();
+      if (told) this.audio.say(told.step.line);
+      return;
+    }
+    this.heardOnMap = offer.story.id;
+    this.audio.say(offer.story.openLine);
+  }
+
   /** The age the stories are told for. */
   private level(): StoryLevel {
     return testLevel() ?? this.store.state.settings.level ?? DEFAULT_LEVEL;
@@ -485,7 +538,10 @@ export class Game {
       active: { id: story.id, step: 0 },
       offered: progress.offered.includes(story.id) ? progress.offered : [...progress.offered, story.id],
     });
-    this.audio.sayAll([...before, story.openLine, first.line]);
+    // Heard on the map a moment ago: the opening isn't said twice.
+    const opening = this.heardOnMap === story.id ? [] : [story.openLine];
+    this.heardOnMap = null;
+    this.audio.sayAll([...before, ...opening, first.line]);
     this.refreshStrip();
     this.showStepToTheYoungest(first);
     return true;
@@ -511,6 +567,7 @@ export class Game {
     const told = this.storyNow();
     const covered = this.book !== null || this.creator !== null;
     this.hud.setPulse('map', told !== null && !this.map && told.step.place !== this.location.id);
+    this.map?.setGuide(this.mapOffer()?.place ?? null);
     if (!told || covered) {
       this.strip.hide();
       this.stripShows = null;
