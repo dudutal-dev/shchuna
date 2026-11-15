@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { openGame, propCenter, propState, scrollTo, tap, stripReady, tapToStart, touchDrag, travel, type Point } from './helpers';
+import { openGame, propState, scrollTo, settled, tap, stripReady, tapToStart, touchDrag, travel, type Point } from './helpers';
 
 const PITA = 'falafel-falafel-pita';
 const GRANDPA = 'falafel-2';
@@ -13,8 +13,9 @@ const lastLine = (page: Page) => page.evaluate(() => window.__shchuna!.lastLine(
 async function into(page: Page, bowl: string): Promise<void> {
   await scrollTo(page, PITA);
   const scale = page.viewportSize()!.height / 600;
-  const pita = await propCenter(page, PITA);
-  await touchDrag(page, await propCenter(page, bowl), { x: pita.x + 20 * scale, y: pita.y });
+  // Read once everything stands still: the room after sliding, and a bowl back from the last drag.
+  const pita = await settled(page, PITA);
+  await touchDrag(page, await settled(page, bowl), { x: pita.x + 20 * scale, y: pita.y }, 150);
 }
 
 /**
@@ -23,7 +24,7 @@ async function into(page: Page, bowl: string): Promise<void> {
  */
 async function carryToGrandpa(page: Page, id: string): Promise<void> {
   await scrollTo(page, id);
-  const from = await propCenter(page, id);
+  const from = await settled(page, id);
   const scale = page.viewportSize()!.height / 600;
   const cdp = await page.context().newCDPSession(page);
   const touch = (type: 'touchStart' | 'touchMove' | 'touchEnd', point?: Point) =>
@@ -39,21 +40,36 @@ async function carryToGrandpa(page: Page, id: string): Promise<void> {
   // The room stops by itself at its left end, where the terrace is.
   const grandpaX = async () => (await page.evaluate((who) => window.__shchuna!.center(who), GRANDPA))?.x ?? -1;
   let before = -2;
+  let still = 0;
   await expect
     .poll(
       async () => {
         const now = await grandpaX();
-        const settled = now > 200 && Math.abs(now - before) < 1;
+        const stopped = now > 200 && Math.abs(now - before) < 1;
         before = now;
-        return settled;
+        // Three still readings in a row: one alone can fall between two slow frames.
+        still = stopped ? still + 1 : 0;
+        return still >= 3;
       },
-      { timeout: 20_000, intervals: [300] },
+      { timeout: 30_000, intervals: [300] },
     )
     .toBe(true);
   // Onto his table, as the hand shows: wide enough for a small finger, and he eats from it.
-  const table = await page.evaluate(() => window.__shchuna!.surfaceCenter('terrace-table-1'));
-  const to = { x: table!.x, y: table!.y - 12 * scale };
+  const tableTop = async () => {
+    const table = await page.evaluate(() => window.__shchuna!.surfaceCenter('terrace-table-1'));
+    return { x: table!.x, y: table!.y - 12 * scale };
+  };
+  let to = await tableTop();
   await glide(edge, to);
+  // Held over the table until the table is where the finger is: if the room moved a little
+  // more while the finger was on its way, follow it before letting go.
+  for (let i = 0; i < 6; i++) {
+    await page.waitForTimeout(300);
+    const now = await tableTop();
+    if (Math.abs(now.x - to.x) < 2 && Math.abs(now.y - to.y) < 2) break;
+    await glide(to, now);
+    to = now;
+  }
   await touch('touchEnd');
   await cdp.detach();
 }

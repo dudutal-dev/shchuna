@@ -112,6 +112,23 @@ export async function propCenter(page: Page, id: string): Promise<Point> {
   return center;
 }
 
+/**
+ * Waits until a prop or character has stopped moving on screen (the room has finished
+ * sliding, a bowl is back in its place) and returns where it is. On a slow machine a single
+ * reading can be taken mid-slide, and a drag aimed at it then misses.
+ */
+export async function settled(page: Page, id: string): Promise<Point> {
+  let last = await propCenter(page, id);
+  let still = 0;
+  for (let i = 0; i < 40 && still < 3; i++) {
+    await page.waitForTimeout(250);
+    const now = await propCenter(page, id);
+    still = Math.abs(now.x - last.x) < 1 && Math.abs(now.y - last.y) < 1 ? still + 1 : 0;
+    last = now;
+  }
+  return last;
+}
+
 export async function propState(page: Page, id: string) {
   const state = await page.evaluate(() => window.__shchuna?.state());
   const prop = state?.props.find((p) => p.id === id);

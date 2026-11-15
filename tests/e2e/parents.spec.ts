@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { openGame, openStartScreen, propCenter, scrollTo, stripReady, tap, tapToStart, touchDrag, touchHold, travel } from './helpers';
+import { openGame, openStartScreen, scrollTo, settled, stripReady, tap, tapToStart, touchDrag, touchHold, travel } from './helpers';
 
 const stage = (page: Page) => page.evaluate(() => window.__shchuna!.stage);
 
@@ -146,8 +146,8 @@ const story = (page: Page) => page.evaluate(() => window.__shchuna!.story());
 async function into(page: Page, bowl: string): Promise<void> {
   await scrollTo(page, 'falafel-falafel-pita');
   const scale = page.viewportSize()!.height / 600;
-  const pita = await propCenter(page, 'falafel-falafel-pita');
-  await touchDrag(page, await propCenter(page, bowl), { x: pita.x + 20 * scale, y: pita.y });
+  const pita = await settled(page, 'falafel-falafel-pita');
+  await touchDrag(page, await settled(page, bowl), { x: pita.x + 20 * scale, y: pita.y }, 150);
 }
 
 test.describe('parents and stories', () => {
