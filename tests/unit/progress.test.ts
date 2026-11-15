@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { daysAgo } from '../../src/ui/ProgressPanel';
+import { daysAgo, storyRows } from '../../src/ui/ProgressPanel';
 
 describe('parents progress', () => {
   const noon = new Date(2026, 10, 12, 12, 0).getTime();
@@ -16,5 +16,22 @@ describe('parents progress', () => {
     const lateLastNight = new Date(2026, 10, 11, 23, 30).getTime();
     const earlyMorning = new Date(2026, 10, 12, 7, 0).getTime();
     expect(daysAgo(lateLastNight, earlyMorning)).toBe('אתמול');
+  });
+});
+
+describe('the stories a child finished, for parents', () => {
+  const noon = new Date(2026, 10, 12, 12, 0).getTime();
+  const day = 24 * 60 * 60 * 1000;
+
+  it('is empty before any story was finished', () => {
+    expect(storyRows([], noon)).toEqual([]);
+  });
+
+  it('names each finished story and the day, newest first, with no counting', () => {
+    expect(storyRows([{ id: 'pita', at: noon - day }], noon)).toEqual([{ name: 'פיתה לסבא', when: 'אתמול' }]);
+  });
+
+  it('leaves out a story the game no longer has', () => {
+    expect(storyRows([{ id: 'gone', at: noon }], noon)).toEqual([]);
   });
 });

@@ -1,7 +1,7 @@
 import { parentStrings } from '../content/parent.he';
 import { DEFAULT_LEVEL } from '../learning/StoryEngine';
 import type { AddressGender, LetterProgress, Settings } from '../types';
-import { progressPanel } from './ProgressPanel';
+import { progressPanel, storiesPanel } from './ProgressPanel';
 import { el, overlay } from './ParentGate';
 
 const text = parentStrings.settings;
@@ -9,6 +9,8 @@ const text = parentStrings.settings;
 export interface SettingsHandlers {
   /** The letter hunt so far, for the progress section. */
   letters?: readonly LetterProgress[];
+  /** The stories finished so far, for the progress section. */
+  storiesDone?: readonly { id: string; at: number }[];
   change(patch: Partial<Settings>): void;
   reset(): void;
   /** Settings close, and the parents' guided tour starts. */
@@ -147,7 +149,8 @@ export class SettingsScreen {
       });
 
       const progress = progressPanel(handlers.letters ?? []);
-      card.append(title, guide, progress, volumes, niqqudRow, storiesGroup, level, invitesGroup, gender, reset, privacy, close);
+      const told = storiesPanel(handlers.storiesDone ?? []);
+      card.append(title, guide, progress, told, volumes, niqqudRow, storiesGroup, level, invitesGroup, gender, reset, privacy, close);
     });
   }
 

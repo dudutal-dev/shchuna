@@ -71,6 +71,12 @@ export const parentStrings = {
     yesterday: 'אתמול',
     daysAgo: (days: number) => `לפני ${days} ימים`,
     hint: 'אות צבעונית נמצאה במשחק. אפשר לשאול את הילד איפה מצא אותה, ולבקש שיראה לכם אותה בספר האותיות.',
+    stories: {
+      title: 'סיפורים',
+      none: 'עוד לא הושלם סיפור.',
+      hint: 'לכל סיפור שהושלם יש מדבקה בספר האותיות, בעמוד המדבקות. אפשר לבקש מהילד לספר מה קרה בסיפור.',
+      names: { pita: 'פיתה לסבא' } as Readonly<Record<string, string>>,
+    },
   },
   install: {
     message:

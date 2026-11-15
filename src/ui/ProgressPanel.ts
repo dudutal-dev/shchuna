@@ -38,6 +38,38 @@ export function progressPanel(letters: readonly LetterProgress[], now = Date.now
   return group;
 }
 
+/** The stories the child finished, newest first: each one's name and the day. Nothing is counted. */
+export function storyRows(
+  done: readonly { id: string; at: number }[],
+  now = Date.now(),
+): Array<{ name: string; when: string }> {
+  return [...done]
+    .sort((a, b) => b.at - a.at)
+    .flatMap((entry) => {
+      const name = text.stories.names[entry.id];
+      return name ? [{ name, when: daysAgo(entry.at, now) }] : [];
+    });
+}
+
+/** The finished stories, for parents (design §8): names and days, no scores. */
+export function storiesPanel(done: readonly { id: string; at: number }[], now = Date.now()): HTMLElement {
+  const group = el('div', 'parent-group progress');
+  group.append(el('h3', '', text.stories.title));
+  const rows = storyRows(done, now);
+  if (rows.length === 0) group.append(el('p', 'progress-count', text.stories.none));
+  else {
+    const list = el('ul', 'progress-stories');
+    for (const row of rows) {
+      const item = el('li', '');
+      item.append(el('span', 'progress-story', row.name), el('span', 'progress-detail', row.when));
+      list.append(item);
+    }
+    group.append(list);
+  }
+  group.append(el('p', 'parent-hint', text.stories.hint));
+  return group;
+}
+
 /** "today", "yesterday", or "N days ago". */
 export function daysAgo(at: number, now: number): string {
   const day = 24 * 60 * 60 * 1000;

@@ -15,6 +15,7 @@ export interface TestHook {
     | 'loading'
     | 'start'
     | 'map'
+    | 'level'
     | 'playing'
     | 'creator'
     | 'book'
@@ -62,6 +63,8 @@ export interface TestHook {
   mapCenter: ((id: string) => Point | null) | null;
   /** Set while the map shows: where the story guide stands, if a story is on offer or in progress. */
   mapGuide: (() => { place: string; center: Point } | null) | null;
+  /** Set while the first-launch "who is playing?" screen shows: a picture's middle. */
+  pickCenter: ((level: 1 | 2 | 3) => Point | null) | null;
   /** Set while the parents' gate is open. */
   gateAnswer: (() => number | null) | null;
   state(): SaveGame;
@@ -134,6 +137,7 @@ export function installTestHook(parts: {
     frameCost: parts.frameCost,
     mapCenter: null,
     mapGuide: null,
+    pickCenter: null,
     gateAnswer: null,
     guideStep: null,
     state: () => parts.store.state,

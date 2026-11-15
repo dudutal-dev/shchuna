@@ -731,6 +731,7 @@ export class Game {
       let guide = false;
       await new SettingsScreen().open(this.store.state.settings, {
         letters: this.store.state.letters,
+        storiesDone: this.store.state.stories.done,
         change: (patch) => this.changeSettings(patch),
         reset: () => void this.resetGame(),
         guide: () => (guide = true),

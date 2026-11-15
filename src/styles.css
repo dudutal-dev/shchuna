@@ -402,3 +402,20 @@ canvas {
 .progress-cell.found .progress-letter {
   color: #3e8e7e;
 }
+
+/* The parents' list of finished stories: a name and a day on each line. */
+.progress-stories {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.progress-stories li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.progress-story {
+  font-weight: 700;
+}
